@@ -64,6 +64,7 @@
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Views\LoginView.cs" />
     <Compile Include="Views\FirstAppMainView.cs" />
+    <Compile Include="Views\RegistrationView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -130,6 +131,9 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\screen.png" />
     <Content Include="Resources\drawable\screen.png" />
     <AndroidResource Include="Resources\layout\SplashScreen.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Registration.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

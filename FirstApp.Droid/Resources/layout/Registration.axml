@@ -8,23 +8,16 @@
 	android:text="Name"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    local:MvxBind="Text UserName" />
+    local:MvxBind="Text RegistrationUserName" />
 	<EditText
 	android:text="Password"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    local:MvxBind="Text UserPassword" />
-	<Button
-		android:text="Log In"
-		android:width="100px"
-		
-		android:layout_width="200"
-		android:layout_height="wrap_content"
-		local:MvxBind="Click UserLogin"
-		android:id="@+id/login" />
+    local:MvxBind="Text RegistrationUserPassword" />
+	
 	<Button
 		android:text="Registration"
-		android:layout_width="200"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		local:MvxBind="Click UserRegistration"
 		android:id="@+id/registration" />

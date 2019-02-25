@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FirstApp.Core.Services
+namespace FirstApp.Core.Interfaces
 {
     public interface IAuthorizationService
     {

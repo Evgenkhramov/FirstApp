@@ -7,20 +7,32 @@ using MvvmCross.Commands;
 using System.Windows.Input;
 using MvvmCross;
 using MvvmCross.Navigation;
+using FirstApp.Core.Interfaces;
+using Android.Widget;
+using Android.Content;
+using Android.App;
 
 namespace FirstApp.Core.ViewModels
 {
     public class LoginViewModel : MvxViewModel
     {
-        RegistrationService registrationService = new RegistrationService();
-        AuthorizationService autorizationService = new AuthorizationService();
+        private readonly IAuthorizationService _authorizationService;
+        private readonly IMvxNavigationService _navigationService;
+        public LoginViewModel(IMvxNavigationService navigationService, IAuthorizationService authorizationService)
+        {
+            _navigationService = navigationService;
+            _authorizationService = authorizationService;
+        }
+
+
+
         private string _userName;
         public string UserName
         {
             get => _userName;
             set
             {
-                _userName= value;
+                _userName = value;
             }
         }
 
@@ -38,43 +50,35 @@ namespace FirstApp.Core.ViewModels
         {
             get
             {
-                return new MvxAsyncCommand(async() =>
+                return new MvxAsyncCommand(async () =>
                 {
-                    if (autorizationService.IsLoggedIn(UserName, UserPassword))
+                    if (_authorizationService.IsLoggedIn(UserName, UserPassword))
                     {
-                        var navService = Mvx.IoCProvider.Resolve<IMvxNavigationService>();
-                        await navService.Navigate<MainViewModel>();
+                        await _navigationService.Navigate<MainViewModel>();
                     }
+                    else
+                    {
+                        Context context = Application.Context;
+                        string text = "You must registretion before!";
+                        ToastLength duration = ToastLength.Short;
 
+                        var toast = Toast.MakeText(context, text, duration);
+                        toast.Show();
+                    }
                 });
             }
         }
-        //public IMvxCommand AddNumbers
-        //{
-        //    get
-        //    {
-        //        return _addNumbers = _addNumbers ?? new MvxCommand<Tuple<int, int>>(OnAddNumbers);
-        //    }
-        //}
 
-        public MvxCommand UserRegistration
+        public MvxAsyncCommand UserRegistration
         {
             get
             {
-                return new MvxCommand(() =>
+                return new MvxAsyncCommand(async () =>
                 {
-                    registrationService.UserRegistration(UserName, UserPassword);
+                    var navService = Mvx.IoCProvider.Resolve<IMvxNavigationService>();
+                    await navService.Navigate<RegistrationViewModel>();
                 });
             }
         }
-      
-        //public ICommand UserRegistration
-        //{
-        //    get
-        //    {
-        //        return new MvxCommand(() => ShowViewModel<SecondViewModel>(), () => true);
-        //    }
-        //}
-
     }
 }

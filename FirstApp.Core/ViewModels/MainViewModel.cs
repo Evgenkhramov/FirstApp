@@ -7,11 +7,19 @@ using MvvmCross.Commands;
 using Plugin.SecureStorage;
 using MvvmCross.Navigation;
 using MvvmCross;
+using FirstApp.Core.Interfaces;
 
 namespace FirstApp.Core.ViewModels
 {
-   public class MainViewModel : MvxViewModel
+    public class MainViewModel : MvxViewModel
     {
+        private readonly IMvxNavigationService _navigationService;
+
+        public MainViewModel(IMvxNavigationService navigationService)
+        {
+            _navigationService = navigationService;
+        }
+
         readonly IAuthorizationService _authorizationService;
 
         public MainViewModel(IAuthorizationService authorizationService)
@@ -24,10 +32,9 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxCommand(async () =>
                 {
-                    CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, "");
-                    var navService = Mvx.IoCProvider.Resolve<IMvxNavigationService>();
-                    await navService.Navigate<LoginViewModel>();
-                    //sfcsfdewdweddwdw
+                    CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
+
+                    await _navigationService.Navigate<LoginViewModel>();
                 });
             }
         }
@@ -48,10 +55,7 @@ namespace FirstApp.Core.ViewModels
             string name = CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserName);
             return $"Welcome, {name}";
         }
-       
-        //private void CheckData()
-        //{
-        //    bool isAutorisated = _authorizationService.IsLoggedIn(UserName);
-        //}
+
+ 
     }
 }

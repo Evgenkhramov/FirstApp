@@ -5,7 +5,7 @@ using FirstApp.Core.ViewModels;
 
 namespace FirstApp.Droid.Views
 {
-    [Activity(Label = "Tip Calculator", MainLauncher = true)]
+    [Activity(Label = "Tip Calculator",  NoHistory = true)]
     public class TipView : MvxActivity<MainViewModel>
     {
         protected override void OnCreate(Bundle bundle)

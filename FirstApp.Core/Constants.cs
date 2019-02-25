@@ -9,5 +9,7 @@ namespace FirstApp.Core
         public const string SequreKeyForUserName = "UserName";
         public const string SequreKeyForUserPassword = "UserPassword";
         public const string SequreKeyForLoged = "Loged";
+        public const string LogOut = "LogOut";
+        public const string LogIn = "LogIn";
     }
 }

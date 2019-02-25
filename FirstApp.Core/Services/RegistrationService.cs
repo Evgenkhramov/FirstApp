@@ -13,6 +13,8 @@ namespace FirstApp.Core.Services
         {
             CrossSecureStorage.Current.SetValue(Constants.SequreKeyForUserName, name);
             CrossSecureStorage.Current.SetValue(Constants.SequreKeyForUserPassword, password);
+            CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogIn);
+
         }
     }
 }

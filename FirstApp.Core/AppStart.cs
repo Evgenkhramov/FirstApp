@@ -4,6 +4,8 @@ using MvvmCross.ViewModels;
 using FirstApp.Core.ViewModels;
 using FirstApp.Core.Services;
 using Plugin.SecureStorage;
+using FirstApp.Core.Interfaces;
+using System;
 
 namespace FirstApp.Core
 {
@@ -23,7 +25,8 @@ namespace FirstApp.Core
 
         protected override Task NavigateToFirstViewModel(object hint = null)
         {
-            if (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForLoged)=="true")
+            string sequreKeyForLoged = CrossSecureStorage.Current.GetValue(Constants.SequreKeyForLoged);
+            if (!String.IsNullOrEmpty(sequreKeyForLoged)&& sequreKeyForLoged.Equals(Constants.LogIn))
             {
                 return _mvxNavigationService.Navigate<MainViewModel>();
             }
