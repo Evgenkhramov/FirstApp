@@ -129,6 +129,8 @@
     <AndroidResource Include="Resources\drawable-xhdpi\screen.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\screen.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\screen.png" />
+    <AndroidResource Include="Resources\drawable\background.xml" />
+    <AndroidResource Include="Resources\drawable\backgroundpicture.png" />
     <Content Include="Resources\drawable\screen.png" />
     <AndroidResource Include="Resources\layout\SplashScreen.axml">
       <SubType>Designer</SubType>

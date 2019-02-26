@@ -3,22 +3,50 @@
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-	<EditText
-	android:text="Name"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    local:MvxBind="Text RegistrationUserName" />
-	<EditText
-	android:text="Password"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    local:MvxBind="Text RegistrationUserPassword" />
-	
+    android:layout_height="match_parent"
+	android:background="@drawable/background">
 	<Button
+		style="@style/OrangeButton"
+		android:text="Back to Login"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		local:MvxBind="Click RegistrationBack"
+		android:id="@+id/back" />
+	<EditText
+		android:hint="Enter Name"
+		android:textColorHint="@color/inputTextColor"
+		android:maxLength="20"
+		android:maxLines="1"
+		android:inputType="textPersonName"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		local:MvxBind="Text RegistrationUserName" />
+	<EditText
+		android:hint="Enter Password"
+		android:textColorHint="@color/inputTextColor"
+		android:maxLength="20"
+		android:maxLines="1"
+		android:inputType="textPassword"
+		android:layout_width="match_parent"
+		
+		android:layout_height="wrap_content"
+		local:MvxBind="Text RegistrationUserPassword" />
+	<EditText
+		android:hint="Enter Password Again"
+		android:textColorHint="@color/inputTextColor"
+		android:maxLength="20"
+		android:maxLines="1"
+		android:inputType="textPassword"
+		android:layout_width="match_parent"
+		
+		android:layout_height="wrap_content"
+		local:MvxBind="Text UserPasswordConfirm" />
+	<Button
+		style="@style/OrangeButton"
 		android:text="Registration"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		local:MvxBind="Click UserRegistration"
+		
 		android:id="@+id/registration" />
 	</LinearLayout>
