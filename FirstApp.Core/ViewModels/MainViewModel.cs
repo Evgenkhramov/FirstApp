@@ -15,6 +15,11 @@ namespace FirstApp.Core.ViewModels
     {
         private readonly IMvxNavigationService _navigationService;
 
+        //public MainViewModel()
+        //{
+        //    GetName();
+        //}
+
         public MainViewModel(IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
@@ -46,16 +51,13 @@ namespace FirstApp.Core.ViewModels
             set
             {
                 _welcome = value;
-                RaisePropertyChanged(() => Welcome);
-                GetName();
+                RaisePropertyChanged(() => Welcome);                
             }
         }
-        public string GetName()
+        public void GetName()
         {
             string name = CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserName);
-            return $"Welcome, {name}";
-        }
-
- 
+            Welcome =$"Welcome, {name}";
+        } 
     }
 }

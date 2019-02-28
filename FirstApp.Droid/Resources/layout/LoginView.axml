@@ -1,48 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:local="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:local="http://schemas.android.com/apk/res-auto"
 	android:background="@drawable/background"
-	android:orientation="vertical"
-    android:layout_height="wrap_content" 
-    android:layout_width="match_parent" 
-    android:layout_alignParentBottom="true">
-	<EditText
-		android:hint="Enter Name"
-		android:textColorHint="@color/inputTextColor"
-		android:maxLength="20"
-		android:maxLines="1"
-		android:inputType="textPersonName"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		local:MvxBind="Text UserName"
-		android:layout_marginTop = "10dp"/>
-	<EditText
-		android:hint="Enter Password"
-		android:textColorHint="@color/inputTextColor"
-		android:maxLength="20"
-		android:maxLines="1"
-		android:inputType="textPassword"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		local:MvxBind="Text UserPassword" />
-	<Button
-		style="@style/OrangeButton"
-		android:text="Log In"	
+	android:layout_height="wrap_content" 
+    android:layout_width="match_parent">
+	<include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_height="wrap_content" 
 		android:layout_width="match_parent" 
-        android:layout_margin="4dp"
-		android:layout_height="wrap_content"
-		local:MvxBind="Click UserLogin"	
-		android:id="@+id/login" />
-	<Button
-		style="@style/OrangeButton"
-		android:elevation="6dp"
-		android:stateListAnimator="@null"
-		android:translationZ="4dp"
-		android:layout_margin="4dp"
-		android:text="Registration"
-		android:layout_width="match_parent" 
-        android:layout_height="wrap_content"       
-		android:textColor="#f00"
-		local:MvxBind="Click UserRegistration"
-		android:id="@+id/registration" />
-</LinearLayout>
+		android:layout_below="@id/toolbar"
+		android:layout_alignParentBottom="true">
+		<EditText
+			android:hint="@string/enterName"
+			android:textColorHint="@color/inputTextColor"
+			android:textColor="@color/inputTextColor"
+			android:maxLength="20"
+			android:maxLines="1"
+			android:inputType="textPersonName"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			local:MvxBind="Text UserName"
+			android:layout_marginTop = "10dp"/>
+		<EditText
+			android:hint="@string/enterPassword"
+			android:textColor="@color/inputTextColor"
+			android:textColorHint="@color/inputTextColor"
+			android:maxLength="20"
+			android:maxLines="1"
+			android:inputType="textPassword"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			local:MvxBind="Text UserPassword" />
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true"
+			android:orientation="horizontal">
+
+			<Button
+				style="@style/OrangeButton"
+				android:text="@string/logIn"	
+				android:layout_width="0dp"
+				android:layout_weight="0.5"
+				android:elevation="6dp"
+				android:stateListAnimator="@null"
+				android:translationZ="4dp"
+				android:layout_margin="4dp"
+				android:layout_height="wrap_content"
+				local:MvxBind="Click UserLogin"	
+				android:id="@+id/login" />
+			<Button
+				style="@style/OrangeButton"
+				android:text="@string/registration"
+				android:layout_width="0dp"
+				android:layout_weight="0.5"
+				android:elevation="6dp"
+				android:stateListAnimator="@null"
+				android:translationZ="4dp"
+				android:layout_margin="4dp"
+				android:layout_height="wrap_content"       
+				android:textColor="#f00"
+				local:MvxBind="Click UserRegistration"
+				android:id="@+id/registration" />	
+			</LinearLayout>
+	</LinearLayout>
+</RelativeLayout>

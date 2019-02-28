@@ -33,6 +33,8 @@ namespace FirstApp.Droid.Views
 
             SetContentView(Resource.Layout.LoginView);
 
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetActionBar(toolbar);
         }
 
         private void Initialize()

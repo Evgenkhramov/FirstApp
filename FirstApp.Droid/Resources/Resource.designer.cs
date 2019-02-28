@@ -6311,8 +6311,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090039
 			public const int SYM = 2131296313;
 			
-			// aapt resource value: 0x7f0900a1
-			public const int action0 = 2131296417;
+			// aapt resource value: 0x7f0900a2
+			public const int action0 = 2131296418;
 			
 			// aapt resource value: 0x7f09007e
 			public const int action_bar = 2131296382;
@@ -6335,17 +6335,17 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f09005c
 			public const int action_bar_title = 2131296348;
 			
-			// aapt resource value: 0x7f09009e
-			public const int action_container = 2131296414;
+			// aapt resource value: 0x7f09009f
+			public const int action_container = 2131296415;
 			
 			// aapt resource value: 0x7f09007f
 			public const int action_context_bar = 2131296383;
 			
-			// aapt resource value: 0x7f0900a5
-			public const int action_divider = 2131296421;
+			// aapt resource value: 0x7f0900a6
+			public const int action_divider = 2131296422;
 			
-			// aapt resource value: 0x7f09009f
-			public const int action_image = 2131296415;
+			// aapt resource value: 0x7f0900a0
+			public const int action_image = 2131296416;
 			
 			// aapt resource value: 0x7f090003
 			public const int action_menu_divider = 2131296259;
@@ -6362,11 +6362,11 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f09005e
 			public const int action_mode_close_button = 2131296350;
 			
-			// aapt resource value: 0x7f0900a0
-			public const int action_text = 2131296416;
+			// aapt resource value: 0x7f0900a1
+			public const int action_text = 2131296417;
 			
-			// aapt resource value: 0x7f0900ae
-			public const int actions = 2131296430;
+			// aapt resource value: 0x7f0900af
+			public const int actions = 2131296431;
 			
 			// aapt resource value: 0x7f09005f
 			public const int activity_chooser_view_content = 2131296351;
@@ -6389,9 +6389,6 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090046
 			public const int auto = 2131296326;
 			
-			// aapt resource value: 0x7f0900b1
-			public const int back = 2131296433;
-			
 			// aapt resource value: 0x7f090031
 			public const int beginning = 2131296305;
 			
@@ -6404,8 +6401,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090065
 			public const int buttonPanel = 2131296357;
 			
-			// aapt resource value: 0x7f0900a2
-			public const int cancel_action = 2131296418;
+			// aapt resource value: 0x7f0900a3
+			public const int cancel_action = 2131296419;
 			
 			// aapt resource value: 0x7f090047
 			public const int center = 2131296327;
@@ -6419,8 +6416,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090075
 			public const int checkbox = 2131296373;
 			
-			// aapt resource value: 0x7f0900aa
-			public const int chronometer = 2131296426;
+			// aapt resource value: 0x7f0900ab
+			public const int chronometer = 2131296427;
 			
 			// aapt resource value: 0x7f090050
 			public const int clip_horizontal = 2131296336;
@@ -6476,8 +6473,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090032
 			public const int end = 2131296306;
 			
-			// aapt resource value: 0x7f0900b0
-			public const int end_padder = 2131296432;
+			// aapt resource value: 0x7f0900b1
+			public const int end_padder = 2131296433;
 			
 			// aapt resource value: 0x7f090041
 			public const int enterAlways = 2131296321;
@@ -6521,8 +6518,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090064
 			public const int icon = 2131296356;
 			
-			// aapt resource value: 0x7f0900af
-			public const int icon_group = 2131296431;
+			// aapt resource value: 0x7f0900b0
+			public const int icon_group = 2131296432;
 			
 			// aapt resource value: 0x7f09003c
 			public const int ifRoom = 2131296316;
@@ -6530,8 +6527,11 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090061
 			public const int image = 2131296353;
 			
-			// aapt resource value: 0x7f0900ab
-			public const int info = 2131296427;
+			// aapt resource value: 0x7f0900b2
+			public const int imageButton1 = 2131296434;
+			
+			// aapt resource value: 0x7f0900ac
+			public const int info = 2131296428;
 			
 			// aapt resource value: 0x7f09005b
 			public const int italic = 2131296347;
@@ -6557,20 +6557,23 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090063
 			public const int list_item = 2131296355;
 			
-			// aapt resource value: 0x7f09009b
-			public const int login = 2131296411;
+			// aapt resource value: 0x7f09009c
+			public const int login = 2131296412;
 			
-			// aapt resource value: 0x7f09009d
-			public const int logout = 2131296413;
+			// aapt resource value: 0x7f09009e
+			public const int logout = 2131296414;
+			
+			// aapt resource value: 0x7f0900b6
+			public const int masked = 2131296438;
+			
+			// aapt resource value: 0x7f0900a5
+			public const int media_actions = 2131296421;
+			
+			// aapt resource value: 0x7f0900b7
+			public const int menu_edit = 2131296439;
 			
 			// aapt resource value: 0x7f0900b4
-			public const int masked = 2131296436;
-			
-			// aapt resource value: 0x7f0900a4
-			public const int media_actions = 2131296420;
-			
-			// aapt resource value: 0x7f0900b2
-			public const int message = 2131296434;
+			public const int message = 2131296436;
 			
 			// aapt resource value: 0x7f090033
 			public const int middle = 2131296307;
@@ -6593,14 +6596,14 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090020
 			public const int normal = 2131296288;
 			
-			// aapt resource value: 0x7f0900ad
-			public const int notification_background = 2131296429;
+			// aapt resource value: 0x7f0900ae
+			public const int notification_background = 2131296430;
+			
+			// aapt resource value: 0x7f0900a8
+			public const int notification_main_column = 2131296424;
 			
 			// aapt resource value: 0x7f0900a7
-			public const int notification_main_column = 2131296423;
-			
-			// aapt resource value: 0x7f0900a6
-			public const int notification_main_column_container = 2131296422;
+			public const int notification_main_column_container = 2131296423;
 			
 			// aapt resource value: 0x7f09004e
 			public const int parallax = 2131296334;
@@ -6623,17 +6626,17 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090077
 			public const int radio = 2131296375;
 			
-			// aapt resource value: 0x7f09009c
-			public const int registration = 2131296412;
+			// aapt resource value: 0x7f09009d
+			public const int registration = 2131296413;
 			
 			// aapt resource value: 0x7f09004c
 			public const int right = 2131296332;
 			
-			// aapt resource value: 0x7f0900ac
-			public const int right_icon = 2131296428;
+			// aapt resource value: 0x7f0900ad
+			public const int right_icon = 2131296429;
 			
-			// aapt resource value: 0x7f0900a8
-			public const int right_side = 2131296424;
+			// aapt resource value: 0x7f0900a9
+			public const int right_side = 2131296425;
 			
 			// aapt resource value: 0x7f09000c
 			public const int save_image_matrix = 2131296268;
@@ -6737,8 +6740,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f09004d
 			public const int start = 2131296333;
 			
-			// aapt resource value: 0x7f0900a3
-			public const int status_bar_latest_event_content = 2131296419;
+			// aapt resource value: 0x7f0900a4
+			public const int status_bar_latest_event_content = 2131296420;
 			
 			// aapt resource value: 0x7f090078
 			public const int submenuarrow = 2131296376;
@@ -6764,6 +6767,9 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f09006b
 			public const int textSpacerNoTitle = 2131296363;
 			
+			// aapt resource value: 0x7f0900b3
+			public const int textView1 = 2131296435;
+			
 			// aapt resource value: 0x7f09009a
 			public const int text_input_password_toggle = 2131296410;
 			
@@ -6773,8 +6779,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090015
 			public const int textinput_error = 2131296277;
 			
-			// aapt resource value: 0x7f0900a9
-			public const int time = 2131296425;
+			// aapt resource value: 0x7f0900aa
+			public const int time = 2131296426;
 			
 			// aapt resource value: 0x7f09001c
 			public const int title = 2131296284;
@@ -6784,6 +6790,9 @@ namespace FirstApp.Droid
 			
 			// aapt resource value: 0x7f090071
 			public const int title_template = 2131296369;
+			
+			// aapt resource value: 0x7f09009b
+			public const int toolbar = 2131296411;
 			
 			// aapt resource value: 0x7f090040
 			public const int top = 2131296320;
@@ -6821,8 +6830,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090016
 			public const int view_offset_helper = 2131296278;
 			
-			// aapt resource value: 0x7f0900b3
-			public const int visible = 2131296435;
+			// aapt resource value: 0x7f0900b5
+			public const int visible = 2131296437;
 			
 			// aapt resource value: 0x7f09003e
 			public const int withText = 2131296318;
@@ -7076,7 +7085,10 @@ namespace FirstApp.Droid
 			public const int support_simple_spinner_dropdown_item = 2130968638;
 			
 			// aapt resource value: 0x7f04003f
-			public const int tooltip = 2130968639;
+			public const int toolbar = 2130968639;
+			
+			// aapt resource value: 0x7f040040
+			public const int tooltip = 2130968640;
 			
 			static Layout()
 			{
@@ -7088,17 +7100,36 @@ namespace FirstApp.Droid
 			}
 		}
 		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f0f0000
+			public const int top_menus = 2131689472;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
+			{
+			}
+		}
+		
 		public partial class Mipmap
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int ic_launcher = 2130903040;
+			public const int black_24dp = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int ic_launcher_foreground = 2130903041;
+			public const int ic_launcher = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int ic_launcher_round = 2130903042;
+			public const int ic_launcher_foreground = 2130903042;
+			
+			// aapt resource value: 0x7f030003
+			public const int ic_launcher_round = 2130903043;
 			
 			static Mipmap()
 			{
@@ -7215,8 +7246,20 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f0a0020
 			public const int character_counter_pattern = 2131361824;
 			
+			// aapt resource value: 0x7f0a002e
+			public const int enterName = 2131361838;
+			
+			// aapt resource value: 0x7f0a002d
+			public const int enterPassword = 2131361837;
+			
 			// aapt resource value: 0x7f0a0027
 			public const int fab_scroll_shrink_grow_autohide_behavior = 2131361831;
+			
+			// aapt resource value: 0x7f0a002b
+			public const int logIn = 2131361835;
+			
+			// aapt resource value: 0x7f0a002f
+			public const int logOut = 2131361839;
 			
 			// aapt resource value: 0x7f0a0021
 			public const int password_toggle_content_description = 2131361825;
@@ -7232,6 +7275,9 @@ namespace FirstApp.Droid
 			
 			// aapt resource value: 0x7f0a0025
 			public const int path_password_strike_through = 2131361829;
+			
+			// aapt resource value: 0x7f0a002c
+			public const int registration = 2131361836;
 			
 			// aapt resource value: 0x7f0a0011
 			public const int search_menu_title = 2131361809;
@@ -7766,7 +7812,10 @@ namespace FirstApp.Droid
 			public const int Base_Widget_Design_TabLayout = 2131427681;
 			
 			// aapt resource value: 0x7f0b0182
-			public const int OrangeButton = 2131427714;
+			public const int MyTheme = 2131427714;
+			
+			// aapt resource value: 0x7f0b0183
+			public const int OrangeButton = 2131427715;
 			
 			// aapt resource value: 0x7f0b001e
 			public const int Platform_AppCompat = 2131427358;
