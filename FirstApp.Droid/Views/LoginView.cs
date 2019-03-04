@@ -20,8 +20,8 @@ namespace FirstApp.Droid.Views
     [MvxActivityPresentation]
     [Activity(Label = "Login",
        Theme = "@style/AppTheme",
-       NoHistory = true,
-       LaunchMode = LaunchMode.SingleTop,
+       NoHistory = false,
+       LaunchMode = LaunchMode.SingleTask,
        Name = "FirstApp.Droid.Views.LoginView"
        )]
     public class LoginView : MvxAppCompatActivity<LoginViewModel>

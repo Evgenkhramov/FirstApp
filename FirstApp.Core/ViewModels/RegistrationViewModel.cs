@@ -22,11 +22,12 @@ namespace FirstApp.Core.ViewModels
         private readonly Regex NameRegExp = new Regex(@"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private readonly IRegistrationService _registrationService;
         private readonly IMvxNavigationService _navigationService;
-        private IUserDialogs _userDialogs ;
+        private readonly IUserDialogService _userDialogService;
 
-        public RegistrationViewModel(IMvxNavigationService navigationService, IRegistrationService registrationService, IUserDialogs userDialogs)
+        public RegistrationViewModel(IMvxNavigationService navigationService, IRegistrationService registrationService,
+            IUserDialogs userDialogs, IUserDialogService userDialogService)
         {
-            _userDialogs = userDialogs;
+            _userDialogService = userDialogService;
             _navigationService = navigationService;
             _registrationService = registrationService;
             HaveGone = true;
@@ -61,9 +62,7 @@ namespace FirstApp.Core.ViewModels
             {
                 _registrationUserPasswordConfirm = value;
             }
-        }
-
-       
+        }      
 
         private bool _haveGone;
         public bool HaveGone
@@ -74,8 +73,6 @@ namespace FirstApp.Core.ViewModels
                 _haveGone = value;
             }
         }
-
-
 
         public MvxAsyncCommand RegistrationBack
         {
@@ -100,28 +97,25 @@ namespace FirstApp.Core.ViewModels
                     bool password = false;
                     bool passwordConfirm = false;
 
-                    name =  NameValidator();
-                    password = PasswordValidator();
-                    passwordConfirm = PasswordConfirmValidator();              
+                    name = NameValidator();
+                    if (name)
+                    {
+                        password = PasswordValidator();
+                    }
+                    if (password)
+                    {
+                        passwordConfirm = PasswordConfirmValidator();
+                    }
+                                                  
 
-                        //if ((!String.IsNullOrEmpty(RegistrationUserName) && !String.IsNullOrEmpty(RegistrationUserPassword) && !String.IsNullOrEmpty(RegistrationUserPasswordConfirm)) && RegistrationUserPassword.Equals(RegistrationUserPasswordConfirm))
+                        
                     if(name && password && passwordConfirm)
                     {
                         _registrationService.UserRegistration(RegistrationUserName, RegistrationUserPassword);
 
                         await _navigationService.Navigate<MainViewModel>();
                     }
-                    //else
-                    //{
-                    //    Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Please, enter name, password and password confirm!");
-
-                    //    //Context context = Application.Context;
-                    //    //string text = "Please, enter name, password and password confirm!";
-                    //    //ToastLength duration = ToastLength.Short;
-
-                    //    //var toast = Toast.MakeText(context, text, duration);
-                    //    //toast.Show();
-                    //}
+                 
                 });
             }
 
@@ -133,14 +127,14 @@ namespace FirstApp.Core.ViewModels
             {
                 if (!NameRegExp.IsMatch(RegistrationUserName))
                 {
-                    _userDialogs.Alert("Enter correct name!");
+                    _userDialogService.ShowAlertForUser("Error","Enter correct name","Ok");
                     return false;
                 }
                 return true;
             }
             else
             {
-                _userDialogs.Alert("Enter name!");
+                _userDialogService.ShowAlertForUser("Error", "Please, enter name","Ok");
                 return false;
             }
         }
@@ -150,7 +144,7 @@ namespace FirstApp.Core.ViewModels
             {
                 if (!PasswordRegExp.IsMatch(RegistrationUserPassword))
                 {
-                    _userDialogs.Alert("Password must have minimum eight characters, at least one letter and one numbe!");
+                    _userDialogService.ShowAlertForUser("Error","Password must have minimum eight characters, at least one letter and one numbe!","Ok");
                     return false;
                 }
                 else
@@ -160,7 +154,7 @@ namespace FirstApp.Core.ViewModels
             }
             else
             {
-                _userDialogs.Alert("Enter Password!");
+                _userDialogService.ShowAlertForUser("Error","Enter Password!","Ok");
                 return false;
             }
         }
@@ -174,13 +168,13 @@ namespace FirstApp.Core.ViewModels
                 }
                 else
                 {
-                    _userDialogs.Alert("Password and password confirm must be the same!");
+                    _userDialogService.ShowAlertForUser("Error","Password and password confirm must be the same!","Ok");
                     return false;
                 }
             }
             else
             {
-                _userDialogs.Alert("Enter PasswordConfirm!");
+                _userDialogService.ShowAlertForUser("Error","Enter PasswordConfirm!","Ok");
                 return false;
             }
         }

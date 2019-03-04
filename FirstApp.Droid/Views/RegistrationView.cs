@@ -19,7 +19,7 @@ namespace FirstApp.Droid.Views
    [MvxActivityPresentation]
    [Activity(Label = "Registration",
    Theme = "@style/AppTheme",
-   NoHistory = true,
+   NoHistory = false,
    LaunchMode = LaunchMode.SingleTop,
    Name = "FirstApp.Droid.Views.Registration"
    )]
