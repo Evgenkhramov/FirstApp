@@ -24,6 +24,8 @@
 			android:text="@string/logOut"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginLeft="40dp"
+			android:layout_marginRight="40dp"
 			local:MvxBind="Click LogOut"
 			android:id="@+id/logout" />
 		

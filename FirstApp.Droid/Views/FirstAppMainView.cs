@@ -15,7 +15,7 @@ namespace FirstApp.Droid.Views
 
             SetContentView(Resource.Layout.MainView);
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            SetActionBar(toolbar);
+            SetActionBar(toolbar); 
         }
     }
 }

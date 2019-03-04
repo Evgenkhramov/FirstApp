@@ -21,7 +21,9 @@
 		android:inputType="textPersonName"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		local:MvxBind="Text RegistrationUserName" />
+		android:layout_marginLeft="40dp"
+		android:layout_marginRight="40dp"
+		local:MvxBind="Text RegistrationUserName"/>
 	<EditText
 		android:hint="Enter Password"
 		android:textColor="@color/inputTextColor"
@@ -30,7 +32,8 @@
 		android:maxLines="1"
 		android:inputType="textPassword"
 		android:layout_width="match_parent"
-		
+		android:layout_marginLeft="40dp"
+		android:layout_marginRight="40dp"
 		android:layout_height="wrap_content"
 		local:MvxBind="Text RegistrationUserPassword" />
 	<EditText
@@ -40,19 +43,21 @@
 		android:maxLength="20"
 		android:maxLines="1"
 		android:inputType="textPassword"
-		android:layout_width="match_parent"
-		
+		android:layout_width="match_parent"	
 		android:layout_height="wrap_content"
+		android:layout_marginLeft="40dp"
+		android:layout_marginRight="40dp"
 		local:MvxBind="Text RegistrationUserPasswordConfirm" />
 	<Button
-		style="@style/OrangeButton"
+		style="@style/OrangeButton"		
 		android:text="@string/registration"
 		android:elevation="6dp"
 		android:stateListAnimator="@null"
 		android:translationZ="4dp"
-		android:layout_margin="4dp"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginLeft="40dp"
+		android:layout_marginRight="40dp"
 		local:MvxBind="Click UserRegistration"
 		android:id="@+id/registration" />
 	</LinearLayout>

@@ -11,6 +11,7 @@ using FirstApp.Core.Interfaces;
 using Android.Widget;
 using Android.Content;
 using Android.App;
+using Acr.UserDialogs;
 
 namespace FirstApp.Core.ViewModels
 {
@@ -22,9 +23,9 @@ namespace FirstApp.Core.ViewModels
         {
             _navigationService = navigationService;
             _authorizationService = authorizationService;
+            HaveGone = false;
+            
         }
-
-
 
         private string _userName;
         public string UserName
@@ -45,6 +46,15 @@ namespace FirstApp.Core.ViewModels
                 _userPassword = value;
             }
         }
+        private bool _haveGone;
+        public bool HaveGone
+        {
+            get => _haveGone;
+            set
+            {
+                _haveGone = value;
+            }
+        }
 
         public MvxAsyncCommand UserLogin
         {
@@ -58,12 +68,7 @@ namespace FirstApp.Core.ViewModels
                     }
                     else
                     {
-                        Context context = Application.Context;
-                        string text = "You must registretion before!";
-                        ToastLength duration = ToastLength.Short;
-
-                        var toast = Toast.MakeText(context, text, duration);
-                        toast.Show();
+                        Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("You must registretion before!");
                     }
                 });
             }

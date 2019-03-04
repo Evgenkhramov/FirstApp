@@ -95,10 +95,16 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Acr.UserDialogs">
+      <Version>7.0.3</Version>
+    </PackageReference>
     <PackageReference Include="MvvmCross">
       <Version>6.2.3</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Droid.Support.V7.AppCompat">
+      <Version>6.2.3</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmCross.Plugin.Visibility">
       <Version>6.2.3</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugin.SecureStorage">

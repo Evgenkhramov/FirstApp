@@ -23,6 +23,7 @@ namespace FirstApp.Core.ViewModels
         public MainViewModel(IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
+            HaveGone = false;
         }
 
         readonly IAuthorizationService _authorizationService;
@@ -41,6 +42,16 @@ namespace FirstApp.Core.ViewModels
 
                     await _navigationService.Navigate<LoginViewModel>();
                 });
+            }
+        }
+
+        private bool _haveGone;
+        public bool HaveGone
+        {
+            get => _haveGone;
+            set
+            {
+                _haveGone = value;
             }
         }
 
