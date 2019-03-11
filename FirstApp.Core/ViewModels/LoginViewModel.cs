@@ -68,7 +68,7 @@ namespace FirstApp.Core.ViewModels
                     }
                     else
                     {
-                        Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("You must registretion before!");
+                        Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Invalid username or password!");
                     }
                 });
             }

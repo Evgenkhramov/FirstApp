@@ -113,6 +113,7 @@ namespace FirstApp.Core.ViewModels
                     {
                         _registrationService.UserRegistration(RegistrationUserName, RegistrationUserPassword);
 
+
                         await _navigationService.Navigate<MainViewModel>();
                     }
                  

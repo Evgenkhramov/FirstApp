@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
@@ -12,29 +12,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
-    <ImageButton
-      style="@style/OrangeButton"
-			android:src="@mipmap/black_24dp"
-      android:layout_weight="0.5"
-			android:layout_height="45dp"
-			android:layout_width="90dp" 
-      local:MvxBind="Click RegistrationBack; Visibility Visibility(HaveGone)"
-			android:id="@+id/imageButton1" />
-    <TextView
-      android:gravity="right"
-			android:text="My First Application"
-      android:layout_weight="0.5"
-      android:layout_marginTop="4dp"
-      android:textColor="#32b5c9"
-      android:textStyle="bold"
-      android:textSize="20sp"
+    <ImageView
+		android:src="@mipmap/arrow_left"
+		android:layout_weight="0.5"
+		android:layout_width="80dp"
+		android:layout_height="match_parent"	
+		local:MvxBind="Click RegistrationBack; Visibility Visibility(HaveGone)"
+		android:id="@+id/imageButton1"/>
+		<TextView
+			android:gravity="left"
+			android:text="Login Application"
+			android:layout_weight="0.5"
+			android:paddingLeft="10dp"
+			android:layout_marginTop="4dp"
+			android:textColor="#32b5c9"
+			android:textStyle="bold"
+			android:textSize="20sp"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-      android:layout_marginRight="15dp"
-			android:id="@+id/textView1" />
+			android:layout_marginRight="15dp"
+			android:id="@+id/textView1"
+			android:textAlignment="center" />
       
   </LinearLayout>
 </Toolbar>
 
-         

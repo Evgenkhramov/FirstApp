@@ -6,6 +6,8 @@ using MvvmCross.Navigation;
 using System.Threading.Tasks;
 using MvvmCross.IoC;
 using Acr.UserDialogs;
+using FirstApp.Core.Interfaces;
+
 
 namespace FirstApp.Core
 {
@@ -27,7 +29,7 @@ namespace FirstApp.Core
 
             // register the appstart object
             RegisterCustomAppStart<AppStart>();
-           Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
+            Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);          
         }
     }
 }

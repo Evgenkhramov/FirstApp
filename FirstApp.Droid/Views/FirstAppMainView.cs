@@ -6,7 +6,7 @@ using Android.Widget;
 
 namespace FirstApp.Droid.Views
 {
-    [Activity(Label = "Tip Calculator",  NoHistory = true, Theme = "@style/AppTheme")]
+    [Activity(Label = "First Application",  NoHistory = true, Theme = "@style/AppTheme")]
     public class TipView : MvxActivity<MainViewModel>
     {
         protected override void OnCreate(Bundle bundle)

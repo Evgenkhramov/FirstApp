@@ -10,7 +10,10 @@ using MvvmCross.Droid.Support.V7.AppCompat;
 
 using MvvmCross.Platforms.Android.Presenters;
 using FirstApp.Core;
+using FirstApp.Core.Interfaces;
 using MvvmCross.IoC;
+using MvvmCross;
+using FirstApp.Droid.Services;
 
 namespace FirstApp.Droid
 {
@@ -23,6 +26,7 @@ namespace FirstApp.Droid
                 .EndingWith("Service")
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
+            Mvx.RegisterSingleton<ISQliteAddress>(new SQliteAddress());
         }
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
         {
