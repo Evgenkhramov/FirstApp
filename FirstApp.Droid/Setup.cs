@@ -26,7 +26,8 @@ namespace FirstApp.Droid
                 .EndingWith("Service")
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
-            Mvx.RegisterSingleton<ISQliteAddress>(new SQliteAddress());
+
+            Mvx.IoCProvider.RegisterSingleton<ISQliteAddress>(new SQliteAddress());
         }
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
         {

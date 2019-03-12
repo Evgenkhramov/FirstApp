@@ -8,22 +8,27 @@ using Plugin.SecureStorage;
 using MvvmCross.Navigation;
 using MvvmCross;
 using FirstApp.Core.Interfaces;
+using FirstApp.Core.Models;
 
 namespace FirstApp.Core.ViewModels
 {
     public class MainViewModel : MvxViewModel
     {
         private readonly IMvxNavigationService _navigationService;
-
+        private readonly ISQLiteRepository _sQLiteRepository;
         //public MainViewModel()
         //{
         //    GetName();
         //}
 
-        public MainViewModel(IMvxNavigationService navigationService)
+        public MainViewModel(IMvxNavigationService navigationService, ISQLiteRepository sQLiteRepository)
         {
+          
+            _sQLiteRepository = sQLiteRepository;
             _navigationService = navigationService;
             HaveGone = false;
+            GetName();
+            GetDateFromDb();
         }
 
         readonly IAuthorizationService _authorizationService;
@@ -65,10 +70,28 @@ namespace FirstApp.Core.ViewModels
                 RaisePropertyChanged(() => Welcome);                
             }
         }
+
+        private string _dataFromBase;
+        public string DataFromBase
+        {
+            get => _dataFromBase;
+            set
+            {
+                _dataFromBase = value;
+                RaisePropertyChanged(() => DataFromBase);                
+            }
+        }
         public void GetName()
         {
             string name = CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserName);
             Welcome =$"Welcome, {name}";
-        } 
+        }
+
+        public void GetDateFromDb()
+        {
+            var userDate = new UserDatabaseModel();
+            userDate = _sQLiteRepository.GetItem(1);
+            DataFromBase = $"{userDate.Name} {userDate.Password}";
+        }
     }
 }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using SQLite;
 
-namespace FirstApp.Core.Services
+namespace FirstApp.Core.Models
 {
 
-    [Table("Friends")]
-    public class Friend
+    [Table("Users")]
+    public class UserDatabaseModel
     {
         [PrimaryKey, AutoIncrement, Column("_id")]
         public int Id { get; set; }

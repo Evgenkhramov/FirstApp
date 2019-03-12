@@ -64,6 +64,8 @@ namespace FirstApp.Core.ViewModels
                 {
                     if (_authorizationService.IsLoggedIn(UserName, UserPassword))
                     {
+                        await _navigationService.Close(this);
+
                         await _navigationService.Navigate<MainViewModel>();
                     }
                     else

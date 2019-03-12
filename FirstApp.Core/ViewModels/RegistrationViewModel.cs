@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using FirstApp.Core.Interfaces;
 using Android.Content;
-
+using FirstApp.Core.Models;
 using Android.Widget;
 using Android.App;
 using Acr.UserDialogs;
@@ -20,17 +20,21 @@ namespace FirstApp.Core.ViewModels
     {
         private readonly Regex PasswordRegExp = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private readonly Regex NameRegExp = new Regex(@"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
         private readonly IRegistrationService _registrationService;
         private readonly IMvxNavigationService _navigationService;
         private readonly IUserDialogService _userDialogService;
-
+        private readonly ISQLiteRepository _sQLiteRepository;
+    
         public RegistrationViewModel(IMvxNavigationService navigationService, IRegistrationService registrationService,
-            IUserDialogs userDialogs, IUserDialogService userDialogService)
+            IUserDialogs userDialogs, IUserDialogService userDialogService, ISQLiteRepository sQLiteRepository)
         {
             _userDialogService = userDialogService;
             _navigationService = navigationService;
             _registrationService = registrationService;
+            _sQLiteRepository = sQLiteRepository;
             HaveGone = true;
+           
         }
 
         public IMvxAsyncCommand NavigateCommand { get; private set; }
@@ -80,15 +84,15 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-
+                    await _navigationService.Close(this);
                     await _navigationService.Navigate<LoginViewModel>();
-
                 });
             }
         }
 
         public MvxAsyncCommand UserRegistration
         {
+
             get
             {
                 return new MvxAsyncCommand(async () =>
@@ -106,20 +110,21 @@ namespace FirstApp.Core.ViewModels
                     {
                         passwordConfirm = PasswordConfirmValidator();
                     }
-                                                  
-
-                        
                     if(name && password && passwordConfirm)
                     {
+                        var userDatabaseModel = new UserDatabaseModel
+                        {
+                            Name = RegistrationUserName,
+                            Password = RegistrationUserPassword
+                        };
+                        _sQLiteRepository.SaveItem(userDatabaseModel);
                         _registrationService.UserRegistration(RegistrationUserName, RegistrationUserPassword);
 
-
+                        await _navigationService.Close(this);
                         await _navigationService.Navigate<MainViewModel>();
-                    }
-                 
+                    }     
                 });
             }
-
         }
 
         private bool NameValidator()

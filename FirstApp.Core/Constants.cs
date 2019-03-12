@@ -6,6 +6,7 @@ namespace FirstApp.Core
 {
     class Constants
     {
+        public const string NameDB = "AppUsersDB.db";
         public const string SequreKeyForUserName = "UserName";
         public const string SequreKeyForUserPassword = "UserPassword";
         public const string SequreKeyForLoged = "Loged";

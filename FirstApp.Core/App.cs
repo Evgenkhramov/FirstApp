@@ -25,7 +25,7 @@ namespace FirstApp.Core
             //    .AsInterfaces()
             //    .RegisterAsLazySingleton();
 
-            //Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
+            Mvx.IoCProvider.RegisterSingleton<ISQLiteRepository>(() => new SQLiteRepository());
 
             // register the appstart object
             RegisterCustomAppStart<AppStart>();

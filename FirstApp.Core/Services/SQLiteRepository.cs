@@ -2,6 +2,8 @@
 using MvvmCross;
 using SQLite;
 using System;
+using FirstApp.Core;
+using FirstApp.Core.Models;
 using System.Collections.Generic;
 using System.Text;
 using FirstApp.Core.Services;
@@ -10,32 +12,37 @@ using System.Linq;
 
 namespace FirstApp.Core.Services
 {
-    public class SQLiteRepository
+    public class SQLiteRepository : ISQLiteRepository
     {
         SQLiteConnection database;
-        public SQLiteRepository(string filename)
+        public SQLiteRepository()
         {
-            string databasePath = Mvx.Resolve<ISQliteAddress>().GetDatabasePath(filename);
-
+            string filename = Constants.NameDB;
+            string databasePath = Mvx.IoCProvider.Resolve<ISQliteAddress>().GetDatabasePath(filename);
 
             database = new SQLiteConnection(databasePath);
 
-            database.CreateTable<Friend>();
+            database.CreateTable<UserDatabaseModel>();
         }
-        public IEnumerable<Friend> GetItems()
-        {
-            return (from i in database.Table<Friend>() select i).ToList();
 
-        }
-        public Friend GetItem(int id)
+        //public UserDatabaseModel GetItems(int id)
+        //{
+        //    return database.Table<UserDatabaseModel>().Where(i => i.Id == id).FirstOrDefaultAsync();
+        //}
+
+        public IEnumerable<UserDatabaseModel> GetItems()
         {
-            return database.Get<Friend>(id);
+            return (from i in database.Table<UserDatabaseModel>() select i).ToList();
+        }
+        public UserDatabaseModel GetItem(int id)
+        {
+            return database.Get<UserDatabaseModel>(id);
         }
         public int DeleteItem(int id)
         {
-            return database.Delete<Friend>(id);
+            return database.Delete<UserDatabaseModel>(id);
         }
-        public int SaveItem(Friend item)
+        public int SaveItem(UserDatabaseModel item)
         {
             if (item.Id != 0)
             {
