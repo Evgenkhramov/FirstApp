@@ -10,7 +10,7 @@ using Android.Views;
 using Android.Widget;
 using SQLite;
 using System.IO;
-using System.Linq;
+
 
 namespace FirstApp.Droid.ORM
 {

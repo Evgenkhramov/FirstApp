@@ -32,7 +32,7 @@ namespace FirstApp.Core
             }
             else
             {
-                return _mvxNavigationService.Navigate<LoginViewModel>();
+                return _mvxNavigationService.Navigate<HeadViewModel>();
             }
         }
 

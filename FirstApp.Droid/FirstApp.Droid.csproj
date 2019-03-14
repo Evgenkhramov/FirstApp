@@ -67,8 +67,13 @@
     <Compile Include="Services\UserDialogService.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
-    <Compile Include="Views\LoginView.cs" />
+    <Compile Include="Views\BaseFragment.cs" />
+    <Compile Include="Views\HeadFragment.cs" />
+    <Compile Include="Views\HeadView.cs" />
+    <Compile Include="Views\HomeFragment.cs" />
     <Compile Include="Views\FirstAppMainView.cs" />
+    <Compile Include="Views\MainFragment.cs" />
+    <Compile Include="Views\RegistrationFragment.cs" />
     <Compile Include="Views\RegistrationView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -134,11 +139,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\LoginView.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +170,12 @@
     <AndroidResource Include="Resources\mipmap-xhdpi\arrow_left.png" />
     <AndroidResource Include="Resources\mipmap-mdpi\arrow_left.png" />
     <AndroidResource Include="Resources\mipmap-hdpi\arrow_left.png" />
+    <AndroidResource Include="Resources\layout\HeadView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\HeadFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

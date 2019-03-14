@@ -8,7 +8,6 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using FirstApp.Core.ViewModels;
@@ -18,20 +17,20 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 namespace FirstApp.Droid.Views
 {
     [MvxActivityPresentation]
-    [Activity(Label = "Login",
-       Theme = "@style/AppTheme",
-       NoHistory = false,
-       LaunchMode = LaunchMode.SingleTask,
-       Name = "FirstApp.Droid.Views.LoginView"
-       )]
-    public class LoginView : MvxAppCompatActivity<LoginViewModel>
+    [Activity(Label = "Head",
+        Theme = "@style/AppTheme",
+        NoHistory = false,
+        LaunchMode = LaunchMode.SingleTask,
+        Name = "FirstApp.Droid.Views.LoginView"
+        )]
+    public class HeadView : MvxAppCompatActivity<HeadViewModel>
     {
 
         protected override void OnCreate(Android.OS.Bundle bundle)
         {
             base.OnCreate(bundle);
 
-            SetContentView(Resource.Layout.LoginView);
+            SetContentView(Resource.Layout.HeadView);
 
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
