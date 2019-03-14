@@ -18,8 +18,8 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.navigation_frame)]
-    [Register("starWarsSample.droid.views.MenuView")]
-    public class MenuFragment : MvxFragment<MenuFragmentViewModel>, NavigationView.IOnNavigationItemSelectedListener
+    [Register("starWarsSample.droid.views.MenuFragment")]
+    public class MenuFragment : MvxFragment<MenuFragmentViewModel>
     {
         private NavigationView _navigationView;
         private IMenuItem _previousMenuItem;
@@ -29,8 +29,11 @@ namespace FirstApp.Droid.Views
             var ignore = base.OnCreateView(inflater, container, savedInstanceState);
 
             var view = this.BindingInflate(Resource.Layout.MenuFragment, null);
+           
+               
+            
 
-            //_navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
+            _navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
             //_navigationView.SetNavigationItemSelectedListener(this);
             //_navigationView.Menu.FindItem(Resource.Id.nav_planets).SetChecked(true);
 
