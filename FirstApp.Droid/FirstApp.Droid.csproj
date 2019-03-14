@@ -71,6 +71,7 @@
     <Compile Include="Views\LoginFragment.cs" />
     <Compile Include="Views\MainFragment.cs" />
     <Compile Include="Views\MainView.cs" />
+    <Compile Include="Views\MenuFragment.cs" />
     <Compile Include="Views\StartView.cs" />
     <Compile Include="Views\RegistrationFragment.cs" />
   </ItemGroup>
@@ -175,6 +176,15 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\MainFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\MenuFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\navigation_header.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\menu\navigation_drawer.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

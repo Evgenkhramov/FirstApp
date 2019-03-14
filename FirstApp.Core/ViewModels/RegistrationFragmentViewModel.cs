@@ -117,13 +117,20 @@ namespace FirstApp.Core.ViewModels
                             Name = RegistrationUserName,
                             Password = RegistrationUserPassword
                         };
-                                            
-                         _sQLiteRepository.SaveItem(userDatabaseModel);
-                        
-                        _registrationService.UserRegistration(RegistrationUserName, RegistrationUserPassword);
 
-                        await _navigationService.Close(this);
-                        await _navigationService.Navigate<MainViewModel>();
+                        if (!_sQLiteRepository.IsLoginInDB(RegistrationUserName))
+                        {
+                            _sQLiteRepository.SaveItem(userDatabaseModel);
+                            _registrationService.UserRegistration(RegistrationUserName, RegistrationUserPassword);
+
+                            await _navigationService.Close(this);
+                            await _navigationService.Navigate<MainViewModel>();
+                        }
+                        else
+                        {
+                            _userDialogService.ShowAlertForUser("Error", "This name is already in the database, enter other name ", "Ok");
+                        }
+                                         
                     }
                 });
             }

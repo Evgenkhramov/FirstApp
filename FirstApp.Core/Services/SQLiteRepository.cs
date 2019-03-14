@@ -34,6 +34,27 @@ namespace FirstApp.Core.Services
         {
             return (from i in database.Table<UserDatabaseModel>() select i).ToList();
         }
+
+        //public void DeleteTaskFromTable(ItemTask _task)
+        //{
+        //    if (_task.Id != 0)
+        //        _con.Table<ItemTask>().Where(x => x.Id == _task.Id).Delete();
+        //}
+
+        public bool IsLoginInDB(string login)
+        {
+            UserDatabaseModel findUser = database.Table<UserDatabaseModel>().FirstOrDefault(x => x.Name == login);
+            if (findUser == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            
+        }
+
         public UserDatabaseModel GetItem(int id)
         {
             return database.Get<UserDatabaseModel>(id);

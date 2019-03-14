@@ -12,5 +12,6 @@ namespace FirstApp.Core.Interfaces
         UserDatabaseModel GetItem(int id);
         int DeleteItem(int id);
         int SaveItem(UserDatabaseModel item);
+        bool IsLoginInDB(string login);
     }
 }
