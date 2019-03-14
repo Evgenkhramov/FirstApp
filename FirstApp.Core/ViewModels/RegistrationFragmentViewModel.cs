@@ -13,10 +13,11 @@ using Android.Widget;
 using Android.App;
 using Acr.UserDialogs;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class RegistrationViewModel : MvxViewModel
+    public class RegistrationFragmentViewModel : MvxViewModel
     {
         private readonly Regex PasswordRegExp = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private readonly Regex NameRegExp = new Regex(@"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -25,8 +26,8 @@ namespace FirstApp.Core.ViewModels
         private readonly IMvxNavigationService _navigationService;
         private readonly IUserDialogService _userDialogService;
         private readonly ISQLiteRepository _sQLiteRepository;
-    
-        public RegistrationViewModel(IMvxNavigationService navigationService, IRegistrationService registrationService,
+
+        public RegistrationFragmentViewModel(IMvxNavigationService navigationService, IRegistrationService registrationService,
             IUserDialogs userDialogs, IUserDialogService userDialogService, ISQLiteRepository sQLiteRepository)
         {
             _userDialogService = userDialogService;
@@ -34,7 +35,6 @@ namespace FirstApp.Core.ViewModels
             _registrationService = registrationService;
             _sQLiteRepository = sQLiteRepository;
             HaveGone = true;
-           
         }
 
         public IMvxAsyncCommand NavigateCommand { get; private set; }
@@ -46,6 +46,16 @@ namespace FirstApp.Core.ViewModels
             set
             {
                 _registrationUserName = value;
+            }
+        }
+
+        private bool _haveGone;
+        public bool HaveGone
+        {
+            get => _haveGone;
+            set
+            {
+                _haveGone = value;
             }
         }
 
@@ -66,16 +76,6 @@ namespace FirstApp.Core.ViewModels
             {
                 _registrationUserPasswordConfirm = value;
             }
-        }      
-
-        private bool _haveGone;
-        public bool HaveGone
-        {
-            get => _haveGone;
-            set
-            {
-                _haveGone = value;
-            }
         }
 
         public MvxAsyncCommand RegistrationBack
@@ -85,7 +85,7 @@ namespace FirstApp.Core.ViewModels
                 return new MvxAsyncCommand(async () =>
                 {
                     await _navigationService.Close(this);
-                    await _navigationService.Navigate<LoginViewModel>();
+                    await _navigationService.Navigate<LoginFragmentViewModel>();
                 });
             }
         }
@@ -110,19 +110,21 @@ namespace FirstApp.Core.ViewModels
                     {
                         passwordConfirm = PasswordConfirmValidator();
                     }
-                    if(name && password && passwordConfirm)
+                    if (name && password && passwordConfirm)
                     {
                         var userDatabaseModel = new UserDatabaseModel
                         {
                             Name = RegistrationUserName,
                             Password = RegistrationUserPassword
                         };
-                        _sQLiteRepository.SaveItem(userDatabaseModel);
+                                            
+                         _sQLiteRepository.SaveItem(userDatabaseModel);
+                        
                         _registrationService.UserRegistration(RegistrationUserName, RegistrationUserPassword);
 
                         await _navigationService.Close(this);
                         await _navigationService.Navigate<MainViewModel>();
-                    }     
+                    }
                 });
             }
         }
@@ -133,14 +135,14 @@ namespace FirstApp.Core.ViewModels
             {
                 if (!NameRegExp.IsMatch(RegistrationUserName))
                 {
-                    _userDialogService.ShowAlertForUser("Error","Enter correct name","Ok");
+                    _userDialogService.ShowAlertForUser("Error", "Enter correct name", "Ok");
                     return false;
                 }
                 return true;
             }
             else
             {
-                _userDialogService.ShowAlertForUser("Error", "Please, enter name","Ok");
+                _userDialogService.ShowAlertForUser("Error", "Please, enter name", "Ok");
                 return false;
             }
         }
@@ -150,17 +152,17 @@ namespace FirstApp.Core.ViewModels
             {
                 if (!PasswordRegExp.IsMatch(RegistrationUserPassword))
                 {
-                    _userDialogService.ShowAlertForUser("Error","Password must have minimum eight characters, at least one letter and one numbe!","Ok");
+                    _userDialogService.ShowAlertForUser("Error", "Password must have minimum eight characters, at least one letter and one numbe!", "Ok");
                     return false;
                 }
                 else
                 {
-                   return true;
+                    return true;
                 }
             }
             else
             {
-                _userDialogService.ShowAlertForUser("Error","Enter Password!","Ok");
+                _userDialogService.ShowAlertForUser("Error", "Enter Password!", "Ok");
                 return false;
             }
         }
@@ -174,13 +176,13 @@ namespace FirstApp.Core.ViewModels
                 }
                 else
                 {
-                    _userDialogService.ShowAlertForUser("Error","Password and password confirm must be the same!","Ok");
+                    _userDialogService.ShowAlertForUser("Error", "Password and password confirm must be the same!", "Ok");
                     return false;
                 }
             }
             else
             {
-                _userDialogService.ShowAlertForUser("Error","Enter PasswordConfirm!","Ok");
+                _userDialogService.ShowAlertForUser("Error", "Enter PasswordConfirm!", "Ok");
                 return false;
             }
         }

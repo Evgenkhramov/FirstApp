@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Acr.UserDialogs;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -15,29 +16,32 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 
 namespace FirstApp.Droid.Views
 {
-   [MvxActivityPresentation]
-   [Activity(Label = "Registration",
-   Theme = "@style/AppTheme",
-   NoHistory = true,
-   LaunchMode = LaunchMode.SingleTop,
-   Name = "FirstApp.Droid.Views.Registration"
-   )]
-    public class Registration : MvxAppCompatActivity<RegistrationViewModel>
+    [MvxActivityPresentation]
+    [Activity(Label = "MainView",
+        Theme = "@style/AppTheme",
+        NoHistory = true,
+        LaunchMode = LaunchMode.SingleTask,
+        Name = "FirstApp.Droid.Views.MainView"
+        )]
+    public class MainView : MvxAppCompatActivity<MainViewModel>
     {
-
-        protected override void OnCreate(Bundle bundle)
+        protected override void OnCreate(Android.OS.Bundle bundle)
         {
             base.OnCreate(bundle);
 
-            SetContentView(Resource.Layout.Registration);
+            SetContentView(Resource.Layout.MainView);
+
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
-
-        }  
+            UserDialogs.Init(this);
+            if (bundle == null)
+            {
+                ViewModel.ShowMainFragmentCommand.Execute(null);
+            }
+        }
 
         private void Initialize()
         {
         }
     }
-
 }

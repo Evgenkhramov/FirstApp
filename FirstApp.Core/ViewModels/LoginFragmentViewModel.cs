@@ -4,6 +4,7 @@ using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using Plugin.SecureStorage;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +21,16 @@ namespace FirstApp.Core.ViewModels
             _authorizationService = authorizationService;
             HaveGone = false;
 
+        }
+
+        private bool _haveGone;
+        public bool HaveGone
+        {
+            get => _haveGone;
+            set
+            {
+                _haveGone = value;
+            }
         }
 
         private string _userName;
@@ -41,15 +52,6 @@ namespace FirstApp.Core.ViewModels
                 _userPassword = value;
             }
         }
-        private bool _haveGone;
-        public bool HaveGone
-        {
-            get => _haveGone;
-            set
-            {
-                _haveGone = value;
-            }
-        }
 
         public MvxAsyncCommand UserLogin
         {
@@ -59,8 +61,7 @@ namespace FirstApp.Core.ViewModels
                 {
                     if (_authorizationService.IsLoggedIn(UserName, UserPassword))
                     {
-                        await _navigationService.Close(this);
-
+                        CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogIn);
                         await _navigationService.Navigate<MainViewModel>();
                     }
                     else
@@ -78,7 +79,7 @@ namespace FirstApp.Core.ViewModels
                 return new MvxAsyncCommand(async () =>
                 {
                     var navService = Mvx.IoCProvider.Resolve<IMvxNavigationService>();
-                    await navService.Navigate<RegistrationViewModel>();
+                    await navService.Navigate<RegistrationFragmentViewModel>();
                 });
             }
         }

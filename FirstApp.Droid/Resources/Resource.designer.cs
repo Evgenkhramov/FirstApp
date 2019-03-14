@@ -6519,8 +6519,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090068
 			public const int contentPanel = 2131296360;
 			
-			// aapt resource value: 0x7f0900a0
-			public const int content_frame_new = 2131296416;
+			// aapt resource value: 0x7f0900a5
+			public const int content_frame_new = 2131296421;
 			
 			// aapt resource value: 0x7f090090
 			public const int coordinator = 2131296400;
@@ -6645,26 +6645,26 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090063
 			public const int list_item = 2131296355;
 			
-			// aapt resource value: 0x7f0900a3
-			public const int loadingImage = 2131296419;
+			// aapt resource value: 0x7f09009d
+			public const int loadingImage = 2131296413;
 			
-			// aapt resource value: 0x7f0900a1
-			public const int loadingProgressBar = 2131296417;
-			
-			// aapt resource value: 0x7f0900a4
-			public const int loadingProgressWheel = 2131296420;
-			
-			// aapt resource value: 0x7f09009c
-			public const int login = 2131296412;
-			
-			// aapt resource value: 0x7f0900a5
-			public const int logout = 2131296421;
+			// aapt resource value: 0x7f09009b
+			public const int loadingProgressBar = 2131296411;
 			
 			// aapt resource value: 0x7f09009e
-			public const int main_f = 2131296414;
+			public const int loadingProgressWheel = 2131296414;
 			
-			// aapt resource value: 0x7f09009f
-			public const int main_frame = 2131296415;
+			// aapt resource value: 0x7f0900a0
+			public const int login = 2131296416;
+			
+			// aapt resource value: 0x7f0900a2
+			public const int logout = 2131296418;
+			
+			// aapt resource value: 0x7f0900a3
+			public const int main_f = 2131296419;
+			
+			// aapt resource value: 0x7f0900a4
+			public const int main_frame = 2131296420;
 			
 			// aapt resource value: 0x7f0900bd
 			public const int masked = 2131296445;
@@ -6729,8 +6729,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090077
 			public const int radio = 2131296375;
 			
-			// aapt resource value: 0x7f09009d
-			public const int registration = 2131296413;
+			// aapt resource value: 0x7f0900a1
+			public const int registration = 2131296417;
 			
 			// aapt resource value: 0x7f09004c
 			public const int right = 2131296332;
@@ -6873,8 +6873,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f0900ba
 			public const int textView1 = 2131296442;
 			
-			// aapt resource value: 0x7f0900a2
-			public const int textViewStatus = 2131296418;
+			// aapt resource value: 0x7f09009c
+			public const int textViewStatus = 2131296412;
 			
 			// aapt resource value: 0x7f09009a
 			public const int text_input_password_toggle = 2131296410;
@@ -6897,8 +6897,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090071
 			public const int title_template = 2131296369;
 			
-			// aapt resource value: 0x7f09009b
-			public const int toolbar = 2131296411;
+			// aapt resource value: 0x7f09009f
+			public const int toolbar = 2131296415;
 			
 			// aapt resource value: 0x7f090040
 			public const int top = 2131296320;
@@ -7122,19 +7122,19 @@ namespace FirstApp.Droid
 			public const int design_text_input_password_icon = 2130968615;
 			
 			// aapt resource value: 0x7f040028
-			public const int HeadFragment = 2130968616;
+			public const int loading = 2130968616;
 			
 			// aapt resource value: 0x7f040029
-			public const int HeadView = 2130968617;
+			public const int loadingimage = 2130968617;
 			
 			// aapt resource value: 0x7f04002a
-			public const int loading = 2130968618;
+			public const int loadingprogress = 2130968618;
 			
 			// aapt resource value: 0x7f04002b
-			public const int loadingimage = 2130968619;
+			public const int LoginFragment = 2130968619;
 			
 			// aapt resource value: 0x7f04002c
-			public const int loadingprogress = 2130968620;
+			public const int MainFragment = 2130968620;
 			
 			// aapt resource value: 0x7f04002d
 			public const int MainView = 2130968621;
@@ -7185,7 +7185,7 @@ namespace FirstApp.Droid
 			public const int notification_template_part_time = 2130968636;
 			
 			// aapt resource value: 0x7f04003d
-			public const int Registration = 2130968637;
+			public const int RegistrationFragment = 2130968637;
 			
 			// aapt resource value: 0x7f04003e
 			public const int select_dialog_item_material = 2130968638;
@@ -7200,13 +7200,16 @@ namespace FirstApp.Droid
 			public const int SplashScreen = 2130968641;
 			
 			// aapt resource value: 0x7f040042
-			public const int support_simple_spinner_dropdown_item = 2130968642;
+			public const int StartView = 2130968642;
 			
 			// aapt resource value: 0x7f040043
-			public const int toolbar = 2130968643;
+			public const int support_simple_spinner_dropdown_item = 2130968643;
 			
 			// aapt resource value: 0x7f040044
-			public const int tooltip = 2130968644;
+			public const int toolbar = 2130968644;
+			
+			// aapt resource value: 0x7f040045
+			public const int tooltip = 2130968645;
 			
 			static Layout()
 			{

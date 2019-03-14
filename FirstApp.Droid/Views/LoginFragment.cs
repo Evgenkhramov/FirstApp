@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -14,11 +13,11 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 
 namespace FirstApp.Droid.Views
 {
-    [MvxFragmentPresentation(typeof(HeadViewModel), Resource.Id.content_frame_new, true)]
+    [MvxFragmentPresentation(typeof(StartViewModel), Resource.Id.content_frame_new, false)]
     [Register("firstApp.Droid.Views.LoginFragment")]
-    public class HeadFragment : BaseFragment<HeadFragmentViewModel>
+    public class LoginFragment : BaseFragment<LoginFragmentViewModel>
     {
-        protected override int FragmentId => Resource.Layout.HeadFragment;
+        protected override int FragmentId => Resource.Layout.LoginFragment;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -27,4 +26,5 @@ namespace FirstApp.Droid.Views
             return view;
         }
     }
+
 }

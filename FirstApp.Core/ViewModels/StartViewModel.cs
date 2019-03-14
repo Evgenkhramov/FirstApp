@@ -1,4 +1,5 @@
 ﻿using FirstApp.Core.Interfaces;
+using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System;
@@ -7,16 +8,16 @@ using System.Text;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class HeadViewModel : MvxViewModel
+    public class StartViewModel : MvxViewModel
     {
         private readonly IAuthorizationService _authorizationService;
         private readonly IMvxNavigationService _navigationService;
-        public HeadViewModel(IMvxNavigationService navigationService, IAuthorizationService authorizationService)
+        public StartViewModel(IMvxNavigationService navigationService, IAuthorizationService authorizationService)
         {
             _navigationService = navigationService;
             _authorizationService = authorizationService;
-            // HaveGone = false;
-
+            ShowLoginFragmentCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<LoginFragmentViewModel>());
         }
+        public IMvxAsyncCommand ShowLoginFragmentCommand { get; private set; }
     }
 }
