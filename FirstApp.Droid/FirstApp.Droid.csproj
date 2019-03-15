@@ -74,6 +74,7 @@
     <Compile Include="Views\MenuFragment.cs" />
     <Compile Include="Views\StartView.cs" />
     <Compile Include="Views\RegistrationFragment.cs" />
+    <Compile Include="Views\UserDataFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -115,8 +116,14 @@
     <PackageReference Include="MvvmCross.Droid.Support.V7.AppCompat">
       <Version>6.2.3</Version>
     </PackageReference>
+    <PackageReference Include="MvvmCross.Droid.Support.V7.RecyclerView">
+      <Version>6.2.3</Version>
+    </PackageReference>
     <PackageReference Include="MvvmCross.Plugin.Visibility">
       <Version>6.2.3</Version>
+    </PackageReference>
+    <PackageReference Include="Refractored.Controls.CircleImageView">
+      <Version>1.0.1</Version>
     </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.5.231</Version>
@@ -139,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />
+    <Folder Include="Resources\drawable-nodpi\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\screen.png" />
@@ -148,6 +156,7 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\screen.png" />
     <AndroidResource Include="Resources\drawable\background.xml" />
     <AndroidResource Include="Resources\drawable\backgroundpicture.png" />
+    <AndroidResource Include="Resources\drawable\profile.jpg" />
     <Content Include="Resources\drawable\screen.png" />
     <AndroidResource Include="Resources\layout\SplashScreen.axml">
       <SubType>Designer</SubType>
@@ -181,10 +190,7 @@
     <AndroidResource Include="Resources\layout\MenuFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\navigation_header.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\menu\navigation_drawer.axml">
+    <AndroidResource Include="Resources\layout\UserDataFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

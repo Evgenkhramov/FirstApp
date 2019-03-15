@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -31,24 +32,32 @@ namespace FirstApp.Droid.Views
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var ignore = base.OnCreateView(inflater, container, savedInstanceState);
+            
 
             var view = this.BindingInflate(FragmentId, null);
 
             _toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
-            
+            CloseMenu();
             return view;
         }
 
         protected abstract int FragmentId { get; }
 
-       
+        public async Task CloseMenu()
+        {
+            ((MainView)Activity).DrawerLayout.CloseDrawers();
+            await Task.Delay(TimeSpan.FromMilliseconds(250));
+        }
+
 
     }
 
     public abstract class BaseFragment<TViewModel> : BaseFragment where TViewModel : class, IMvxViewModel
     {
+
         public new TViewModel ViewModel
         {
+
             get { return (TViewModel)base.ViewModel; }
             set { base.ViewModel = value; }
         }

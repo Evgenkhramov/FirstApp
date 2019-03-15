@@ -32,6 +32,7 @@ namespace FirstApp.Core.Services
 
         public IEnumerable<UserDatabaseModel> GetItems()
         {
+            //return database.Table<UserDatabaseModel>().AsEnumerable();
             return (from i in database.Table<UserDatabaseModel>() select i).ToList();
         }
 
@@ -57,7 +58,8 @@ namespace FirstApp.Core.Services
 
         public UserDatabaseModel GetItem(int id)
         {
-            return database.Get<UserDatabaseModel>(id);
+            //return database.Table<UserDatabaseModel>().ToList();
+           return database.Get<UserDatabaseModel>(id);
         }
         public int DeleteItem(int id)
         {

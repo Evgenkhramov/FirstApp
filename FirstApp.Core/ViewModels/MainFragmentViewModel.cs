@@ -14,7 +14,7 @@ namespace FirstApp.Core.ViewModels
     {
         private readonly IMvxNavigationService _navigationService;
         private readonly ISQLiteRepository _sQLiteRepository;
-      
+
         public MainFragmentViewModel(IMvxNavigationService navigationService, ISQLiteRepository sQLiteRepository)
         {
 
@@ -25,7 +25,7 @@ namespace FirstApp.Core.ViewModels
             HaveGone = false;
         }
 
-         public MvxCommand LogOut
+        public MvxCommand LogOut
         {
             get
             {

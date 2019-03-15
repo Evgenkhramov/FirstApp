@@ -5,7 +5,13 @@
     <string name="registration">Registration</string>
     <string name="enterPassword">Enter Password</string>
     <string name="enterName">Enter Name</string>
+    <string name="enterSurname">Enter Surname</string>
+    <string name="yourSurname">Your Surname</string>
     <string name="logOut">Log Out</string>
+    <string name="Save">Save</string>
+    <string name="YourAge">Your Age</string>
+    <string name="EnterAge">Enter Age</string>
+    <string name="Cancel">Cancel</string>
     <string name="registration">Registration</string>
     <string name="action_settings">Settings</string>
 </resources>

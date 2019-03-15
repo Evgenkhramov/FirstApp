@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using FirstApp.Core.ViewModels;
 using MvvmCross.Droid.Support.V4;
+using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 
@@ -30,31 +32,17 @@ namespace FirstApp.Droid.Views
 
             var view = this.BindingInflate(Resource.Layout.MenuFragment, null);
 
-            //_navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
-            //_navigationView.SetNavigationItemSelectedListener(this);
-            //_navigationView.Menu.FindItem(Resource.Id.nav_planets).SetChecked(true);
+            _navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
+            _navigationView.SetNavigationItemSelectedListener(this);
+            var recyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.menu_recycler_view);
+            if (recyclerView != null)
+            {
+                recyclerView.HasFixedSize = true;
+                var layoutManager = new LinearLayoutManager(Activity);
+                recyclerView.SetLayoutManager(layoutManager);
 
-            //var iconPlanets = _navigationView.Menu.FindItem(Resource.Id.nav_planets);
-            //iconPlanets.SetTitle(Strings.TargetPlanets);
-            //iconPlanets.SetCheckable(false);
-            //iconPlanets.SetChecked(true);
-            //var imgPlanet = VectorDrawableCompat.Create(Resources, Resource.Drawable.planet, Activity.Theme);
-            //iconPlanets.SetIcon(imgPlanet);
-
-            //_previousMenuItem = iconPlanets;
-
-            //var iconPeople = _navigationView.Menu.FindItem(Resource.Id.nav_people);
-            //iconPeople.SetTitle(Strings.TargetPeople);
-            //iconPeople.SetCheckable(false);
-            //var imgPeople = VectorDrawableCompat.Create(Resources, Resource.Drawable.people, Activity.Theme);
-            //iconPeople.SetIcon(imgPeople);
-
-            //var iconStatistics = _navigationView.Menu.FindItem(Resource.Id.nav_statistics);
-            //iconStatistics.SetTitle(Strings.Statistics);
-            //iconStatistics.SetCheckable(false);
-            //var imgStatistics = VectorDrawableCompat.Create(Resources, Resource.Drawable.statistics, Activity.Theme);
-            //iconStatistics.SetIcon(imgStatistics);
-
+                //recyclerView.AddOnScrollFetchItemsListener(layoutManager, () => ViewModel.FetchPeopleTask, () => this.ViewModel.FetchPeopleCommand);
+            }
             return view;
         }
 
@@ -73,6 +61,12 @@ namespace FirstApp.Droid.Views
             return true;
         }
 
+        public async Task CloseMenu()
+        {
+            ((MainView)Activity).DrawerLayout.CloseDrawers();
+            await Task.Delay(TimeSpan.FromMilliseconds(250));
+        }
+
         //private async Task Navigate(int itemId)
         //{
         //    ((MainView)Activity).DrawerLayout.CloseDrawers();
@@ -80,15 +74,10 @@ namespace FirstApp.Droid.Views
 
         //    switch (itemId)
         //    {
-        //        case Resource.Id.nav_planets:
-        //            ViewModel.ShowPlanetsCommand.Execute(null);
+        //        case Resource.Id.nav_logout:
+        //            ViewModel.ShowLoginCommand.Execute();
         //            break;
-        //        case Resource.Id.nav_people:
-        //            ViewModel.ShowPeopleCommand.Execute(null);
-        //            break;
-        //        case Resource.Id.nav_statistics:
-        //            ViewModel.ShowStatusCommand.Execute(null);
-        //            break;
+            
         //    }
         //}
     }
