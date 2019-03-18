@@ -23,7 +23,9 @@ namespace FirstApp.Core.ViewModels
             _sQLiteRepository = sQLiteRepository;
             _navigationService = navigationService;
            ShowMainFragmentCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MainFragmentViewModel>());
+           ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuFragmentViewModel>());
         }
         public IMvxAsyncCommand ShowMainFragmentCommand { get; private set; }
+        public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }
     }   
 }
