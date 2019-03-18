@@ -9,7 +9,7 @@ using MvvmCross.Navigation;
 using MvvmCross;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
-
+//213214235446526565
 namespace FirstApp.Core.ViewModels
 {
     public class MainViewModel : MvxViewModel
