@@ -12,9 +12,14 @@
 		android:layout_below="@id/maintoolbar"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
+		<ImageView
+			android:padding="10dp"
+			android:id="@+id/usericon"
+			android:layout_width="match_parent"
+			android:layout_height="200dp"
+			android:src="@drawable/profile" />
 		<TextView
 			android:textColor="#ffebe3f6"
-
 			android:textSize="18sp"
 			android:text="Your Name"
 			android:layout_width="match_parent"
@@ -52,27 +57,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="40dp"
 			android:layout_marginRight="40dp"
-			local:MvxBind="Text UserName"
-			android:layout_marginTop = "3dp"/>
-		<TextView
-			android:textColor="#ffebe3f6"
-			android:textSize="18sp"
-			android:text="@string/YourAge"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:textAlignment="center" />
-		<EditText
-			android:hint="@string/EnterAge"
-			android:textColorHint="@color/inputTextColor"
-			android:textColor="@color/inputTextColor"
-			android:maxLength="20"
-			android:maxLines="1"
-			android:inputType="textPersonName"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginLeft="40dp"
-			android:layout_marginRight="40dp"
-			local:MvxBind="Text UserName"
+			local:MvxBind="Text Surname"
 			android:layout_marginTop = "3dp"/>		
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -91,8 +76,8 @@
 				android:translationZ="4dp"
 				android:layout_margin="4dp"
 				android:layout_height="wrap_content"
-				local:MvxBind="Click UserLogin"	
-				android:id="@+id/save" />
+				local:MvxBind="Click SaveUserData"	
+				android:id="@+id/savedata" />
 			<Button
 				style="@style/OrangeButton"
 				android:text="@string/Cancel"
@@ -103,8 +88,8 @@
 				android:translationZ="4dp"
 				android:layout_margin="4dp"
 				android:layout_height="wrap_content"       		
-				local:MvxBind="Click UserRegistration"
-				android:id="@+id/cancel" />
+				local:MvxBind="Click Cancel"
+				android:id="@+id/canceldata" />
 		</LinearLayout>
 	</LinearLayout>
 </RelativeLayout>

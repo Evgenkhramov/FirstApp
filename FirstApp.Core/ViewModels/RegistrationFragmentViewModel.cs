@@ -119,7 +119,8 @@ namespace FirstApp.Core.ViewModels
                         if (!_sQLiteRepository.IsLoginInDB(RegistrationUserName))
                         {
                             _sQLiteRepository.SaveItem(userDatabaseModel);
-                            _registrationService.UserRegistration(RegistrationUserName, RegistrationUserPassword);
+                            string userId = userDatabaseModel.Id.ToString();
+                            _registrationService.UserRegistration(RegistrationUserName, RegistrationUserPassword, userId);
 
                             await NavigationService.Close(this);
                             await NavigationService.Navigate<MainViewModel>();

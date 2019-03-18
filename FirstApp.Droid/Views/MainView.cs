@@ -34,9 +34,6 @@ namespace FirstApp.Droid.Views
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.MainView);
-
-            //var maintoolbar = FindViewById<Toolbar>(Resource.Id.maintoolbar);
-            //SetActionBar(maintoolbar);
             UserDialogs.Init(this);
 
             DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
@@ -52,18 +49,7 @@ namespace FirstApp.Droid.Views
         public void OpenDraweble()
         {
             DrawerLayout.OpenDrawer(GravityCompat.Start);
-        }     
-
-        //public override bool OnOptionsItemSelected(IMenuItem item)
-        //{
-        //    switch (item.ItemId)
-        //    {
-        //        case Android.Resource.Id.Home:
-        //            DrawerLayout.OpenDrawer(GravityCompat.Start);
-        //            return true;
-        //    }
-        //    return base.OnOptionsItemSelected(item);
-        //}    
+        }      
 
     public override void OnBackPressed()
         {
