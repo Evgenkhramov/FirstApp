@@ -44,19 +44,5 @@ namespace FirstApp.Droid.Views
             ((MainView)Activity).DrawerLayout.CloseDrawers();
             await Task.Delay(TimeSpan.FromMilliseconds(250));
         }
-
-        //private async Task Navigate(int itemId)
-        //{
-        //    ((MainView)Activity).DrawerLayout.CloseDrawers();
-        //    await Task.Delay(TimeSpan.FromMilliseconds(250));
-
-        //    switch (itemId)
-        //    {
-        //        case Resource.Id.nav_logout:
-        //            ViewModel.ShowLoginCommand.Execute();
-        //            break;
-            
-        //    }
-        //}
     }
 }

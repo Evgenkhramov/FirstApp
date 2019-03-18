@@ -169,6 +169,11 @@
     <AndroidResource Include="Resources\drawable\background.xml" />
     <AndroidResource Include="Resources\drawable\backgroundpicture.png" />
     <AndroidResource Include="Resources\drawable\profile.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\menu_icon.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\menu_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\menu_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\menu_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\menu_icon.png" />
     <Content Include="Resources\drawable\screen.png" />
     <AndroidResource Include="Resources\layout\SplashScreen.axml">
       <SubType>Designer</SubType>
@@ -206,6 +211,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ListItem_MainMenu.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\MainToolbar.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

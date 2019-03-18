@@ -18,12 +18,20 @@ namespace FirstApp.Droid.Views
     [Register("firstApp.Droid.Views.UserDataFragment")]
     public class UserDataFragment : BaseFragment<UserDataFragmentViewModel>
     {
+        Button menuButton;
         protected override int FragmentId => Resource.Layout.UserDataFragment;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
-            
+
+            menuButton = view.FindViewById<Button>(Resource.Id.menu_icon);
+
+            menuButton.Click += (object sender, EventArgs e) =>
+            {
+                OpenMenu();
+            };
+
             return view;
         }
     }

@@ -18,9 +18,9 @@ namespace FirstApp.Core.ViewModels
             ShowLoginCommand = LogOut;
             MenuItems = new List<MenuItem>
             {
-                new MenuItem("Erite User Data", this, nameof(UserDataFragmentViewModel)),
-                new MenuItem("Log Out", this, nameof(LoginFragmentViewModel)),
-             
+                new MenuItem("Edit profile", this, typeof(UserDataFragmentViewModel)),   
+                new MenuItem("Main", this, typeof(MainFragmentViewModel)),
+                new MenuItem("Log Out", this, typeof(LoginFragmentViewModel)),
             };
         }
   
@@ -28,18 +28,16 @@ namespace FirstApp.Core.ViewModels
 
         public class MenuItem
         {
-            public MenuItem(string title, MenuFragmentViewModel parent, string viewModelUrl)
+            public MenuItem(string title, MenuFragmentViewModel parent, Type viewModelUrl)
             {
                 Title = title;
-                // Will change to navigate to type once https://github.com/MvvmCross/MvvmCross/pull/2148 is in.
+               
                 ShowCommand = new MvxCommand(async () => await parent.NavigationService.Navigate(viewModelUrl));
             }
 
             public string Title { get; private set; }
-            public ICommand ShowCommand { get; private set; }
+            public IMvxCommand ShowCommand { get; private set; }
         }
-
-
 
         public MvxCommand LogOut
         {

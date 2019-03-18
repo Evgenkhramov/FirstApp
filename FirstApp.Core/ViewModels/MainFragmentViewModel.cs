@@ -20,29 +20,6 @@ namespace FirstApp.Core.ViewModels
             _sQLiteRepository = sQLiteRepository; 
             GetName();
             GetDateFromDb();
-            HaveGone = false;
-        }
-
-        public MvxCommand LogOut
-        {
-            get
-            {
-                return new MvxCommand(async () =>
-                {
-                    CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
-
-                    await NavigationService.Navigate<LoginFragmentViewModel>();
-                });
-            }
-        }
-        private bool _haveGone;
-        public bool HaveGone
-        {
-            get => _haveGone;
-            set
-            {
-                _haveGone = value;
-            }
         }
 
         private string _welcome;

@@ -25,5 +25,8 @@ namespace FirstApp.Core.ViewModels
         }
         public IMvxAsyncCommand ShowMainFragmentCommand { get; private set; }
         public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }
+
+
+       
     }   
 }

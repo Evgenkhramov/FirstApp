@@ -5,4 +5,5 @@
     android:layout_height="wrap_content"
     android:padding="16dp"
     local:MvxBind="Text Title;Click ShowCommand"
+	android:textColor="#32b5c9"
     android:textAppearance="?android:attr/textAppearanceLarge" />

@@ -22,7 +22,7 @@ namespace FirstApp.Droid.Views
     [MvxActivityPresentation]
     [Activity(Label = "MainView",
         Theme = "@style/AppTheme",
-        NoHistory = true,
+        NoHistory = false,
         LaunchMode = LaunchMode.SingleTask,
         Name = "FirstApp.Droid.Views.MainView"
         )]
@@ -31,13 +31,12 @@ namespace FirstApp.Droid.Views
         public DrawerLayout DrawerLayout { get; set; }
         protected override void OnCreate(Android.OS.Bundle bundle)
         {
-
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.MainView);
 
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            SetActionBar(toolbar);
+            //var maintoolbar = FindViewById<Toolbar>(Resource.Id.maintoolbar);
+            //SetActionBar(maintoolbar);
             UserDialogs.Init(this);
 
             DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
@@ -47,20 +46,26 @@ namespace FirstApp.Droid.Views
                 ViewModel.ShowMainFragmentCommand.Execute(null);
                 ViewModel.ShowMenuViewModelCommand.Execute(null);
             }
+            
         }
 
-        public override bool OnOptionsItemSelected(IMenuItem item)
+        public void OpenDraweble()
         {
-            switch (item.ItemId)
-            {
-                case Android.Resource.Id.Home:
-                    DrawerLayout.OpenDrawer(GravityCompat.Start);
-                    return true;
-            }
-            return base.OnOptionsItemSelected(item);
-        }
+            DrawerLayout.OpenDrawer(GravityCompat.Start);
+        }     
 
-        public override void OnBackPressed()
+        //public override bool OnOptionsItemSelected(IMenuItem item)
+        //{
+        //    switch (item.ItemId)
+        //    {
+        //        case Android.Resource.Id.Home:
+        //            DrawerLayout.OpenDrawer(GravityCompat.Start);
+        //            return true;
+        //    }
+        //    return base.OnOptionsItemSelected(item);
+        //}    
+
+    public override void OnBackPressed()
         {
             if (DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.Start))
                 DrawerLayout.CloseDrawers();
@@ -77,8 +82,5 @@ namespace FirstApp.Droid.Views
 
             CurrentFocus.ClearFocus();
         }
-
-
     }
-
 }

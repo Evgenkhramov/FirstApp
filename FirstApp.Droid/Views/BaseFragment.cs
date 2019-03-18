@@ -7,20 +7,20 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.View;
 using Android.Views;
-using Android.Widget;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.ViewModels;
+using Android.Widget;
 
 namespace FirstApp.Droid.Views
 {
    public abstract class BaseFragment : MvxFragment
     {
-        private Toolbar _toolbar;
-        //private MvxActionBarDrawerToggle _drawerToggle;
-
+        private Android.Support.V7.Widget.Toolbar _mainToolbar;
+       
         public MvxAppCompatActivity ParentActivity
         {
             get
@@ -36,16 +36,31 @@ namespace FirstApp.Droid.Views
 
             var view = this.BindingInflate(FragmentId, null);
 
-            _toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
+            _mainToolbar = view.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.maintoolbar);
+
+            //Button menuButton = _mainToolbar.FindViewById<Button>(Resource.Id.menu_icon);
+            //if (menuButton == null)
+            //{
+            //    menuButton.Click += (sender, e) =>
+            //     {
+            //         OpenMenu();
+            //     };
+            //}
             CloseMenu();
             return view;
         }
 
         protected abstract int FragmentId { get; }
 
+
         public async Task CloseMenu()
         {
             ((MainView)Activity).DrawerLayout.CloseDrawers();
+            await Task.Delay(TimeSpan.FromMilliseconds(250));
+        }
+        public async Task OpenMenu()
+        {
+            ((MainView)Activity).DrawerLayout.OpenDrawer(GravityCompat.Start);
             await Task.Delay(TimeSpan.FromMilliseconds(250));
         }
 
