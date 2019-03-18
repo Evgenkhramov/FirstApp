@@ -11,16 +11,14 @@ using System.Text;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class LoginFragmentViewModel : MvxViewModel
+    public class LoginFragmentViewModel : BaseViewModel
     {
         private readonly IAuthorizationService _authorizationService;
-        private readonly IMvxNavigationService _navigationService;
-        public LoginFragmentViewModel(IMvxNavigationService navigationService, IAuthorizationService authorizationService)
+       
+        public LoginFragmentViewModel(IAuthorizationService authorizationService)
         {
-            _navigationService = navigationService;
             _authorizationService = authorizationService;
             HaveGone = false;
-
         }
 
         private bool _haveGone;
@@ -62,7 +60,7 @@ namespace FirstApp.Core.ViewModels
                     if (_authorizationService.IsLoggedIn(UserName, UserPassword))
                     {
                         CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogIn);
-                        await _navigationService.Navigate<MainViewModel>();
+                        await NavigationService.Navigate<MainViewModel>();
                     }
                     else
                     {

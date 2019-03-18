@@ -51,20 +51,11 @@
 				android:textAppearance="@style/TextAppearance.AppCompat.Title"
 				android:textStyle="bold"
 				local:MvxBind="Click LogOut"/>
-				<MvxSwipeRefreshLayout
-					android:id="@+id/refresher"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					local:layout_behavior="@string/appbar_scrolling_view_behavior"
-					local:MvxBind="IsRefreshing LoadPeopleTask; RefreshCommand RefreshPeopleCommand">
-					<MvxRecyclerView
-						android:id="@+id/menu_recycler_view"
-						android:scrollbars="vertical"
-						android:layout_width="match_parent"
-						android:layout_height="match_parent"
-						local:MvxItemTemplate="@layout/item_name"
-						local:MvxBind="ItemsSource People; ItemClick PersonSelectedCommand" />
-		</MvxSwipeRefreshLayout>
+			<MvxListView
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				local:MvxItemTemplate="@layout/listitem_mainmenu"
+				local:MvxBind="ItemsSource MenuItems"/>
 		</LinearLayout>
 	</LinearLayout>
 			

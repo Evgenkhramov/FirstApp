@@ -21,7 +21,7 @@ namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.navigation_frame)]
     [Register("starWarsSample.droid.views.MenuView")]
-    public class MenuFragment : MvxFragment<MenuFragmentViewModel>, NavigationView.IOnNavigationItemSelectedListener
+    public class MenuFragment : MvxFragment<MenuFragmentViewModel>
     {
         private NavigationView _navigationView;
         private IMenuItem _previousMenuItem;
@@ -33,33 +33,11 @@ namespace FirstApp.Droid.Views
             var view = this.BindingInflate(Resource.Layout.MenuFragment, null);
 
             _navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
-            _navigationView.SetNavigationItemSelectedListener(this);
-            var recyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.menu_recycler_view);
-            if (recyclerView != null)
-            {
-                recyclerView.HasFixedSize = true;
-                var layoutManager = new LinearLayoutManager(Activity);
-                recyclerView.SetLayoutManager(layoutManager);
-
-                //recyclerView.AddOnScrollFetchItemsListener(layoutManager, () => ViewModel.FetchPeopleTask, () => this.ViewModel.FetchPeopleCommand);
-            }
+            
             return view;
         }
 
-        public bool OnNavigationItemSelected(IMenuItem item)
-        {
-            if (_previousMenuItem != null)
-                _previousMenuItem.SetChecked(false);
-
-            item.SetCheckable(true);
-            item.SetChecked(true);
-
-            _previousMenuItem = item;
-
-            //Navigate(item.ItemId);
-
-            return true;
-        }
+       
 
         public async Task CloseMenu()
         {

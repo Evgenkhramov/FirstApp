@@ -10,16 +10,14 @@ using System.Text;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class MainFragmentViewModel : MvxViewModel
+    public class MainFragmentViewModel : BaseViewModel
     {
-        private readonly IMvxNavigationService _navigationService;
+        
         private readonly ISQLiteRepository _sQLiteRepository;
 
-        public MainFragmentViewModel(IMvxNavigationService navigationService, ISQLiteRepository sQLiteRepository)
+        public MainFragmentViewModel( ISQLiteRepository sQLiteRepository)
         {
-
-            _sQLiteRepository = sQLiteRepository;
-            _navigationService = navigationService;
+            _sQLiteRepository = sQLiteRepository; 
             GetName();
             GetDateFromDb();
             HaveGone = false;
@@ -33,7 +31,7 @@ namespace FirstApp.Core.ViewModels
                 {
                     CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
 
-                    await _navigationService.Navigate<LoginFragmentViewModel>();
+                    await NavigationService.Navigate<LoginFragmentViewModel>();
                 });
             }
         }

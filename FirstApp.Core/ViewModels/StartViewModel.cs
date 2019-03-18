@@ -8,15 +8,13 @@ using System.Text;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class StartViewModel : MvxViewModel
+    public class StartViewModel : BaseViewModel
     {
         private readonly IAuthorizationService _authorizationService;
-        private readonly IMvxNavigationService _navigationService;
-        public StartViewModel(IMvxNavigationService navigationService, IAuthorizationService authorizationService)
+        public StartViewModel(IAuthorizationService authorizationService)
         {
-            _navigationService = navigationService;
             _authorizationService = authorizationService;
-            ShowLoginFragmentCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<LoginFragmentViewModel>());
+            ShowLoginFragmentCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<LoginFragmentViewModel>());
         }
         public IMvxAsyncCommand ShowLoginFragmentCommand { get; private set; }
     }

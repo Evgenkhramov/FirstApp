@@ -1,4 +1,5 @@
 ﻿using FirstApp.Core.Models;
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
@@ -6,34 +7,40 @@ using Plugin.SecureStorage;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class MenuFragmentViewModel : MvxViewModel
+    public class MenuFragmentViewModel : BaseViewModel
     {
-        private readonly IMvxNavigationService _navigationService;
-
-        public MenuFragmentViewModel(IMvxNavigationService navigationService)
+        public MenuFragmentViewModel()
         {
-            MenuItem = new MvxObservableCollection<Item>();
-            _navigationService = navigationService;
             ShowLoginCommand = LogOut;
-
-        } 
-              
-        private MvxObservableCollection<Item> _menuItem;
-        public MvxObservableCollection<Item> MenuItem
-        {
-            get
+            MenuItems = new List<MenuItem>
             {
-                return _menuItem;
-            }
-            set
-            {
-                _menuItem = value;
-                RaisePropertyChanged(() => MenuItem);
-            }
+                new MenuItem("Erite User Data", this, nameof(UserDataFragmentViewModel)),
+                new MenuItem("Log Out", this, nameof(LoginFragmentViewModel)),
+             
+            };
         }
+  
+        public List<MenuItem> MenuItems { get; private set; }
+
+        public class MenuItem
+        {
+            public MenuItem(string title, MenuFragmentViewModel parent, string viewModelUrl)
+            {
+                Title = title;
+                // Will change to navigate to type once https://github.com/MvvmCross/MvvmCross/pull/2148 is in.
+                ShowCommand = new MvxCommand(async () => await parent.NavigationService.Navigate(viewModelUrl));
+            }
+
+            public string Title { get; private set; }
+            public ICommand ShowCommand { get; private set; }
+        }
+
+
+
         public MvxCommand LogOut
         {
             get
@@ -42,7 +49,7 @@ namespace FirstApp.Core.ViewModels
                 {
                     CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
 
-                    await _navigationService.Navigate<LoginFragmentViewModel>();
+                    await NavigationService.Navigate<LoginFragmentViewModel>();
                 });
             }
         }
@@ -55,7 +62,7 @@ namespace FirstApp.Core.ViewModels
                 return new MvxCommand(async () =>
                 {
                     
-                    await _navigationService.Navigate<UserDataFragmentViewModel>();
+                    await NavigationService.Navigate<UserDataFragmentViewModel>();
                 });
             }
         }

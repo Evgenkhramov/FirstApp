@@ -8,19 +8,17 @@ using System.Text;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class UserDataFragmentViewModel : MvxViewModel
+    public class UserDataFragmentViewModel : BaseViewModel
     {
-        private readonly IMvxNavigationService _navigationService;
         private readonly ISQLiteRepository _sQLiteRepository;
 
-        public UserDataFragmentViewModel(IMvxNavigationService navigationService, ISQLiteRepository sQLiteRepository)
+        public UserDataFragmentViewModel(ISQLiteRepository sQLiteRepository)
         {
 
             _sQLiteRepository = sQLiteRepository;
-            _navigationService = navigationService;
-           
+         
             HaveGone = false;
-            ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuFragmentViewModel>());
+            ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<MenuFragmentViewModel>());
 
         }
         public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }

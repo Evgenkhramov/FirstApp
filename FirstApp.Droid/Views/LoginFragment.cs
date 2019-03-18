@@ -21,6 +21,7 @@ namespace FirstApp.Droid.Views
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+
             var view = base.OnCreateView(inflater, container, savedInstanceState);
 
             return view;

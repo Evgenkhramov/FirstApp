@@ -9,21 +9,19 @@ using MvvmCross.Navigation;
 using MvvmCross;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
-//213214235446526565
+
 namespace FirstApp.Core.ViewModels
 {
-    public class MainViewModel : MvxViewModel
+    public class MainViewModel : BaseViewModel
     {
-        private readonly IMvxNavigationService _navigationService;
+       
         private readonly ISQLiteRepository _sQLiteRepository;
 
-        public MainViewModel(IMvxNavigationService navigationService, ISQLiteRepository sQLiteRepository)
+        public MainViewModel(ISQLiteRepository sQLiteRepository)
         {
-
             _sQLiteRepository = sQLiteRepository;
-            _navigationService = navigationService;
-           ShowMainFragmentCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MainFragmentViewModel>());
-           ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuFragmentViewModel>());
+           ShowMainFragmentCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<MainFragmentViewModel>());
+           ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<MenuFragmentViewModel>());
         }
         public IMvxAsyncCommand ShowMainFragmentCommand { get; private set; }
         public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }

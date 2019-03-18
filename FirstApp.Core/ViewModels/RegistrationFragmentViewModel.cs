@@ -17,21 +17,19 @@ using System.Linq;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class RegistrationFragmentViewModel : MvxViewModel
+    public class RegistrationFragmentViewModel : BaseViewModel
     {
         private readonly Regex PasswordRegExp = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private readonly Regex NameRegExp = new Regex(@"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private readonly IRegistrationService _registrationService;
-        private readonly IMvxNavigationService _navigationService;
         private readonly IUserDialogService _userDialogService;
         private readonly ISQLiteRepository _sQLiteRepository;
 
-        public RegistrationFragmentViewModel(IMvxNavigationService navigationService, IRegistrationService registrationService,
+        public RegistrationFragmentViewModel(IRegistrationService registrationService,
             IUserDialogs userDialogs, IUserDialogService userDialogService, ISQLiteRepository sQLiteRepository)
         {
             _userDialogService = userDialogService;
-            _navigationService = navigationService;
             _registrationService = registrationService;
             _sQLiteRepository = sQLiteRepository;
             HaveGone = true;
@@ -84,8 +82,8 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    await _navigationService.Close(this);
-                    await _navigationService.Navigate<LoginFragmentViewModel>();
+                    await NavigationService.Close(this);
+                    await NavigationService.Navigate<LoginFragmentViewModel>();
                 });
             }
         }
@@ -123,8 +121,8 @@ namespace FirstApp.Core.ViewModels
                             _sQLiteRepository.SaveItem(userDatabaseModel);
                             _registrationService.UserRegistration(RegistrationUserName, RegistrationUserPassword);
 
-                            await _navigationService.Close(this);
-                            await _navigationService.Navigate<MainViewModel>();
+                            await NavigationService.Close(this);
+                            await NavigationService.Navigate<MainViewModel>();
                         }
                         else
                         {
