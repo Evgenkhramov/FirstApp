@@ -54,6 +54,7 @@ namespace FirstApp.Core.ViewModels
             set
             {
                 _haveGone = value;
+               
             }
         }
 

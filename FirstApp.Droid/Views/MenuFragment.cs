@@ -35,12 +35,11 @@ namespace FirstApp.Droid.Views
             _navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
             
             return view;
-        }
-
-       
+        }     
 
         public async Task CloseMenu()
         {
+            
             ((MainView)Activity).DrawerLayout.CloseDrawers();
             await Task.Delay(TimeSpan.FromMilliseconds(250));
         }

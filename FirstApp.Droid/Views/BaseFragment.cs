@@ -38,21 +38,11 @@ namespace FirstApp.Droid.Views
 
             _mainToolbar = view.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.maintoolbar);
 
-            //Button menuButton = _mainToolbar.FindViewById<Button>(Resource.Id.menu_icon);
-            //if (menuButton == null)
-            //{
-            //    menuButton.Click += (sender, e) =>
-            //     {
-            //         OpenMenu();
-            //     };
-            //}
             CloseMenu();
             return view;
         }
 
         protected abstract int FragmentId { get; }
-
-
         public async Task CloseMenu()
         {
             ((MainView)Activity).DrawerLayout.CloseDrawers();
@@ -63,16 +53,12 @@ namespace FirstApp.Droid.Views
             ((MainView)Activity).DrawerLayout.OpenDrawer(GravityCompat.Start);
             await Task.Delay(TimeSpan.FromMilliseconds(250));
         }
-
-
     }
 
     public abstract class BaseFragment<TViewModel> : BaseFragment where TViewModel : class, IMvxViewModel
     {
-
         public new TViewModel ViewModel
         {
-
             get { return (TViewModel)base.ViewModel; }
             set { base.ViewModel = value; }
         }

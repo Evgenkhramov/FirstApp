@@ -30,6 +30,20 @@ namespace FirstApp.Droid.Services
             adb.SetPositiveButton(okbtnText, (sender, args) => { /* some logic */ });
             adb.Create().Show();
         }
+
+        public void ChoosePhoto(string message, string title, string okbtnText, string escbtnText)
+        {
+            var top = Mvx.IoCProvider.Resolve<IMvxAndroidCurrentTopActivity>();
+            var act = top.Activity;
+
+            var adb = new AlertDialog.Builder(act);
+            adb.SetTitle(title);
+            adb.SetMessage(message);
+            
+            adb.SetPositiveButton(okbtnText, (sender, EventArgs ) => { });
+            adb.SetNegativeButton(escbtnText, (sender, args) => { /* some logic */ });
+            adb.Create().Show();
+        }
     }
 
 

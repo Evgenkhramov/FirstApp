@@ -28,6 +28,7 @@ namespace FirstApp.Core.ViewModels
             set
             {
                 _haveGone = value;
+                RaisePropertyChanged(() => HaveGone);
             }
         }
 

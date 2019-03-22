@@ -12,12 +12,32 @@
 		android:layout_below="@id/maintoolbar"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
-		<ImageView
-			android:padding="10dp"
-			android:id="@+id/usericon"
+		<RelativeLayout
+			android:orientation="vertical"
 			android:layout_width="match_parent"
-			android:layout_height="200dp"
-			android:src="@drawable/profile" />
+			android:layout_height="350dp"
+			android:minWidth="25px"
+			android:minHeight="25px">
+			<ImageView
+				android:id="@+id/camera_preview"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:layout_marginBottom="50dp"
+				android:layout_marginTop="20dp"
+				local:MvxBind="Bitmap MyPhoto, Converter=StringToBitmap"
+				android:layout_weight="1">
+			</ImageView>
+			<Button
+				 android:text="Camera Snap"
+				 android:layout_width="match_parent"
+				 android:layout_height="wrap_content"
+				 android:layout_marginLeft="40dp"
+				 android:layout_marginRight="40dp"
+				 android:gravity="center"
+				 style="@style/OrangeButton"
+				 android:layout_alignParentBottom="true"
+				 android:id="@+id/btnCamera"/> 
+		</RelativeLayout>
 		<TextView
 			android:textColor="#ffebe3f6"
 			android:textSize="18sp"

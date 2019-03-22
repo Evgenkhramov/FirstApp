@@ -6843,14 +6843,20 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f09003f
 			public const int bottom = 2131296319;
 			
+			// aapt resource value: 0x7f0900ca
+			public const int btnCamera = 2131296458;
+			
 			// aapt resource value: 0x7f090065
 			public const int buttonPanel = 2131296357;
+			
+			// aapt resource value: 0x7f0900c9
+			public const int camera_preview = 2131296457;
 			
 			// aapt resource value: 0x7f0900b2
 			public const int cancel_action = 2131296434;
 			
-			// aapt resource value: 0x7f0900cb
-			public const int canceldata = 2131296459;
+			// aapt resource value: 0x7f0900cc
+			public const int canceldata = 2131296460;
 			
 			// aapt resource value: 0x7f090047
 			public const int center = 2131296327;
@@ -7041,14 +7047,14 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f0900a2
 			public const int maintoolbar = 2131296418;
 			
-			// aapt resource value: 0x7f0900cd
-			public const int masked = 2131296461;
+			// aapt resource value: 0x7f0900ce
+			public const int masked = 2131296462;
 			
 			// aapt resource value: 0x7f0900b4
 			public const int media_actions = 2131296436;
 			
-			// aapt resource value: 0x7f0900ce
-			public const int menu_edit = 2131296462;
+			// aapt resource value: 0x7f0900cf
+			public const int menu_edit = 2131296463;
 			
 			// aapt resource value: 0x7f0900a3
 			public const int menu_icon = 2131296419;
@@ -7137,8 +7143,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f09000e
 			public const int save_scale_type = 2131296270;
 			
-			// aapt resource value: 0x7f0900ca
-			public const int savedata = 2131296458;
+			// aapt resource value: 0x7f0900cb
+			public const int savedata = 2131296459;
 			
 			// aapt resource value: 0x7f09002b
 			public const int screen = 2131296299;
@@ -7335,17 +7341,14 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f090028
 			public const int useLogo = 2131296296;
 			
-			// aapt resource value: 0x7f0900c9
-			public const int usericon = 2131296457;
-			
 			// aapt resource value: 0x7f0900ac
 			public const int username = 2131296428;
 			
 			// aapt resource value: 0x7f090016
 			public const int view_offset_helper = 2131296278;
 			
-			// aapt resource value: 0x7f0900cc
-			public const int visible = 2131296460;
+			// aapt resource value: 0x7f0900cd
+			public const int visible = 2131296461;
 			
 			// aapt resource value: 0x7f09003e
 			public const int withText = 2131296318;

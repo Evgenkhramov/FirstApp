@@ -25,7 +25,7 @@
 			android:layout_height="100dp"
 			android:layout_marginBottom="8dp"
 			android:scaleType="centerCrop"
-			android:src="@drawable/profile"
+			local:MvxBind="Bitmap MyIcon,Converter=StringToBitmap;Click EditUserData"
 			local:civ_border_width="2dp"
 			local:civ_border_color="@android:color/white" />
 		<TextView
@@ -33,7 +33,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:textColor="#32b5c9"
-			android:text="Stive Jobs"
+			local:MvxBind="Text MyName"
 			android:textAppearance="@style/TextAppearance.AppCompat.Title"
 			android:textStyle="bold"/>
 		<LinearLayout

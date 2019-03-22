@@ -15,13 +15,14 @@ namespace FirstApp.Core.ViewModels
         private int userId;
         private readonly ISQLiteRepository _sQLiteRepository;
 
+
         public MainFragmentViewModel( ISQLiteRepository sQLiteRepository)
         {
             _sQLiteRepository = sQLiteRepository; 
             
             string id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
             userId = Int32.Parse(id);
-            GetDateFromDb();
+            GetDataFromDB(userId);
         }
 
         private string _welcome;
@@ -35,27 +36,11 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        private string _dataFromBase;
-        public string DataFromBase
-        {
-            get => _dataFromBase;
-            set
-            {
-                _dataFromBase = value;
-                RaisePropertyChanged(() => DataFromBase);
-            }
-        }
-        //public void GetName()
-        //{
-        //    string name = CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserName);
-        //    Welcome = $"Welcome, {name}";
-        //}
-
-        public void GetDateFromDb()
+        public void GetDataFromDB(int userId)
         {
             var userDate = new UserDatabaseModel();
             userDate = _sQLiteRepository.GetItem(userId);
-            DataFromBase = $"{userDate.Name} {userDate.Password}";
+            Welcome = $"Welcome, {userDate.Name} {userDate.Surname}";
         }
     }
 }
