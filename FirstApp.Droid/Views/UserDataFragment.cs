@@ -25,6 +25,14 @@ using Android.Database;
 using Plugin.Permissions;
 using System.Threading.Tasks;
 using static Android.Manifest;
+using Android.Support.V4.Content;
+using Android;
+using Android.Support.V4.App;
+using Android.Support.Design.Widget;
+using Plugin.Permissions.Abstractions;
+using Permission = Plugin.Permissions.Abstractions.Permission;
+using Plugin.CurrentActivity;
+using FirstApp.Core.Interfaces;
 
 namespace FirstApp.Droid.Views
 {
@@ -38,12 +46,11 @@ namespace FirstApp.Droid.Views
         ImageView cameraPreview;
         private string _imagePath;
         protected override int FragmentId => Resource.Layout.UserDataFragment;
+        private IUserDialogService _userDialogService;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-
             var view = base.OnCreateView(inflater, container, savedInstanceState);
-
             menuButton = view.FindViewById<Button>(Resource.Id.menu_icon);
             btnCamera = view.FindViewById<Button>(Resource.Id.btnCamera);
             cameraPreview = view.FindViewById<ImageView>(Resource.Id.camera_preview);
@@ -52,11 +59,21 @@ namespace FirstApp.Droid.Views
             {
                 OpenMenu();
             };
+            if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.Camera) != (int)Android.Content.PM.Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(this.Activity, new String[] { Manifest.Permission.Camera }, 1);
+            }
+            if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.ReadExternalStorage) != (int)Android.Content.PM.Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(this.Activity, new String[] { Manifest.Permission.ReadExternalStorage }, 1);
+            }
+
             return view;
         }
 
         public string BitmapToString(Bitmap bitmap)
         {
+
             byte[] bitmapData;
             using (var stream = new MemoryStream())
             {
@@ -110,18 +127,36 @@ namespace FirstApp.Droid.Views
                     (float)maxImageSize / realImage.Height);
             int width = (int)Math.Round((float)ratio * realImage.Width);
             int height = (int)Math.Round((float)ratio * realImage.Height);
-            
+
             Bitmap newBitmap = Bitmap.CreateScaledBitmap(realImage, width, height, filter);
             Bitmap bitmap = ExifRotateBitmap(imagePath, newBitmap);
             return bitmap;
         }
 
-        private void ButtonOnClick(object sender, EventArgs eventArgs)
+        private void ButtonFromGallary(object sender, EventArgs eventArgs)
         {
-            Intent Intent = new Intent(Intent.ActionPick);
-            Intent.SetType("image/*");
-            Intent.SetAction(Intent.ActionGetContent);
-            StartActivityForResult(Intent.CreateChooser(Intent, "Select Picture"), PickImageId);
+
+            if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.ReadExternalStorage) == (int)Android.Content.PM.Permission.Granted)
+            {
+                Intent Intent = new Intent(Intent.ActionPick);
+                Intent.SetType("image/*");
+                Intent.SetAction(Intent.ActionGetContent);
+                StartActivityForResult(Intent.CreateChooser(Intent, "Select Picture"), PickImageId);
+            }
+            else
+            {
+
+                ActivityCompat.RequestPermissions(this.Activity, new String[] { Manifest.Permission.ReadExternalStorage }, 1);
+
+                if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.ReadExternalStorage) == (int)Android.Content.PM.Permission.Granted)
+                {
+                    Intent Intent = new Intent(Intent.ActionPick);
+                    Intent.SetType("image/*");
+                    Intent.SetAction(Intent.ActionGetContent);
+                    StartActivityForResult(Intent.CreateChooser(Intent, "Select Picture"), PickImageId);
+                }
+
+            }
         }
 
         public void SelectPhoto(string message, string title, string okbtnText, string escbtnText)
@@ -130,7 +165,7 @@ namespace FirstApp.Droid.Views
             adb.SetTitle(title);
             adb.SetMessage(message);
 
-            adb.SetPositiveButton(okbtnText, (sender, EventArgs) => { ButtonOnClick(sender, EventArgs); });
+            adb.SetPositiveButton(okbtnText, (sender, EventArgs) => { ButtonFromGallary(sender, EventArgs); });
             adb.SetNegativeButton(escbtnText, (sender, EventArgs) => { BtnCamera_Click(sender, EventArgs); });
             adb.Create().Show();
         }
@@ -147,21 +182,17 @@ namespace FirstApp.Droid.Views
             }
             if ((requestCode == PickImageId) && (resultCode == (int)Result.Ok) && (data != null))
             {
-
-
                 Android.Net.Uri uri = data.Data;
                 string pathImage = uri.EncodedPath;
                 Bitmap imageBitmap = null;
-             
+
                 _imagePath = GetPathToImage(uri);
 
-                imageBitmap = ScaleDown(Media.GetBitmap(this.Activity.ContentResolver, uri), _imagePath );
-             
+                imageBitmap = ScaleDown(Media.GetBitmap(this.Activity.ContentResolver, uri), _imagePath);
+
                 ViewModel.SavePhoto(BitmapToString(imageBitmap));
             }
         }
-
-
 
         private string GetPathToImage(Android.Net.Uri uri)
         {
@@ -183,50 +214,67 @@ namespace FirstApp.Droid.Views
 
         public void BtnCamera_Click(object sender, System.EventArgs e)
         {
-            Intent intent = new Intent(MediaStore.ActionImageCapture);
-            StartActivityForResult(intent, 0);
+            if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.Camera) == (int)Android.Content.PM.Permission.Granted)
+            {
+                Intent intent = new Intent(MediaStore.ActionImageCapture);
+                StartActivityForResult(intent, 0);
+            }
+            else
+            {
+                ActivityCompat.RequestPermissions(this.Activity, new String[] { Manifest.Permission.Camera }, 1);
+
+                if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.Camera) == (int)Android.Content.PM.Permission.Granted)
+                {
+                    Intent intent = new Intent(MediaStore.ActionImageCapture);
+                    StartActivityForResult(intent, 0);
+                }
+            }
         }
 
         public void ChoosePhoto(object sender, System.EventArgs e)
         {
-            
-            
             SelectPhoto("Select Photo", "Please, select photo.", "From memory", "From camera");
         }
 
 
-        //public async Task UserPermissions()
+        //private async void BtnCamera_Click(object sender, System.EventArgs e)
         //{
         //    try
         //    {
-        //        var status = await CrossPermissions.Current.CheckPermissionStatus(Permission.ReadExternalStorage);
+        //        var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
         //        if (status != PermissionStatus.Granted)
         //        {
-        //            if (await CrossPermissions.Current.ShouldShowRequestPermissionRationale(Permission.Location))
+        //            if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Storage))
         //            {
-        //                await DisplayAlert("Need location", "Gunna need that location", "OK");
+        //                _userDialogService.ShowAlertForUser("Need location", "Gunna need that location", "OK");
         //            }
 
-        //            var results = await CrossPermissions.Current.RequestPermissions(new[] { Permission.Location });
-        //            status = results[Permission.Location];
+        //            var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Storage);
+        //            //Best practice to always check that the key exists
+        //            if (results.ContainsKey(Permission.Storage))
+        //                status = results[Permission.Storage];
         //        }
 
         //        if (status == PermissionStatus.Granted)
         //        {
-        //            var results = await CrossGeolocator.Current.GetPositionAsync(10000);
-        //            LabelGeolocation.Text = "Lat: " + results.Latitude + " Long: " + results.Longitude;
+        //            Intent intent = new Intent(MediaStore.ActionImageCapture);
+        //            StartActivityForResult(intent, 0);
         //        }
-        //        else if (status != PermissionStatus.Unknown)
-        //        {
-        //            await DisplayAlert("Location Denied", "Can not continue, try again.", "OK");
-        //        }
+
         //    }
         //    catch (Exception ex)
         //    {
 
-        //        LabelGeolocation.Text = "Error: " + ex;
         //    }
+
         //}
+
+        static readonly int REQUEST_STORAGE = 0;
+
+        static string[] PERMISSIONS_CONTACT = {
+            Manifest.Permission.ReadExternalStorage,
+            Manifest.Permission.WriteExternalStorage
+        };
 
     }
 }

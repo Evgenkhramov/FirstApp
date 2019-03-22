@@ -14,4 +14,6 @@
     <string name="Cancel">Cancel</string>
     <string name="registration">Registration</string>
     <string name="action_settings">Settings</string>
+    <string name="permission_camera">Do you want use Camera?</string>
+    <string name="ok">Allow</string>
 </resources>

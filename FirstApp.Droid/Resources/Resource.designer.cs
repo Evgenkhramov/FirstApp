@@ -7856,6 +7856,9 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f0b0034
 			public const int logOut = 2131427380;
 			
+			// aapt resource value: 0x7f0b003a
+			public const int ok = 2131427386;
+			
 			// aapt resource value: 0x7f0b0023
 			public const int password_toggle_content_description = 2131427363;
 			
@@ -7870,6 +7873,9 @@ namespace FirstApp.Droid
 			
 			// aapt resource value: 0x7f0b0027
 			public const int path_password_strike_through = 2131427367;
+			
+			// aapt resource value: 0x7f0b0039
+			public const int permission_camera = 2131427385;
 			
 			// aapt resource value: 0x7f0b002f
 			public const int registration = 2131427375;

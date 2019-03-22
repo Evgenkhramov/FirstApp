@@ -16,6 +16,8 @@ using Android.Widget;
 using FirstApp.Core.ViewModels;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
+using Plugin.CurrentActivity;
+using Plugin.Permissions;
 
 namespace FirstApp.Droid.Views
 {
@@ -32,7 +34,7 @@ namespace FirstApp.Droid.Views
         protected override void OnCreate(Android.OS.Bundle bundle)
         {
             base.OnCreate(bundle);
-
+            Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, bundle);
             SetContentView(Resource.Layout.MainView);
             UserDialogs.Init(this);
 
@@ -42,8 +44,12 @@ namespace FirstApp.Droid.Views
             {
                 ViewModel.ShowMainFragmentCommand.Execute(null);
                 ViewModel.ShowMenuViewModelCommand.Execute(null);
-            }
-            
+            }           
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
         public void OpenDraweble()
