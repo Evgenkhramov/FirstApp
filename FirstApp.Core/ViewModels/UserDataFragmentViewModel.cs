@@ -1,12 +1,19 @@
-﻿using Android.Graphics;
+﻿using Acr.UserDialogs;
+using Android.App;
+using Android.Graphics;
 using Android.Graphics.Drawables;
+using Android.Util;
 using Android.Widget;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Converters;
 using MvvmCross.Navigation;
+using MvvmCross.Plugin.PictureChooser;
 using MvvmCross.ViewModels;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Plugin.SecureStorage;
 using System;
 using System.Collections.Generic;
@@ -16,21 +23,25 @@ using System.Text;
 
 namespace FirstApp.Core.ViewModels
 {
+
     public class UserDataFragmentViewModel : BaseViewModel
     {
+
+        private readonly IMvxPictureChooserTask _pictureChooserTask;
         private readonly ISQLiteRepository _sQLiteRepository;
         private readonly IRegistrationService _registrationService;
         private readonly IUserDialogService _userDialogService;
 
         private UserDatabaseModel userData;
         private int userId;
-        public UserDataFragmentViewModel(ISQLiteRepository sQLiteRepository, IRegistrationService registrationService, IUserDialogService userDialogService)
+        public UserDataFragmentViewModel(ISQLiteRepository sQLiteRepository, IRegistrationService registrationService, IUserDialogService userDialogService, IMvxPictureChooserTask pictureChooserTask)
         {
+            _pictureChooserTask = pictureChooserTask;
             _userDialogService = userDialogService;
             _registrationService = registrationService;
             _sQLiteRepository = sQLiteRepository;
 
-            HaveGone = false;
+
             ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<MenuFragmentViewModel>());
             string id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
             userId = Int32.Parse(id);
@@ -40,15 +51,7 @@ namespace FirstApp.Core.ViewModels
 
         public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }
 
-        private bool _haveGone;
-        public bool HaveGone
-        {
-            get => _haveGone;
-            set
-            {
-                _haveGone = value;
-            }
-        }
+    
 
         private string _userName;
         public string UserName
@@ -62,16 +65,16 @@ namespace FirstApp.Core.ViewModels
         }
 
 
-        public byte[] BitmapToByte(Bitmap bitmap)
-        {
-            byte[] bitmapData;
-            using (var stream = new MemoryStream())
-            {
-                bitmap.Compress(Bitmap.CompressFormat.Png, 0, stream);
-                bitmapData = stream.ToArray();
-            }
-            return bitmapData;
-        }
+        //public byte[] BitmapToByte(Bitmap bitmap)
+        //{
+        //    byte[] bitmapData;
+        //    using (var stream = new MemoryStream())
+        //    {
+        //        bitmap.Compress(Bitmap.CompressFormat.Png, 0, stream);
+        //        bitmapData = stream.ToArray();
+        //    }
+        //    return bitmapData;
+        //}
 
         public void SavePhoto(string photo)
         {
@@ -82,21 +85,21 @@ namespace FirstApp.Core.ViewModels
 
         }
 
-        public class InMemoryImageConverter : MvxValueConverter<byte[], Bitmap>
-        {
-            protected override Bitmap Convert(byte[] value, Type targetType, object parameter, CultureInfo culture)
-            {
-                if (value == null || value.Length == 0) { return null; }
-                return BitmapFactory.DecodeByteArray(value, 0, value.Length);
-            }
+        //public class InMemoryImageConverter : MvxValueConverter<byte[], Bitmap>
+        //{
+        //    protected override Bitmap Convert(byte[] value, Type targetType, object parameter, CultureInfo culture)
+        //    {
+        //        if (value == null || value.Length == 0) { return null; }
+        //        return BitmapFactory.DecodeByteArray(value, 0, value.Length);
+        //    }
 
-            protected override byte[] ConvertBack(Bitmap value, Type targetType, object parameter, CultureInfo culture)
-            {
-                var stream = new MemoryStream();
-                value.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
-                return stream.ToArray();
-            }
-        }
+        //    protected override byte[] ConvertBack(Bitmap value, Type targetType, object parameter, CultureInfo culture)
+        //    {
+        //        var stream = new MemoryStream();
+        //        value.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
+        //        return stream.ToArray();
+        //    }
+        //}
 
         private string _myPhoto;
         public string MyPhoto
@@ -127,6 +130,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
+                    userData.Photo = MyPhoto;
                     userData.Id = userId;
                     _sQLiteRepository.SaveItem(userData);
                     await NavigationService.Navigate<MenuFragmentViewModel>();
@@ -149,5 +153,55 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
+
+        private MvxCommand _takePictureCommand;
+
+        public System.Windows.Input.ICommand TakePictureCommand
+        {
+            get
+            {
+                _takePictureCommand = _takePictureCommand ?? new MvxCommand(DoTakePicture);
+                return _takePictureCommand;
+            }
+        }
+
+        private void DoTakePicture()
+        {
+            _pictureChooserTask.TakePicture(400, 95, OnPicture, () => { });
+        }
+
+        private MvxCommand _choosePictureCommand;
+
+        public System.Windows.Input.ICommand ChoosePictureCommand
+        {
+            get
+            {
+                _choosePictureCommand = _choosePictureCommand ?? new MvxCommand(DoChoosePicture);
+                return _choosePictureCommand;
+            }
+        }    
+
+        private void DoChoosePicture()
+        {
+            _pictureChooserTask.ChoosePictureFromLibrary(400, 95, OnPicture, () => { });
+        }
+
+        private byte[] _bytes;
+
+        public byte[] Bytes
+        {
+            get { return _bytes; }
+            set { _bytes = value; RaisePropertyChanged(() => Bytes); }
+        }
+
+        private void OnPicture(Stream pictureStream)
+        {
+            var memoryStream = new MemoryStream();
+            pictureStream.CopyTo(memoryStream);
+            Bytes = memoryStream.ToArray();
+
+            MyPhoto = Base64.EncodeToString(Bytes,0);           
+        }
     }
 }
+

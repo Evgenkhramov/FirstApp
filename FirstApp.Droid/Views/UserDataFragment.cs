@@ -33,6 +33,8 @@ using Plugin.Permissions.Abstractions;
 using Permission = Plugin.Permissions.Abstractions.Permission;
 using Plugin.CurrentActivity;
 using FirstApp.Core.Interfaces;
+using MvvmCross;
+using MvvmCross.Plugin.PictureChooser;
 
 namespace FirstApp.Droid.Views
 {
@@ -54,108 +56,124 @@ namespace FirstApp.Droid.Views
             menuButton = view.FindViewById<Button>(Resource.Id.menu_icon);
             btnCamera = view.FindViewById<Button>(Resource.Id.btnCamera);
             cameraPreview = view.FindViewById<ImageView>(Resource.Id.camera_preview);
-            btnCamera.Click += ChoosePhoto;
+            btnCamera.Click += GetPermissions;
             menuButton.Click += (object sender, EventArgs e) =>
             {
                 OpenMenu();
             };
-            if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.Camera) != (int)Android.Content.PM.Permission.Granted)
-            {
-                ActivityCompat.RequestPermissions(this.Activity, new String[] { Manifest.Permission.Camera }, 1);
-            }
-            if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.ReadExternalStorage) != (int)Android.Content.PM.Permission.Granted)
-            {
-                ActivityCompat.RequestPermissions(this.Activity, new String[] { Manifest.Permission.ReadExternalStorage }, 1);
-            }
+            //if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.Camera) != (int)Android.Content.PM.Permission.Granted)
+            //{
+            //    ActivityCompat.RequestPermissions(this.Activity, new String[] { Manifest.Permission.Camera }, 1);
+            //}
+            //if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.ReadExternalStorage) != (int)Android.Content.PM.Permission.Granted)
+            //{
+            //    ActivityCompat.RequestPermissions(this.Activity, new String[] { Manifest.Permission.ReadExternalStorage }, 1);
+            //}
 
             return view;
         }
 
-        public string BitmapToString(Bitmap bitmap)
-        {
+        //public string BitmapToString(Bitmap bitmap)
+        //{
 
-            byte[] bitmapData;
-            using (var stream = new MemoryStream())
+        //    byte[] bitmapData;
+        //    using (var stream = new MemoryStream())
+        //    {
+        //        bitmap.Compress(Bitmap.CompressFormat.Png, 98, stream);
+        //        bitmapData = stream.ToArray();
+        //    }
+
+        //    string imageString = Convert.ToBase64String(bitmapData);
+        //    return imageString;
+        //}
+
+        //private static Bitmap ExifRotateBitmap(string filePath, Bitmap bitmap)
+        //{
+        //    if (bitmap == null)
+        //        return null;
+
+        //    var exif = new ExifInterface(filePath);
+        //    var rotation = exif.GetAttributeInt(ExifInterface.TagOrientation, (int)Android.Media.Orientation.Normal);
+        //    var rotationInDegrees = ExifToDegrees(rotation);
+        //    if (rotationInDegrees == 0)
+        //        return bitmap;
+
+        //    using (var matrix = new Matrix())
+        //    {
+        //        matrix.PreRotate(rotationInDegrees);
+        //        return Bitmap.CreateBitmap(bitmap, 0, 0, bitmap.Width, bitmap.Height, matrix, true);
+        //    }
+        //}
+
+        //private static int ExifToDegrees(int exifOrientation)
+        //{
+        //    switch (exifOrientation)
+        //    {
+        //        case (int)Android.Media.Orientation.Rotate90:
+        //            return 90;
+        //        case (int)Android.Media.Orientation.Rotate180:
+        //            return 180;
+        //        case (int)Android.Media.Orientation.Rotate270:
+        //            return 270;
+        //        default:
+        //            return 0;
+        //    }
+        //}
+
+        //public static Bitmap ScaleDown(Bitmap realImage, string imagePath)
+        //{
+        //    bool filter = true;
+        //    float maxImageSize = 300;
+        //    float ratio = Math.Min(
+        //            (float)maxImageSize / realImage.Width,
+        //            (float)maxImageSize / realImage.Height);
+        //    int width = (int)Math.Round((float)ratio * realImage.Width);
+        //    int height = (int)Math.Round((float)ratio * realImage.Height);
+
+        //    Bitmap newBitmap = Bitmap.CreateScaledBitmap(realImage, width, height, filter);
+        //    Bitmap bitmap = ExifRotateBitmap(imagePath, newBitmap);
+        //    return bitmap;
+        //}
+
+        //private void ButtonFromGallary(object sender, EventArgs eventArgs)
+        //{
+
+        //    if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.ReadExternalStorage) == (int)Android.Content.PM.Permission.Granted)
+        //    {
+        //        Intent Intent = new Intent(Intent.ActionPick);
+        //        Intent.SetType("image/*");
+        //        Intent.SetAction(Intent.ActionGetContent);
+        //        StartActivityForResult(Intent.CreateChooser(Intent, "Select Picture"), PickImageId);
+        //    }
+        //    else
+        //    {
+
+        //        ActivityCompat.RequestPermissions(this.Activity, new String[] { Manifest.Permission.ReadExternalStorage }, 1);
+
+        //        if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.ReadExternalStorage) == (int)Android.Content.PM.Permission.Granted)
+        //        {
+        //            Intent Intent = new Intent(Intent.ActionPick);
+        //            Intent.SetType("image/*");
+        //            Intent.SetAction(Intent.ActionGetContent);
+        //            StartActivityForResult(Intent.CreateChooser(Intent, "Select Picture"), PickImageId);
+        //        }
+
+        //    }
+        //}
+
+        public async void GetPermissions(object sender, System.EventArgs e)
+        {
+         
+            if (await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Storage) != PermissionStatus.Granted ||
+                      await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Camera) != PermissionStatus.Granted)
             {
-                bitmap.Compress(Bitmap.CompressFormat.Png, 98, stream);
-                bitmapData = stream.ToArray();
+                var results = await CrossPermissions.Current.RequestPermissionsAsync(Plugin.Permissions.Abstractions.Permission.Storage, Plugin.Permissions.Abstractions.Permission.Camera);
+                //Best practice to always check that the key exists                    
             }
-
-            string imageString = Convert.ToBase64String(bitmapData);
-            return imageString;
-        }
-
-        private static Bitmap ExifRotateBitmap(string filePath, Bitmap bitmap)
-        {
-            if (bitmap == null)
-                return null;
-
-            var exif = new ExifInterface(filePath);
-            var rotation = exif.GetAttributeInt(ExifInterface.TagOrientation, (int)Android.Media.Orientation.Normal);
-            var rotationInDegrees = ExifToDegrees(rotation);
-            if (rotationInDegrees == 0)
-                return bitmap;
-
-            using (var matrix = new Matrix())
+            if (await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Storage) == PermissionStatus.Granted &&
+                     await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Camera) == PermissionStatus.Granted)
             {
-                matrix.PreRotate(rotationInDegrees);
-                return Bitmap.CreateBitmap(bitmap, 0, 0, bitmap.Width, bitmap.Height, matrix, true);
-            }
-        }
-
-        private static int ExifToDegrees(int exifOrientation)
-        {
-            switch (exifOrientation)
-            {
-                case (int)Android.Media.Orientation.Rotate90:
-                    return 90;
-                case (int)Android.Media.Orientation.Rotate180:
-                    return 180;
-                case (int)Android.Media.Orientation.Rotate270:
-                    return 270;
-                default:
-                    return 0;
-            }
-        }
-
-        public static Bitmap ScaleDown(Bitmap realImage, string imagePath)
-        {
-            bool filter = true;
-            float maxImageSize = 300;
-            float ratio = Math.Min(
-                    (float)maxImageSize / realImage.Width,
-                    (float)maxImageSize / realImage.Height);
-            int width = (int)Math.Round((float)ratio * realImage.Width);
-            int height = (int)Math.Round((float)ratio * realImage.Height);
-
-            Bitmap newBitmap = Bitmap.CreateScaledBitmap(realImage, width, height, filter);
-            Bitmap bitmap = ExifRotateBitmap(imagePath, newBitmap);
-            return bitmap;
-        }
-
-        private void ButtonFromGallary(object sender, EventArgs eventArgs)
-        {
-
-            if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.ReadExternalStorage) == (int)Android.Content.PM.Permission.Granted)
-            {
-                Intent Intent = new Intent(Intent.ActionPick);
-                Intent.SetType("image/*");
-                Intent.SetAction(Intent.ActionGetContent);
-                StartActivityForResult(Intent.CreateChooser(Intent, "Select Picture"), PickImageId);
-            }
-            else
-            {
-
-                ActivityCompat.RequestPermissions(this.Activity, new String[] { Manifest.Permission.ReadExternalStorage }, 1);
-
-                if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.ReadExternalStorage) == (int)Android.Content.PM.Permission.Granted)
-                {
-                    Intent Intent = new Intent(Intent.ActionPick);
-                    Intent.SetType("image/*");
-                    Intent.SetAction(Intent.ActionGetContent);
-                    StartActivityForResult(Intent.CreateChooser(Intent, "Select Picture"), PickImageId);
-                }
-
+                ChoosePhoto();
             }
         }
 
@@ -165,76 +183,78 @@ namespace FirstApp.Droid.Views
             adb.SetTitle(title);
             adb.SetMessage(message);
 
-            adb.SetPositiveButton(okbtnText, (sender, EventArgs) => { ButtonFromGallary(sender, EventArgs); });
-            adb.SetNegativeButton(escbtnText, (sender, EventArgs) => { BtnCamera_Click(sender, EventArgs); });
+            adb.SetPositiveButton(okbtnText, (sender, EventArgs) => { ViewModel.ChoosePictureCommand.Execute(null); });
+            adb.SetNegativeButton(escbtnText, (sender, EventArgs) => { ViewModel.TakePictureCommand.Execute(null); });
             adb.Create().Show();
         }
 
 
-        public override void OnActivityResult(int requestCode, int resultCode, Intent data)
-        {
-            if (resultCode == (int)Result.Ok && requestCode != PickImageId)
-            {
-                base.OnActivityResult(requestCode, resultCode, data);
-                Bitmap bitmap = (Bitmap)data.Extras.Get("data");
-                //cameraPreview.SetImageBitmap(bitmap);
-                ViewModel.SavePhoto(BitmapToString(bitmap));
-            }
-            if ((requestCode == PickImageId) && (resultCode == (int)Result.Ok) && (data != null))
-            {
-                Android.Net.Uri uri = data.Data;
-                string pathImage = uri.EncodedPath;
-                Bitmap imageBitmap = null;
+        //public override void OnActivityResult(int requestCode, int resultCode, Intent data)
+        //{
+        //    if (resultCode == (int)Result.Ok && requestCode != PickImageId)
+        //    {
+        //        base.OnActivityResult(requestCode, resultCode, data);
+        //        Bitmap bitmap = (Bitmap)data.Extras.Get("data");
+        //        //cameraPreview.SetImageBitmap(bitmap);
+        //        ViewModel.SavePhoto(BitmapToString(bitmap));
+        //    }
+        //    if ((requestCode == PickImageId) && (resultCode == (int)Result.Ok) && (data != null))
+        //    {
+        //        Android.Net.Uri uri = data.Data;
+        //        string pathImage = uri.EncodedPath;
+        //        Bitmap imageBitmap = null;
 
-                _imagePath = GetPathToImage(uri);
+        //        _imagePath = GetPathToImage(uri);
 
-                imageBitmap = ScaleDown(Media.GetBitmap(this.Activity.ContentResolver, uri), _imagePath);
+        //        imageBitmap = ScaleDown(Media.GetBitmap(this.Activity.ContentResolver, uri), _imagePath);
 
-                ViewModel.SavePhoto(BitmapToString(imageBitmap));
-            }
-        }
+        //        ViewModel.SavePhoto(BitmapToString(imageBitmap));
+        //    }
+        //}
 
-        private string GetPathToImage(Android.Net.Uri uri)
-        {
-            ICursor cursor = this.Activity.ContentResolver.Query(uri, null, null, null, null);
-            cursor.MoveToFirst();
-            string document_id = cursor.GetString(0);
-            document_id = document_id.Split(':')[1];
-            cursor.Close();
+        //private string GetPathToImage(Android.Net.Uri uri)
+        //{
+        //    ICursor cursor = this.Activity.ContentResolver.Query(uri, null, null, null, null);
+        //    cursor.MoveToFirst();
+        //    string document_id = cursor.GetString(0);
+        //    document_id = document_id.Split(':')[1];
+        //    cursor.Close();
 
-            cursor = Activity.ContentResolver.Query(
-            Android.Provider.MediaStore.Images.Media.ExternalContentUri,
-            null, MediaStore.Images.Media.InterfaceConsts.Id + " = ? ", new String[] { document_id }, null);
-            cursor.MoveToFirst();
-            string path = cursor.GetString(cursor.GetColumnIndex(MediaStore.Images.Media.InterfaceConsts.Data));
-            cursor.Close();
+        //    cursor = Activity.ContentResolver.Query(
+        //    Android.Provider.MediaStore.Images.Media.ExternalContentUri,
+        //    null, MediaStore.Images.Media.InterfaceConsts.Id + " = ? ", new String[] { document_id }, null);
+        //    cursor.MoveToFirst();
+        //    string path = cursor.GetString(cursor.GetColumnIndex(MediaStore.Images.Media.InterfaceConsts.Data));
+        //    cursor.Close();
 
-            return path;
-        }
+        //    return path;
+        //}
 
-        public void BtnCamera_Click(object sender, System.EventArgs e)
-        {
-            if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.Camera) == (int)Android.Content.PM.Permission.Granted)
-            {
-                Intent intent = new Intent(MediaStore.ActionImageCapture);
-                StartActivityForResult(intent, 0);
-            }
-            else
-            {
-                ActivityCompat.RequestPermissions(this.Activity, new String[] { Manifest.Permission.Camera }, 1);
+        //public void BtnCamera_Click(object sender, System.EventArgs e)
+        //{
+        //    if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.Camera) == (int)Android.Content.PM.Permission.Granted)
+        //    {
+        //        Intent intent = new Intent(MediaStore.ActionImageCapture);
+        //        StartActivityForResult(intent, 0);
+        //    }
+        //    else
+        //    {
+        //        ActivityCompat.RequestPermissions(this.Activity, new String[] { Manifest.Permission.Camera }, 1);
 
-                if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.Camera) == (int)Android.Content.PM.Permission.Granted)
-                {
-                    Intent intent = new Intent(MediaStore.ActionImageCapture);
-                    StartActivityForResult(intent, 0);
-                }
-            }
-        }
+        //        if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.Camera) == (int)Android.Content.PM.Permission.Granted)
+        //        {
+        //            Intent intent = new Intent(MediaStore.ActionImageCapture);
+        //            StartActivityForResult(intent, 0);
+        //        }
+        //    }
+        //}
 
-        public void ChoosePhoto(object sender, System.EventArgs e)
+        public void ChoosePhoto()
         {
             SelectPhoto("Select Photo", "Please, select photo.", "From memory", "From camera");
         }
+      
+
 
 
         //private async void BtnCamera_Click(object sender, System.EventArgs e)
@@ -268,13 +288,6 @@ namespace FirstApp.Droid.Views
         //    }
 
         //}
-
-        static readonly int REQUEST_STORAGE = 0;
-
-        static string[] PERMISSIONS_CONTACT = {
-            Manifest.Permission.ReadExternalStorage,
-            Manifest.Permission.WriteExternalStorage
-        };
 
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using FirstApp.Core.Interfaces;
 
 namespace FirstApp.Droid.Services
-    {
+{
     public class SQliteAddress : ISQliteAddress
     {
         public SQliteAddress() { }
