@@ -8178,6 +8178,12 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f09003b
 			public const int fab_scroll_shrink_grow_autohide_behavior = 2131296315;
 			
+			// aapt resource value: 0x7f09004d
+			public const int facebook_app_id = 2131296333;
+			
+			// aapt resource value: 0x7f09004e
+			public const int fb_login_protocol_scheme = 2131296334;
+			
 			// aapt resource value: 0x7f09003d
 			public const int library_name = 2131296317;
 			
