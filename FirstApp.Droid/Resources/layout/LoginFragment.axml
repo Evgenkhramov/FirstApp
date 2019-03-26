@@ -72,5 +72,24 @@
 				local:MvxBind="Click UserRegistration"
 				android:id="@+id/registration" />	
 		</LinearLayout>
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true"
+			android:orientation="horizontal"
+			android:layout_marginLeft="40dp"
+			android:layout_marginRight="40dp">
+			<Button
+				style="@style/OrangeButton"
+				android:text="Facebook"
+				android:layout_width="0dp"
+				android:layout_weight="0.5"
+				android:elevation="6dp"
+				android:stateListAnimator="@null"
+				android:translationZ="4dp"
+				android:layout_margin="4dp"
+				android:layout_height="wrap_content"       
+				android:id="@+id/facebookLoginButton" />
+		</LinearLayout>
 	</LinearLayout>
 </RelativeLayout>

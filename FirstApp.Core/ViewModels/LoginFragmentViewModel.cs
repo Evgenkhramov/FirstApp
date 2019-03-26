@@ -17,9 +17,11 @@ namespace FirstApp.Core.ViewModels
        
         public LoginFragmentViewModel(IAuthorizationService authorizationService)
         {
+            ShowMainViewModelCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<MainViewModel>());
             _authorizationService = authorizationService;
             HaveGone = false;
         }
+        public IMvxAsyncCommand ShowMainViewModelCommand { get; private set; }
 
         private bool _haveGone;
         public bool HaveGone
