@@ -25,22 +25,10 @@ namespace FirstApp.Core.Services
             database.CreateTable<UserDatabaseModel>();
         }
 
-        //public UserDatabaseModel GetItems(int id)
-        //{
-        //    return database.Table<UserDatabaseModel>().Where(i => i.Id == id).FirstOrDefaultAsync();
-        //}
-
         public IEnumerable<UserDatabaseModel> GetItems()
         {
-            //return database.Table<UserDatabaseModel>().AsEnumerable();
             return (from i in database.Table<UserDatabaseModel>() select i).ToList();
         }
-
-        //public void DeleteTaskFromTable(ItemTask _task)
-        //{
-        //    if (_task.Id != 0)
-        //        _con.Table<ItemTask>().Where(x => x.Id == _task.Id).Delete();
-        //}
 
         public bool IsLoginInDB(string login)
         {

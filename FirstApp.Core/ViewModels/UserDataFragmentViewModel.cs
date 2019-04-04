@@ -199,7 +199,6 @@ namespace FirstApp.Core.ViewModels
             var memoryStream = new MemoryStream();
             pictureStream.CopyTo(memoryStream);
             Bytes = memoryStream.ToArray();
-
             MyPhoto = Base64.EncodeToString(Bytes,0);           
         }
     }

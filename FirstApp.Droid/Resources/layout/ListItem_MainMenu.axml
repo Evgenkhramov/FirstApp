@@ -4,6 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp"
-    local:MvxBind="Text Title;Click ShowCommand"
+    local:MvxBind="Text Title"
 	android:textColor="#32b5c9"
     android:textAppearance="?android:attr/textAppearanceLarge" />

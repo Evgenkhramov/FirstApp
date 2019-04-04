@@ -21,18 +21,20 @@ namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.navigation_frame)]
     [Register("starWarsSample.droid.views.MenuView")]
-    public class MenuFragment : MvxFragment<MenuFragmentViewModel>
+    public class MenuFragment : BaseFragment<MenuFragmentViewModel>
     {
-        private NavigationView _navigationView;
-        private IMenuItem _previousMenuItem;
+        protected override int FragmentId => Resource.Layout.MenuFragment;
+
+        //private NavigationView _navigationView;
+        //private IMenuItem _previousMenuItem;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            var ignore = base.OnCreateView(inflater, container, savedInstanceState);
+            //var ignore = base.OnCreateView(inflater, container, savedInstanceState);
 
-            var view = this.BindingInflate(Resource.Layout.MenuFragment, null);
-
-            _navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
+            //var view = this.BindingInflate(Resource.Layout.MenuFragment, null);
+            //_navigationView = view.FindViewById<NavigationView>(Resource.Id.navigation_view);
+            var view = base.OnCreateView(inflater, container, savedInstanceState);
             
             return view;
         }     

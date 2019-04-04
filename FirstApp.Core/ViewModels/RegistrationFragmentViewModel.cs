@@ -114,7 +114,8 @@ namespace FirstApp.Core.ViewModels
                         var userDatabaseModel = new UserDatabaseModel
                         {
                             Name = RegistrationUserName,
-                            Password = RegistrationUserPassword
+                            Password = RegistrationUserPassword,
+                            HowDoLogin = Enums.LoginMethod.App
                         };
 
                         if (!_sQLiteRepository.IsLoginInDB(RegistrationUserName))

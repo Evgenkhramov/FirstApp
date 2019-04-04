@@ -55,7 +55,7 @@ namespace FirstApp.Core.Authentication
 
         private void OnAuthenticationFailed(object sender, AuthenticatorErrorEventArgs e)
         {
-            _authenticationDelegate.OnAuthenticationFailed(e.Message, e.Exception);
+            _authenticationDelegate.OnAuthenticationFailed();
         }
     }
 }

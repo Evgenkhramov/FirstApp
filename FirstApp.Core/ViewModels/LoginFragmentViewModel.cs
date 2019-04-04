@@ -1,39 +1,94 @@
 ﻿using Acr.UserDialogs;
+using FirstApp.Core.Authentication;
 using FirstApp.Core.Interfaces;
+using FirstApp.Core.Models;
 using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
 using Plugin.SecureStorage;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class LoginFragmentViewModel : BaseViewModel
+    public class LoginFragmentViewModel : BaseViewModel, IFacebookAuthenticationDelegate
     {
         private readonly IAuthorizationService _authorizationService;
-       
-        public LoginFragmentViewModel(IAuthorizationService authorizationService)
+        private readonly IRegistrationService _registrationService;
+        private readonly ISQLiteRepository _sqlLiteRepository;
+        private readonly IFacebookService _facebookService;
+
+
+        public LoginFragmentViewModel(IAuthorizationService authorizationService, ISQLiteRepository sQLiteRepository, IRegistrationService registrationService, IFacebookService facebookService)
         {
             ShowMainViewModelCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<MainViewModel>());
+            ShowLoginFragmentViewModelCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<LoginFragmentViewModel>());
             _authorizationService = authorizationService;
-            HaveGone = false;
+            _sqlLiteRepository = sQLiteRepository;
+            _registrationService = registrationService;
+            _facebookService = facebookService;
         }
+
         public IMvxAsyncCommand ShowMainViewModelCommand { get; private set; }
+        public IMvxAsyncCommand ShowLoginFragmentViewModelCommand { get; private set; }
 
-        private bool _haveGone;
-        public bool HaveGone
+        public async Task OnAuthenticationCompleted(FacebookOAuthToken token)
         {
-            get => _haveGone;
-            set
+            var user = await _facebookService.GetUserDataAsync(token.AccessToken);
+            if (user == null)
             {
-                _haveGone = value;
-                RaisePropertyChanged(() => HaveGone);
+                return;
             }
+            var userDatabaseModel = new UserDatabaseModel();
+            userDatabaseModel.Name = user.First_name;
+            userDatabaseModel.Surname = user.Last_name;
+            userDatabaseModel.Email = user.Email;
+            userDatabaseModel.UserId = user.Id;
+            userDatabaseModel.PhotoURL = user.picture.data.url;
+            userDatabaseModel.HowDoLogin = Enums.LoginMethod.Facebook;
+
+            string userPhoto = await _facebookService.GetImageFromUrlToBase64(userDatabaseModel.PhotoURL);
+            userDatabaseModel.Photo = userPhoto;
+
+            int userIdInDB = _sqlLiteRepository.SaveItem(userDatabaseModel);
+            string idInDB = userIdInDB.ToString();
+            _registrationService.UserRegistration(user.First_name, user.Email, idInDB);
+
+            NavigationService.Navigate<MainViewModel>();
         }
 
+        public async Task OnGoogleAuthenticationCompleted(GoogleModel user)
+        {          
+            var userDatabaseModel = new UserDatabaseModel();
+            userDatabaseModel.Name = user.First_name;
+            userDatabaseModel.Surname = user.Last_name;
+            userDatabaseModel.Email = user.Email;
+            userDatabaseModel.UserId = user.Id;
+            userDatabaseModel.PhotoURL = user.Picture;
+            userDatabaseModel.HowDoLogin = Enums.LoginMethod.Google;
+
+            string userPhoto = await _facebookService.GetImageFromUrlToBase64(userDatabaseModel.PhotoURL);
+            userDatabaseModel.Photo = userPhoto;
+
+            int userIdInDB = _sqlLiteRepository.SaveItem(userDatabaseModel);
+            string idInDB = userIdInDB.ToString();
+            _registrationService.UserRegistration(user.First_name, user.Email, idInDB);
+
+            NavigationService.Navigate<MainViewModel>();
+        }
+
+        public async Task OnAuthenticationCanceled()
+        {
+            Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("You didn't completed the authentication process");
+
+        }
+
+        public async Task OnAuthenticationFailed()
+        {
+            Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("You didn't completed the authentication process");
+        }
+  
+       
         private string _userName;
         public string UserName
         {

@@ -13,8 +13,7 @@ namespace FirstApp.Core.ViewModels
         protected readonly IMvxNavigationService NavigationService;
         protected BaseViewModel()
         {
-            NavigationService = Mvx.IoCProvider.Resolve<IMvxNavigationService>();
-            
+            NavigationService = Mvx.IoCProvider.Resolve<IMvxNavigationService>();           
         }
 
         public MvxAsyncCommand RegistrationBack

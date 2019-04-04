@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Android.Support.V7;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -11,30 +7,11 @@ using Android.Views;
 using Android.Widget;
 using FirstApp.Core.ViewModels;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using Android.Graphics;
-using Android.Provider;
-using MvvmCross.ViewModels;
-using FirstApp.Core.Models;
-using MvvmCross.Base;
-using FirstApp.Droid.Services;
-using static Android.Provider.MediaStore.Images;
-using Android.Util;
-using System.IO;
-using Android.Media;
-using Android.Database;
 using Plugin.Permissions;
-using System.Threading.Tasks;
-using static Android.Manifest;
-using Android.Support.V4.Content;
-using Android;
-using Android.Support.V4.App;
-using Android.Support.Design.Widget;
 using Plugin.Permissions.Abstractions;
 using Permission = Plugin.Permissions.Abstractions.Permission;
 using Plugin.CurrentActivity;
 using FirstApp.Core.Interfaces;
-using MvvmCross;
-using MvvmCross.Plugin.PictureChooser;
 
 namespace FirstApp.Droid.Views
 {

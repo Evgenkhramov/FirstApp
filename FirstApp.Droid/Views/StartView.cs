@@ -25,7 +25,6 @@ namespace FirstApp.Droid.Views
         )]
     public class StartView : MvxAppCompatActivity<StartViewModel>
     {
-
         protected override void OnCreate(Android.OS.Bundle bundle)
         {
             base.OnCreate(bundle);

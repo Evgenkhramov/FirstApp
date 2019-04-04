@@ -42,9 +42,10 @@ namespace FirstApp.Droid.Views
 
             if (bundle == null)
             {
-                ViewModel.ShowMainFragmentCommand.Execute(null);
-                ViewModel.ShowMenuViewModelCommand.Execute(null);
-            }           
+                //ViewModel.ShowMainFragmentCommand.Execute(null);
+                //ViewModel.ShowMenuViewModelCommand.Execute(null);
+                ViewModel.ShowMain();
+            }
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
@@ -55,9 +56,9 @@ namespace FirstApp.Droid.Views
         public void OpenDraweble()
         {
             DrawerLayout.OpenDrawer(GravityCompat.Start);
-        }      
+        }
 
-    public override void OnBackPressed()
+        public override void OnBackPressed()
         {
             if (DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.Start))
                 DrawerLayout.CloseDrawers();
