@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FirstApp.Core.ViewModels
 {
-    class MapViewModel
+   public class MapViewModel : BaseViewModel
     {
     }
 }

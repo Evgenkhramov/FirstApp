@@ -82,6 +82,7 @@
     <Compile Include="Views\MainView.cs" />
     <Compile Include="Views\MapFragment.cs" />
     <Compile Include="Views\MenuFragment.cs" />
+    <Compile Include="Views\PhotoAlbum.cs" />
     <Compile Include="Views\StartView.cs" />
     <Compile Include="Views\RegistrationFragment.cs" />
     <Compile Include="Views\UserDataFragment.cs" />
@@ -199,6 +200,12 @@
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat">
       <Version>28.0.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.v7.CardView">
+      <Version>28.0.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.v7.RecyclerView">
+      <Version>28.0.0.1</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Auth">
       <Version>1.6.0.4</Version>
     </PackageReference>
@@ -302,6 +309,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\MapFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TaskItem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

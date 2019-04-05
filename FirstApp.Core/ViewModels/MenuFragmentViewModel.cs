@@ -44,6 +44,7 @@ namespace FirstApp.Core.ViewModels
             {
                 new MenuItem("Edit profile", this, typeof(UserDataFragmentViewModel)),
                 new MenuItem("Main", this, typeof(MainFragmentViewModel)),
+                new MenuItem("Map", this, typeof(MapViewModel)),
                 new MenuItem("Log Out", this, typeof(LoginFragmentViewModel)),
             };
         }
