@@ -1,0 +1,34 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:local="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:background="@drawable/background"
+	android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+	<include
+        android:id="@+id/maintoolbar"
+        layout="@layout/maintoolbar" />
+	<Button
+		android:text="Add Task"
+		android:layout_below="@id/maintoolbar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/addTask"
+		local:MvxBind="Click CreateNewTask"/>
+	<MvxSwipeRefreshLayout
+		android:id="@+id/refresher"
+		android:layout_below="@id/addTask"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:minHeight="100dp"		
+		local:layout_behavior="@string/appbar_scrolling_view_behavior"
+		local:MvxBind = "Refreshing IsRefreshTaskCollection; RefreshCommand RefreshTaskCommand">
+		<mvvmcross.droid.support.v7.recyclerview.MvxRecyclerView
+			android:id="@+id/recycView"  
+			android:scrollbars="vertical"  
+			android:layout_width="fill_parent"  
+			android:layout_height="fill_parent"
+			local:MvxItemTemplate="@layout/task_item"
+			local:MvxBind="ItemsSource TaskCollection; ItemClick ShowTaskChangedView"/>
+	</MvxSwipeRefreshLayout>
+	
+</RelativeLayout> 

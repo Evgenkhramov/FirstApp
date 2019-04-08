@@ -10,10 +10,10 @@ namespace FirstApp.Core.ViewModels
 {
     public abstract class BaseViewModel : MvxViewModel
     {
-        protected readonly IMvxNavigationService NavigationService;
-        protected BaseViewModel()
+        protected readonly IMvxNavigationService _navigationService;
+        protected BaseViewModel(IMvxNavigationService navigationService)
         {
-            NavigationService = Mvx.IoCProvider.Resolve<IMvxNavigationService>();           
+            _navigationService = navigationService;
         }
 
         public MvxAsyncCommand RegistrationBack
@@ -22,7 +22,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    await NavigationService.Navigate<MainViewModel>();
+                    await _navigationService.Navigate<MainViewModel>();
                 });
             }
         }

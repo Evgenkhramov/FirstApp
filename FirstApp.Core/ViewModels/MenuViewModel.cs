@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class MenuFragmentViewModel : BaseViewModel
+    public class MenuViewModel : BaseViewModel
     {
         private readonly ISQLiteRepository _sqliteRepository;
         private int userId;
@@ -26,7 +26,7 @@ namespace FirstApp.Core.ViewModels
             set => SetProperty(ref _menuItems, value);
         }
 
-        public MenuFragmentViewModel(ISQLiteRepository sQLiteRepository)
+        public MenuViewModel(ISQLiteRepository sQLiteRepository, IMvxNavigationService navigationService) : base(navigationService)
         {
             _sqliteRepository = sQLiteRepository;
 
@@ -42,8 +42,7 @@ namespace FirstApp.Core.ViewModels
 
             MenuItems = new MvxObservableCollection<MenuItem>
             {
-                new MenuItem("Edit profile", this, typeof(UserDataFragmentViewModel)),
-                new MenuItem("Main", this, typeof(MainFragmentViewModel)),
+                new MenuItem("Task List", this, typeof(TaskListViewModel)),
                 new MenuItem("Map", this, typeof(MapViewModel)),
                 new MenuItem("Log Out", this, typeof(LoginFragmentViewModel)),
             };
@@ -61,7 +60,7 @@ namespace FirstApp.Core.ViewModels
                         CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
                         _sqliteRepository.DeleteItem(userId);
                     }
-                    await NavigationService.Navigate(param.ShowCommand);
+                    await _navigationService.Navigate(param.ShowCommand);
                 });
             }
         }
@@ -83,7 +82,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    await NavigationService.Navigate<UserDataFragmentViewModel>();
+                    await _navigationService.Navigate<UserDataFragmentViewModel>();
                 });
             }
         }
@@ -101,7 +100,7 @@ namespace FirstApp.Core.ViewModels
 
         public class MenuItem
         {
-            public MenuItem(string title, MenuFragmentViewModel parent, Type viewModelUrl)
+            public MenuItem(string title, MenuViewModel parent, Type viewModelUrl)
             {
                 Title = title;
                 ShowCommand = viewModelUrl;

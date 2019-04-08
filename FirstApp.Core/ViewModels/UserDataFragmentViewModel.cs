@@ -26,7 +26,6 @@ namespace FirstApp.Core.ViewModels
 
     public class UserDataFragmentViewModel : BaseViewModel
     {
-
         private readonly IMvxPictureChooserTask _pictureChooserTask;
         private readonly ISQLiteRepository _sQLiteRepository;
         private readonly IRegistrationService _registrationService;
@@ -34,7 +33,7 @@ namespace FirstApp.Core.ViewModels
 
         private UserDatabaseModel userData;
         private int userId;
-        public UserDataFragmentViewModel(ISQLiteRepository sQLiteRepository, IRegistrationService registrationService, IUserDialogService userDialogService, IMvxPictureChooserTask pictureChooserTask)
+        public UserDataFragmentViewModel(ISQLiteRepository sQLiteRepository, IRegistrationService registrationService, IUserDialogService userDialogService, IMvxPictureChooserTask pictureChooserTask,IMvxNavigationService navigationService):base(navigationService)
         {
             _pictureChooserTask = pictureChooserTask;
             _userDialogService = userDialogService;
@@ -42,7 +41,7 @@ namespace FirstApp.Core.ViewModels
             _sQLiteRepository = sQLiteRepository;
 
 
-            ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<MenuFragmentViewModel>());
+            ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
             string id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
             userId = Int32.Parse(id);
             userData = sQLiteRepository.GetItem(userId);
@@ -50,8 +49,6 @@ namespace FirstApp.Core.ViewModels
         }
 
         public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }
-
-    
 
         private string _userName;
         public string UserName
@@ -65,17 +62,6 @@ namespace FirstApp.Core.ViewModels
         }
 
 
-        //public byte[] BitmapToByte(Bitmap bitmap)
-        //{
-        //    byte[] bitmapData;
-        //    using (var stream = new MemoryStream())
-        //    {
-        //        bitmap.Compress(Bitmap.CompressFormat.Png, 0, stream);
-        //        bitmapData = stream.ToArray();
-        //    }
-        //    return bitmapData;
-        //}
-
         public void SavePhoto(string photo)
         {
             userData.Id = userId;
@@ -84,22 +70,6 @@ namespace FirstApp.Core.ViewModels
             _sQLiteRepository.SaveItem(userData);
 
         }
-
-        //public class InMemoryImageConverter : MvxValueConverter<byte[], Bitmap>
-        //{
-        //    protected override Bitmap Convert(byte[] value, Type targetType, object parameter, CultureInfo culture)
-        //    {
-        //        if (value == null || value.Length == 0) { return null; }
-        //        return BitmapFactory.DecodeByteArray(value, 0, value.Length);
-        //    }
-
-        //    protected override byte[] ConvertBack(Bitmap value, Type targetType, object parameter, CultureInfo culture)
-        //    {
-        //        var stream = new MemoryStream();
-        //        value.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
-        //        return stream.ToArray();
-        //    }
-        //}
 
         private string _myPhoto;
         public string MyPhoto
@@ -133,8 +103,8 @@ namespace FirstApp.Core.ViewModels
                     userData.Photo = MyPhoto;
                     userData.Id = userId;
                     _sQLiteRepository.SaveItem(userData);
-                    await NavigationService.Navigate<MenuFragmentViewModel>();
-                    await NavigationService.Navigate<MainFragmentViewModel>();
+                    await _navigationService.Navigate<MenuViewModel>();
+                    await _navigationService.Navigate<TaskListViewModel>();
                 });
              }
         }
@@ -148,7 +118,7 @@ namespace FirstApp.Core.ViewModels
                     userData = _sQLiteRepository.GetItem(userId);
                     Surname = userData.Surname;
                     UserName = userData.Name;
-                    await NavigationService.Navigate<UserDataFragmentViewModel>();
+                    await _navigationService.Navigate<UserDataFragmentViewModel>();
                 });
             }
         }

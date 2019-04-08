@@ -15,39 +15,19 @@ namespace FirstApp.Core.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public MainViewModel()
+        public MainViewModel(IMvxNavigationService navigationService) : base(navigationService)
         {
-
-            ShowMainFragmentCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<MainFragmentViewModel>());
-            ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<MenuFragmentViewModel>());
+            ShowMainFragmentCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<TaskListViewModel>());
+            ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
         }
         public IMvxAsyncCommand ShowMainFragmentCommand { get; private set; }
         public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }
 
         public async System.Threading.Tasks.Task ShowMain()
         {
-            await NavigationService.Navigate<MenuFragmentViewModel>();
-            await NavigationService.Navigate<MainFragmentViewModel>();
+            await _navigationService.Navigate<MenuViewModel>();
+            await _navigationService.Navigate<TaskListViewModel>();
         }
-        public class TaskList
-        {
-            public void AddTask()
-            {
-
-            }
-
-            public void DeleteTask(int id)
-            {
-
-            }
-
-            public void EditTask(int id)
-            {
-
-            }
-
-        }
-
     }
 }
 

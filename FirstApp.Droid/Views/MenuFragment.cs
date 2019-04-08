@@ -20,8 +20,8 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.navigation_frame)]
-    [Register("starWarsSample.droid.views.MenuView")]
-    public class MenuFragment : BaseFragment<MenuFragmentViewModel>
+    [Register("firstApp.Droid.Views.MenuFragment")]
+    public class MenuFragment : BaseFragment<MenuViewModel>
     {
         protected override int FragmentId => Resource.Layout.MenuFragment;
 

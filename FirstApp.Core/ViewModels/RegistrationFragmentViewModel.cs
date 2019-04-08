@@ -26,8 +26,7 @@ namespace FirstApp.Core.ViewModels
         private readonly IUserDialogService _userDialogService;
         private readonly ISQLiteRepository _sQLiteRepository;
 
-        public RegistrationFragmentViewModel(IRegistrationService registrationService,
-            IUserDialogs userDialogs, IUserDialogService userDialogService, ISQLiteRepository sQLiteRepository)
+        public RegistrationFragmentViewModel(IRegistrationService registrationService,IUserDialogs userDialogs, IUserDialogService userDialogService, ISQLiteRepository sQLiteRepository,IMvxNavigationService navigationService) : base(navigationService)
         {
             _userDialogService = userDialogService;
             _registrationService = registrationService;
@@ -83,8 +82,8 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    await NavigationService.Close(this);
-                    await NavigationService.Navigate<LoginFragmentViewModel>();
+                    await _navigationService.Close(this);
+                    await _navigationService.Navigate<LoginFragmentViewModel>();
                 });
             }
         }
@@ -124,8 +123,8 @@ namespace FirstApp.Core.ViewModels
                             string userId = userDatabaseModel.Id.ToString();
                             _registrationService.UserRegistration(RegistrationUserName, RegistrationUserPassword, userId);
 
-                            await NavigationService.Close(this);
-                            await NavigationService.Navigate<MainViewModel>();
+                            await _navigationService.Close(this);
+                            await _navigationService.Navigate<MainViewModel>();
                         }
                         else
                         {

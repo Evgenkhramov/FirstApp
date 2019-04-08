@@ -11,18 +11,17 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame_new, false)]
-    [Register("firstApp.Droid.Views.MainFragment")]
+    [Register("firstApp.Droid.Views.MapFragment")]
     public class MapFragment : BaseFragment<MapViewModel>, IOnMapReadyCallback
     {
         private MapView mapView;
         private GoogleMap map;
         public Button menuButton;
-        protected override int FragmentId => Resource.Layout.MainFragment;
+        protected override int FragmentId => Resource.Layout.MapFragment;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
-
 
             mapView = (MapView)view.FindViewById(Resource.Id.mapView);
 
@@ -57,8 +56,8 @@ namespace FirstApp.Droid.Views
                 {
                     markerOption.SetPosition(e.Point);
                     markerOption.SetTitle("StackOverflow");
-                        // save the "marker" variable returned if you need move, delete, update it, etc...
-                        var marker = googleMap.AddMarker(markerOption);
+                    // save the "marker" variable returned if you need move, delete, update it, etc...
+                    var marker = googleMap.AddMarker(markerOption);
                 }
             };
 
@@ -85,12 +84,6 @@ namespace FirstApp.Droid.Views
         {
             this.OnDestroy();
             mapView.OnDestroy();
-        }
-
-        public void onLowMemory()
-        {
-            this.onLowMemory();
-            mapView.OnLowMemory();
         }
 
     }

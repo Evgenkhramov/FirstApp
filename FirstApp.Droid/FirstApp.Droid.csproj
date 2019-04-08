@@ -66,6 +66,8 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adaptere\TaskListAdapter.cs" />
+    <Compile Include="Holders\TasksViewHolder.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="ORM\Stock.cs" />
     <Compile Include="ORM\StockDatabase.cs" />
@@ -77,12 +79,12 @@
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Views\BaseFragment.cs" />
+    <Compile Include="Views\ChangeTaskFragment.cs" />
     <Compile Include="Views\LoginFragment.cs" />
-    <Compile Include="Views\MainFragment.cs" />
+    <Compile Include="Views\TaskListFragment.cs" />
     <Compile Include="Views\MainView.cs" />
     <Compile Include="Views\MapFragment.cs" />
     <Compile Include="Views\MenuFragment.cs" />
-    <Compile Include="Views\PhotoAlbum.cs" />
     <Compile Include="Views\StartView.cs" />
     <Compile Include="Views\RegistrationFragment.cs" />
     <Compile Include="Views\UserDataFragment.cs" />
@@ -293,9 +295,6 @@
     <AndroidResource Include="Resources\layout\RegistrationFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\MainFragment.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\MenuFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -308,10 +307,16 @@
     <AndroidResource Include="Resources\layout\MainToolbar.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\TaskListFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\MapFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\TaskItem.axml">
+    <AndroidResource Include="Resources\layout\task_item.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ChangeTask.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

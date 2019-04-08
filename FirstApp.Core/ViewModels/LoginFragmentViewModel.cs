@@ -19,10 +19,10 @@ namespace FirstApp.Core.ViewModels
         private readonly IFacebookService _facebookService;
 
 
-        public LoginFragmentViewModel(IAuthorizationService authorizationService, ISQLiteRepository sQLiteRepository, IRegistrationService registrationService, IFacebookService facebookService)
+        public LoginFragmentViewModel(IAuthorizationService authorizationService, ISQLiteRepository sQLiteRepository, IRegistrationService registrationService, IFacebookService facebookService,IMvxNavigationService navigationService) : base(navigationService)
         {
-            ShowMainViewModelCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<MainViewModel>());
-            ShowLoginFragmentViewModelCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<LoginFragmentViewModel>());
+            ShowMainViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MainViewModel>());
+            ShowLoginFragmentViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<LoginFragmentViewModel>());
             _authorizationService = authorizationService;
             _sqlLiteRepository = sQLiteRepository;
             _registrationService = registrationService;
@@ -54,7 +54,7 @@ namespace FirstApp.Core.ViewModels
             string idInDB = userIdInDB.ToString();
             _registrationService.UserRegistration(user.First_name, user.Email, idInDB);
 
-            NavigationService.Navigate<MainViewModel>();
+            _navigationService.Navigate<MainViewModel>();
         }
 
         public async Task OnGoogleAuthenticationCompleted(GoogleModel user)
@@ -74,7 +74,7 @@ namespace FirstApp.Core.ViewModels
             string idInDB = userIdInDB.ToString();
             _registrationService.UserRegistration(user.First_name, user.Email, idInDB);
 
-            NavigationService.Navigate<MainViewModel>();
+            _navigationService.Navigate<MainViewModel>();
         }
 
         public async Task OnAuthenticationCanceled()
@@ -118,7 +118,7 @@ namespace FirstApp.Core.ViewModels
                     if (_authorizationService.IsLoggedIn(UserName, UserPassword))
                     {
                         CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogIn);
-                        await NavigationService.Navigate<MainViewModel>();
+                        await _navigationService.Navigate<MainViewModel>();
                     }
                     else
                     {
@@ -134,8 +134,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    var navService = Mvx.IoCProvider.Resolve<IMvxNavigationService>();
-                    await navService.Navigate<RegistrationFragmentViewModel>();
+                    await _navigationService.Navigate<RegistrationFragmentViewModel>();
                 });
             }
         }

@@ -33,7 +33,6 @@ namespace FirstApp.Droid.Views
         {
             var ignore = base.OnCreateView(inflater, container, savedInstanceState);
             
-
             var view = this.BindingInflate(FragmentId, null);
 
             _mainToolbar = view.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.maintoolbar);
