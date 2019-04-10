@@ -88,6 +88,17 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
+        public MvxAsyncCommand AddFile
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+               
+
+                });
+            }
+        }
         public MvxAsyncCommand AddMarker
         {
             get
