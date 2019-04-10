@@ -9,11 +9,11 @@ using System;
 namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame_new, true)]
-    [Register("firstApp.Droid.Views.ChangeTaskFragment")]
-    public class ChangeTaskFragment : BaseFragment<ChangeTaskViewModel>
+    [Register("firstApp.Droid.Views.TaskDetailsFragment")]
+    public class TaskDetailsFragment : BaseFragment<TaskDetailsViewModel>
     {
         public Button menuButton;
-        protected override int FragmentId => Resource.Layout.ChangeTask;
+        protected override int FragmentId => Resource.Layout.TaskDetailsFragment;
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);

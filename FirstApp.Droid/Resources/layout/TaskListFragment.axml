@@ -9,9 +9,12 @@
         layout="@layout/maintoolbar" />
 	<Button
 		android:text="Add Task"
+		style="@style/OrangeButton"
 		android:layout_below="@id/maintoolbar"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginLeft="40dp"
+		android:layout_marginRight="40dp"
 		android:id="@+id/addTask"
 		local:MvxBind="Click CreateNewTask"/>
 	<MvxSwipeRefreshLayout

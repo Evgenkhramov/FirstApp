@@ -2,9 +2,6 @@
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FirstApp.Core.ViewModels
 {
@@ -36,6 +33,18 @@ namespace FirstApp.Core.ViewModels
         protected BaseViewModel()
         {
             NavigationService = Mvx.IoCProvider.Resolve<IMvxNavigationService>();
+        }
+    }
+
+
+    public abstract class BaseViewModel<TParameter> : MvxViewModel<TParameter>
+        where TParameter : class
+
+    {
+        public IMvxNavigationService _navigationService;
+        protected BaseViewModel(IMvxNavigationService navigationService)
+        {
+            _navigationService = navigationService;
         }
     }
 }

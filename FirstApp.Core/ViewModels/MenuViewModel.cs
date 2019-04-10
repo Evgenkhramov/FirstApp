@@ -14,7 +14,7 @@ namespace FirstApp.Core.ViewModels
 {
     public class MenuViewModel : BaseViewModel
     {
-        private readonly ISQLiteRepository _sqliteRepository;
+        private readonly IDBUserService _sqliteRepository;
         private int userId;
         private string id;
         private UserDatabaseModel userData;
@@ -26,7 +26,7 @@ namespace FirstApp.Core.ViewModels
             set => SetProperty(ref _menuItems, value);
         }
 
-        public MenuViewModel(ISQLiteRepository sQLiteRepository, IMvxNavigationService navigationService) : base(navigationService)
+        public MenuViewModel(IDBUserService sQLiteRepository, IMvxNavigationService navigationService) : base(navigationService)
         {
             _sqliteRepository = sQLiteRepository;
 

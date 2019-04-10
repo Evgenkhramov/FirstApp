@@ -20,12 +20,7 @@ namespace FirstApp.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            //CreatableTypes()
-            //    .EndingWith("Client")
-            //    .AsInterfaces()
-            //    .RegisterAsLazySingleton();
-
-            Mvx.IoCProvider.RegisterSingleton<ISQLiteRepository>(() => new SQLiteRepository());
+             Mvx.IoCProvider.Resolve<IDBConnectionService>();
 
             // register the appstart object
             RegisterCustomAppStart<AppStart>();

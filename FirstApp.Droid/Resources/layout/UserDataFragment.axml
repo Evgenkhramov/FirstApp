@@ -60,7 +60,6 @@
 			android:layout_marginTop = "3dp"/>
 		<TextView
 			android:textColor="#ffebe3f6"
-
 			android:textSize="18sp"
 			android:text="@string/yourSurname"
 			android:layout_width="match_parent"

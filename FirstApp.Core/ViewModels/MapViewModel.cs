@@ -10,7 +10,9 @@ namespace FirstApp.Core.ViewModels
 {
    public class MapViewModel : BaseViewModel
     {
-        MapViewModel(IMvxNavigationService navigationService) : base(navigationService)
-        { }
+        public MapViewModel(IMvxNavigationService navigationService) : base(navigationService)
+        {
+
+        }
     }
 }

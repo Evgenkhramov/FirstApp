@@ -1,23 +1,29 @@
 ﻿using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using Plugin.SecureStorage;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FirstApp.Core.ViewModels
 {
     public class TaskListViewModel : BaseViewModel
     {
-        private int userId;
-      
-        public TaskListViewModel(IMvxNavigationService navigationService) : base(navigationService)
-        {         
+        private readonly IDBTaskService _dBTaskService;
+        public TaskListViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService) : base(navigationService)
+        {
+            _dBTaskService = dBTaskService;
+            //_dBTaskService = Mvx.IoCProvider.Resolve<IDBTaskService>();
             AddSomeData();
+            //ShowTaskChangedView = new MvxAsyncCommand<TaskModel>(ShowTaskChanged);
+        }
+        public IMvxCommand ShowTaskChangedView { get; set; }
+
+        public void AddSomeData()
+        {
+            TaskCollection = new MvxObservableCollection<TaskModel>();
+            TaskCollection.AddRange(_dBTaskService.LoadListItemsTask());
         }
 
         private MvxObservableCollection<TaskModel> _taskCollection;
@@ -31,14 +37,11 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        public void AddSomeData()
-        {
-            TaskCollection = new MvxObservableCollection<TaskModel>();
-            TaskModel someTask = new TaskModel();
-            someTask.TaskName = "FirstTask";
-            someTask.TaskDescription = "This is first task";
-            TaskCollection.Add(someTask);
-        }
+        //private async Task ShowTaskChanged(TaskModel _taskCreate)
+        //{
+        //    var result = await _navigationService.Navigate<TaskDetailsViewModel, TaskModel>(_taskCreate);
+
+        //}
 
         public MvxAsyncCommand CreateNewTask
         {
@@ -46,7 +49,8 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    await _navigationService.Navigate<ChangeTaskViewModel>();
+                    await _navigationService.Navigate<TaskDetailsViewModel>();
+
                 });
             }
         }

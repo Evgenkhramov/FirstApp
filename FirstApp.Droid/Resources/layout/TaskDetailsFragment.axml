@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:local="http://schemas.android.com/apk/res-auto"
+	android:background="@drawable/background"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+	<include
+        android:id="@+id/maintoolbar"
+        layout="@layout/maintoolbar" />
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_below="@id/maintoolbar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		android:id="@+id/text_views">
+		<TextView
+			android:text="Task Name"
+			android:textColor="#5FBDCE"
+			android:textAlignment="center"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:id="@+id/textView1" />
+		<EditText
+			android:text=""
+			android:textColor="#5FBDCE"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			local:MvxBind="Text TaskName"
+			android:id="@+id/TaskName"/>
+		<TextView
+			android:text="Task Description"
+			android:textColor="#5FBDCE"
+			android:textAlignment="center"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/textView3" />
+		<EditText
+			android:inputType=""
+			android:textColor="#5FBDCE"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			local:MvxBind="Text TaskDescription"
+			android:id="@+id/TaskDescription" />
+		<TextView
+			android:text="File Name"
+			android:textAlignment="center"
+			android:textColor="#5FBDCE"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"/>
+		<TextView
+			android:text=""
+			android:textColor="#5FBDCE"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			local:MvxBind="Text FileName"
+			android:id="@+id/fileName" />
+		<TextView
+			android:text="Map markers"
+			android:textAlignment="center"
+			android:textColor="#5FBDCE"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"/>
+		<TextView
+			android:text=""
+			android:textColor="#5FBDCE"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			local:MvxBind="Text MapMarkers"
+			android:id="@+id/mapMarkers"/>
+	</LinearLayout>
+	<LinearLayout
+		android:layout_below="@id/text_views"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		<Button
+			style="@style/OrangeButton"
+			android:text="Add file"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="40dp"
+			android:layout_marginRight="40dp"
+			local:MvxBind="Click AddFile"
+			android:id="@+id/button1" />
+		<Button
+			style="@style/OrangeButton"
+			android:text="Add marker on map"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="40dp"
+			android:layout_marginRight="40dp"
+			local:MvxBind="Click AddMarker"
+			android:id="@+id/button2" />
+	</LinearLayout>
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true"
+			android:orientation="horizontal"
+			android:layout_marginLeft="40dp"
+			android:layout_marginRight="40dp">
+			<Button
+				style="@style/OrangeButton"
+				android:text="Save"	
+				android:layout_width="0dp"
+				android:layout_weight="0.5"
+				android:elevation="6dp"
+				android:stateListAnimator="@null"
+				android:translationZ="4dp"
+				android:layout_margin="4dp"
+				android:layout_height="wrap_content"
+				local:MvxBind="Click SaveTask"	
+				android:id="@+id/login" />
+			<Button
+				style="@style/OrangeButton"
+				android:text="Cancel"
+				android:layout_width="0dp"
+				android:layout_weight="0.5"
+				android:elevation="6dp"
+				android:stateListAnimator="@null"
+				android:translationZ="4dp"
+				android:layout_margin="4dp"
+				android:layout_height="wrap_content"       
+				local:MvxBind="Click CancelTask"
+				android:id="@+id/registration" />	
+		</LinearLayout>
+</RelativeLayout>

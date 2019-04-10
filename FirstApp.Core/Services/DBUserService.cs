@@ -5,34 +5,28 @@ using System;
 using FirstApp.Core;
 using FirstApp.Core.Models;
 using System.Collections.Generic;
-using System.Text;
-using FirstApp.Core.Services;
 using System.Linq;
 
 
 namespace FirstApp.Core.Services
 {
-    public class SQLiteRepository : ISQLiteRepository
+    public class DBUserService : IDBUserService
     {
-        SQLiteConnection database;
-        public SQLiteRepository()
+        private SQLiteConnection _connect;
+        public DBUserService(IDBConnectionService connect)
         {
-            string filename = Constants.NameDB;
-            string databasePath = Mvx.IoCProvider.Resolve<ISQliteAddress>().GetDatabasePath(filename);
-
-            database = new SQLiteConnection(databasePath);
-
-            database.CreateTable<UserDatabaseModel>();
+            _connect = connect.GetDatebaseConnection();
+            _connect.CreateTable<UserDatabaseModel>();
         }
 
         public IEnumerable<UserDatabaseModel> GetItems()
         {
-            return (from i in database.Table<UserDatabaseModel>() select i).ToList();
+            return (from i in _connect.Table<UserDatabaseModel>() select i).ToList();
         }
 
         public bool IsLoginInDB(string login)
         {
-            UserDatabaseModel findUser = database.Table<UserDatabaseModel>().FirstOrDefault(x => x.Name == login);
+            UserDatabaseModel findUser = _connect.Table<UserDatabaseModel>().FirstOrDefault(x => x.Name == login);
             if (findUser == null)
             {
                 return false;
@@ -47,25 +41,24 @@ namespace FirstApp.Core.Services
         public UserDatabaseModel GetItem(int id)
         {
             //return database.Table<UserDatabaseModel>().ToList();
-           return database.Get<UserDatabaseModel>(id);
+           return _connect.Get<UserDatabaseModel>(id);
         }
         public int DeleteItem(int id)
         {
-            return database.Delete<UserDatabaseModel>(id);
+            return _connect.Delete<UserDatabaseModel>(id);
         }
         public int SaveItem(UserDatabaseModel item)
         {
             if (item.Id != 0)
             {
-                database.Update(item);
+                _connect.Update(item);
                 return item.Id;
             }
             else
             {
-                return database.Insert(item);
+                return _connect.Insert(item);
             }
         }
     }
-
 }
 

@@ -17,6 +17,7 @@ namespace FirstApp.Droid.Services
 {
     public class UserDialogService : IUserDialogService
     {
+
         public void ShowAlertForUser(string title, string message, string okbtnText)
         {
          

@@ -27,19 +27,18 @@ namespace FirstApp.Core.ViewModels
     public class UserDataFragmentViewModel : BaseViewModel
     {
         private readonly IMvxPictureChooserTask _pictureChooserTask;
-        private readonly ISQLiteRepository _sQLiteRepository;
+        private readonly IDBUserService _sQLiteRepository;
         private readonly IRegistrationService _registrationService;
         private readonly IUserDialogService _userDialogService;
 
         private UserDatabaseModel userData;
         private int userId;
-        public UserDataFragmentViewModel(ISQLiteRepository sQLiteRepository, IRegistrationService registrationService, IUserDialogService userDialogService, IMvxPictureChooserTask pictureChooserTask,IMvxNavigationService navigationService):base(navigationService)
+        public UserDataFragmentViewModel(IDBUserService sQLiteRepository, IRegistrationService registrationService, IUserDialogService userDialogService, IMvxPictureChooserTask pictureChooserTask,IMvxNavigationService navigationService):base(navigationService)
         {
             _pictureChooserTask = pictureChooserTask;
             _userDialogService = userDialogService;
             _registrationService = registrationService;
             _sQLiteRepository = sQLiteRepository;
-
 
             ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
             string id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));

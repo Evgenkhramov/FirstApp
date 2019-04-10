@@ -15,11 +15,11 @@ namespace FirstApp.Core.ViewModels
     {
         private readonly IAuthorizationService _authorizationService;
         private readonly IRegistrationService _registrationService;
-        private readonly ISQLiteRepository _sqlLiteRepository;
+        private readonly IDBUserService _sqlLiteRepository;
         private readonly IFacebookService _facebookService;
 
 
-        public LoginFragmentViewModel(IAuthorizationService authorizationService, ISQLiteRepository sQLiteRepository, IRegistrationService registrationService, IFacebookService facebookService,IMvxNavigationService navigationService) : base(navigationService)
+        public LoginFragmentViewModel(IAuthorizationService authorizationService, IDBUserService sQLiteRepository, IRegistrationService registrationService, IFacebookService facebookService,IMvxNavigationService navigationService) : base(navigationService)
         {
             ShowMainViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MainViewModel>());
             ShowLoginFragmentViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<LoginFragmentViewModel>());

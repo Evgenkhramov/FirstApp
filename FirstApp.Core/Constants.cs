@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FirstApp.Core
 {
-    class Constants
+    public class Constants
     {
         public const string NameDB = "AppUsersDB.db";
         public const string SequreKeyForUserIdInDB = "UserId";

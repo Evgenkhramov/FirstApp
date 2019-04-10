@@ -24,13 +24,13 @@ namespace FirstApp.Core.ViewModels
 
         private readonly IRegistrationService _registrationService;
         private readonly IUserDialogService _userDialogService;
-        private readonly ISQLiteRepository _sQLiteRepository;
+        private readonly IDBUserService _dBUserService;
 
-        public RegistrationFragmentViewModel(IRegistrationService registrationService,IUserDialogs userDialogs, IUserDialogService userDialogService, ISQLiteRepository sQLiteRepository,IMvxNavigationService navigationService) : base(navigationService)
+        public RegistrationFragmentViewModel(IRegistrationService registrationService,IUserDialogs userDialogs, IUserDialogService userDialogService, IDBUserService dBUserService,IMvxNavigationService navigationService) : base(navigationService)
         {
             _userDialogService = userDialogService;
             _registrationService = registrationService;
-            _sQLiteRepository = sQLiteRepository;
+            _dBUserService = dBUserService;
             HaveGone = true;
         }
 
@@ -117,9 +117,9 @@ namespace FirstApp.Core.ViewModels
                             HowDoLogin = Enums.LoginMethod.App
                         };
 
-                        if (!_sQLiteRepository.IsLoginInDB(RegistrationUserName))
+                        if (!_dBUserService.IsLoginInDB(RegistrationUserName))
                         {
-                            _sQLiteRepository.SaveItem(userDatabaseModel);
+                            _dBUserService.SaveItem(userDatabaseModel);
                             string userId = userDatabaseModel.Id.ToString();
                             _registrationService.UserRegistration(RegistrationUserName, RegistrationUserPassword, userId);
 

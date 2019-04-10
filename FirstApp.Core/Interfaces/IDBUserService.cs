@@ -6,7 +6,7 @@ using FirstApp.Core.Models;
 
 namespace FirstApp.Core.Interfaces
 {
-    public interface ISQLiteRepository
+    public interface IDBUserService
     {
         IEnumerable<UserDatabaseModel> GetItems();
         UserDatabaseModel GetItem(int id);
