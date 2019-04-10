@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.Graphics;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
+﻿using Android.Views;
 using Android.Widget;
 using FirstApp.Core.Models;
 using MvvmCross.Binding.BindingContext;
@@ -22,7 +12,6 @@ namespace FirstApp.Droid.Holders
         public TextView NameTaskHolder { get; set; }
         public TextView DescriptionTaskHolder { get; set; }
        
-        //public Typeface newTypeface1 = Typeface.CreateFromAsset(Application.Context.Assets, "NK123.otf");
 
         public TasksViewHolder(View itemView, IMvxAndroidBindingContext context) : base(itemView, context)
         {
@@ -30,7 +19,6 @@ namespace FirstApp.Droid.Holders
             NameTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskName);
             DescriptionTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskShortDescription);
             
-            //NameTaskHolder.SetTypeface(newTypeface1, TypefaceStyle.Normal);
 
             this.DelayBind(() =>
             {

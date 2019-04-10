@@ -15,12 +15,12 @@ namespace FirstApp.Core.ViewModels
         {
             _dBTaskService = dBTaskService;
             //_dBTaskService = Mvx.IoCProvider.Resolve<IDBTaskService>();
-            AddSomeData();
-            //ShowTaskChangedView = new MvxAsyncCommand<TaskModel>(ShowTaskChanged);
+            AddData();
+            ShowTaskChangedView = new MvxAsyncCommand<TaskModel>(ShowTaskChanged);
         }
         public IMvxCommand ShowTaskChangedView { get; set; }
 
-        public void AddSomeData()
+        public void AddData()
         {
             TaskCollection = new MvxObservableCollection<TaskModel>();
             TaskCollection.AddRange(_dBTaskService.LoadListItemsTask());
@@ -37,11 +37,10 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        //private async Task ShowTaskChanged(TaskModel _taskCreate)
-        //{
-        //    var result = await _navigationService.Navigate<TaskDetailsViewModel, TaskModel>(_taskCreate);
-
-        //}
+        private async Task ShowTaskChanged(TaskModel _taskCreate)
+        {
+            var result = await _navigationService.Navigate<TaskDetailsViewModel, TaskModel>(_taskCreate);
+        }
 
         public MvxAsyncCommand CreateNewTask
         {

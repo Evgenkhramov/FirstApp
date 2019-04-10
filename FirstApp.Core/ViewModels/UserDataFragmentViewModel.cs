@@ -1,29 +1,15 @@
-﻿using Acr.UserDialogs;
-using Android.App;
-using Android.Graphics;
-using Android.Graphics.Drawables;
-using Android.Util;
-using Android.Widget;
+﻿using Android.Util;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
-using MvvmCross;
 using MvvmCross.Commands;
-using MvvmCross.Converters;
 using MvvmCross.Navigation;
 using MvvmCross.Plugin.PictureChooser;
-using MvvmCross.ViewModels;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
 using Plugin.SecureStorage;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Text;
 
 namespace FirstApp.Core.ViewModels
 {
-
     public class UserDataFragmentViewModel : BaseViewModel
     {
         private readonly IMvxPictureChooserTask _pictureChooserTask;

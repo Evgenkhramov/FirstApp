@@ -1,21 +1,23 @@
-﻿using Android.Widget;
+﻿using Android.Content;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace FirstApp.Core.ViewModels
 {
     public class TaskDetailsViewModel : BaseViewModel<TaskModel>
-    {    
+    {
+        public TaskModel taskModel = new TaskModel();
+
         private readonly IDBTaskService _dBTaskService;
         private readonly IUserDialogService _userDialogService;
         public TaskDetailsViewModel(IMvxNavigationService navigationService,IDBTaskService dBTaskService, IUserDialogService userDialogService) : base(navigationService)
         {
+
             _userDialogService = userDialogService;
             _dBTaskService = dBTaskService;
         }
@@ -32,11 +34,11 @@ namespace FirstApp.Core.ViewModels
             {
                 TaskName = parametr.TaskName;
                 TaskDescription = parametr.TaskDescription;
+                return;
                 //FileName = GetStringFromMassive(parametr.FileName);
             }
             TaskName = null;
             TaskDescription = null;
-            FileName = null;
             MapMarkers = null;
         }
 
@@ -47,6 +49,8 @@ namespace FirstApp.Core.ViewModels
             set
             {
                 _taskName = value;
+                taskModel.TaskName = _taskName;
+                RaisePropertyChanged(() => TaskName);
             }
         }
 
@@ -57,6 +61,8 @@ namespace FirstApp.Core.ViewModels
             set
             {
                 _taskDescription = value;
+                taskModel.TaskDescription = _taskDescription;
+                RaisePropertyChanged(() => TaskDescription);
             }
         }
 
@@ -67,6 +73,8 @@ namespace FirstApp.Core.ViewModels
             set
             {
                 _fileName = value;
+                taskModel.FileName = _fileName;
+                RaisePropertyChanged(() => FileName);
             }
         }
 
@@ -80,24 +88,12 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        public MvxAsyncCommand AddFile
-        {
-            get
-            {
-                return new MvxAsyncCommand(async () =>
-                {
-                   
-                });
-            }
-        }
         public MvxAsyncCommand AddMarker
         {
             get
             {
                 return new MvxAsyncCommand(async () =>
-                {
-
-                    
+                {                
                    
                 });
             }
@@ -122,8 +118,8 @@ namespace FirstApp.Core.ViewModels
                     }
                     if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName))
                     {
-                        taskModel.TaskName = TaskName;
-                        taskModel.TaskDescription = TaskDescription;
+                        //taskModel.TaskName = TaskName;
+                        //taskModel.TaskDescription = TaskDescription;
                         _dBTaskService.AddTaskToTable(taskModel);
                         await _navigationService.Navigate<TaskListViewModel>();
                     }
@@ -152,6 +148,10 @@ namespace FirstApp.Core.ViewModels
             return result;
         }
 
-
+        public void SaveFileNameInModel(string name)
+        {
+            taskModel.FileName += name;
+        }
+                        
     }
 }

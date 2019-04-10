@@ -7249,9 +7249,6 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f0c00e5
 			public const int btnCamera = 2131493093;
 			
-			// aapt resource value: 0x7f0c00de
-			public const int button1 = 2131493086;
-			
 			// aapt resource value: 0x7f0c00df
 			public const int button2 = 2131493087;
 			
@@ -7383,6 +7380,9 @@ namespace FirstApp.Droid
 			
 			// aapt resource value: 0x7f0c0064
 			public const int forever = 2131492964;
+			
+			// aapt resource value: 0x7f0c00de
+			public const int getFileButton = 2131493086;
 			
 			// aapt resource value: 0x7f0c000a
 			public const int ghost_view = 2131492874;

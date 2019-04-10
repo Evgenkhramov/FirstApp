@@ -16,15 +16,15 @@ namespace FirstApp.Core.Services
             _connect.CreateTable<TaskModel>();
         }
 
-        public void AddTaskToTable(TaskModel task1)
+        public void AddTaskToTable(TaskModel task)
         {
-            if (task1.Id == 0)
+            if (task.Id == 0)
             {
-                _connect.Insert(task1);
+                _connect.Insert(task);
             }
             else
             {
-                _connect.Update(task1);
+                _connect.Update(task);
             }
         }
 

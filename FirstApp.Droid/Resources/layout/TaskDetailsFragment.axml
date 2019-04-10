@@ -93,7 +93,7 @@
 			android:layout_marginLeft="40dp"
 			android:layout_marginRight="40dp"
 			local:MvxBind="Click AddFile"
-			android:id="@+id/button1" />
+			android:id="@+id/getFileButton" />
 		<Button
 			style="@style/OrangeButton"
 			android:text="Add marker on map"
