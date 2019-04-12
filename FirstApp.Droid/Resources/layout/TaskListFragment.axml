@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 	<include
         android:id="@+id/maintoolbar"
-        layout="@layout/maintoolbar" />
+        layout="@layout/toolbarMain" />
 	<Button
 		android:text="Add Task"
 		style="@style/OrangeButton"

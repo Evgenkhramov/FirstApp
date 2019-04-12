@@ -4,12 +4,8 @@
     {
         public double Lng { get; set; }
         public double Lat { get; set; }
+        public double CoordId { get; set; }
 
-        public MapCoord(double lat, double lng)
-        {
-            this.Lat = lat;
-            this.Lng = lng;
-        }
     }
 
 }

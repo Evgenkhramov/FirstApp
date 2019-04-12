@@ -31,7 +31,8 @@ namespace FirstApp.Core.ViewModels
             _userDialogService = userDialogService;
             _registrationService = registrationService;
             _dBUserService = dBUserService;
-            HaveGone = true;
+            HaveGone = false;
+            SaveButton = false;
         }
 
         public IMvxAsyncCommand NavigateCommand { get; private set; }
@@ -57,6 +58,16 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
+        private bool _saveButton;
+        public bool SaveButton
+        {
+            get => _saveButton;
+            set
+            {
+                _saveButton = value;
+            }
+        }
+
         private string _registrationUserPassword;
         public string RegistrationUserPassword
         {
@@ -76,7 +87,7 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        public MvxAsyncCommand RegistrationBack
+        public MvxAsyncCommand BackView
         {
             get
             {

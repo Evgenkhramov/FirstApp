@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 	<include
         android:id="@+id/maintoolbar"
-        layout="@layout/maintoolbar" />
+        layout="@layout/toolbarMain" />
 	<LinearLayout
 		android:orientation="vertical"
 		android:layout_below="@id/maintoolbar"
@@ -102,7 +102,7 @@
 			android:layout_marginLeft="40dp"
 			android:layout_marginRight="40dp"
 			local:MvxBind="Click AddMarker"
-			android:id="@+id/button2" />
+			android:id="@+id/getMapMarker" />
 	</LinearLayout>
 	<LinearLayout
 			android:layout_width="match_parent"
@@ -133,7 +133,7 @@
 				android:translationZ="4dp"
 				android:layout_margin="4dp"
 				android:layout_height="wrap_content"       
-				local:MvxBind="Click CancelTask"
+				local:MvxBind="Click DeleteTask"
 				android:id="@+id/registration" />	
 		</LinearLayout>
 </RelativeLayout>

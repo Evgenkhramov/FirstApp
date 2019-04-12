@@ -27,6 +27,29 @@ namespace FirstApp.Core.ViewModels
             _sqlLiteRepository = sQLiteRepository;
             _registrationService = registrationService;
             _facebookService = facebookService;
+            HaveGone = true;
+            SaveButton = false;
+        }
+
+        private bool _haveGone;
+        public bool HaveGone
+        {
+            get => _haveGone;
+            set
+            {
+                _haveGone = value;
+
+            }
+        }
+
+        private bool _saveButton;
+        public bool SaveButton
+        {
+            get => _saveButton;
+            set
+            {
+                _saveButton = value;
+            }
         }
 
         public IMvxAsyncCommand ShowMainViewModelCommand { get; private set; }

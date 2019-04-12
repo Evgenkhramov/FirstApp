@@ -304,7 +304,7 @@
     <AndroidResource Include="Resources\layout\ListItem_MainMenu.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\MainToolbar.axml">
+    <AndroidResource Include="Resources\layout\toolbarMain.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\TaskListFragment.axml">

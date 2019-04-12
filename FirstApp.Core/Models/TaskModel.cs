@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using System.Collections.Generic;
 
 namespace FirstApp.Core.Models
 {
@@ -11,6 +12,6 @@ namespace FirstApp.Core.Models
         public string TaskDescription { get; set; }
         public bool Status { get; set; }
         public string FileName { get; set; }
-        public string MarkerMap  { get; set; }
+        public string Coord { get; set; }
     }
 }

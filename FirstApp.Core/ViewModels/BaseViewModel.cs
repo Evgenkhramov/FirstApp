@@ -12,30 +12,18 @@ namespace FirstApp.Core.ViewModels
         {
             _navigationService = navigationService;
         }
-
-        public MvxAsyncCommand RegistrationBack
-        {
-            get
-            {
-                return new MvxAsyncCommand(async () =>
-                {
-                    await _navigationService.Navigate<MainViewModel>();
-                });
-            }
-        }
     }
 
     public abstract class BaseViewModel<TParameter, TResult> : MvxViewModel<TParameter, TResult>
         where TParameter : class
         where TResult : class
     {
-        protected readonly IMvxNavigationService NavigationService;
-        protected BaseViewModel()
+        protected readonly IMvxNavigationService _navigationService;
+        protected BaseViewModel(IMvxNavigationService navigationService)
         {
-            NavigationService = Mvx.IoCProvider.Resolve<IMvxNavigationService>();
+            _navigationService = navigationService;
         }
     }
-
 
     public abstract class BaseViewModel<TParameter> : MvxViewModel<TParameter>
         where TParameter : class

@@ -19,7 +19,6 @@ namespace FirstApp.Droid.Holders
             NameTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskName);
             DescriptionTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskShortDescription);
             
-
             this.DelayBind(() =>
             {
                 var set = this.CreateBindingSet<TasksViewHolder, TaskModel>();

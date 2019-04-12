@@ -1,32 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:minHeight="?android:attr/actionBarSize"
-    android:background="?android:attr/colorPrimary"
-    android:theme="@style/MyTheme">
-  <RelativeLayout
-    android:layout_alignParentBottom="true"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-	<Button
-		android:background="@mipmap/arrow_left"
-		android:layout_width="50dp"
-		android:layout_height="wrap_content"	
-		android:id="@+id/menu_icon"/>
-	<TextView
-		android:text="Application"
-		android:textColor="#32b5c9"
-		android:textStyle="bold"
-		android:textSize="20sp"
-		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/textViewMain"
-		android:layout_centerInParent="true"
-		android:textAlignment="center"/>
-  </RelativeLayout>
+<Toolbar
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:local="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/toolbar"
+	android:layout_width="match_parent"
+	android:layout_height="50dp"
+	android:minHeight="?android:attr/actionBarSize"
+	android:background="?android:attr/colorPrimary"
+	android:theme="@style/MyTheme">
+	<RelativeLayout
+		android:layout_alignParentBottom="true"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		<Button
+			android:background="@mipmap/arrow_left"
+			android:layout_width="50dp"
+			android:layout_height="wrap_content"
+			local:MvxBind="Hidden HaveGone; Click BackCommand"
+			android:id="@+id/menu_icon"/>
+		<TextView
+			android:text="Application"
+			android:textColor="#32b5c9"
+			android:textStyle="bold"
+			android:textSize="20sp"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/textViewMain"
+			android:layout_centerInParent="true"
+			android:textAlignment="center"/>
+		<Button
+			style="@style/OrangeButton"
+			android:text="Save"
+			android:layout_width="70sp"
+			android:textSize="16sp"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="40sp"
+			android:layout_toRightOf="@+id/textViewMain"
+			android:id="@+id/saveButton"
+			local:MvxBind="Hidden SaveButton; Click SaveMapMarker"
+			android:clickable="true"/>
+	</RelativeLayout>
 </Toolbar>
 

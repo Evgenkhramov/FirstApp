@@ -10,7 +10,6 @@ using System;
 using Android.Net;
 using Android.Content;
 
-
 namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame_new, true)]
@@ -30,6 +29,11 @@ namespace FirstApp.Droid.Views
             {
                 OpenFile();
             };
+            getFileButton = view.FindViewById<Button>(Resource.Id.getMapMarker);
+            getFileButton.Click += (object sender, EventArgs e) =>
+            {
+                //GetMarker();
+            };
 
             menuButton = view.FindViewById<Button>(Resource.Id.menu_icon);
             menuButton.Click += (object sender, EventArgs e) =>
@@ -40,18 +44,13 @@ namespace FirstApp.Droid.Views
             return view;
         }
 
-        public string OpenFile()
+        public void OpenFile()
         {
-            string fileName = "Jeck";
-            //var intent = new Intent(Activity, typeof(StartActivity));
-
-           // Intent intent = new Intent(Activity,Intent.ActionGetContent);
             Intent intent = new Intent();
             intent.SetType("*/*");
             intent.SetAction(Intent.ActionGetContent);
             //intent.AddCategory(Intent.CategoryOpenable);
             StartActivityForResult(Intent.CreateChooser(intent, "Select File"), fileCode);
-            return fileName;
         }
 
         public override void OnActivityResult(int requestCode, int resultCode, Intent data)
@@ -62,18 +61,23 @@ namespace FirstApp.Droid.Views
 
                 if (resultCode == (int)Result.Ok)
                 {
+                    //fileName = data.Data.LastPathSegment;
+                    System.Uri uri = new System.Uri(data.DataString);
 
-                    string uri = data.DataString;
-                  
-                    int cut = uri.LastIndexOf('/');
-                    if (cut != -1)
-                    {
-                        fileName = uri.Substring(cut + 1);
-                    }
+                    fileName = System.IO.Path.GetFileNameWithoutExtension(uri.LocalPath);
+                    //int cut = uri.LastIndexOf('/');
+                    //if (cut != -1)
+                    //{
+                    //    fileName = uri.Substring(cut + 1);
+                    //}
+                    ViewModel.FileName += $"{fileName},";
                 }
-
-                ViewModel.FileName += $"{fileName},";              
             }
+        }
+
+        public override void OnResume()
+        {
+            base.OnResume();
         }
     }
 }

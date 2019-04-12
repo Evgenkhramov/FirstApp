@@ -19,7 +19,7 @@ namespace FirstApp.Droid.Views
 {
    public abstract class BaseFragment : MvxFragment
     {
-        private Android.Support.V7.Widget.Toolbar _mainToolbar;
+        //private Android.Support.V7.Widget.Toolbar _mainToolbar;
        
         public MvxAppCompatActivity ParentActivity
         {
@@ -35,7 +35,7 @@ namespace FirstApp.Droid.Views
             
             var view = this.BindingInflate(FragmentId, null);
 
-            _mainToolbar = view.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.maintoolbar);
+           //_mainToolbar = view.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
 
             CloseMenu();
             return view;

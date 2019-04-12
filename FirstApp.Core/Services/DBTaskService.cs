@@ -28,10 +28,10 @@ namespace FirstApp.Core.Services
             }
         }
 
-        public void DeleteTaskFromTable(TaskModel _task)
+        public void DeleteTaskFromTable(int taskId)
         {
-            if (_task.Id != 0)
-                _connect.Table<TaskModel>().Where(x => x.Id == _task.Id).Delete();
+            if (taskId != 0)
+                _connect.Delete<TaskModel>(taskId);//.Where(x => x.Id == _task.Id).Delete();
         }
 
         public List<TaskModel> LoadListItemsTask()

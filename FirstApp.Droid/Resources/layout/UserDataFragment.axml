@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 	<include
         android:id="@+id/maintoolbar"
-        layout="@layout/maintoolbar" />
+        layout="@layout/toolbarMain" />
 	<LinearLayout   
 		android:orientation="vertical"
 		android:layout_below="@id/maintoolbar"
