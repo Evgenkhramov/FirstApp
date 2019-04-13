@@ -24,18 +24,16 @@ namespace FirstApp.Droid.Services
             adb.Create().Show();
         }
 
-        public Task<string> ShowAlertForUserWithSomeLogic(string title, string message, string okbtnText, string nobtnText)
+        public Task<bool> ShowAlertForUserWithSomeLogic(string title, string message, string okbtnText, string nobtnText)
         {
-            var tcs = new TaskCompletionSource<string>();
-           
+            var tcs = new TaskCompletionSource<bool>();         
             IMvxAndroidCurrentTopActivity top = Mvx.IoCProvider.Resolve<IMvxAndroidCurrentTopActivity>();
             var act = top.Activity;
-
             var adb = new AlertDialog.Builder(act);
             adb.SetTitle(title);
             adb.SetMessage(message);
-            adb.SetNegativeButton(nobtnText, (sender, args) => { tcs.SetResult(nobtnText); });
-            adb.SetPositiveButton(okbtnText, (sender, args) => { tcs.SetResult(okbtnText); });
+            adb.SetNegativeButton(nobtnText, (sender, args) => { tcs.TrySetResult(false); });
+            adb.SetPositiveButton(okbtnText, (sender, args) => { tcs.TrySetResult(true); });
             adb.Create().Show();
             return tcs.Task;
         }

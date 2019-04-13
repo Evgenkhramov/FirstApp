@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 	<include
         android:id="@+id/maintoolbar"
-        layout="@layout/toolbarMain" />
+        layout="@layout/toolbar" />
 	<LinearLayout
 		android:orientation="vertical"
 		android:layout_below="@id/maintoolbar"
@@ -125,7 +125,7 @@
 				android:id="@+id/login" />
 			<Button
 				style="@style/OrangeButton"
-				android:text="Cancel"
+				android:text="Delete Task"
 				android:layout_width="0dp"
 				android:layout_weight="0.5"
 				android:elevation="6dp"

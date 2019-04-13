@@ -22,6 +22,9 @@ namespace FirstApp.Core.ViewModels
             _userDialogService = userDialogService;
             _dBTaskService = dBTaskService;
 
+            SaveButton = true;
+            HaveGone = false;
+
         }
 
         public override async Task Initialize()
@@ -52,6 +55,26 @@ namespace FirstApp.Core.ViewModels
             MapMarkers = null;
             _dBTaskService.AddTaskToTable(taskModel);
             TaskId = taskModel.Id;
+        }
+
+        private bool _saveButton;
+        public bool SaveButton
+        {
+            get => _saveButton;
+            set
+            {
+                _saveButton = value;
+            }
+        }
+
+        private bool _haveGone;
+        public bool HaveGone
+        {
+            get => _haveGone;
+            set
+            {
+                _haveGone = value;
+            }
         }
 
         private string _taskName;
@@ -149,14 +172,49 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
+        public MvxAsyncCommand BackCommand
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+
+                    var answ = await _userDialogService.ShowAlertForUserWithSomeLogic("Save Markers?", "Do you want to save your markers?", "Yes", "No");
+                    //await _navigationService.Close(this);
+                    if (answ)
+                    {
+                        SaveTask.Execute();
+                        await _navigationService.Close(this);
+                    }
+                    if (!answ)
+                    {
+                        await _navigationService.Close(this);
+                    }
+
+                });
+            }
+        }
+
         public MvxAsyncCommand DeleteTask
         {
             get
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    _dBTaskService.DeleteTaskFromTable(TaskId);
-                    await _navigationService.Navigate<TaskListViewModel>();
+                    var answ = await _userDialogService.ShowAlertForUserWithSomeLogic("Delete Task?", "Do you want to delete this task?", "Yes", "No");
+
+                    if (answ)
+                    {
+                        _dBTaskService.DeleteTaskFromTable(TaskId);
+                        await _navigationService.Navigate<TaskListViewModel>();
+
+                        //await _navigationService.Close(this);
+                    }
+                    if (!answ)
+                    {
+                        // await _navigationService.Close(this);
+                        await _navigationService.Navigate<TaskListViewModel>();
+                    }
                 });
             }
         }

@@ -8,13 +8,14 @@ using Android.Views;
 using Android.Widget;
 using FirstApp.Core.Models;
 using FirstApp.Core.ViewModels;
+using FirstApp.Droid.Interfaces;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 
 namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame_new, true)]
     [Register("firstApp.Droid.Views.MapFragment")]
-    public class MapFragment : BaseFragment<MapViewModel>, IOnMapReadyCallback
+    public class MapFragment : BaseFragment<MapViewModel>, IOnMapReadyCallback, IBackButtonListener
     {
         public List<MapCoord> MarkerListFromDB;
         public MapMarkerModel marcerRow;
@@ -76,6 +77,11 @@ namespace FirstApp.Droid.Views
                     Marker marker = googleMap.AddMarker(markerOption);
                 }
             };
+        }
+
+        public void OnBackPressed()
+        {
+            ViewModel.BackCommand.Execute();
         }
 
         public override void OnDestroy()

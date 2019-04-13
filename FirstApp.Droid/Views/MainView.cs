@@ -14,6 +14,7 @@ using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
 using FirstApp.Core.ViewModels;
+using FirstApp.Droid.Interfaces;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using Plugin.CurrentActivity;
@@ -61,9 +62,26 @@ namespace FirstApp.Droid.Views
         public override void OnBackPressed()
         {
             if (DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.Start))
+            {
                 DrawerLayout.CloseDrawers();
+            }
             else
+            {
+                // Ignoring stuff about DrawerLayout, etc for demo purposes.
+                var currentFragment = SupportFragmentManager.FindFragmentById(Resource.Id.content_frame_new);
+                var listener = currentFragment as IBackButtonListener;
+                if (listener != null)
+                {
+                    listener.OnBackPressed();
+                    return;
+                }
                 base.OnBackPressed();
+            }
+
+            //if (DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.Start))
+            //    DrawerLayout.CloseDrawers();
+            //else
+            //    base.OnBackPressed();
         }
         public void HideSoftKeyboard()
         {
@@ -75,5 +93,18 @@ namespace FirstApp.Droid.Views
 
             CurrentFocus.ClearFocus();
         }
+
+        //public override void OnBackPressed()
+        //{
+        //    // Ignoring stuff about DrawerLayout, etc for demo purposes.
+        //    var currentFragment = SupportFragmentManager.FindFragmentById(Resource.Id.content_frame);
+        //    var listener = currentFragment as IBackButtonListener;
+        //    if (listener != null)
+        //    {
+        //        listener.OnBackPressed();
+        //        return;
+        //    }
+        //    base.OnBackPressed();
+        //}
     }
 }

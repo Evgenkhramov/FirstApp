@@ -28,7 +28,7 @@ namespace FirstApp.Core.ViewModels
             _registrationService = registrationService;
             _facebookService = facebookService;
             HaveGone = true;
-            SaveButton = false;
+            SaveButton = true;
         }
 
         private bool _haveGone;

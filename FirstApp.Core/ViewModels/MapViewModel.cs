@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using FirstApp.Core.Helpers;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross;
@@ -20,9 +19,9 @@ namespace FirstApp.Core.ViewModels
         public int _taskId;
         private IUserDialogService _userDialogService;
         private IDBMapMarkerService _dBMapMarkerService;
+
         public MapViewModel(IMvxNavigationService navigationService, IDBMapMarkerService dBMapMarkerService, IUserDialogService userDialogService) : base(navigationService)
         {
-
             _markerList = new List<MapMarkerModel>();
             _userDialogService = userDialogService;
             _dBMapMarkerService = dBMapMarkerService;
@@ -69,11 +68,22 @@ namespace FirstApp.Core.ViewModels
                     {
                         //TaskCompletionSource<TResult>
                         //string dialogResponse = AsyncHelpers.RunSync<string>(() => DisplayCustomDialog("Confirm delete", "Are you sure you want to delete all rows?", "YES", "NO"));
-                        var answ = AsyncHelpers.RunSync<string>(() => _userDialogService.ShowAlertForUserWithSomeLogic("Save Markers?", "Do you want to save your markers?", "Yes","No"));
+                        var answ = await _userDialogService.ShowAlertForUserWithSomeLogic("Save Markers?", "Do you want to save your markers?", "Yes","No");
                         //await _navigationService.Close(this);
+                        if (answ)
+                        {
+                            foreach (MapMarkerModel item in _markerList)
+                            {
+                                _dBMapMarkerService.AddMarkerToTable(item);
+                            }
+                            _markerList.Clear();
+                            await _navigationService.Close(this);
+                        }
+                        if (!answ)
+                        {
+                            await _navigationService.Close(this);
+                        }
                     }
-
-
                 });
             }
         }
@@ -96,8 +106,6 @@ namespace FirstApp.Core.ViewModels
                 });
             }
         }
-
-
 
         public void SaveMarkerInList(MapMarkerModel marker)
         {
