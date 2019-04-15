@@ -8,7 +8,7 @@ namespace FirstApp.Core.Interfaces
     public interface IDBMapMarkerService
     {
         void AddMarkerToTable(MapMarkerModel marker);
-        List<MapCoord> GetMapMarkerFromDB(int taskId);
+        List<MapMarkerModel> GetMapMarkerFromDB(int taskId);
         void DeleteMarker(int id);
     }
 }

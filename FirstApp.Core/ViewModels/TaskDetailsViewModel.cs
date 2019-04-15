@@ -1,11 +1,7 @@
-﻿using Android.Content;
-using FirstApp.Core.Interfaces;
+﻿using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using System;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace FirstApp.Core.ViewModels
@@ -14,14 +10,16 @@ namespace FirstApp.Core.ViewModels
     {
         public TaskModel taskModel = new TaskModel();
         public int TaskId;
+        private readonly IDBMapMarkerService _dBMapMarkerService;
         private readonly IDBTaskService _dBTaskService;
         private readonly IUserDialogService _userDialogService;
-        public TaskDetailsViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService, IUserDialogService userDialogService) : base(navigationService)
+        public TaskDetailsViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService, IDBMapMarkerService dBMapMarkerService,
+            IUserDialogService userDialogService) : base(navigationService)
         {
-
+            _dBMapMarkerService = dBMapMarkerService;
             _userDialogService = userDialogService;
             _dBTaskService = dBTaskService;
-
+           
             SaveButton = true;
             HaveGone = false;
 
@@ -44,10 +42,12 @@ namespace FirstApp.Core.ViewModels
         {
             if (parametr != null)
             {
+                taskModel.Id = parametr.Id;
                 TaskId = parametr.Id;
                 TaskName = parametr.TaskName;
                 TaskDescription = parametr.TaskDescription;
                 FileName = parametr.FileName;
+                MapMarkers = _dBMapMarkerService.GetMapMarkerFromDB(TaskId).Count.ToString();
                 return;
             }
             TaskName = null;
@@ -120,6 +120,7 @@ namespace FirstApp.Core.ViewModels
             set
             {
                 _mapMarkers = value;
+                RaisePropertyChanged(() => MapMarkers);
             }
         }
 
@@ -138,7 +139,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    //var TaskIdForMap = new TaskIdModel() { TaskIdForMap = TaskId };
+                    
                     var result = await _navigationService.Navigate<MapViewModel, TaskModel>(taskModel);
                 });
             }
@@ -219,19 +220,14 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        public string GetStringFromMassive(string[] element)
-        {
-            string result = null;
-            foreach (string elem in element)
-            {
-                result += elem + "\n";
-            }
-            return result;
-        }
-
         public void SaveFileNameInModel(string name)
         {
             taskModel.FileName += name;
+        }
+
+        public override void ViewAppearing()
+        {
+            MapMarkers = _dBMapMarkerService.GetMapMarkerFromDB(TaskId).Count.ToString();
         }
     }
 }

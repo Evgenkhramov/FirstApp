@@ -53,5 +53,10 @@ namespace FirstApp.Core.ViewModels
                 });
             }
         }
+
+        public override void ViewAppearing()
+        {
+            AddData();
+        }
     }
 }

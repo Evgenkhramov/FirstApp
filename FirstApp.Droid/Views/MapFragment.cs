@@ -1,7 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Android.Gms.Common.Apis;
 using Android.Gms.Maps;
+using Android.Gms.Location;
+using Android.Gms.Common;
 using Android.Gms.Maps.Model;
+using Android.Locations;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -17,7 +20,8 @@ namespace FirstApp.Droid.Views
     [Register("firstApp.Droid.Views.MapFragment")]
     public class MapFragment : BaseFragment<MapViewModel>, IOnMapReadyCallback, IBackButtonListener
     {
-        public List<MapCoord> MarkerListFromDB;
+        GoogleApiClient apiClient;
+        public List<MapMarkerModel> MarkerListFromDB;
         public MapMarkerModel marcerRow;
         private MapView mapView;
         private GoogleMap map;
@@ -34,8 +38,10 @@ namespace FirstApp.Droid.Views
 
             mapView.GetMapAsync(this);
 
-            MarkerListFromDB = new List<MapCoord>();
+            MarkerListFromDB = new List<MapMarkerModel>();
             marcerRow = new MapMarkerModel();
+
+
 
             //menuButton = view.FindViewById<Button>(Resource.Id.menu_icon);
             ////menuButton.Click += (object sender, EventArgs e) =>
@@ -49,25 +55,37 @@ namespace FirstApp.Droid.Views
         {
             this.map = googleMap;
             //Setup and customize your Google Map
+            
             this.map.UiSettings.CompassEnabled = false;
             this.map.UiSettings.MyLocationButtonEnabled = true;
             this.map.UiSettings.MapToolbarEnabled = true;
+            this.map.MyLocationEnabled = true;
+
+            MapMarkerModel myLocation = new MapMarkerModel();
+
+
+
+
+            myLocation.Lat = 0;//this.map.MyLocation.Latitude;
+            myLocation.Lng = 0;// this.map.MyLocation.Longitude;
 
             map = googleMap;
+            map.AddMarker(new MarkerOptions().SetPosition(new LatLng(myLocation.Lat, myLocation.Lng)).SetTitle($"Marker Task {ViewModel._taskId}").SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueGreen)));
             MarkerListFromDB = ViewModel.GetMarkerList();
-            if (MarkerListFromDB != null && MarkerListFromDB.Count > 0)
+            if (MarkerListFromDB!= null && MarkerListFromDB.Count > 0)
             {
-                foreach (MapCoord coord in MarkerListFromDB)
+                foreach (MapMarkerModel coord in MarkerListFromDB)
                 {
                     map.AddMarker(new MarkerOptions().SetPosition(new LatLng(coord.Lat, coord.Lng)).SetTitle($"Marker Task {ViewModel._taskId}"));
                 }
             }
-            map.AddMarker(new MarkerOptions().SetPosition(new LatLng(0, 0)).SetTitle("Marker"));
+           
             googleMap.MapClick += (object sender, GoogleMap.MapClickEventArgs e) =>
             {
                 using (var markerOption = new MarkerOptions())
                 {
                     markerOption.SetPosition(e.Point);
+                    marcerRow = new MapMarkerModel();
                     marcerRow.Lat = markerOption.Position.Latitude;
                     marcerRow.Lng = markerOption.Position.Longitude;
                     ViewModel.SaveMarkerInList(marcerRow);
@@ -77,7 +95,11 @@ namespace FirstApp.Droid.Views
                     Marker marker = googleMap.AddMarker(markerOption);
                 }
             };
+
+            
         }
+
+       
 
         public void OnBackPressed()
         {
@@ -113,5 +135,7 @@ namespace FirstApp.Droid.Views
             base.OnPause();
             mapView.OnPause();
         }
+
+       
     }
 }

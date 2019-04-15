@@ -54,7 +54,6 @@ namespace FirstApp.Core.ViewModels
             set
             {
                 _haveGone = value;
-
             }
         }
 
@@ -66,10 +65,7 @@ namespace FirstApp.Core.ViewModels
                 {
                     if (_markerList.Count > 0)
                     {
-                        //TaskCompletionSource<TResult>
-                        //string dialogResponse = AsyncHelpers.RunSync<string>(() => DisplayCustomDialog("Confirm delete", "Are you sure you want to delete all rows?", "YES", "NO"));
-                        var answ = await _userDialogService.ShowAlertForUserWithSomeLogic("Save Markers?", "Do you want to save your markers?", "Yes","No");
-                        //await _navigationService.Close(this);
+                        var answ = await _userDialogService.ShowAlertForUserWithSomeLogic("Save Markers?", "Do you want to save your markers?", "Yes", "No");
                         if (answ)
                         {
                             foreach (MapMarkerModel item in _markerList)
@@ -83,6 +79,10 @@ namespace FirstApp.Core.ViewModels
                         {
                             await _navigationService.Close(this);
                         }
+                    }
+                    else
+                    {
+                        await _navigationService.Close(this);
                     }
                 });
             }
@@ -103,6 +103,10 @@ namespace FirstApp.Core.ViewModels
                         _markerList.Clear();
                         await _navigationService.Close(this);
                     }
+                    else
+                    {
+                        await _navigationService.Close(this);
+                    }
                 });
             }
         }
@@ -113,9 +117,9 @@ namespace FirstApp.Core.ViewModels
             _markerList.Add(marker);
         }
 
-        public List<MapCoord> GetMarkerList()
+        public List<MapMarkerModel> GetMarkerList()
         {
-            List<MapCoord> markers = _dBMapMarkerService.GetMapMarkerFromDB(_taskId);
+            List<MapMarkerModel> markers = _dBMapMarkerService.GetMapMarkerFromDB(_taskId);
             return markers;
         }
     }

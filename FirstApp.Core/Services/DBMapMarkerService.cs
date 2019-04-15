@@ -19,15 +19,22 @@ namespace FirstApp.Core.Services
             _connect.Insert(marker);
         }
 
-        public List<MapCoord> GetMapMarkerFromDB(int taskId)
+        public List<MapMarkerModel> GetMapMarkerFromDB(int taskId)
         {
-            List<MapCoord> coord = null;
-            var list = _connect.Query<MapMarkerModel>($"SELECT * FROM MapMarker WHERE TaskId = {taskId}");
-            for (int i = 0; i < list.Capacity; i++)
+            List<MapMarkerModel> coord;
+            coord = new List<MapMarkerModel>();
+             var list = _connect.Query<MapMarkerModel>($"SELECT ALL * FROM MapMarker WHERE TaskId = {taskId}");
+            if (list.Count > 0)
             {
-                coord[i].CoordId = list[i].Id;
-                coord[i].Lat = list[i].Lat;
-                coord[i].Lng = list[i].Lng;
+                foreach(MapMarkerModel item in list)
+                {
+                    MapMarkerModel row = new MapMarkerModel();
+                    row.Id = item.Id;
+                    row.TaskId = item.TaskId;
+                    row.Lat = item.Lat;
+                    row.Lng = item.Lng;
+                    coord.Add(row);
+                }
             }
             return coord;
         }
