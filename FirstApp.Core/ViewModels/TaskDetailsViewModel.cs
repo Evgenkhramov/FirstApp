@@ -181,17 +181,14 @@ namespace FirstApp.Core.ViewModels
                 {
 
                     var answ = await _userDialogService.ShowAlertForUserWithSomeLogic("Save Markers?", "Do you want to save your markers?", "Yes", "No");
-                    //await _navigationService.Close(this);
                     if (answ)
                     {
                         SaveTask.Execute();
-                        await _navigationService.Close(this);
                     }
                     if (!answ)
                     {
                         await _navigationService.Close(this);
                     }
-
                 });
             }
         }
