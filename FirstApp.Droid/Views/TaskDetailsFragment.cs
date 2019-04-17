@@ -103,7 +103,7 @@ namespace FirstApp.Droid.Views
 
                     fileName = System.IO.Path.GetFileNameWithoutExtension(uri.LocalPath);
 
-                    ViewModel.FileName += $"{fileName},";
+                    ViewModel.FileName += $"{fileName},\n";
                 }
             }
         }

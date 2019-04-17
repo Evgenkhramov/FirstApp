@@ -13,6 +13,20 @@ using FirstApp.Core.Models;
 using FirstApp.Core.ViewModels;
 using FirstApp.Droid.Interfaces;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
+using System;
+using System.Threading.Tasks;
+
+using Android;
+using Android.App;
+using Android.Content.PM;
+
+using Android.Support.Design.Widget;
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
+using Android.Support.V7.App;
+using Android.Util;
+using Plugin.Geolocator.Abstractions;
+using Plugin.Geolocator;
 
 namespace FirstApp.Droid.Views
 {
@@ -20,6 +34,7 @@ namespace FirstApp.Droid.Views
     [Register("firstApp.Droid.Views.MapFragment")]
     public class MapFragment : BaseFragment<MapViewModel>, IOnMapReadyCallback, IBackButtonListener
     {
+        LocationManager locationManager;
         GoogleApiClient apiClient;
         public List<MapMarkerModel> MarkerListFromDB;
         public MapMarkerModel marcerRow;
@@ -41,6 +56,10 @@ namespace FirstApp.Droid.Views
             MarkerListFromDB = new List<MapMarkerModel>();
             marcerRow = new MapMarkerModel();
 
+            //locationManager = (LocationManager)Android.Content.ContextWrapper.GetSystemService(Android.Content.Context.LocationService);
+            //var criteria = new Criteria { PowerRequirement = Power.Medium };
+            //var bestProvider = locationManager.GetBestProvider(criteria, true);
+            //var location = locationManager.GetLastKnownLocation(bestProvider);
 
 
             //menuButton = view.FindViewById<Button>(Resource.Id.menu_icon);
@@ -55,7 +74,7 @@ namespace FirstApp.Droid.Views
         {
             this.map = googleMap;
             //Setup and customize your Google Map
-            
+
             this.map.UiSettings.CompassEnabled = false;
             this.map.UiSettings.MyLocationButtonEnabled = true;
             this.map.UiSettings.MapToolbarEnabled = true;
@@ -63,23 +82,28 @@ namespace FirstApp.Droid.Views
 
             MapMarkerModel myLocation = new MapMarkerModel();
 
+            var getPosition = GetCurrentPosition().Result;
 
-
-
-            myLocation.Lat = 0;//this.map.MyLocation.Latitude;
-            myLocation.Lng = 0;// this.map.MyLocation.Longitude;
-
-            map = googleMap;
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            myLocation.Lat = getPosition.Latitude;
+            myLocation.Lng = getPosition.Longitude;
+            builder.Include(new LatLng(myLocation.Lat, myLocation.Lng));
+            //map = googleMap;
             map.AddMarker(new MarkerOptions().SetPosition(new LatLng(myLocation.Lat, myLocation.Lng)).SetTitle($"Marker Task {ViewModel._taskId}").SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueGreen)));
             MarkerListFromDB = ViewModel.GetMarkerList();
-            if (MarkerListFromDB!= null && MarkerListFromDB.Count > 0)
+            if (MarkerListFromDB != null && MarkerListFromDB.Count > 0)
             {
                 foreach (MapMarkerModel coord in MarkerListFromDB)
                 {
                     map.AddMarker(new MarkerOptions().SetPosition(new LatLng(coord.Lat, coord.Lng)).SetTitle($"Marker Task {ViewModel._taskId}"));
+                    builder.Include(new LatLng(coord.Lat, coord.Lng));
                 }
             }
-           
+            LatLngBounds bound = builder.Build();
+
+            map.MoveCamera(CameraUpdateFactory.NewLatLngBounds(bound, 100));
+
+
             googleMap.MapClick += (object sender, GoogleMap.MapClickEventArgs e) =>
             {
                 using (var markerOption = new MarkerOptions())
@@ -95,11 +119,49 @@ namespace FirstApp.Droid.Views
                     Marker marker = googleMap.AddMarker(markerOption);
                 }
             };
-
-            
         }
 
-       
+        public static async Task<Position> GetCurrentPosition()
+        {
+            Position position = null;
+            try
+            {
+                var locator = CrossGeolocator.Current;
+                locator.DesiredAccuracy = 100;
+
+                position = await locator.GetLastKnownLocationAsync();
+
+                if (position != null)
+                {
+                    //got a cahched position, so let's use it.
+                    return position;
+                }
+
+                if (!locator.IsGeolocationAvailable || !locator.IsGeolocationEnabled)
+                {
+                    //not available or enabled
+                    return null;
+                }
+
+                position = await locator.GetPositionAsync(TimeSpan.FromSeconds(20), null, true);
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            if (position == null)
+                return null;
+
+            var output = string.Format("Time: {0} \nLat: {1} \nLong: {2} \nAltitude: {3} \nAltitude Accuracy: {4} \nAccuracy: {5} \nHeading: {6} \nSpeed: {7}",
+                    position.Timestamp, position.Latitude, position.Longitude,
+                    position.Altitude, position.AltitudeAccuracy, position.Accuracy, position.Heading, position.Speed);
+
+            return position;
+        }
+
+
 
         public void OnBackPressed()
         {
@@ -136,6 +198,6 @@ namespace FirstApp.Droid.Views
             mapView.OnPause();
         }
 
-       
+
     }
 }
