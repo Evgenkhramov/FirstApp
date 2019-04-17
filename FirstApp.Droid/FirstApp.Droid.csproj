@@ -76,6 +76,7 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DBConnectionService.cs" />
+    <Compile Include="Services\SimpleItemTouchHelperCallback.cs" />
     <Compile Include="Services\UserDialogService.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />

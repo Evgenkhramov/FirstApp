@@ -10,6 +10,7 @@ namespace FirstApp.Core.ViewModels
 {
     public class TaskListViewModel : BaseViewModel
     {
+        public int taskItem;
         private readonly IDBTaskService _dBTaskService;
         public TaskListViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService) : base(navigationService)
         {
@@ -40,6 +41,18 @@ namespace FirstApp.Core.ViewModels
         private async Task ShowTaskChanged(TaskModel _taskCreate)
         {
             var result = await _navigationService.Navigate<TaskDetailsViewModel, TaskModel>(_taskCreate);
+        }
+
+        public MvxAsyncCommand DeleteItem
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    _dBTaskService.DeleteTaskFromTable(taskItem);
+                    TaskCollection.RemoveAt(taskItem);
+                });
+             }
         }
 
         public MvxAsyncCommand CreateNewTask
