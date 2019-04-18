@@ -145,6 +145,7 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
+
         public MvxAsyncCommand SaveTask
         {
             get

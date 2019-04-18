@@ -43,16 +43,26 @@ namespace FirstApp.Core.ViewModels
             var result = await _navigationService.Navigate<TaskDetailsViewModel, TaskModel>(_taskCreate);
         }
 
-        public MvxAsyncCommand DeleteItem
+        public MvxAsyncCommand<int> DeleteItem
         {
             get
             {
-                return new MvxAsyncCommand(async () =>
+                return new MvxAsyncCommand<int>(async (taskId) =>
                 {
-                    _dBTaskService.DeleteTaskFromTable(taskItem);
-                    TaskCollection.RemoveAt(taskItem);
+                    _dBTaskService.DeleteTaskFromTable(taskId);
                 });
              }
+        }
+
+        public MvxAsyncCommand<int> DeleteItemFromList
+        {
+            get
+            {
+                return new MvxAsyncCommand<int>(async (position) =>
+                {
+                    TaskCollection.RemoveAt(position);
+                });
+            }
         }
 
         public MvxAsyncCommand CreateNewTask

@@ -6,20 +6,10 @@
     android:layout_height="wrap_content">
 	<include
         android:id="@+id/maintoolbar"
-        layout="@layout/toolbarMain" />
-	<Button
-		android:text="Add Task"
-		style="@style/OrangeButton"
-		android:layout_below="@id/maintoolbar"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginLeft="40dp"
-		android:layout_marginRight="40dp"
-		android:id="@+id/addTask"
-		local:MvxBind="Click CreateNewTask"/>
+        layout="@layout/toolbarMain" />	
 	<MvxSwipeRefreshLayout
+		android:layout_below="@id/maintoolbar"
 		android:id="@+id/refresher"
-		android:layout_below="@id/addTask"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:minHeight="100dp"		
@@ -33,5 +23,22 @@
 			local:MvxItemTemplate="@layout/task_item"
 			local:MvxBind="ItemsSource TaskCollection; ItemClick ShowTaskChangedView"/>
 	</MvxSwipeRefreshLayout>
-	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:orientation="horizontal"
+		android:layout_marginLeft="40dp"
+		android:layout_marginRight="40dp">
+		<Button
+			android:text="Add Task"
+			style="@style/OrangeButton"
+			android:layout_below="@id/maintoolbar"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="40dp"
+			android:layout_marginRight="40dp"
+			android:id="@+id/addTask"
+			local:MvxBind="Click CreateNewTask"/>
+	</LinearLayout>	
 </RelativeLayout> 
