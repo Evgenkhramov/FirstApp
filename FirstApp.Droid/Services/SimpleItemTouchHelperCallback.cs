@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using Android.Graphics;
 using Android.Support.V7.Widget;
 using Android.Support.V7.Widget.Helper;
+using Android.Views;
+using Android.Widget;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
@@ -29,6 +31,16 @@ namespace FirstApp.Droid.Services
             _deleteItemFromList = deleteItemFromList;
         }
 
+        public override void OnChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, bool isCurrentlyActive)
+        {
+           // base.OnChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            int position = viewHolder.AdapterPosition;
+            View v = recyclerView.GetLayoutManager().FindViewByPosition(position);
+            Button hidden = v.FindViewById<Button>(Resource.Id.hidden);
+            var parametr = new LinearLayout.LayoutParams((int)-dX, -1);
+            hidden.LayoutParameters = parametr;
+        }
+
         public override int GetMovementFlags(RecyclerView p0, RecyclerView.ViewHolder p1)
         {
             int dragFlags = ItemTouchHelper.Up | ItemTouchHelper.Down;
@@ -46,11 +58,11 @@ namespace FirstApp.Droid.Services
         {
             //bool answer = _userDialogService.ShowAlertForUserWithSomeLogic("Delete this task", "Do you want to delete this task?", "Yes", "No");
 
-            int position = holder.AdapterPosition;
-            int itemId = _taskList[position].Id;
-            _deleteCommand.Execute(itemId);
-            _deleteItemFromList.Execute(position);
-            _adapter.NotifyItemRemoved(position);
+            //int position = holder.AdapterPosition;
+            //int itemId = _taskList[position].Id;
+            //_deleteCommand.Execute(itemId);
+            //_deleteItemFromList.Execute(position);
+            //_adapter.NotifyItemRemoved(position);
         }
     }
 }

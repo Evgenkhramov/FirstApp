@@ -7150,8 +7150,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f080049
 			public const int SYM = 2131230793;
 			
-			// aapt resource value: 0x7f0800e0
-			public const int TaskDescription = 2131230944;
+			// aapt resource value: 0x7f0800e1
+			public const int TaskDescription = 2131230945;
 			
 			// aapt resource value: 0x7f0800db
 			public const int TaskName = 2131230939;
@@ -7222,8 +7222,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f080039
 			public const int add = 2131230777;
 			
-			// aapt resource value: 0x7f0800e7
-			public const int addTask = 2131230951;
+			// aapt resource value: 0x7f0800e8
+			public const int addTask = 2131230952;
 			
 			// aapt resource value: 0x7f080029
 			public const int adjust_height = 2131230761;
@@ -7261,20 +7261,20 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f0800d9
 			public const int btOpen = 2131230937;
 			
-			// aapt resource value: 0x7f0800ed
-			public const int btnCamera = 2131230957;
+			// aapt resource value: 0x7f0800ee
+			public const int btnCamera = 2131230958;
 			
 			// aapt resource value: 0x7f080074
 			public const int buttonPanel = 2131230836;
 			
-			// aapt resource value: 0x7f0800ec
-			public const int camera_preview = 2131230956;
+			// aapt resource value: 0x7f0800ed
+			public const int camera_preview = 2131230957;
 			
 			// aapt resource value: 0x7f0800c3
 			public const int cancel_action = 2131230915;
 			
-			// aapt resource value: 0x7f0800ef
-			public const int canceldata = 2131230959;
+			// aapt resource value: 0x7f0800f0
+			public const int canceldata = 2131230960;
 			
 			// aapt resource value: 0x7f080056
 			public const int center = 2131230806;
@@ -7375,8 +7375,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f0800b2
 			public const int facebookLoginButton = 2131230898;
 			
-			// aapt resource value: 0x7f0800e1
-			public const int fileName = 2131230945;
+			// aapt resource value: 0x7f0800e2
+			public const int fileName = 2131230946;
 			
 			// aapt resource value: 0x7f080061
 			public const int fill = 2131230817;
@@ -7393,17 +7393,20 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f080069
 			public const int forever = 2131230825;
 			
-			// aapt resource value: 0x7f0800e3
-			public const int getFileButton = 2131230947;
-			
 			// aapt resource value: 0x7f0800e4
-			public const int getMapMarker = 2131230948;
+			public const int getFileButton = 2131230948;
+			
+			// aapt resource value: 0x7f0800e5
+			public const int getMapMarker = 2131230949;
 			
 			// aapt resource value: 0x7f08000f
 			public const int ghost_view = 2131230735;
 			
 			// aapt resource value: 0x7f0800bb
 			public const int header_menu = 2131230907;
+			
+			// aapt resource value: 0x7f0800dd
+			public const int hidden = 2131230941;
 			
 			// aapt resource value: 0x7f08000a
 			public const int home = 2131230730;
@@ -7489,26 +7492,26 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f0800b8
 			public const int maintoolbar = 2131230904;
 			
-			// aapt resource value: 0x7f0800e2
-			public const int mapMarkers = 2131230946;
+			// aapt resource value: 0x7f0800e3
+			public const int mapMarkers = 2131230947;
 			
 			// aapt resource value: 0x7f0800b9
 			public const int mapView = 2131230905;
 			
-			// aapt resource value: 0x7f0800f1
-			public const int masked = 2131230961;
+			// aapt resource value: 0x7f0800f2
+			public const int masked = 2131230962;
 			
 			// aapt resource value: 0x7f0800c5
 			public const int media_actions = 2131230917;
 			
-			// aapt resource value: 0x7f0800f2
-			public const int menu_edit = 2131230962;
+			// aapt resource value: 0x7f0800f3
+			public const int menu_edit = 2131230963;
 			
-			// aapt resource value: 0x7f0800e8
-			public const int menu_icon = 2131230952;
+			// aapt resource value: 0x7f0800e9
+			public const int menu_icon = 2131230953;
 			
-			// aapt resource value: 0x7f0800eb
-			public const int message = 2131230955;
+			// aapt resource value: 0x7f0800ec
+			public const int message = 2131230956;
 			
 			// aapt resource value: 0x7f080043
 			public const int middle = 2131230787;
@@ -7570,11 +7573,11 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f080086
 			public const int radio = 2131230854;
 			
-			// aapt resource value: 0x7f0800e6
-			public const int recycView = 2131230950;
+			// aapt resource value: 0x7f0800e7
+			public const int recycView = 2131230951;
 			
-			// aapt resource value: 0x7f0800e5
-			public const int refresher = 2131230949;
+			// aapt resource value: 0x7f0800e6
+			public const int refresher = 2131230950;
 			
 			// aapt resource value: 0x7f0800b1
 			public const int registration = 2131230897;
@@ -7591,8 +7594,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f080027
 			public const int satellite = 2131230759;
 			
-			// aapt resource value: 0x7f0800ea
-			public const int saveButton = 2131230954;
+			// aapt resource value: 0x7f0800eb
+			public const int saveButton = 2131230955;
 			
 			// aapt resource value: 0x7f080011
 			public const int save_image_matrix = 2131230737;
@@ -7603,8 +7606,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f080013
 			public const int save_scale_type = 2131230739;
 			
-			// aapt resource value: 0x7f0800ee
-			public const int savedata = 2131230958;
+			// aapt resource value: 0x7f0800ef
+			public const int savedata = 2131230959;
 			
 			// aapt resource value: 0x7f08003b
 			public const int screen = 2131230779;
@@ -7762,14 +7765,14 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f08007a
 			public const int textSpacerNoTitle = 2131230842;
 			
-			// aapt resource value: 0x7f0800de
-			public const int textView1 = 2131230942;
-			
 			// aapt resource value: 0x7f0800df
-			public const int textView3 = 2131230943;
+			public const int textView1 = 2131230943;
 			
-			// aapt resource value: 0x7f0800e9
-			public const int textViewMain = 2131230953;
+			// aapt resource value: 0x7f0800e0
+			public const int textView3 = 2131230944;
+			
+			// aapt resource value: 0x7f0800ea
+			public const int textViewMain = 2131230954;
 			
 			// aapt resource value: 0x7f0800ac
 			public const int textViewStatus = 2131230892;
@@ -7777,8 +7780,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f0800aa
 			public const int text_input_password_toggle = 2131230890;
 			
-			// aapt resource value: 0x7f0800dd
-			public const int text_views = 2131230941;
+			// aapt resource value: 0x7f0800de
+			public const int text_views = 2131230942;
 			
 			// aapt resource value: 0x7f080019
 			public const int textinput_counter = 2131230745;
@@ -7840,8 +7843,8 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f08001b
 			public const int view_offset_helper = 2131230747;
 			
-			// aapt resource value: 0x7f0800f0
-			public const int visible = 2131230960;
+			// aapt resource value: 0x7f0800f1
+			public const int visible = 2131230961;
 			
 			// aapt resource value: 0x7f08009c
 			public const int webview = 2131230876;
