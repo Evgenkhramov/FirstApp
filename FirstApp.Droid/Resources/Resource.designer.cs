@@ -7132,6 +7132,9 @@ namespace FirstApp.Droid
 			// aapt resource value: 0x7f080045
 			public const int CTRL = 2131230789;
 			
+			// aapt resource value: 0x7f0800dd
+			public const int DeleteItem = 2131230941;
+			
 			// aapt resource value: 0x7f080046
 			public const int FUNCTION = 2131230790;
 			
@@ -7404,9 +7407,6 @@ namespace FirstApp.Droid
 			
 			// aapt resource value: 0x7f0800bb
 			public const int header_menu = 2131230907;
-			
-			// aapt resource value: 0x7f0800dd
-			public const int hidden = 2131230941;
 			
 			// aapt resource value: 0x7f08000a
 			public const int home = 2131230730;

@@ -11,6 +11,7 @@ namespace FirstApp.Droid.Holders
     {
         public TextView NameTaskHolder { get; set; }
         public TextView DescriptionTaskHolder { get; set; }
+        public Button DeleteThisItem { get; set; }
        
 
         public TasksViewHolder(View itemView, IMvxAndroidBindingContext context) : base(itemView, context)
@@ -18,7 +19,7 @@ namespace FirstApp.Droid.Holders
 
             NameTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskName);
             DescriptionTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskShortDescription);
-            
+            DeleteThisItem = itemView.FindViewById<Button>(Resource.Id.DeleteItem);
             this.DelayBind(() =>
             {
                 var set = this.CreateBindingSet<TasksViewHolder, TaskModel>();

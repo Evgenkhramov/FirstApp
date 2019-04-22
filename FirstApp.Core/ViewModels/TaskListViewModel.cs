@@ -65,6 +65,17 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
+        //public MvxAsyncCommand DeleteThisItem
+        //{
+        //    get
+        //    {
+        //        return new MvxAsyncCommand(async () =>
+        //        {
+        //            await _navigationService.Navigate<TaskDetailsViewModel>();
+        //        });
+        //    }
+        //}
+
         public MvxAsyncCommand CreateNewTask
         {
             get

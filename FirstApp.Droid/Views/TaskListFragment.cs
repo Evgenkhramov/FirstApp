@@ -61,9 +61,9 @@ namespace FirstApp.Droid.Views
 
             _recyclerView.Adapter = recyclerAdapter;
 
-            ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(recyclerAdapter, ViewModel.TaskCollection, ViewModel.DeleteItem,ViewModel.DeleteItemFromList);
-            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
-            itemTouchHelper.AttachToRecyclerView(_recyclerView);
+            //ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(recyclerAdapter, ViewModel.TaskCollection, ViewModel.DeleteItem, ViewModel.DeleteItemFromList);
+            //ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
+            //itemTouchHelper.AttachToRecyclerView(_recyclerView);
 
         }
         public void DeleteTask(int taskId)

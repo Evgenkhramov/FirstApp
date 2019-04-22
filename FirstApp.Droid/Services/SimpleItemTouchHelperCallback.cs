@@ -33,12 +33,12 @@ namespace FirstApp.Droid.Services
 
         public override void OnChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, bool isCurrentlyActive)
         {
-           // base.OnChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-            int position = viewHolder.AdapterPosition;
-            View v = recyclerView.GetLayoutManager().FindViewByPosition(position);
-            Button hidden = v.FindViewById<Button>(Resource.Id.hidden);
-            var parametr = new LinearLayout.LayoutParams((int)-dX, -1);
-            hidden.LayoutParameters = parametr;
+            base.OnChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            //int position = viewHolder.AdapterPosition;
+            //View v = recyclerView.GetLayoutManager().FindViewByPosition(position);
+            //Button hidden = v.FindViewById<Button>(Resource.Id.hidden);
+            //var parametr = new LinearLayout.LayoutParams((int)-dX, -1);
+            //hidden.LayoutParameters = parametr;
         }
 
         public override int GetMovementFlags(RecyclerView p0, RecyclerView.ViewHolder p1)
