@@ -22,15 +22,10 @@ namespace FirstApp.Core.Services
             _connect.Insert(fileName);
         }
 
-        public string[] GetFileNameFromDB(int taskId)
+        public List<FileListModel> GetFileNameFromDB(int taskId)
         {
-            string[] names = null;
-            var list = _connect.Query<FileListModel>($"SELECT * FROM FileName WHERE TaskId = {taskId}");
-            for (int i = 0; i < list.Capacity; i++)
-            {
-                names[i] = list[i].FileName;
-            }
-            return names;
+            List<FileListModel> list = _connect.Query<FileListModel>($"SELECT * FROM FileName WHERE TaskId = {taskId}");
+            return list;
         }
 
         public void DeleteFileName(int id)

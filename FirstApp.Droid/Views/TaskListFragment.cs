@@ -53,22 +53,16 @@ namespace FirstApp.Droid.Views
         }
         public void SetupRecyclerView(View view)
         {
-            // TaskCollection = new MvxObservableCollection<TaskModel>();
             _recyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.recycView);
             _layoutManager = new LinearLayoutManager(this.Context);
             _recyclerView.SetLayoutManager(_layoutManager);
             var recyclerAdapter = new TaskListAdapter((IMvxAndroidBindingContext)this.BindingContext);
-
             _recyclerView.Adapter = recyclerAdapter;
 
             //ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(recyclerAdapter, ViewModel.TaskCollection, ViewModel.DeleteItem, ViewModel.DeleteItemFromList);
             //ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
             //itemTouchHelper.AttachToRecyclerView(_recyclerView);
 
-        }
-        public void DeleteTask(int taskId)
-        {
-            ViewModel.DeleteItem.Execute();
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using FirstApp.Core.Models;
+using System.Collections.Generic;
 
 namespace FirstApp.Core.Interfaces
 {
     public interface IDBFileNameService
     {
         void AddFileNameToTable(FileListModel fileName);
-        string[] GetFileNameFromDB(int taskId);
+        List<FileListModel> GetFileNameFromDB(int taskId);
+        void DeleteFileName(int id);
     }
 }

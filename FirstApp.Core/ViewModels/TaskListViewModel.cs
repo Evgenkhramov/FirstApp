@@ -4,27 +4,40 @@ using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using System;
 using System.Threading.Tasks;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class TaskListViewModel : BaseViewModel
+    public class TaskListViewModel : BaseViewModel, IListHandler
     {
         public int taskItem;
         private readonly IDBTaskService _dBTaskService;
+
         public TaskListViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService) : base(navigationService)
         {
             _dBTaskService = dBTaskService;
+            DeleteItemCommand = new MvxCommand<int>(RemoveCollectionItem);
             //_dBTaskService = Mvx.IoCProvider.Resolve<IDBTaskService>();
             AddData();
-            ShowTaskChangedView = new MvxAsyncCommand<TaskModel>(ShowTaskChanged);
+            ShowTaskChangedView = new MvxAsyncCommand<TaskModel>(CollectionItemClick);
         }
-        public IMvxCommand ShowTaskChangedView { get; set; }
+        public IMvxCommand<TaskModel> ShowTaskChangedView { get; set; }
 
         public void AddData()
         {
+
+            var list = _dBTaskService.LoadListItemsTask();
+
+            foreach (var item in list)
+            {
+                item.VmHandler = this;
+                //item.DeleteItemVMCommand = DeleteItemCommand;
+                //item.ItemClickVMCommand = ShowTaskChangedView;
+            }
+
             TaskCollection = new MvxObservableCollection<TaskModel>();
-            TaskCollection.AddRange(_dBTaskService.LoadListItemsTask());
+            TaskCollection.AddRange(list);
         }
 
         private MvxObservableCollection<TaskModel> _taskCollection;
@@ -38,44 +51,6 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        private async Task ShowTaskChanged(TaskModel _taskCreate)
-        {
-            var result = await _navigationService.Navigate<TaskDetailsViewModel, TaskModel>(_taskCreate);
-        }
-
-        public MvxAsyncCommand<int> DeleteItem
-        {
-            get
-            {
-                return new MvxAsyncCommand<int>(async (taskId) =>
-                {
-                    _dBTaskService.DeleteTaskFromTable(taskId);
-                });
-             }
-        }
-
-        public MvxAsyncCommand<int> DeleteItemFromList
-        {
-            get
-            {
-                return new MvxAsyncCommand<int>(async (position) =>
-                {
-                    TaskCollection.RemoveAt(position);
-                });
-            }
-        }
-
-        //public MvxAsyncCommand DeleteThisItem
-        //{
-        //    get
-        //    {
-        //        return new MvxAsyncCommand(async () =>
-        //        {
-        //            await _navigationService.Navigate<TaskDetailsViewModel>();
-        //        });
-        //    }
-        //}
-
         public MvxAsyncCommand CreateNewTask
         {
             get
@@ -88,9 +63,34 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
+        public IMvxCommand<int> ItemClickCommand { get; set; }
+
+        public IMvxCommand<int> DeleteItemCommand { get; set; }
+
         public override void ViewAppearing()
         {
             AddData();
+        }
+
+        public async Task CollectionItemClick(TaskModel model)
+        {
+            var result = await _navigationService.Navigate<TaskDetailsViewModel, TaskModel>(model);
+        }
+        
+
+        public void RemoveCollectionItem(int itemId)
+        {
+            TaskModel _itemForDelete = null;
+            _dBTaskService.DeleteTaskFromTable(itemId);
+            foreach (TaskModel item in TaskCollection)
+            {
+                if (item.Id == itemId)
+                {
+                    _itemForDelete = item;
+                }
+            }
+
+            TaskCollection.Remove(item: _itemForDelete);
         }
     }
 }

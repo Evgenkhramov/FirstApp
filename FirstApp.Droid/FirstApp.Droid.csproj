@@ -66,7 +66,7 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adaptere\TaskListAdapter.cs" />
+    <Compile Include="Adapters\TaskListAdapter.cs" />
     <Compile Include="Holders\TasksViewHolder.cs" />
     <Compile Include="Interfaces\IBackButtonListener.cs" />
     <Compile Include="MainApplication.cs" />
@@ -327,6 +327,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\SwipeRightMenu.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\list_item_row.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

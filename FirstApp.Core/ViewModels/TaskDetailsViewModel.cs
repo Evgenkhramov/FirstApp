@@ -1,28 +1,35 @@
-﻿using FirstApp.Core.Interfaces;
+﻿using Android.Widget;
+using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using MvvmCross.ViewModels;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class TaskDetailsViewModel : BaseViewModel<TaskModel>
+    public class TaskDetailsViewModel : BaseViewModel<TaskModel>, IFileListHandler
     {
+        // public List<FileListModel> _fileNameList = new List<FileListModel> { };
         public TaskModel taskModel = new TaskModel();
         public int TaskId;
+        private readonly IDBFileNameService _dBFileNameService;
         private readonly IDBMapMarkerService _dBMapMarkerService;
         private readonly IDBTaskService _dBTaskService;
         private readonly IUserDialogService _userDialogService;
         public TaskDetailsViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService, IDBMapMarkerService dBMapMarkerService,
-            IUserDialogService userDialogService) : base(navigationService)
+            IUserDialogService userDialogService, IDBFileNameService dBFileNameService) : base(navigationService)
         {
             _dBMapMarkerService = dBMapMarkerService;
             _userDialogService = userDialogService;
             _dBTaskService = dBTaskService;
-           
+            _dBFileNameService = dBFileNameService;
+
+            DeleteFileItemCommand = new MvxCommand<int>(RemoveCollectionItem);
+
             SaveButton = true;
             HaveGone = false;
-
         }
 
         public override async Task Initialize()
@@ -35,6 +42,7 @@ namespace FirstApp.Core.ViewModels
                 MapMarkers = null;
                 _dBTaskService.AddTaskToTable(taskModel);
                 TaskId = taskModel.Id;
+                AddFileName();
             }
         }
 
@@ -46,8 +54,8 @@ namespace FirstApp.Core.ViewModels
                 TaskId = parametr.Id;
                 TaskName = parametr.TaskName;
                 TaskDescription = parametr.TaskDescription;
-                FileName = parametr.FileName;
                 MapMarkers = _dBMapMarkerService.GetMapMarkerFromDB(TaskId).Count.ToString();
+                AddFileName();
                 return;
             }
             TaskName = null;
@@ -57,7 +65,30 @@ namespace FirstApp.Core.ViewModels
             TaskId = taskModel.Id;
         }
 
-        private bool _saveButton;
+        public void AddFileName()
+        {
+
+            FileNameList = new MvxObservableCollection<FileListModel>() { };
+            List<FileListModel> list = GetFileNameListFromDB(TaskId);
+            foreach (var item in list)
+            {
+                item.VmHandler = this;
+            }
+            FileNameList.AddRange(list);
+        }
+
+    public MvxObservableCollection<FileListModel> _fileNameList;
+    public MvxObservableCollection<FileListModel> FileNameList
+    {
+        get => _fileNameList;
+        set
+        {
+            _fileNameList = value;
+            RaisePropertyChanged(() => FileNameList);
+        }
+    }
+
+    private bool _saveButton;
         public bool SaveButton
         {
             get => _saveButton;
@@ -101,17 +132,7 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        private string _fileName;
-        public string FileName
-        {
-            get => _fileName;
-            set
-            {
-                _fileName = value;
-                taskModel.FileName = _fileName;
-                RaisePropertyChanged(() => FileName);
-            }
-        }
+        // ListView listView = new ListView(){ };
 
         private string _mapMarkers;
         public string MapMarkers
@@ -139,7 +160,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    
+
                     var result = await _navigationService.Navigate<MapViewModel, TaskModel>(taskModel);
                 });
             }
@@ -165,9 +186,9 @@ namespace FirstApp.Core.ViewModels
                     }
                     if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName))
                     {
-                        //taskModel.TaskName = TaskName;
-                        //taskModel.TaskDescription = TaskDescription;
-                        _dBTaskService.AddTaskToTable(taskModel);
+                    //taskModel.TaskName = TaskName;
+                    //taskModel.TaskDescription = TaskDescription;
+                    _dBTaskService.AddTaskToTable(taskModel);
                         await _navigationService.Navigate<TaskListViewModel>();
                     }
                 });
@@ -207,21 +228,50 @@ namespace FirstApp.Core.ViewModels
                         _dBTaskService.DeleteTaskFromTable(TaskId);
                         await _navigationService.Navigate<TaskListViewModel>();
 
-                        //await _navigationService.Close(this);
-                    }
+                    //await _navigationService.Close(this);
+                }
                     if (!answ)
                     {
-                        // await _navigationService.Close(this);
-                        await _navigationService.Navigate<TaskListViewModel>();
+                    // await _navigationService.Close(this);
+                    await _navigationService.Navigate<TaskListViewModel>();
                     }
                 });
             }
         }
-
-        public void SaveFileNameInModel(string name)
+        public List<FileListModel> GetFileNameListFromDB(int taskId)
         {
-            taskModel.FileName += name;
+            
+           List<FileListModel> list =  _dBFileNameService.GetFileNameFromDB(taskId);
+            return list;
         }
+
+        public void SaveFileName(string name)
+        {
+            FileListModel item = new FileListModel();
+            item.TaskId = TaskId;
+            item.FileName = name;
+            item.VmHandler = this;
+            _fileNameList.Add(item);
+            _dBFileNameService.AddFileNameToTable(item);
+        }
+
+        public void RemoveCollectionItem(int itemId)
+        {
+            _dBFileNameService.DeleteFileName(itemId);
+
+            FileListModel _itemForDelete = null;
+
+            foreach (FileListModel item in FileNameList)
+            {
+                if (item.Id == itemId)
+                {
+                     _itemForDelete = item;
+                    break;
+                }
+            }
+            FileNameList.Remove(item: _itemForDelete);
+        }
+        public IMvxCommand<int> DeleteFileItemCommand { get; set; }
 
         public override void ViewAppearing()
         {

@@ -4,6 +4,7 @@ using FirstApp.Core.Models;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
+using System;
 
 namespace FirstApp.Droid.Holders
 {
@@ -11,22 +12,20 @@ namespace FirstApp.Droid.Holders
     {
         public TextView NameTaskHolder { get; set; }
         public TextView DescriptionTaskHolder { get; set; }
-        public Button DeleteThisItem { get; set; }
-       
 
         public TasksViewHolder(View itemView, IMvxAndroidBindingContext context) : base(itemView, context)
         {
-
+           
             NameTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskName);
             DescriptionTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskShortDescription);
-            DeleteThisItem = itemView.FindViewById<Button>(Resource.Id.DeleteItem);
+       
             this.DelayBind(() =>
             {
                 var set = this.CreateBindingSet<TasksViewHolder, TaskModel>();
                 set.Bind(this.NameTaskHolder).To(x => x.TaskName);
                 set.Bind(this.DescriptionTaskHolder).To(y => y.TaskDescription);
                 set.Apply();
-            });
+            });       
         }
     }
 }

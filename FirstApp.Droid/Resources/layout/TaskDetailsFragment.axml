@@ -56,6 +56,14 @@
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"/>
+		<MvxListView
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:layout_width="match_parent"
+			android:layout_height="150dp"
+			local:MvxItemTemplate="@layout/list_item_row"
+			local:MvxBind="ItemsSource FileNameList"
+			android:id="@+id/ListView" />
 		<TextView
 			android:text=""
 			android:textColor="#5FBDCE"

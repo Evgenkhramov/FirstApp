@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:local="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	android:layout_marginLeft="10dp"
+	android:layout_marginRight="10dp">
+	<TextView
+		android:layout_width="0dp"
+		android:textColor="#5FBDCE"
+		android:layout_weight="0.8"				
+		android:layout_height="wrap_content"
+		local:MvxBind="Text FileName"	
+		android:id="@+id/FileNameText" />
+	<Button
+		style="@style/OrangeButton"
+		android:text="Del"
+		android:layout_width="0dp"
+		android:layout_weight="0.2"
+		android:elevation="6dp"
+		android:stateListAnimator="@null"
+		android:translationZ="4dp"
+		android:layout_margin="4dp"
+		android:layout_height="wrap_content"       
+		android:textColor="#f00"
+		local:MvxBind="Click DeleteItemCommand"
+		android:id="@+id/registration" />
+</LinearLayout>

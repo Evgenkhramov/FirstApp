@@ -35,7 +35,5 @@ namespace FirstApp.Droid.Adaptere
                 LongClick = ItemLongClick
             };
         }
-
-
     }
 }

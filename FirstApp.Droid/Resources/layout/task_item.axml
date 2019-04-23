@@ -1,48 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:scrollbarFadeDuration="0">
-	<LinearLayout
-		xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:local="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:local="http://schemas.android.com/apk/res-auto"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal">
+	<HorizontalScrollView 
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+		android:scrollbars="none">
 		<LinearLayout
-			xmlns:android="http://schemas.android.com/apk/res/android"
-			xmlns:local="http://schemas.android.com/apk/res-auto"
-			android:layout_width="400dp"
+			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:orientation="vertical">
-			<TextView
-				android:text="text"
-				android:id="@+id/TaskName"
-				android:textColor="#5FBDCE"
-				android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			local:MvxBind="Click ItemClickCommand">
+			<LinearLayout
+				android:layout_marginLeft="20dp"
+				android:layout_width="400dp"
 				android:layout_height="wrap_content"
-				local:MvxBind="Text TaskName"/>
-			<TextView
-				android:text="texta"
-				android:id="@+id/TaskShortDescription"
-				android:textColor="#5FBDCE"
-				android:layout_width="wrap_content"
+				android:orientation="vertical">
+				<TextView
+			
+					android:id="@+id/TaskName"
+					android:textColor="#5FBDCE"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					local:MvxBind="Text TaskName"/>
+				<TextView
+				
+					android:id="@+id/TaskShortDescription"
+					android:textColor="#5FBDCE"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					local:MvxBind="Text TaskDescription" />
+			</LinearLayout>
+			<Button
+				style="@style/OrangeButton"
+				android:text="Delete"
+				android:id="@+id/DeleteItem"
+				android:layout_width="100dp"
 				android:layout_height="wrap_content"
-				local:MvxBind="Text TaskDescription" />
+				local:MvxBind="Click DeleteItemCommand"
+			/>					
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:background="@android:color/darker_gray"/>
 		</LinearLayout>
-		<Button
-			style="@style/OrangeButton"
-			android:text="Delete"
-			android:id="@+id/DeleteItem"
-			android:layout_width="100dp"
-			android:layout_height="wrap_content"
-			local:MvxBind="Click DeleteThisItem"
-		/>					
-		<View
-			android:layout_width="match_parent"
-			android:layout_height="1dp"
-			android:background="@android:color/darker_gray"/>
-	</LinearLayout>
-</HorizontalScrollView>
+	</HorizontalScrollView>
+</LinearLayout>
 
 

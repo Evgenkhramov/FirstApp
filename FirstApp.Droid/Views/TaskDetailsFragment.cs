@@ -21,6 +21,8 @@ namespace FirstApp.Droid.Views
     {
         static readonly int READ_EXTERNAL_STORAGE = 0;
         private int fileCode = 1000;
+        
+        ListView _listFileNameView;
         public Button getFileButton;
         public Button menuButton;
         protected override int FragmentId => Resource.Layout.TaskDetailsFragment;
@@ -36,12 +38,7 @@ namespace FirstApp.Droid.Views
                 GetPermissions(sender, e);
             };
 
-            //menuButton = view.FindViewById<Button>(Resource.Id.menu_icon);
-            //menuButton.Click += (object sender, EventArgs e) =>
-            //{
-            //    OpenMenu();
-            //};
-
+            SetupFileNameListView(view);
             return view;
         }
 
@@ -57,6 +54,15 @@ namespace FirstApp.Droid.Views
                 OpenFile();
             }
         }
+
+        public void SetupFileNameListView(View view)
+        {
+            //_listFileNameView = view.FindViewById<ListView>(Resource.Id.ListView);
+            ////listView.ItemClick += OnListItemClick;
+            //var listAdapter = new FileNameListAdapter(this.Activity, ViewModel._fileNameList);
+            //_listFileNameView.Adapter = listAdapter;
+        }
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             if (requestCode == READ_EXTERNAL_STORAGE)
@@ -103,7 +109,7 @@ namespace FirstApp.Droid.Views
 
                     fileName = System.IO.Path.GetFileNameWithoutExtension(uri.LocalPath);
 
-                    ViewModel.FileName += $"{fileName},\n";
+                    ViewModel.SaveFileName(fileName);
                 }
             }
         }
