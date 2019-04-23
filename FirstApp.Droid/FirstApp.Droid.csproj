@@ -275,6 +275,9 @@
     <AndroidResource Include="Resources\drawable-xhdpi\menu_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\menu_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\menu_icon.png" />
+    <AndroidResource Include="Resources\drawable\border.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <Content Include="Resources\drawable\screen.png" />
     <AndroidResource Include="Resources\layout\SplashScreen.axml">
       <SubType>Designer</SubType>

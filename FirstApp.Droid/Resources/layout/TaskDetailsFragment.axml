@@ -19,7 +19,6 @@
 		<TextView
 			android:text="Task Name"
 			android:textColor="#5FBDCE"
-			android:textAlignment="center"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -28,6 +27,7 @@
 			android:id="@+id/textView1" />
 		<EditText
 			android:text=""
+			android:background="#14ffffff"
 			android:textColor="#5FBDCE"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_width="match_parent"
@@ -37,82 +37,78 @@
 		<TextView
 			android:text="Task Description"
 			android:textColor="#5FBDCE"
-			android:textAlignment="center"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:id="@+id/textView3" />
 		<EditText
 			android:inputType=""
+			android:background="#14ffffff"
 			android:textColor="#5FBDCE"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			local:MvxBind="Text TaskDescription"
 			android:id="@+id/TaskDescription" />
-		<TextView
-			android:text="File Name"
-			android:textAlignment="center"
-			android:textColor="#5FBDCE"
-			android:textAppearance="?android:attr/textAppearanceMedium"
+		<LinearLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"/>
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="3dp"
+			android:orientation="horizontal">
+			<TextView
+				android:text="File Name"
+				android:textColor="#5FBDCE"
+				android:layout_weight="0.5"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"/>
+			<Button
+				style="@style/OrangeButton"
+				android:text="Add file"
+				android:layout_weight="0.5"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				local:MvxBind="Click AddFile"
+				android:id="@+id/getFileButton" />
+		</LinearLayout>
 		<MvxListView
 			android:minWidth="25px"
 			android:minHeight="25px"
 			android:layout_width="match_parent"
-			android:layout_height="150dp"
+			android:layout_height="100dp"
 			local:MvxItemTemplate="@layout/list_item_row"
 			local:MvxBind="ItemsSource FileNameList"
 			android:id="@+id/ListView" />
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="3dp"
+			android:orientation="horizontal">
+			<TextView
+				android:text="Map markers"
+				android:textColor="#5FBDCE"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="0dp"
+				android:layout_weight="0.5"
+				android:layout_height="wrap_content"/>
+			<Button
+				style="@style/OrangeButton"
+				android:text="Add marker on map"
+				android:layout_width="0dp"
+				android:layout_weight="0.5"
+				android:layout_height="wrap_content"
+				local:MvxBind="Click AddMarker"
+				android:id="@+id/getMapMarker" />		
+		</LinearLayout>
 		<TextView
-			android:text=""
-			android:textColor="#5FBDCE"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			local:MvxBind="Text FileName"
-			android:id="@+id/fileName" />
-		<TextView
-			android:text="Map markers"
-			android:textAlignment="center"
-			android:textColor="#5FBDCE"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"/>
-		<TextView
-			android:text=""
-			android:textColor="#5FBDCE"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			local:MvxBind="Text MapMarkers"
-			android:id="@+id/mapMarkers"/>
-	</LinearLayout>
-	<LinearLayout
-		android:layout_below="@id/text_views"
-		android:orientation="vertical"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent">
-		<Button
-			style="@style/OrangeButton"
-			android:text="Add file"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginLeft="40dp"
-			android:layout_marginRight="40dp"
-			local:MvxBind="Click AddFile"
-			android:id="@+id/getFileButton" />
-		<Button
-			style="@style/OrangeButton"
-			android:text="Add marker on map"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginLeft="40dp"
-			android:layout_marginRight="40dp"
-			local:MvxBind="Click AddMarker"
-			android:id="@+id/getMapMarker" />
-	</LinearLayout>
-	<LinearLayout
+				android:text=""
+				android:background="#14ffffff"
+				android:textColor="#5FBDCE"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				local:MvxBind="Text MapMarkers"
+				android:id="@+id/mapMarkers"/>
+		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_alignParentBottom="true"
@@ -144,4 +140,5 @@
 				local:MvxBind="Click DeleteTask"
 				android:id="@+id/registration" />	
 		</LinearLayout>
+	</LinearLayout>
 </RelativeLayout>
