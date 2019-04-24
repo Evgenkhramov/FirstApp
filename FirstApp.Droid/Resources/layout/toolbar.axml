@@ -14,8 +14,9 @@
 		android:layout_height="match_parent">
 		<Button
 			android:background="@mipmap/arrow_left"
-			android:layout_width="50dp"
+			android:layout_width="50sp"
 			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
 			local:MvxBind="Hidden HaveGone; Click BackCommand"
 			android:id="@+id/menu_icon"/>
 		<TextView
@@ -33,10 +34,8 @@
 			style="@style/OrangeButton"
 			android:text="Save"
 			android:layout_width="70sp"
-			android:textSize="16sp"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="40sp"
-			android:layout_toRightOf="@+id/textViewMain"
+			android:layout_alignParentRight="true"		
 			android:id="@+id/saveButton"
 			local:MvxBind="Hidden SaveButton; Click SaveMapMarker"
 			android:clickable="true"/>

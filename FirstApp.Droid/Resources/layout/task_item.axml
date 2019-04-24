@@ -12,23 +12,24 @@
 		<LinearLayout
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal"
-			
+			android:orientation="horizontal"	
 			local:MvxBind="Click ItemClickCommand">
-			<LinearLayout
-				
+			<LinearLayout			
 				android:background="@drawable/border"
-				android:layout_width="400dp"
+				android:layout_width="wrap_content"
+				android:layout_marginTop="1dp"
 				android:layout_height="wrap_content"
+				android:layout_marginRight="10dp"
 				android:orientation="vertical">
 				<TextView
-					android:layout_marginLeft="20dp"
+					android:layout_marginLeft="10dp"
 					android:id="@+id/TaskName"
 					android:textColor="#5FBDCE"
-					android:layout_width="wrap_content"
+					android:layout_width="350dp"
 					android:layout_height="wrap_content"
 					local:MvxBind="Text TaskName"/>
 				<TextView		
+					android:layout_marginLeft="10dp"
 					android:id="@+id/TaskShortDescription"
 					android:textColor="#5FBDCE"
 					android:layout_width="wrap_content"

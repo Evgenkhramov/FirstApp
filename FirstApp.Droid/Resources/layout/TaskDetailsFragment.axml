@@ -1,144 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:local="http://schemas.android.com/apk/res-auto"
-	android:background="@drawable/background"
+	android:background="#2B7B56"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 	<include
         android:id="@+id/maintoolbar"
         layout="@layout/toolbar" />
-	<LinearLayout
-		android:orientation="vertical"
-		android:layout_below="@id/maintoolbar"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginLeft="10dp"
-		android:layout_marginRight="10dp"
-		android:id="@+id/text_views">
-		<TextView
-			android:text="Task Name"
-			android:textColor="#5FBDCE"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:minWidth="25px"
-			android:minHeight="25px"
-			android:id="@+id/textView1" />
-		<EditText
-			android:text=""
-			android:background="#14ffffff"
-			android:textColor="#5FBDCE"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			local:MvxBind="Text TaskName"
-			android:id="@+id/TaskName"/>
-		<TextView
-			android:text="Task Description"
-			android:textColor="#5FBDCE"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:id="@+id/textView3" />
-		<EditText
-			android:inputType=""
-			android:background="#14ffffff"
-			android:textColor="#5FBDCE"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			local:MvxBind="Text TaskDescription"
-			android:id="@+id/TaskDescription" />
+	<ScrollView
+		android:layout_below="@+id/maintoolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 		<LinearLayout
+			android:orientation="vertical"
+			android:layout_below="@id/maintoolbar"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="3dp"
-			android:orientation="horizontal">
+			android:layout_marginLeft="10dp"
+			android:layout_marginRight="10dp"
+			android:id="@+id/text_views">
 			<TextView
-				android:text="File Name"
-				android:textColor="#5FBDCE"
-				android:layout_weight="0.5"
-				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"/>
-			<Button
-				style="@style/OrangeButton"
-				android:text="Add file"
-				android:layout_weight="0.5"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				local:MvxBind="Click AddFile"
-				android:id="@+id/getFileButton" />
-		</LinearLayout>
-		<MvxListView
-			android:minWidth="25px"
-			android:minHeight="25px"
-			android:layout_width="match_parent"
-			android:layout_height="100dp"
-			local:MvxItemTemplate="@layout/list_item_row"
-			local:MvxBind="ItemsSource FileNameList"
-			android:id="@+id/ListView" />
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="3dp"
-			android:orientation="horizontal">
-			<TextView
-				android:text="Map markers"
-				android:textColor="#5FBDCE"
-				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:layout_width="0dp"
-				android:layout_weight="0.5"
-				android:layout_height="wrap_content"/>
-			<Button
-				style="@style/OrangeButton"
-				android:text="Add marker on map"
-				android:layout_width="0dp"
-				android:layout_weight="0.5"
-				android:layout_height="wrap_content"
-				local:MvxBind="Click AddMarker"
-				android:id="@+id/getMapMarker" />		
-		</LinearLayout>
-		<TextView
-				android:text=""
-				android:background="#14ffffff"
+				android:text="Task Name"
 				android:textColor="#5FBDCE"
 				android:textAppearance="?android:attr/textAppearanceMedium"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				local:MvxBind="Text MapMarkers"
-				android:id="@+id/mapMarkers"/>
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true"
-			android:orientation="horizontal"
-			android:layout_marginLeft="40dp"
-			android:layout_marginRight="40dp">
-			<Button
-				style="@style/OrangeButton"
-				android:text="Save"	
-				android:layout_width="0dp"
-				android:layout_weight="0.5"
-				android:elevation="6dp"
-				android:stateListAnimator="@null"
-				android:translationZ="4dp"
-				android:layout_margin="4dp"
+				android:minWidth="25px"
+				android:minHeight="25px"
+				android:id="@+id/textView1" />
+			<EditText
+				android:maxLines="1"
+				android:inputType="text"
+				android:background="#14ffffff"
+				android:textColor="#5FBDCE"
+				android:maxLength="20"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				local:MvxBind="Click SaveTask"	
-				android:id="@+id/login" />
-			<Button
-				style="@style/OrangeButton"
-				android:text="Delete Task"
-				android:layout_width="0dp"
-				android:layout_weight="0.5"
-				android:elevation="6dp"
-				android:stateListAnimator="@null"
-				android:translationZ="4dp"
-				android:layout_margin="4dp"
-				android:layout_height="wrap_content"       
-				local:MvxBind="Click DeleteTask"
-				android:id="@+id/registration" />	
+				local:MvxBind="Text TaskName"
+				android:id="@+id/TaskName"/>
+			<TextView
+				android:text="Task Description"
+				android:textColor="#5FBDCE"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/textView3" />
+			<EditText
+				android:maxLines="3"
+				android:background="#14ffffff"
+				android:textColor="#5FBDCE"
+				android:maxLength="100"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				local:MvxBind="Text TaskDescription"
+				android:id="@+id/TaskDescription" />
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="3dp"
+				android:orientation="horizontal">
+				<TextView
+					android:text="File Name"
+					android:textColor="#5FBDCE"
+					android:layout_weight="0.5"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"/>
+				<Button
+					style="@style/OrangeButton"
+					android:text="Add file"
+					android:layout_weight="0.5"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					local:MvxBind="Click AddFile"
+					android:id="@+id/getFileButton" />
+			</LinearLayout>
+			<MvxListView
+				android:minWidth="25px"
+				android:minHeight="25px"
+				android:layout_width="match_parent"
+				android:layout_height="100dp"
+				local:MvxItemTemplate="@layout/list_item_row"
+				local:MvxBind="ItemsSource FileNameList"
+				android:id="@+id/ListView" />
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="3dp"
+				android:orientation="horizontal">
+				<TextView
+					android:text="Map markers"
+					android:textColor="#5FBDCE"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:layout_width="0dp"
+					android:layout_weight="0.5"
+					android:layout_height="wrap_content"/>
+				<Button
+					style="@style/OrangeButton"
+					android:text="Add marker on map"
+					android:layout_width="0dp"
+					android:layout_weight="0.5"
+					android:layout_height="wrap_content"
+					local:MvxBind="Click AddMarker"
+					android:id="@+id/getMapMarker" />		
+			</LinearLayout>
+			<TextView
+					android:text=""
+					android:background="#14ffffff"
+					android:textColor="#5FBDCE"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					local:MvxBind="Text MapMarkers"
+					android:id="@+id/mapMarkers"/>
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentBottom="true"
+				android:orientation="horizontal"
+				android:layout_marginLeft="40dp"
+				android:layout_marginRight="40dp">
+				<Button
+					style="@style/OrangeButton"
+					android:text="Save"	
+					android:layout_width="0dp"
+					android:layout_weight="0.5"
+					android:elevation="6dp"
+					android:stateListAnimator="@null"
+					android:translationZ="4dp"
+					android:layout_margin="4dp"
+					android:layout_height="wrap_content"
+					local:MvxBind="Click SaveTask"	
+					android:id="@+id/login" />
+				<Button
+					style="@style/OrangeButton"
+					android:text="Delete Task"
+					android:layout_width="0dp"
+					android:layout_weight="0.5"
+					android:elevation="6dp"
+					android:stateListAnimator="@null"
+					android:translationZ="4dp"
+					android:layout_margin="4dp"
+					android:layout_height="wrap_content"       
+					local:MvxBind="Click DeleteTask"
+					android:id="@+id/registration" />	
+			</LinearLayout>
 		</LinearLayout>
-	</LinearLayout>
+	</ScrollView>
 </RelativeLayout>

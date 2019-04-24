@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:local="http://schemas.android.com/apk/res-auto"
 	android:orientation="vertical"
-	android:background="@drawable/background"
+	android:background="#2B7B56"
 	android:layout_width="match_parent"
     android:layout_height="wrap_content">
 	<include

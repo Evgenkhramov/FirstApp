@@ -43,7 +43,6 @@ namespace FirstApp.Core.ViewModels
             MenuItems = new MvxObservableCollection<MenuItem>
             {
                 new MenuItem("Task List", this, typeof(TaskListViewModel)),
-                new MenuItem("Map", this, typeof(MapViewModel)),
                 new MenuItem("Log Out", this, typeof(LoginFragmentViewModel)),
             };
         }

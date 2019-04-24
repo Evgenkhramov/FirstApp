@@ -77,18 +77,18 @@ namespace FirstApp.Core.ViewModels
             FileNameList.AddRange(list);
         }
 
-    public MvxObservableCollection<FileListModel> _fileNameList;
-    public MvxObservableCollection<FileListModel> FileNameList
-    {
-        get => _fileNameList;
-        set
+        public MvxObservableCollection<FileListModel> _fileNameList;
+        public MvxObservableCollection<FileListModel> FileNameList
         {
-            _fileNameList = value;
-            RaisePropertyChanged(() => FileNameList);
+            get => _fileNameList;
+            set
+            {
+                _fileNameList = value;
+                RaisePropertyChanged(() => FileNameList);
+            }
         }
-    }
 
-    private bool _saveButton;
+        private bool _saveButton;
         public bool SaveButton
         {
             get => _saveButton;
@@ -160,7 +160,16 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
+                });
+            }
+        }
 
+        public MvxAsyncCommand AddMarkerCommand
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
                     var result = await _navigationService.Navigate<MapViewModel, TaskModel>(taskModel);
                 });
             }
@@ -186,9 +195,9 @@ namespace FirstApp.Core.ViewModels
                     }
                     if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName))
                     {
-                    //taskModel.TaskName = TaskName;
-                    //taskModel.TaskDescription = TaskDescription;
-                    _dBTaskService.AddTaskToTable(taskModel);
+                        //taskModel.TaskName = TaskName;
+                        //taskModel.TaskDescription = TaskDescription;
+                        _dBTaskService.AddTaskToTable(taskModel);
                         await _navigationService.Navigate<TaskListViewModel>();
                     }
                 });
@@ -228,20 +237,20 @@ namespace FirstApp.Core.ViewModels
                         _dBTaskService.DeleteTaskFromTable(TaskId);
                         await _navigationService.Navigate<TaskListViewModel>();
 
-                    //await _navigationService.Close(this);
-                }
+                        //await _navigationService.Close(this);
+                    }
                     if (!answ)
                     {
-                    // await _navigationService.Close(this);
-                    await _navigationService.Navigate<TaskListViewModel>();
+                        // await _navigationService.Close(this);
+                        await _navigationService.Navigate<TaskListViewModel>();
                     }
                 });
             }
         }
         public List<FileListModel> GetFileNameListFromDB(int taskId)
         {
-            
-           List<FileListModel> list =  _dBFileNameService.GetFileNameFromDB(taskId);
+
+            List<FileListModel> list = _dBFileNameService.GetFileNameFromDB(taskId);
             return list;
         }
 
@@ -265,7 +274,7 @@ namespace FirstApp.Core.ViewModels
             {
                 if (item.Id == itemId)
                 {
-                     _itemForDelete = item;
+                    _itemForDelete = item;
                     break;
                 }
             }
