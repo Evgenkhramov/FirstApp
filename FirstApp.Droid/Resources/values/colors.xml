@@ -3,5 +3,8 @@
     <color name="colorPrimary">#2c3e50</color>
     <color name="colorPrimaryDark">#1B3147</color>
     <color name="colorAccent">#3498db</color>
-    <color name="inputTextColor">#5FBDCE</color>
+    <color name="inputTextColor">#393B3B</color>
+    <color name="textEditColor">#14ffffff</color>
+    <color name="textColor">#5FBDCE</color>
+  
 </resources>

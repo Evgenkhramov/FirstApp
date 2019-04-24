@@ -1,114 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:local="http://schemas.android.com/apk/res-auto"
-	android:background="@drawable/background"
+	android:background="#2B7B56"
 	android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 	<include
         android:id="@+id/maintoolbar"
         layout="@layout/toolbarMain" />
-	<LinearLayout   
-		android:orientation="vertical"
-		android:layout_below="@id/maintoolbar"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent">
-		<RelativeLayout
+	<ScrollView
+		android:layout_below="@+id/maintoolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+		<LinearLayout   
 			android:orientation="vertical"
+			android:layout_below="@id/maintoolbar"
 			android:layout_width="match_parent"
-			android:layout_height="350dp"
-			android:minWidth="25px"
-			android:minHeight="25px">
-			<ImageView
-				android:id="@+id/camera_preview"
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
-				android:layout_marginBottom="50dp"
-				android:layout_marginTop="20dp"
-				local:MvxBind="Bitmap MyPhoto, Converter=StringToBitmap"
-				android:layout_weight="1">
-			</ImageView>
-			<Button
-				 android:text="Camera Snap"
-				 android:layout_width="match_parent"
-				 android:layout_height="wrap_content"
-				 android:layout_marginLeft="40dp"
-				 android:layout_marginRight="40dp"
-				 android:gravity="center"
-				 style="@style/OrangeButton"
-				 android:layout_alignParentBottom="true"
-				 android:id="@+id/btnCamera"/> 
-		</RelativeLayout>
-		<TextView
-			android:textColor="#ffebe3f6"
-			android:textSize="18sp"
-			android:text="Your Name"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:textAlignment="center"/>
-		<EditText
-			android:hint="@string/enterName"
-			android:textColorHint="@color/inputTextColor"
-			android:textColor="@color/inputTextColor"
-			android:maxLength="20"
-			android:maxLines="1"
-			android:inputType="textPersonName"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginLeft="40dp"
-			android:layout_marginRight="40dp"
-			local:MvxBind="Text UserName"
-			android:layout_marginTop = "3dp"/>
-		<TextView
-			android:textColor="#ffebe3f6"
-			android:textSize="18sp"
-			android:text="@string/yourSurname"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:textAlignment="center" />
-		<EditText
-			android:hint="@string/enterSurname"
-			android:textColorHint="@color/inputTextColor"
-			android:textColor="@color/inputTextColor"
-			android:maxLength="20"
-			android:maxLines="1"
-			android:inputType="textPersonName"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginLeft="40dp"
-			android:layout_marginRight="40dp"
-			local:MvxBind="Text Surname"
-			android:layout_marginTop = "3dp"/>		
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true"
-			android:orientation="horizontal"
-			android:layout_marginLeft="40dp"
-			android:layout_marginRight="40dp">
-			<Button
-				style="@style/OrangeButton"
-				android:text="@string/Save"	
-				android:layout_width="0dp"
-				android:layout_weight="0.5"
-				android:elevation="6dp"
-				android:stateListAnimator="@null"
-				android:translationZ="4dp"
-				android:layout_margin="4dp"
+			android:layout_height="match_parent">
+			<RelativeLayout
+				android:orientation="vertical"
+				android:layout_width="match_parent"
+				android:layout_height="250dp"
+				android:minWidth="25px"
+				android:minHeight="25px">
+				<ImageView
+					android:id="@+id/camera_preview"
+					android:layout_width="fill_parent"
+					android:layout_height="fill_parent"
+					android:layout_marginBottom="50dp"
+					android:layout_marginTop="20dp"
+					local:MvxBind="Bitmap MyPhoto, Converter=StringToBitmap"
+					android:layout_weight="1">
+				</ImageView>
+			</RelativeLayout>
+			<LinearLayout
+				android:layout_below="@+id/camera_preview"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				local:MvxBind="Click SaveUserData"	
-				android:id="@+id/savedata" />
-			<Button
-				style="@style/OrangeButton"
-				android:text="@string/Cancel"
-				android:layout_width="0dp"
-				android:layout_weight="0.5"
-				android:elevation="6dp"
-				android:stateListAnimator="@null"
-				android:translationZ="4dp"
-				android:layout_margin="4dp"
-				android:layout_height="wrap_content"       		
-				local:MvxBind="Click Cancel"
-				android:id="@+id/canceldata" />
+				android:layout_marginLeft="40dp"
+				android:layout_marginRight="40dp">
+				<Button
+					 android:text="Camera Snap"
+					 android:layout_width="match_parent"
+					 android:layout_height="wrap_content"					
+					 android:gravity="center"
+					 style="@style/OrangeButton"
+					 android:layout_alignParentBottom="true"
+					 android:id="@+id/btnCamera"/> 
+			</LinearLayout>
+		
+			<TextView
+				android:textSize="18sp"
+				android:textColor="@color/textColor"
+				android:text="Your Name"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textAlignment="center"/>
+			<EditText
+				android:hint="@string/enterName"
+				android:textColorHint="@color/inputTextColor"
+				android:textColor="@color/inputTextColor"
+				android:background="@color/textEditColor"
+				android:maxLength="20"
+				android:maxLines="1"
+				android:inputType="textPersonName"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="40dp"
+				android:layout_marginRight="40dp"
+				local:MvxBind="Text UserName"
+				android:layout_marginTop = "3dp"/>
+			<TextView
+				android:textColor="@color/textColor"
+				android:textSize="18sp"
+				android:text="@string/yourSurname"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textAlignment="center" />
+			<EditText
+				android:hint="@string/enterSurname"
+				android:textColorHint="@color/inputTextColor"
+				android:textColor="@color/inputTextColor"
+				android:background="@color/textEditColor"
+				android:maxLength="20"
+				android:maxLines="1"
+				android:inputType="textPersonName"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="40dp"
+				android:layout_marginRight="40dp"
+				local:MvxBind="Text Surname"
+				android:layout_marginTop = "3dp"/>		
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentBottom="true"
+				android:orientation="horizontal"
+				android:layout_marginLeft="40dp"
+				android:layout_marginRight="40dp">
+				<Button
+					style="@style/OrangeButton"
+					android:text="@string/Save"	
+					android:layout_width="0dp"
+					android:layout_weight="0.5"
+					android:elevation="6dp"
+					android:stateListAnimator="@null"
+					android:translationZ="4dp"
+					android:layout_margin="4dp"
+					android:layout_height="wrap_content"
+					local:MvxBind="Click SaveUserData"	
+					android:id="@+id/savedata" />
+				<Button
+					style="@style/OrangeButton"
+					android:text="@string/Cancel"
+					android:layout_width="0dp"
+					android:layout_weight="0.5"
+					android:elevation="6dp"
+					android:stateListAnimator="@null"
+					android:translationZ="4dp"
+					android:layout_margin="4dp"
+					android:layout_height="wrap_content"       		
+					local:MvxBind="Click Cancel"
+					android:id="@+id/canceldata" />
+			</LinearLayout>
 		</LinearLayout>
-	</LinearLayout>
+	</ScrollView>
 </RelativeLayout>

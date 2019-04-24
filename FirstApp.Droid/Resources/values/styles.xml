@@ -20,22 +20,18 @@
     <item name="android:windowActionBar">false</item>
     <item name="android:colorPrimary">#5A8622</item>
   </style>
-
- 
   
   <!-- Button-->
   <style name="OrangeButton" parent="@style/Widget.AppCompat.Button.Colored">
       <item name="colorButtonNormal">#FF9840</item>
       <item name="colorControlHighlight">#FFB473</item>
       <item name="android:textColor">#EDEDED</item>
-      <item name="android:elevation">6dp</item>
-      <item name="android:translationZ">4dp</item>
-      <item name="android:layout_margin">4dp</item>
+      <item name="android:translationZ">3dp</item>
+      <item name="android:layout_margin">3dp</item>
       <item name="android:textSize">14sp</item>
-
-
-
-
+      <item name="android:stateListAnimator">@null</item>
+      <item name="android:elevation">4dp</item>
+   
   </style>
 
 </resources>
