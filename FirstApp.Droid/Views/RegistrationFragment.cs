@@ -25,6 +25,7 @@ namespace FirstApp.Droid.Views
         {
             var view = base.OnCreateView(inflater, container, savedInstanceState);
 
+
             return view;
         }
     }
