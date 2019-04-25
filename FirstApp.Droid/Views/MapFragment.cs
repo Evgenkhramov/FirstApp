@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using Android.Gms.Common.Apis;
 using Android.Gms.Maps;
-using Android.Gms.Location;
-using Android.Gms.Common;
 using Android.Gms.Maps.Model;
 using Android.Locations;
 using Android.OS;
@@ -15,16 +13,6 @@ using FirstApp.Droid.Interfaces;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using System;
 using System.Threading.Tasks;
-
-using Android;
-using Android.App;
-using Android.Content.PM;
-
-using Android.Support.Design.Widget;
-using Android.Support.V4.App;
-using Android.Support.V4.Content;
-using Android.Support.V7.App;
-using Android.Util;
 using Plugin.Geolocator.Abstractions;
 using Plugin.Geolocator;
 
@@ -55,18 +43,6 @@ namespace FirstApp.Droid.Views
 
             MarkerListFromDB = new List<MapMarkerModel>();
             marcerRow = new MapMarkerModel();
-
-            //locationManager = (LocationManager)Android.Content.ContextWrapper.GetSystemService(Android.Content.Context.LocationService);
-            //var criteria = new Criteria { PowerRequirement = Power.Medium };
-            //var bestProvider = locationManager.GetBestProvider(criteria, true);
-            //var location = locationManager.GetLastKnownLocation(bestProvider);
-
-
-            //menuButton = view.FindViewById<Button>(Resource.Id.menu_icon);
-            ////menuButton.Click += (object sender, EventArgs e) =>
-            ////{
-            ////    OpenMenu();
-            ////};
             return view;
         }
 
@@ -102,7 +78,6 @@ namespace FirstApp.Droid.Views
             LatLngBounds bound = builder.Build();
 
             map.MoveCamera(CameraUpdateFactory.NewLatLngBounds(bound, 100));
-
 
             googleMap.MapClick += (object sender, GoogleMap.MapClickEventArgs e) =>
             {
@@ -161,8 +136,6 @@ namespace FirstApp.Droid.Views
             return position;
         }
 
-
-
         public void OnBackPressed()
         {
             ViewModel.BackCommand.Execute();
@@ -197,7 +170,5 @@ namespace FirstApp.Droid.Views
             base.OnPause();
             mapView.OnPause();
         }
-
-
     }
 }

@@ -77,21 +77,20 @@ namespace FirstApp.Droid.Views
                 }
                 base.OnBackPressed();
             }
-
-            //if (DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.Start))
-            //    DrawerLayout.CloseDrawers();
-            //else
-            //    base.OnBackPressed();
         }
         public void HideSoftKeyboard()
         {
             if (CurrentFocus == null)
                 return;
-
             InputMethodManager inputMethodManager = (InputMethodManager)GetSystemService(InputMethodService);
             inputMethodManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, 0);
-
             CurrentFocus.ClearFocus();
+        }
+
+        public void closeApplication()
+        {
+            var activity = (Activity)this;
+            activity.FinishAffinity();
         }
     }
 }

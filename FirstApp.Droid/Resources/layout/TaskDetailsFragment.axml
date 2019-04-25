@@ -21,7 +21,7 @@
 			android:layout_marginRight="10dp"
 			android:id="@+id/text_views">
 			<TextView
-				android:text="Task Name"
+				android:text="@string/taskName"
 				android:textColor="#5FBDCE"
 				android:textAppearance="?android:attr/textAppearanceMedium"
 				android:layout_width="match_parent"
@@ -41,7 +41,7 @@
 				local:MvxBind="Text TaskName"
 				android:id="@+id/TaskName"/>
 			<TextView
-				android:text="Task Description"
+				android:text="@string/taskDescription"
 				android:textColor="#5FBDCE"
 				android:textAppearance="?android:attr/textAppearanceMedium"
 				android:layout_width="match_parent"
@@ -63,7 +63,7 @@
 				android:layout_marginBottom="3dp"
 				android:orientation="horizontal">
 				<TextView
-					android:text="File Name"
+					android:text="@string/fileName"
 					android:textColor="#5FBDCE"
 					android:layout_weight="0.5"
 					android:textAppearance="?android:attr/textAppearanceMedium"
@@ -71,7 +71,7 @@
 					android:layout_height="wrap_content"/>
 				<Button
 					style="@style/OrangeButton"
-					android:text="Add file"
+					android:text="@string/addFile"
 					android:layout_weight="0.5"
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
@@ -81,8 +81,10 @@
 			<MvxListView
 				android:minWidth="25px"
 				android:minHeight="25px"
+				android:nestedScrollingEnabled = "true"
 				android:layout_width="match_parent"
 				android:layout_height="100dp"
+				android:scrollbars="vertical"
 				local:MvxItemTemplate="@layout/list_item_row"
 				local:MvxBind="ItemsSource FileNameList"
 				android:id="@+id/ListView" />
@@ -92,14 +94,13 @@
 				android:layout_height="wrap_content"
 				android:orientation="horizontal">
 				<TextView
-					android:text="Map markers:"
+					android:text="@string/mapMarkers"
 					android:textColor="#5FBDCE"
 					android:textAppearance="?android:attr/textAppearanceMedium"
 					android:layout_width="0dp"
 					android:layout_weight="0.4"
 					android:layout_height="wrap_content"/>
 				<EditText
-					android:text=""
 					android:background="@color/textEditColor"
 					android:textColor="@color/inputTextColor"
 					android:textAppearance="?android:attr/textAppearanceMedium"
@@ -110,7 +111,7 @@
 					android:id="@+id/mapMarkers"/>
 				<Button
 					style="@style/OrangeButton"
-					android:text="markers"
+					android:text="@string/markers"
 					android:layout_width="0dp"
 					android:layout_weight="0.4"
 					android:layout_height="wrap_content"
@@ -128,7 +129,7 @@
 				android:layout_marginRight="40dp">
 				<Button
 					style="@style/OrangeButton"
-					android:text="Save"	
+					android:text="@string/Save"	
 					android:layout_width="0dp"
 					android:layout_weight="0.5"
 					android:layout_height="wrap_content"
@@ -136,7 +137,7 @@
 					android:id="@+id/login" />
 				<Button
 					style="@style/OrangeButton"
-					android:text="Delete Task"
+					android:text="@string/deleteTask"
 					android:layout_width="0dp"
 					android:layout_weight="0.5"
 					android:layout_height="wrap_content"       

@@ -38,7 +38,7 @@
 			</LinearLayout>
 			<Button
 				style="@style/OrangeButton"
-				android:text="Delete"
+				android:text="@string/delete"
 				android:id="@+id/DeleteItem"
 				android:layout_width="100dp"
 				android:layout_height="wrap_content"

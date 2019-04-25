@@ -48,7 +48,6 @@
 				local:MvxItemTemplate="@layout/listitem_mainmenu"
 				local:MvxBind="ItemsSource MenuItems; ItemClick ItemClickedCommand"/>
 		</LinearLayout>
-	</LinearLayout>
-			
+	</LinearLayout>			
 </android.support.design.widget.NavigationView>
 		

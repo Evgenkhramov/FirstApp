@@ -13,7 +13,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 	<EditText
-		android:hint="Enter Name"
+		android:hint="@string/enterName"
 		android:textColor="@color/inputTextColor"
 		android:textColorHint="@color/inputTextColor"
 		android:maxLength="20"
@@ -25,7 +25,7 @@
 		android:layout_marginRight="40dp"
 		local:MvxBind="Text RegistrationUserName"/>
 	<EditText
-		android:hint="Enter Password"
+		android:hint="@string/enterPassword"
 		android:textColor="@color/inputTextColor"
 		android:textColorHint="@color/inputTextColor"
 		android:maxLength="20"
@@ -37,7 +37,7 @@
 		android:layout_height="wrap_content"
 		local:MvxBind="Text RegistrationUserPassword" />
 	<EditText
-		android:hint="Enter Password Again"
+		android:hint="@string/enterPasswordAgain"
 		android:textColor="@color/inputTextColor"
 		android:textColorHint="@color/inputTextColor"
 		android:maxLength="20"
@@ -51,9 +51,6 @@
 	<Button
 		style="@style/OrangeButton"		
 		android:text="@string/registration"
-		android:elevation="6dp"
-		android:stateListAnimator="@null"
-		android:translationZ="4dp"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="40dp"

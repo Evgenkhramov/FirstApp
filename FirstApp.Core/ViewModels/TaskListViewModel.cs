@@ -26,6 +26,7 @@ namespace FirstApp.Core.ViewModels
 
         public void AddData()
         {
+            IsRefreshTaskCollection = true;
 
             var list = _dBTaskService.LoadListItemsTask();
 
@@ -38,7 +39,23 @@ namespace FirstApp.Core.ViewModels
 
             TaskCollection = new MvxObservableCollection<TaskModel>();
             TaskCollection.AddRange(list);
+           
+            IsRefreshTaskCollection = false;
         }
+
+        private bool _isRefreshTaskCollection;
+        public bool IsRefreshTaskCollection
+        {
+            get => _isRefreshTaskCollection;
+            set
+            {
+                _isRefreshTaskCollection = value;
+                RaisePropertyChanged(() => IsRefreshTaskCollection);
+            }
+        }
+
+        private MvxCommand _refreshCommand;
+        public MvxCommand RefreshTaskCommand => _refreshCommand = _refreshCommand ?? new MvxCommand(AddData);
 
         private MvxObservableCollection<TaskModel> _taskCollection;
         public MvxObservableCollection<TaskModel> TaskCollection
@@ -69,7 +86,7 @@ namespace FirstApp.Core.ViewModels
 
         public override void ViewAppearing()
         {
-            AddData();
+            RefreshTaskCommand.Execute();
         }
 
         public async Task CollectionItemClick(TaskModel model)

@@ -148,6 +148,11 @@ namespace FirstApp.Droid.Views
             }
         }
 
+        public void OnBackPressed()
+        {
+            ViewModel.BackCommand.Execute();
+        }
+
         public override void OnResume()
         {
             base.OnResume();

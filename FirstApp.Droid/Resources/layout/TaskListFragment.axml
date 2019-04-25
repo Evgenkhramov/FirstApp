@@ -14,7 +14,7 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal">
 		<Button		
-			android:text="Add New Task"
+			android:text="@string/addNewTask"
 			android:layout_margin="3dp"
 			style="@style/OrangeButton"	
 			android:layout_alignParentRight="true"
