@@ -1,9 +1,5 @@
 ﻿using MvvmCross;
 using MvvmCross.ViewModels;
-using FirstApp.Core.Services;
-using FirstApp.Core.ViewModels;
-using MvvmCross.Navigation;
-using System.Threading.Tasks;
 using MvvmCross.IoC;
 using Acr.UserDialogs;
 using FirstApp.Core.Interfaces;
