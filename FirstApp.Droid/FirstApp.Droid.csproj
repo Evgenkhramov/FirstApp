@@ -89,7 +89,7 @@
     <Compile Include="Views\MenuFragment.cs" />
     <Compile Include="Views\StartView.cs" />
     <Compile Include="Views\RegistrationFragment.cs" />
-    <Compile Include="Views\UserDataFragment.cs" />
+    <Compile Include="Views\UserData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

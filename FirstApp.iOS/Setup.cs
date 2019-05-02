@@ -1,10 +1,13 @@
 ﻿using FirstApp.Core;
+using FirstApp.Core.Interfaces;
+using FirstApp.iOS.Services;
 using MvvmCross;
 using MvvmCross.Base;
 using MvvmCross.Binding.Bindings.Target.Construction;
 using MvvmCross.IoC;
 using MvvmCross.Platforms.Ios.Core;
 using MvvmCross.Plugin.Json;
+using MvvmCross.ViewModels;
 using UIKit;
 
 namespace FirstApp.iOS
@@ -24,13 +27,23 @@ namespace FirstApp.iOS
 
             var registry = Mvx.Resolve<IMvxTargetBindingFactoryRegistry>();
         }
-
-        protected override IMvxIocOptions CreateIocOptions()
+        protected override IMvxApplication CreateApp()
         {
-            return new MvxIocOptions
-            {
-                PropertyInjectorOptions = MvxPropertyInjectorOptions.MvxInject
-            };
+            CreatableTypes()
+                      .EndingWith("Service")
+                      .AsInterfaces()
+                      .RegisterAsLazySingleton();
+            Mvx.RegisterType<IDBConnectionService, DBConnectionService>();
+           // Mvx.RegisterType<IPhotoService, PhotoService>();
+            return new Core.App();
         }
+
+        //protected override IMvxIocOptions CreateIocOptions()
+        //{
+        //    return new MvxIocOptions
+        //    {
+        //        PropertyInjectorOptions = MvxPropertyInjectorOptions.MvxInject
+        //    };
+        //}
     }
 }

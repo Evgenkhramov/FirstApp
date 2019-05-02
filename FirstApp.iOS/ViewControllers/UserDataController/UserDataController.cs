@@ -1,18 +1,13 @@
-﻿using FirstApp.Core.ViewModels;
-using MvvmCross.Platforms.Ios.Presenters.Attributes;
+﻿using Foundation;
 using MvvmCross.Platforms.Ios.Views;
+using FirstApp.Core.ViewModels;
 using UIKit;
 
 namespace FirstApp.iOS.ViewControllers
 {
-    [MvxRootPresentation]
-    public partial class MainViewController : MvxViewController<MainViewModel>
+    public class UserDataController : MvxViewController<UserDatatViewModel>
     {
-        //public MainViewController() : base("MainViewController", null)
-        //{
-        //}
-
-        public MainViewController()
+        public UserDataController() : base(nameof(UserDataController), null)
         {
         }
 

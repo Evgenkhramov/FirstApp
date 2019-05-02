@@ -94,7 +94,7 @@ namespace FirstApp.Core.ViewModels
                 return new MvxAsyncCommand(async () =>
                 {
                     await _navigationService.Close(this);
-                    await _navigationService.Navigate<LoginFragmentViewModel>();
+                    await _navigationService.Navigate<LoginViewModel>();
                 });
             }
         }

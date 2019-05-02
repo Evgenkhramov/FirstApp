@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="494" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" id="989" translatesAutoresizingMaskIntoConstraints="NO">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            <color key="backgroundColor" colorSpace="calibratedRGB" red="0.30588235294117649" green="0.83921568627450982" blue="0.40784313725490196" alpha="1"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1484" translatesAutoresizingMaskIntoConstraints="NO">
+                                    <rect key="frame" x="41.5" y="20" width="331" height="44"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1534" translatesAutoresizingMaskIntoConstraints="NO">
+                                    <rect key="frame" x="41.5" y="121" width="331" height="44"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="1584" translatesAutoresizingMaskIntoConstraints="NO">
+                                    <rect key="frame" x="41.5" y="74" width="331" height="37"/>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="1634" translatesAutoresizingMaskIntoConstraints="NO">
+                                    <rect key="frame" x="41.5" y="175" width="331" height="37"/>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <view contentMode="scaleToFill" id="4026" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                    <rect key="frame" x="42" y="243" width="331" height="59"/>
+                                    <color key="backgroundColor" colorSpace="calibratedRGB" red="0.34509803921568627" green="0.85098039215686272" blue="0.45882352941176469" alpha="1"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5261" translatesAutoresizingMaskIntoConstraints="NO">
+                                            <rect key="frame" x="0.0" y="10" width="149" height="35"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6198" translatesAutoresizingMaskIntoConstraints="NO">
+                                            <rect key="frame" x="182" y="10" width="149" height="35"/>
+                                            <color key="backgroundColor" colorSpace="calibratedRGB" red="0.21176470588235294" green="0.27843137254901962" blue="0.86274509803921573" alpha="1"/>
+                                            <state key="normal" title="Add file">
+                                                <color key="titleShadowColor" colorSpace="calibratedRGB" red="1" green="1" blue="1" alpha="1"/>
+                                                <color key="titleColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint id="5360" firstItem="5261" firstAttribute="top" secondItem="4026" secondAttribute="top" constant="10"/>
+                                        <constraint id="5459" firstItem="5261" firstAttribute="leading" secondItem="4026" secondAttribute="leading"/>
+                                        <constraint id="5558" firstItem="5261" firstAttribute="width" secondItem="4026" secondAttribute="width" multiplier="0.45" constant="0.05000395"/>
+                                        <constraint id="6001" firstItem="5261" firstAttribute="height" secondItem="4026" secondAttribute="height" multiplier="0.6"/>
+                                        <constraint id="6248" firstAttribute="trailing" secondItem="6198" secondAttribute="trailing"/>
+                                        <constraint id="6347" firstItem="6198" firstAttribute="width" secondItem="4026" secondAttribute="width" multiplier="0.45"/>
+                                        <constraint id="6446" firstItem="6198" firstAttribute="top" secondItem="4026" secondAttribute="top" constant="10"/>
+                                        <constraint id="6545" firstItem="6198" firstAttribute="height" secondItem="4026" secondAttribute="height" multiplier="0.6"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" id="7379" translatesAutoresizingMaskIntoConstraints="NO">
+                                    <rect key="frame" x="41.5" y="301" width="331" height="220.5"/>
+                                    <color key="backgroundColor" colorSpace="calibratedRGB" red="0.25098039215686274" green="0.85882352941176465" blue="0.36470588235294116" alpha="1"/>
+                                </view>
+                                <view contentMode="scaleToFill" id="7923" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                    <rect key="frame" x="42" y="531" width="331" height="59"/>
+                                    <color key="backgroundColor" colorSpace="calibratedRGB" red="0.21176470588235294" green="0.81176470588235294" blue="0.50980392156862742" alpha="1"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8566" translatesAutoresizingMaskIntoConstraints="NO">
+                                            <rect key="frame" x="0.0" y="15" width="89.5" height="35.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8616" translatesAutoresizingMaskIntoConstraints="NO">
+                                            <rect key="frame" x="215" y="15" width="116" height="35.5"/>
+                                            <color key="backgroundColor" colorSpace="calibratedRGB" red="0.27058823529411763" green="0.36078431372549019" blue="0.78431372549019607" alpha="1"/>
+                                            <state key="normal" title="Button">
+                                                <color key="titleColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text" borderStyle="roundedRect" minimumFontSize="17" id="9454" translatesAutoresizingMaskIntoConstraints="NO">
+                                            <rect key="frame" x="109.5" y="15" width="85.5" height="35.5"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint id="8813" firstItem="8566" firstAttribute="leading" secondItem="7923" secondAttribute="leading"/>
+                                        <constraint id="8912" firstItem="8566" firstAttribute="top" secondItem="7923" secondAttribute="top" constant="15"/>
+                                        <constraint id="9011" firstItem="8566" firstAttribute="width" secondItem="7923" secondAttribute="width" multiplier="0.27"/>
+                                        <constraint id="9110" firstItem="8566" firstAttribute="height" secondItem="7923" secondAttribute="height" multiplier="0.6"/>
+                                        <constraint id="9603" firstItem="9454" firstAttribute="height" secondItem="7923" secondAttribute="height" multiplier="0.6"/>
+                                        <constraint id="9751" firstItem="9454" firstAttribute="top" secondItem="7923" secondAttribute="top" constant="15"/>
+                                        <constraint id="9998" firstAttribute="trailing" secondItem="8616" secondAttribute="trailing"/>
+                                        <constraint id="10097" firstItem="8616" firstAttribute="top" secondItem="7923" secondAttribute="top" constant="15"/>
+                                        <constraint id="10196" firstItem="8616" firstAttribute="height" secondItem="7923" secondAttribute="height" multiplier="0.6"/>
+                                        <constraint id="10295" firstItem="8616" firstAttribute="width" secondItem="7923" secondAttribute="width" multiplier="0.35"/>
+                                        <constraint id="10541" firstItem="9454" firstAttribute="leading" secondItem="8566" secondAttribute="trailing" constant="20"/>
+                                        <constraint id="10787" firstItem="8616" firstAttribute="leading" secondItem="9454" secondAttribute="trailing" constant="20"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" id="12328" translatesAutoresizingMaskIntoConstraints="NO">
+                                    <rect key="frame" x="41.5" y="620.5" width="331" height="59"/>
+                                    <color key="backgroundColor" colorSpace="calibratedRGB" red="0.30980392156862746" green="0.90196078431372551" blue="0.60784313725490191" alpha="1"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="12970" translatesAutoresizingMaskIntoConstraints="NO">
+                                            <rect key="frame" x="0.0" y="10" width="149" height="47"/>
+                                            <color key="backgroundColor" colorSpace="calibratedRGB" red="0.25098039215686274" green="0.35686274509803922" blue="0.84705882352941175" alpha="1"/>
+                                            <state key="normal" title="Save">
+                                                <color key="titleColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="13563" translatesAutoresizingMaskIntoConstraints="NO">
+                                            <rect key="frame" x="182" y="10" width="149" height="47"/>
+                                            <color key="backgroundColor" colorSpace="calibratedRGB" red="0.29411764705882354" green="0.45490196078431372" blue="0.83921568627450982" alpha="1"/>
+                                            <state key="normal" title="Button">
+                                                <color key="titleColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint id="13069" firstItem="12970" firstAttribute="leading" secondItem="12328" secondAttribute="leading"/>
+                                        <constraint id="13217" firstItem="12970" firstAttribute="top" secondItem="12328" secondAttribute="top" constant="10"/>
+                                        <constraint id="13316" firstItem="12970" firstAttribute="width" secondItem="12328" secondAttribute="width" multiplier="0.45"/>
+                                        <constraint id="13415" firstItem="12970" firstAttribute="height" secondItem="12328" secondAttribute="height" multiplier="0.8"/>
+                                        <constraint id="13613" firstAttribute="trailing" secondItem="13563" secondAttribute="trailing"/>
+                                        <constraint id="13712" firstItem="13563" firstAttribute="top" secondItem="12328" secondAttribute="top" constant="10"/>
+                                        <constraint id="13811" firstItem="13563" firstAttribute="width" secondItem="12328" secondAttribute="width" multiplier="0.45"/>
+                                        <constraint id="13910" firstItem="13563" firstAttribute="height" secondItem="12328" secondAttribute="height" multiplier="0.8"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint id="1684" firstItem="1484" firstAttribute="top" secondItem="989" secondAttribute="top" constant="20"/>
+                                <constraint id="1783" firstAttribute="centerX" secondItem="1484" secondAttribute="centerX"/>
+                                <constraint id="1882" firstItem="1484" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.06"/>
+                                <constraint id="2030" firstItem="1484" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8"/>
+                                <constraint id="2227" firstItem="1584" firstAttribute="top" secondItem="1484" secondAttribute="bottom" constant="10"/>
+                                <constraint id="2375" firstAttribute="centerX" secondItem="1584" secondAttribute="centerX"/>
+                                <constraint id="2474" firstItem="1584" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.05"/>
+                                <constraint id="2573" firstItem="1584" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8"/>
+                                <constraint id="3023" firstAttribute="centerX" secondItem="1534" secondAttribute="centerX"/>
+                                <constraint id="3122" firstItem="1534" firstAttribute="top" secondItem="1584" secondAttribute="bottom" constant="10"/>
+                                <constraint id="3221" firstItem="1534" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8"/>
+                                <constraint id="3320" firstItem="1534" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.06"/>
+                                <constraint id="3468" firstItem="1634" firstAttribute="top" secondItem="1534" secondAttribute="bottom" constant="10"/>
+                                <constraint id="3567" firstItem="1634" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.05"/>
+                                <constraint id="3666" firstItem="1634" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8"/>
+                                <constraint id="3829" firstAttribute="centerX" secondItem="1634" secondAttribute="centerX"/>
+                                <constraint id="4125" firstItem="4026" firstAttribute="top" secondItem="1634" secondAttribute="bottom" constant="30"/>
+                                <constraint id="4224" firstItem="4026" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8"/>
+                                <constraint id="4323" firstItem="4026" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.08"/>
+                                <constraint id="4422" firstAttribute="centerX" secondItem="4026" secondAttribute="centerX"/>
+                                <constraint id="7478" firstItem="7379" firstAttribute="top" secondItem="4026" secondAttribute="bottom"/>
+                                <constraint id="7577" firstAttribute="centerX" secondItem="7379" secondAttribute="centerX"/>
+                                <constraint id="7676" firstItem="7379" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8"/>
+                                <constraint id="7775" firstItem="7379" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.3"/>
+                                <constraint id="8022" firstItem="7923" firstAttribute="top" secondItem="7379" secondAttribute="bottom" constant="20"/>
+                                <constraint id="8121" firstItem="7923" firstAttribute="centerX" secondItem="989" secondAttribute="centerX"/>
+                                <constraint id="8269" firstItem="7923" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8"/>
+                                <constraint id="8368" firstItem="7923" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.08"/>
+                                <constraint id="12525" firstItem="12328" firstAttribute="top" secondItem="7923" secondAttribute="bottom" constant="20"/>
+                                <constraint id="12624" firstItem="12328" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8"/>
+                                <constraint id="12723" firstItem="12328" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.08"/>
+                                <constraint id="12822" firstAttribute="centerX" secondItem="12328" secondAttribute="centerX"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint id="1137" firstItem="989" firstAttribute="leading" secondItem="494" secondAttribute="leading"/>
+                        <constraint id="1236" firstItem="989" firstAttribute="top" secondItem="494" secondAttribute="top"/>
+                        <constraint id="1335" firstItem="989" firstAttribute="height" secondItem="494" secondAttribute="height"/>
+                        <constraint id="1385" firstItem="989" firstAttribute="width" secondItem="494" secondAttribute="width"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <constraints>
+                <constraint id="642" firstItem="494" firstAttribute="top" secondItem="1" secondAttribute="top"/>
+                <constraint id="741" firstItem="494" firstAttribute="leading" secondItem="1" secondAttribute="leading"/>
+                <constraint id="840" firstItem="494" firstAttribute="width" secondItem="1" secondAttribute="width"/>
+                <constraint id="890" firstItem="494" firstAttribute="height" secondItem="1" secondAttribute="height"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

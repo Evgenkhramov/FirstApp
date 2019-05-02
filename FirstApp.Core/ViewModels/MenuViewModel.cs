@@ -43,7 +43,7 @@ namespace FirstApp.Core.ViewModels
             MenuItems = new MvxObservableCollection<MenuItem>
             {
                 new MenuItem("Task List", this, typeof(TaskListViewModel)),
-                new MenuItem("Log Out", this, typeof(LoginFragmentViewModel)),
+                new MenuItem("Log Out", this, typeof(LoginViewModel)),
             };
         }
 
@@ -81,7 +81,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    await _navigationService.Navigate<UserDataFragmentViewModel>();
+                    await _navigationService.Navigate<UserDatatViewModel>();
                 });
             }
         }

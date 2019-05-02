@@ -11,18 +11,17 @@ using System.Threading.Tasks;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class LoginFragmentViewModel : BaseViewModel, IFacebookAuthenticationDelegate
+    public class LoginViewModel : BaseViewModel, IFacebookAuthenticationDelegate
     {
         private readonly IAuthorizationService _authorizationService;
         private readonly IRegistrationService _registrationService;
         private readonly IDBUserService _sqlLiteRepository;
         private readonly IFacebookService _facebookService;
 
-
-        public LoginFragmentViewModel(IAuthorizationService authorizationService, IDBUserService sQLiteRepository, IRegistrationService registrationService, IFacebookService facebookService,IMvxNavigationService navigationService) : base(navigationService)
+        public LoginViewModel(IAuthorizationService authorizationService, IDBUserService sQLiteRepository, IRegistrationService registrationService, IFacebookService facebookService,IMvxNavigationService navigationService) : base(navigationService)
         {
             ShowMainViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MainViewModel>());
-            ShowLoginFragmentViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<LoginFragmentViewModel>());
+            ShowLoginFragmentViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<LoginViewModel>());
             _authorizationService = authorizationService;
             _sqlLiteRepository = sQLiteRepository;
             _registrationService = registrationService;
@@ -38,7 +37,6 @@ namespace FirstApp.Core.ViewModels
             set
             {
                 _haveGone = value;
-
             }
         }
 
@@ -103,15 +101,13 @@ namespace FirstApp.Core.ViewModels
         public async Task OnAuthenticationCanceled()
         {
             Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("You didn't completed the authentication process");
-
         }
 
         public async Task OnAuthenticationFailed()
         {
             Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("You didn't completed the authentication process");
         }
-  
-       
+        
         private string _userName;
         public string UserName
         {

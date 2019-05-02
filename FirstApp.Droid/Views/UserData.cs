@@ -17,7 +17,7 @@ namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame_new, false)]
     [Register("firstApp.Droid.Views.UserDataFragment")]
-    public class UserDataFragment : BaseFragment<UserDataFragmentViewModel>
+    public class UserData : BaseFragment<UserDatatViewModel>
     {
         public static readonly int PickImageId = 1000;
         Button menuButton;

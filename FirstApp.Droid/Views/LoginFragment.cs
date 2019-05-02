@@ -27,7 +27,7 @@ namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(StartViewModel), Resource.Id.content_frame_new, false)]
     [Register("firstApp.Droid.Views.LoginFragment")]
-    public class LoginFragment : BaseFragment<LoginFragmentViewModel>, GoogleApiClient.IConnectionCallbacks, GoogleApiClient.IOnConnectionFailedListener, ActivityCompat.IOnRequestPermissionsResultCallback
+    public class LoginFragment : BaseFragment<LoginViewModel>, GoogleApiClient.IConnectionCallbacks, GoogleApiClient.IOnConnectionFailedListener, ActivityCompat.IOnRequestPermissionsResultCallback
     {
         protected override int FragmentId => Resource.Layout.LoginFragment;
         private FacebookAuthenticator _authFacebook;
