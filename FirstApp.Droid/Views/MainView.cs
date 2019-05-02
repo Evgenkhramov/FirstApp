@@ -75,7 +75,7 @@ namespace FirstApp.Droid.Views
                     listener.OnBackPressed();
                     return;
                 }
-                base.OnBackPressed();
+                CloseApplication();
             }
         }
         public void HideSoftKeyboard()
@@ -87,7 +87,7 @@ namespace FirstApp.Droid.Views
             CurrentFocus.ClearFocus();
         }
 
-        public void closeApplication()
+        public void CloseApplication()
         {
             var activity = (Activity)this;
             activity.FinishAffinity();
