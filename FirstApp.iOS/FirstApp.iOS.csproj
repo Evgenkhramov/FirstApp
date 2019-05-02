@@ -68,34 +68,55 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="LinkerPleaseInclude.cs" />
+    <Compile Include="ViewControllers\Tasks\ListItemController.cs" />
+    <Compile Include="ViewControllers\Tasks\ListItemController.designer.cs">
+      <DependentUpon>ListItemController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\Tasks\MapController.cs" />
+    <Compile Include="ViewControllers\Tasks\MapController.designer.cs">
+      <DependentUpon>MapController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\Tasks\TaskDetailsController.cs" />
+    <Compile Include="ViewControllers\Tasks\TaskDetailsController.designer.cs">
+      <DependentUpon>TaskDetailsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\Tasks\TaskListController.cs" />
+    <Compile Include="ViewControllers\Tasks\TaskListController.designer.cs">
+      <DependentUpon>TaskListController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\UserAccount\UserDataController.cs" />
+    <Compile Include="ViewControllers\UserAccount\UserDataController.designer.cs">
+      <DependentUpon>UserDataController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\Authentication\LoginController.cs" />
+    <Compile Include="ViewControllers\Authentication\LoginController.designer.cs">
+      <DependentUpon>LoginController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="ViewControllers\Authentication\RegistrationController.cs" />
+    <Compile Include="ViewControllers\Authentication\RegistrationController.designer.cs">
+      <DependentUpon>RegistrationController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\DBConnectionService.cs" />
     <Compile Include="Setup.cs" />
-    <Compile Include="ViewControllers\ListItemController\ListItemController.cs" />
-    <Compile Include="ViewControllers\LoginController\LoginController.cs" />
     <Compile Include="ViewControllers\MainViewController.cs" />
     <Compile Include="ViewControllers\MainViewController.designer.cs">
       <DependentUpon>MainViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewControllers\MapController\MapController.cs" />
-    <Compile Include="ViewControllers\RegistrationController\RegistrationController.cs" />
-    <Compile Include="ViewControllers\TaskDetailsController\TaskDetailsController.cs" />
-    <Compile Include="ViewControllers\TaskListController\TaskListController.cs" />
-    <Compile Include="ViewControllers\UserDataController\UserDataController.cs" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <None Include="packages.config" />
     <InterfaceDefinition Include="ViewControllers\MainViewController.xib" />
-    <InterfaceDefinition Include="ViewControllers\UserDataController\UserDataController.xib" />
-    <InterfaceDefinition Include="ViewControllers\TaskListController\TaskListController.xib" />
-    <InterfaceDefinition Include="ViewControllers\TaskDetailsController\TaskDetailsController.xib" />
-    <InterfaceDefinition Include="ViewControllers\LoginController\LoginController.xib" />
-    <InterfaceDefinition Include="ViewControllers\RegistrationController\RegistrationController.xib" />
-    <InterfaceDefinition Include="ViewControllers\ListItemController\ListItemController.xib" />
-    <InterfaceDefinition Include="ViewControllers\MapController\MapController.xib" />
+    <InterfaceDefinition Include="ViewControllers\UserAccount\UserDataController.xib" />
+    <InterfaceDefinition Include="ViewControllers\Tasks\TaskListController.xib" />
+    <InterfaceDefinition Include="ViewControllers\Tasks\TaskDetailsController.xib" />
+    <InterfaceDefinition Include="ViewControllers\Authentication\LoginController.xib" />
+    <InterfaceDefinition Include="ViewControllers\Tasks\ListItemController.xib" />
+    <InterfaceDefinition Include="ViewControllers\Tasks\MapController.xib" />
+    <InterfaceDefinition Include="ViewControllers\Authentication\RegistrationController.xib" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Acr.UserDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

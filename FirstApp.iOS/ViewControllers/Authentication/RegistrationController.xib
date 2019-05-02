@@ -5,7 +5,13 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegistrationController">
+            <connections>
+                <outlet property="EnterUserPassword" destination="340" id="name-outlet-340"/>
+                <outlet property="EnterPasswordСonfirm" destination="322" id="name-outlet-322"/>
+                <outlet property="RegistrationButton" destination="323" id="name-outlet-323"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="1">
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>

@@ -17,7 +17,7 @@ namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(StartViewModel), Resource.Id.content_frame_new, true)]
     [Register("firstApp.Droid.Views.RegistrationFragment")]
-    public class RegistrationFragment : BaseFragment<RegistrationFragmentViewModel>
+    public class RegistrationFragment : BaseFragment<RegistrationViewModel>
     {
         protected override int FragmentId => Resource.Layout.RegistrationFragment;
 

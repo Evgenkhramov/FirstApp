@@ -17,7 +17,7 @@ using System.Linq;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class RegistrationFragmentViewModel : BaseViewModel
+    public class RegistrationViewModel : BaseViewModel
     {
         private readonly Regex PasswordRegExp = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private readonly Regex NameRegExp = new Regex(@"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -26,7 +26,7 @@ namespace FirstApp.Core.ViewModels
         private readonly IUserDialogService _userDialogService;
         private readonly IDBUserService _dBUserService;
 
-        public RegistrationFragmentViewModel(IRegistrationService registrationService,IUserDialogs userDialogs, IUserDialogService userDialogService, IDBUserService dBUserService,IMvxNavigationService navigationService) : base(navigationService)
+        public RegistrationViewModel(IRegistrationService registrationService,IUserDialogs userDialogs, IUserDialogService userDialogService, IDBUserService dBUserService,IMvxNavigationService navigationService) : base(navigationService)
         {
             _userDialogService = userDialogService;
             _registrationService = registrationService;

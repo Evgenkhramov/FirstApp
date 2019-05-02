@@ -81,7 +81,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    await _navigationService.Navigate<UserDatatViewModel>();
+                    await _navigationService.Navigate<UserDataViewModel>();
                 });
             }
         }

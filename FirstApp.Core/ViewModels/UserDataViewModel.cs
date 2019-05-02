@@ -10,7 +10,7 @@ using System.IO;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class UserDatatViewModel : BaseViewModel
+    public class UserDataViewModel : BaseViewModel
     {
         private readonly IMvxPictureChooserTask _pictureChooserTask;
         private readonly IDBUserService _sQLiteRepository;
@@ -19,7 +19,7 @@ namespace FirstApp.Core.ViewModels
 
         private UserDatabaseModel userData;
         private int userId;
-        public UserDatatViewModel(IDBUserService sQLiteRepository, IRegistrationService registrationService, IUserDialogService userDialogService, IMvxPictureChooserTask pictureChooserTask,IMvxNavigationService navigationService):base(navigationService)
+        public UserDataViewModel(IDBUserService sQLiteRepository, IRegistrationService registrationService, IUserDialogService userDialogService, IMvxPictureChooserTask pictureChooserTask,IMvxNavigationService navigationService):base(navigationService)
         {
             _pictureChooserTask = pictureChooserTask;
             _userDialogService = userDialogService;
@@ -103,7 +103,7 @@ namespace FirstApp.Core.ViewModels
                     userData = _sQLiteRepository.GetItem(userId);
                     Surname = userData.Surname;
                     UserName = userData.Name;
-                    await _navigationService.Navigate<UserDatatViewModel>();
+                    await _navigationService.Navigate<UserDataViewModel>();
                 });
             }
         }

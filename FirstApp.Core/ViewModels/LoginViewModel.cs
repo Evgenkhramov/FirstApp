@@ -153,7 +153,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    await _navigationService.Navigate<RegistrationFragmentViewModel>();
+                    await _navigationService.Navigate<RegistrationViewModel>();
                 });
             }
         }
