@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using Acr.UserDialogs;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 
@@ -12,13 +14,13 @@ namespace FirstApp.Core.ViewModels
         List<MapMarkerModel> _markerList;
         TaskModel taskModel;
         public int _taskId;
-        private IUserDialogService _userDialogService;
+        //private IUserDialogService _userDialogService;
         private IDBMapMarkerService _dBMapMarkerService;
 
-        public MapViewModel(IMvxNavigationService navigationService, IDBMapMarkerService dBMapMarkerService, IUserDialogService userDialogService) : base(navigationService)
+        public MapViewModel(IMvxNavigationService navigationService, IDBMapMarkerService dBMapMarkerService/*, IUserDialogService userDialogService*/) : base(navigationService)
         {
             _markerList = new List<MapMarkerModel>();
-            _userDialogService = userDialogService;
+            //_userDialogService = userDialogService;
             _dBMapMarkerService = dBMapMarkerService;
             MarkerCount = 0;
             SaveButton = false;
@@ -60,7 +62,9 @@ namespace FirstApp.Core.ViewModels
                 {
                     if (_markerList.Count > 0)
                     {
-                        var answ = await _userDialogService.ShowAlertForUserWithSomeLogic("Save Markers?", "Do you want to save your markers?", "Yes", "No");
+                        var answ =  Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync("Do you want to save your markers?", "Save Markers?", "Yes", "No").Result;
+                
+                        //var answ = await _userDialogService.ShowAlertForUserWithSomeLogic("Save Markers?", "Do you want to save your markers?", "Yes", "No");
                         if (answ)
                         {
                             foreach (MapMarkerModel item in _markerList)

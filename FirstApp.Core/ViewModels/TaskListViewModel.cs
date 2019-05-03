@@ -1,10 +1,8 @@
 ﻿using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
-using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using System;
 using System.Threading.Tasks;
 
 namespace FirstApp.Core.ViewModels
@@ -93,7 +91,6 @@ namespace FirstApp.Core.ViewModels
             var result = await _navigationService.Navigate<TaskDetailsViewModel, TaskModel>(model);
         }
         
-
         public void RemoveCollectionItem(int itemId)
         {
             TaskModel _itemForDelete = null;

@@ -1,14 +1,5 @@
-﻿using MvvmCross.ViewModels;
-using System;
-using FirstApp.Core.Services;
-using System.Collections.Generic;
-using System.Text;
-using MvvmCross.Commands;
-using Plugin.SecureStorage;
+﻿using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using MvvmCross;
-using FirstApp.Core.Interfaces;
-using FirstApp.Core.Models;
 using System.Threading.Tasks;
 
 namespace FirstApp.Core.ViewModels

@@ -1,6 +1,7 @@
-﻿//using Android.Widget;
+﻿using Acr.UserDialogs;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
@@ -11,18 +12,17 @@ namespace FirstApp.Core.ViewModels
 {
     public class TaskDetailsViewModel : BaseViewModel<TaskModel>, IFileListHandler
     {
-        // public List<FileListModel> _fileNameList = new List<FileListModel> { };
         public TaskModel taskModel = new TaskModel();
         public int TaskId;
         private readonly IDBFileNameService _dBFileNameService;
         private readonly IDBMapMarkerService _dBMapMarkerService;
         private readonly IDBTaskService _dBTaskService;
-        private readonly IUserDialogService _userDialogService;
+        //private readonly IUserDialogService _userDialogService;
         public TaskDetailsViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService, IDBMapMarkerService dBMapMarkerService,
-            IUserDialogService userDialogService, IDBFileNameService dBFileNameService) : base(navigationService)
+            /*IUserDialogService userDialogService,*/ IDBFileNameService dBFileNameService) : base(navigationService)
         {
             _dBMapMarkerService = dBMapMarkerService;
-            _userDialogService = userDialogService;
+            //_userDialogService = userDialogService;
             _dBTaskService = dBTaskService;
             _dBFileNameService = dBFileNameService;
 
@@ -185,12 +185,14 @@ namespace FirstApp.Core.ViewModels
 
                     if (string.IsNullOrEmpty(TaskName))
                     {
-                        _userDialogService.ShowAlertForUser("Empty task name", "Please, enter task name", "Ok");
+                        Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Please, enter task name", "Empty task name", "Ok");
+                        //_userDialogService.ShowAlertForUser("Empty task name", "Please, enter task name", "Ok");
                         return;
                     }
                     if (string.IsNullOrEmpty(TaskDescription))
                     {
-                        _userDialogService.ShowAlertForUser("Empty task description", "Please, enter task name", "Ok");
+                        Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Please, enter task name", "Empty task description", "Ok");
+                        //_userDialogService.ShowAlertForUser("Empty task description", "Please, enter task name", "Ok");
                         return;
                     }
                     if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName))
@@ -210,8 +212,8 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-
-                    var answ = await _userDialogService.ShowAlertForUserWithSomeLogic("Save Markers?", "Do you want to save your markers?", "Yes", "No");
+                    bool answ = await Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync("Do you want to save your markers?", "Save Markers?", "Yes", "No");
+                    //var answ = await _userDialogService.ShowAlertForUserWithSomeLogic("Save Markers?", "Do you want to save your markers?", "Yes", "No");
                     if (answ)
                     {
                         SaveTask.Execute();
@@ -230,7 +232,8 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    var answ = await _userDialogService.ShowAlertForUserWithSomeLogic("Delete Task?", "Do you want to delete this task?", "Yes", "No");
+                    bool answ = Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync("Do you want to delete this task?", "Delete Task?", "Yes", "No").Result;
+                    //var answ = await _userDialogService.ShowAlertForUserWithSomeLogic("Delete Task?", "Do you want to delete this task?", "Yes", "No");
 
                     if (answ)
                     {

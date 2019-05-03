@@ -1,5 +1,4 @@
-﻿//using Android.Util;
-using FirstApp.Core.Interfaces;
+﻿using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -15,14 +14,14 @@ namespace FirstApp.Core.ViewModels
         private readonly IMvxPictureChooserTask _pictureChooserTask;
         private readonly IDBUserService _sQLiteRepository;
         private readonly IRegistrationService _registrationService;
-        private readonly IUserDialogService _userDialogService;
+        // private readonly IUserDialogService _userDialogService;
 
         private UserDatabaseModel userData;
         private int userId;
-        public UserDataViewModel(IDBUserService sQLiteRepository, IRegistrationService registrationService, IUserDialogService userDialogService, IMvxPictureChooserTask pictureChooserTask,IMvxNavigationService navigationService):base(navigationService)
+        public UserDataViewModel(IDBUserService sQLiteRepository, IRegistrationService registrationService, /*IUserDialogService userDialogService*/ IMvxPictureChooserTask pictureChooserTask, IMvxNavigationService navigationService) : base(navigationService)
         {
             _pictureChooserTask = pictureChooserTask;
-            _userDialogService = userDialogService;
+            //_userDialogService = userDialogService;
             _registrationService = registrationService;
             _sQLiteRepository = sQLiteRepository;
 
@@ -46,14 +45,12 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-
         public void SavePhoto(string photo)
         {
             userData.Id = userId;
             userData.Photo = photo;
             MyPhoto = userData.Photo;
             _sQLiteRepository.SaveItem(userData);
-
         }
 
         private string _myPhoto;
@@ -91,7 +88,7 @@ namespace FirstApp.Core.ViewModels
                     await _navigationService.Navigate<MenuViewModel>();
                     await _navigationService.Navigate<TaskListViewModel>();
                 });
-             }
+            }
         }
 
         public MvxAsyncCommand Cancel
@@ -108,6 +105,17 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
+        public MvxAsyncCommand CloseFragment
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    await _navigationService.Close(this);
+                    await _navigationService.Navigate<TaskListViewModel>();
+                });
+            }
+        }
 
         private MvxCommand _takePictureCommand;
 
@@ -134,7 +142,7 @@ namespace FirstApp.Core.ViewModels
                 _choosePictureCommand = _choosePictureCommand ?? new MvxCommand(DoChoosePicture);
                 return _choosePictureCommand;
             }
-        }    
+        }
 
         private void DoChoosePicture()
         {
@@ -154,7 +162,7 @@ namespace FirstApp.Core.ViewModels
             var memoryStream = new MemoryStream();
             pictureStream.CopyTo(memoryStream);
             Bytes = memoryStream.ToArray();
-            MyPhoto = Convert.ToBase64String(Bytes);/* Base64.EncodeToString(Bytes,0);           */
+            MyPhoto = Convert.ToBase64String(Bytes);
         }
     }
 }

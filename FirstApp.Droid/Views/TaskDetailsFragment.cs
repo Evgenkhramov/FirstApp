@@ -1,5 +1,4 @@
 ﻿using Android.App;
-
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -12,12 +11,13 @@ using Android.Support.V4.Content;
 using Android;
 using Android.Content.PM;
 using Acr.UserDialogs.Infrastructure;
+using FirstApp.Droid.Interfaces;
 
 namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame_new, true)]
     [Register("firstApp.Droid.Views.TaskDetailsFragment")]
-    public class TaskDetailsFragment : BaseFragment<TaskDetailsViewModel>
+    public class TaskDetailsFragment : BaseFragment<TaskDetailsViewModel>, IBackButtonListener
     {
         static readonly int READ_EXTERNAL_STORAGE = 0;
         static readonly int ACCESS_COARSE_LOCATION = 1;
@@ -50,7 +50,7 @@ namespace FirstApp.Droid.Views
             return view;
         }
 
-        public void GetMapPositionPermissions(object sender, System.EventArgs e)
+        public void GetMapPositionPermissions(object sender, EventArgs e)
         {
             if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.AccessCoarseLocation) != (int)Permission.Granted)
             {

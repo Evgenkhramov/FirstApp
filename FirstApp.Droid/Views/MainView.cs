@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Acr.UserDialogs;
+﻿using Acr.UserDialogs;
 using Android.App;
-using Android.Content;
 using Android.Content.PM;
-using Android.OS;
-using Android.Runtime;
 using Android.Support.V4.View;
 using Android.Support.V4.Widget;
-using Android.Views;
 using Android.Views.InputMethods;
-using Android.Widget;
 using FirstApp.Core.ViewModels;
 using FirstApp.Droid.Interfaces;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using Plugin.CurrentActivity;
 using Plugin.Permissions;
 
 namespace FirstApp.Droid.Views
@@ -49,10 +39,10 @@ namespace FirstApp.Droid.Views
             }
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
-        {
-            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
+        //public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        //{
+        //    PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        //}
 
         public void OpenDraweble()
         {

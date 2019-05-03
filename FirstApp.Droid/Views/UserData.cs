@@ -1,6 +1,5 @@
 ﻿using System;
 using Android.App;
-using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -9,15 +8,14 @@ using FirstApp.Core.ViewModels;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
-using Permission = Plugin.Permissions.Abstractions.Permission;
-using Plugin.CurrentActivity;
 using FirstApp.Core.Interfaces;
+using FirstApp.Droid.Interfaces;
 
 namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame_new, false)]
     [Register("firstApp.Droid.Views.UserDataFragment")]
-    public class UserData : BaseFragment<UserDataViewModel>
+    public class UserData : BaseFragment<UserDataViewModel>, IBackButtonListener
     {
         public static readonly int PickImageId = 1000;
         Button menuButton;
@@ -38,15 +36,6 @@ namespace FirstApp.Droid.Views
             {
                 OpenMenu();
             };
-            //if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.Camera) != (int)Android.Content.PM.Permission.Granted)
-            //{
-            //    ActivityCompat.RequestPermissions(this.Activity, new String[] { Manifest.Permission.Camera }, 1);
-            //}
-            //if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.ReadExternalStorage) != (int)Android.Content.PM.Permission.Granted)
-            //{
-            //    ActivityCompat.RequestPermissions(this.Activity, new String[] { Manifest.Permission.ReadExternalStorage }, 1);
-            //}
-
             return view;
         }
 
@@ -165,6 +154,10 @@ namespace FirstApp.Droid.Views
             adb.Create().Show();
         }
 
+        public void OnBackPressed()
+        {
+            ViewModel.CloseFragment.Execute();
+        }
 
         //public override void OnActivityResult(int requestCode, int resultCode, Intent data)
         //{
