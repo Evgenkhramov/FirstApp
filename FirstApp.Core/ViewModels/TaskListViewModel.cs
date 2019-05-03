@@ -18,7 +18,6 @@ namespace FirstApp.Core.ViewModels
         {
             _dBTaskService = dBTaskService;
             DeleteItemCommand = new MvxCommand<int>(RemoveCollectionItem);
-            //_dBTaskService = Mvx.IoCProvider.Resolve<IDBTaskService>();
             AddData();
             ShowTaskChangedView = new MvxAsyncCommand<TaskModel>(CollectionItemClick);
         }

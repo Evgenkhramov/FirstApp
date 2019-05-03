@@ -2,13 +2,12 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
             <connections>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+                <outlet property="rfgsdhtghs" destination="850" id="name-outlet-850"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -16,46 +15,11 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="380" translatesAutoresizingMaskIntoConstraints="NO">
-                    <rect key="frame" x="41.5" y="221" width="331" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="850" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                    <rect key="frame" x="98" y="182" width="46" height="30"/>
                     <state key="normal" title="Button"/>
                 </button>
-                <view contentMode="scaleToFill" id="393" translatesAutoresizingMaskIntoConstraints="NO">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="221"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
-                <view contentMode="scaleToFill" id="667" translatesAutoresizingMaskIntoConstraints="NO">
-                    <rect key="frame" x="0.0" y="251" width="414" height="110"/>
-                    <color key="backgroundColor" colorSpace="calibratedRGB" red="0" green="0.50196078431372548" blue="0" alpha="1"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="817" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                            <rect key="frame" x="88" y="40" width="46" height="30"/>
-                            <color key="backgroundColor" colorSpace="calibratedRGB" red="1" green="0" blue="0" alpha="1"/>
-                            <state key="normal" title="Button"/>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="830" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                            <rect key="frame" x="324" y="40" width="46" height="30"/>
-                            <color key="backgroundColor" colorSpace="calibratedRGB" red="1" green="0" blue="0" alpha="1"/>
-                            <state key="normal" title="Button"/>
-                        </button>
-                    </subviews>
-                    <constraints>
-                        <constraint id="780" firstAttribute="width" secondItem="667" secondAttribute="height" multiplier="15:4"/>
-                    </constraints>
-                </view>
             </subviews>
-            <constraints>
-                <constraint id="406" firstItem="393" firstAttribute="top" secondItem="2" secondAttribute="top"/>
-                <constraint id="431" firstAttribute="centerX" secondItem="393" secondAttribute="centerX"/>
-                <constraint id="481" firstItem="393" firstAttribute="width" secondItem="2" secondAttribute="width"/>
-                <constraint id="494" firstItem="393" firstAttribute="height" secondItem="2" secondAttribute="height" multiplier="0.3"/>
-                <constraint id="543" firstItem="380" firstAttribute="top" secondItem="393" secondAttribute="bottom"/>
-                <constraint id="568" firstItem="380" firstAttribute="centerX" secondItem="2" secondAttribute="centerX"/>
-                <constraint id="581" firstItem="380" firstAttribute="width" secondItem="2" secondAttribute="width" multiplier="0.8"/>
-                <constraint id="704" firstItem="667" firstAttribute="top" secondItem="380" secondAttribute="bottom"/>
-                <constraint id="705" firstItem="667" firstAttribute="leading" secondItem="2" secondAttribute="leading"/>
-                <constraint id="706" firstAttribute="trailing" secondItem="667" secondAttribute="trailing"/>
-            </constraints>
         </view>
     </objects>
 </document>

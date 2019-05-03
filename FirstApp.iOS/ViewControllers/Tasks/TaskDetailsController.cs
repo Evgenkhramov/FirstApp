@@ -3,7 +3,7 @@ using Foundation;
 using MvvmCross.Platforms.Ios.Views;
 using System;
 
-namespace FirstApp.iOS
+namespace FirstApp.iOS.ViewControllers
 {
     public partial class TaskDetailsController : MvxViewController<TaskDetailsViewModel>
     {

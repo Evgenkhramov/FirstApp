@@ -1,8 +1,5 @@
 ﻿using FirstApp.Core.Interfaces;
-using MvvmCross;
 using SQLite;
-using System;
-using FirstApp.Core;
 using FirstApp.Core.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,13 +32,12 @@ namespace FirstApp.Core.Services
             {
                 return true;
             }
-            
+
         }
 
         public UserDatabaseModel GetItem(int id)
         {
-            //return database.Table<UserDatabaseModel>().ToList();
-           return _connect.Get<UserDatabaseModel>(id);
+            return _connect.Get<UserDatabaseModel>(id);
         }
         public int DeleteItem(int id)
         {

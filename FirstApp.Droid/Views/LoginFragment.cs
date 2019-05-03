@@ -20,7 +20,6 @@ using Android;
 using Android.Support.V4.Content;
 using Android.Content.PM;
 using Android.Support.V4.App;
-using Android.Gms.Auth.Api;
 using FirstApp.Core.Models;
 
 namespace FirstApp.Droid.Views
@@ -78,8 +77,7 @@ namespace FirstApp.Droid.Views
                 mGoogleApiClient.Disconnect();
             }
         }
-
-     
+        
         public void GetPermissions(object sender, System.EventArgs e)
         {
             if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.GetAccounts) != (int)Permission.Granted)

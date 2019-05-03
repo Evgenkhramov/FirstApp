@@ -1,14 +1,10 @@
 ﻿using Plugin.SecureStorage;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using FirstApp.Core.Interfaces;
 
 namespace FirstApp.Core.Services
 {
     public class AuthorizationService : IAuthorizationService
     {
-
         public bool IsLoggedIn(string userName, string userPassword)
         {
 

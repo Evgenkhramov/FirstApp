@@ -8,7 +8,7 @@ using Foundation;
 using System;
 using System.CodeDom.Compiler;
 
-namespace FirstApp.iOS
+namespace FirstApp.iOS.ViewControllers
 {
     [Register ("ListItemController")]
     partial class ListItemController

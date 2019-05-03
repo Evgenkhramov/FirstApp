@@ -8,14 +8,18 @@ using Foundation;
 using System;
 using System.CodeDom.Compiler;
 
-namespace FirstApp.iOS
+namespace FirstApp.iOS.ViewControllers
 {
     [Register ("RegistrationController")]
     partial class RegistrationController
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField EnterPasswordСonfirm { get; set; }
+        UIKit.UIButton BackButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITextField EnterConfirm { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -25,11 +29,20 @@ namespace FirstApp.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton RegistrationButton { get; set; }
 
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITextField UserName { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
-            if (EnterPasswordСonfirm != null) {
-                EnterPasswordСonfirm.Dispose ();
-                EnterPasswordСonfirm = null;
+            if (BackButton != null) {
+                BackButton.Dispose ();
+                BackButton = null;
+            }
+
+            if (EnterConfirm != null) {
+                EnterConfirm.Dispose ();
+                EnterConfirm = null;
             }
 
             if (EnterUserPassword != null) {
@@ -40,6 +53,11 @@ namespace FirstApp.iOS
             if (RegistrationButton != null) {
                 RegistrationButton.Dispose ();
                 RegistrationButton = null;
+            }
+
+            if (UserName != null) {
+                UserName.Dispose ();
+                UserName = null;
             }
         }
     }

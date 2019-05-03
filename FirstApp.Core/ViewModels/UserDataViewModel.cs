@@ -1,4 +1,4 @@
-﻿using Android.Util;
+﻿//using Android.Util;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
@@ -154,7 +154,7 @@ namespace FirstApp.Core.ViewModels
             var memoryStream = new MemoryStream();
             pictureStream.CopyTo(memoryStream);
             Bytes = memoryStream.ToArray();
-            MyPhoto = Base64.EncodeToString(Bytes,0);           
+            MyPhoto = Convert.ToBase64String(Bytes);/* Base64.EncodeToString(Bytes,0);           */
         }
     }
 }

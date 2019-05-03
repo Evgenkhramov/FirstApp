@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\TaskListAdapter.cs" />
+    <Compile Include="Converters\ByteToBitmapValueConverter.cs" />
     <Compile Include="Holders\TasksViewHolder.cs" />
     <Compile Include="Interfaces\IBackButtonListener.cs" />
     <Compile Include="MainApplication.cs" />

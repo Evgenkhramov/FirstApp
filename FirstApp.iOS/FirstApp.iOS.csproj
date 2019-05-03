@@ -49,8 +49,10 @@
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: Andrii Dashkovets (4CFP72UPNS)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
+    <CodesignProvision>Anuitex Provisioning Profile</CodesignProvision>
+    <MtouchExtraArgs>-v -v -v -v</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -68,6 +70,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="LinkerPleaseInclude.cs" />
+    <Compile Include="ViewControllers\Authentication\StartController.cs" />
+    <Compile Include="ViewControllers\Authentication\StartController.designer.cs">
+      <DependentUpon>StartController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\ScreenControl.cs" />
+    <Compile Include="ViewControllers\ScreenControl.designer.cs">
+      <DependentUpon>ScreenControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewControllers\Tasks\ListItemController.cs" />
     <Compile Include="ViewControllers\Tasks\ListItemController.designer.cs">
       <DependentUpon>ListItemController.cs</DependentUpon>
@@ -104,19 +114,32 @@
     <Compile Include="ViewControllers\MainViewController.designer.cs">
       <DependentUpon>MainViewController.cs</DependentUpon>
     </Compile>
+    <Content Include="Resources\LaunchImages\screen.png" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <None Include="packages.config" />
-    <InterfaceDefinition Include="ViewControllers\MainViewController.xib" />
+    <InterfaceDefinition Include="ViewControllers\MainViewController.xib">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
     <InterfaceDefinition Include="ViewControllers\UserAccount\UserDataController.xib" />
-    <InterfaceDefinition Include="ViewControllers\Tasks\TaskListController.xib" />
+    <InterfaceDefinition Include="ViewControllers\Tasks\TaskListController.xib">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
     <InterfaceDefinition Include="ViewControllers\Tasks\TaskDetailsController.xib" />
-    <InterfaceDefinition Include="ViewControllers\Authentication\LoginController.xib" />
+    <InterfaceDefinition Include="ViewControllers\Authentication\LoginController.xib">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
     <InterfaceDefinition Include="ViewControllers\Tasks\ListItemController.xib" />
     <InterfaceDefinition Include="ViewControllers\Tasks\MapController.xib" />
-    <InterfaceDefinition Include="ViewControllers\Authentication\RegistrationController.xib" />
+    <InterfaceDefinition Include="ViewControllers\Authentication\RegistrationController.xib">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
+    <InterfaceDefinition Include="ViewControllers\ScreenController.xib" />
+    <InterfaceDefinition Include="ViewControllers\Authentication\StartController.xib">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Acr.UserDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -220,10 +243,11 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon60.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\LaunchImages.launchimage\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\FirstApp.Core\FirstApp.Core.csproj">
       <Project>{fed1e91c-8c6a-46c0-8757-835912ccc95f}</Project>

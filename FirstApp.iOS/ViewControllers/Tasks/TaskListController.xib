@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TaskListController">
             <connections>
+                <outlet property="view" destination="1" id="RRd-Eg-VrN"/>
                 <outlet property="AddNewTaskButton" destination="819" id="name-outlet-819"/>
             </connections>
         </placeholder>

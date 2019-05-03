@@ -8,10 +8,10 @@ using Foundation;
 using System;
 using System.CodeDom.Compiler;
 
-namespace FirstApp.iOS.ViewControllers
+namespace FirstApp.iOS
 {
-    [Register ("MapController")]
-    partial class MapController
+    [Register ("ScreenControl")]
+    partial class ScreenControl
     {
         void ReleaseDesignerOutlets ()
         {

@@ -23,9 +23,13 @@ namespace FirstApp.Core.ViewModels
         public IMvxAsyncCommand ShowMainFragmentCommand { get; private set; }
         public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }
 
-        public async System.Threading.Tasks.Task ShowMain()
+        public async Task ShowMain()
         {
             await _navigationService.Navigate<MenuViewModel>();
+            await _navigationService.Navigate<TaskListViewModel>();
+        }
+        public async Task ShowMainIOS()
+        {
             await _navigationService.Navigate<TaskListViewModel>();
         }
     }

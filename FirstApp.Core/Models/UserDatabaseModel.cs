@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FirstApp.Core.Enums;
+﻿using FirstApp.Core.Enums;
 using SQLite;
 
 namespace FirstApp.Core.Models

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
-using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
 
 namespace FirstApp.Core.ViewModels
 {

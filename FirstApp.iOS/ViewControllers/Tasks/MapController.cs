@@ -4,7 +4,7 @@ using MvvmCross.Platforms.Ios.Views;
 using MvvmCross.ViewModels;
 using System;
 
-namespace FirstApp.iOS
+namespace FirstApp.iOS.ViewControllers
 {
     public partial class MapController : MvxViewController<MapViewModel>
     {

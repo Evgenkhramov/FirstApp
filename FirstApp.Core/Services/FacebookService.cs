@@ -2,14 +2,9 @@
 using System.Threading.Tasks;
 using FirstApp.Core.Models;
 using FirstApp.Core.Interfaces;
-using System.Json;
-using Xamarin.Auth;
 using System;
 using System.Net.Http;
-using Java.Net;
-using Java.IO;
-using Android.Graphics;
-using Android.Util;
+//using Android.Util;
 
 namespace FirstApp.Core.Services
 {
@@ -38,7 +33,7 @@ namespace FirstApp.Core.Services
                     var imageBytes = await response.Content.ReadAsByteArrayAsync();
                     if (imageBytes != null && imageBytes.Length > 0)
                     {
-                        userPhoto = Base64.EncodeToString(imageBytes, Base64Flags.Default);
+                        userPhoto = Convert.ToBase64String(imageBytes);/* Base64.EncodeToString(imageBytes, Base64Flags.Default);*/
                     }
                 }
             }

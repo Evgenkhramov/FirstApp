@@ -1,6 +1,5 @@
 ﻿using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
-using MvvmCross;
 using SQLite;
 using System.Collections.Generic;
 using System.Linq;

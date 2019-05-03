@@ -1,6 +1,4 @@
-﻿using MvvmCross;
-using MvvmCross.Commands;
-using MvvmCross.Navigation;
+﻿using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
 namespace FirstApp.Core.ViewModels

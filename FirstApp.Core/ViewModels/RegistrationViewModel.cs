@@ -1,19 +1,10 @@
-﻿using FirstApp.Core.Services;
-using MvvmCross;
-using MvvmCross.Commands;
+﻿using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using FirstApp.Core.Interfaces;
-using Android.Content;
 using FirstApp.Core.Models;
-using Android.Widget;
-using Android.App;
 using Acr.UserDialogs;
 using System.Text.RegularExpressions;
-using System.Linq;
+using MvvmCross;
 
 namespace FirstApp.Core.ViewModels
 {
@@ -23,12 +14,12 @@ namespace FirstApp.Core.ViewModels
         private readonly Regex NameRegExp = new Regex(@"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private readonly IRegistrationService _registrationService;
-        private readonly IUserDialogService _userDialogService;
+        //private readonly IUserDialogService _userDialogService;
         private readonly IDBUserService _dBUserService;
 
-        public RegistrationViewModel(IRegistrationService registrationService,IUserDialogs userDialogs, IUserDialogService userDialogService, IDBUserService dBUserService,IMvxNavigationService navigationService) : base(navigationService)
+        public RegistrationViewModel(IRegistrationService registrationService, /*IUserDialogService userDialogService,*/ IDBUserService dBUserService,IMvxNavigationService navigationService) : base(navigationService)
         {
-            _userDialogService = userDialogService;
+            //_userDialogService = userDialogService;
             _registrationService = registrationService;
             _dBUserService = dBUserService;
             HaveGone = false;
@@ -94,7 +85,7 @@ namespace FirstApp.Core.ViewModels
                 return new MvxAsyncCommand(async () =>
                 {
                     await _navigationService.Close(this);
-                    await _navigationService.Navigate<LoginViewModel>();
+                    //await _navigationService.Navigate<LoginViewModel>();
                 });
             }
         }
@@ -139,7 +130,8 @@ namespace FirstApp.Core.ViewModels
                         }
                         else
                         {
-                            _userDialogService.ShowAlertForUser("Error", "This name is already in the database, enter other name ", "Ok");
+                            Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("This name is already in the database, enter other name");
+                            //_userDialogService.ShowAlertForUser("Error", "This name is already in the database, enter other name ", "Ok");
                         }
                                          
                     }
@@ -153,14 +145,16 @@ namespace FirstApp.Core.ViewModels
             {
                 if (!NameRegExp.IsMatch(RegistrationUserName))
                 {
-                    _userDialogService.ShowAlertForUser("Error", "Enter correct name", "Ok");
+                    Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Enter correct name");
+                    //_userDialogService.ShowAlertForUser("Error", "Enter correct name", "Ok");
                     return false;
                 }
                 return true;
             }
             else
             {
-                _userDialogService.ShowAlertForUser("Error", "Please, enter name", "Ok");
+                Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Please, enter name");
+                //_userDialogService.ShowAlertForUser("Error", "Please, enter name", "Ok");
                 return false;
             }
         }
@@ -170,7 +164,8 @@ namespace FirstApp.Core.ViewModels
             {
                 if (!PasswordRegExp.IsMatch(RegistrationUserPassword))
                 {
-                    _userDialogService.ShowAlertForUser("Error", "Password must have minimum eight characters, at least one letter and one numbe!", "Ok");
+                    Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Password must have minimum eight characters, at least one letter and one numbe!");
+                    //_userDialogService.ShowAlertForUser("Error", "Password must have minimum eight characters, at least one letter and one numbe!", "Ok");
                     return false;
                 }
                 else
@@ -180,7 +175,8 @@ namespace FirstApp.Core.ViewModels
             }
             else
             {
-                _userDialogService.ShowAlertForUser("Error", "Enter Password!", "Ok");
+                Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Enter Password!");
+                //_userDialogService.ShowAlertForUser("Error", "Enter Password!", "Ok");
                 return false;
             }
         }
@@ -194,13 +190,15 @@ namespace FirstApp.Core.ViewModels
                 }
                 else
                 {
-                    _userDialogService.ShowAlertForUser("Error", "Password and password confirm must be the same!", "Ok");
+                    Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Password and password confirm must be the same!");
+                    //_userDialogService.ShowAlertForUser("Error", "Password and password confirm must be the same!", "Ok");
                     return false;
                 }
             }
             else
             {
-                _userDialogService.ShowAlertForUser("Error", "Enter PasswordConfirm!", "Ok");
+                Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Enter PasswordConfirm!");
+                //_userDialogService.ShowAlertForUser("Error", "Enter PasswordConfirm!", "Ok");
                 return false;
             }
         }

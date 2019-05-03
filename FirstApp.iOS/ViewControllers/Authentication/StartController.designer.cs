@@ -10,8 +10,8 @@ using System.CodeDom.Compiler;
 
 namespace FirstApp.iOS.ViewControllers
 {
-    [Register ("MapController")]
-    partial class MapController
+    [Register ("StartController")]
+    partial class StartController
     {
         void ReleaseDesignerOutlets ()
         {

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace FirstApp.Core.Converters
+namespace FirstApp.Droid.Converters
 {
     public class StringToBitmapValueConverter : MvxValueConverter<string, Bitmap>
     {

@@ -18,9 +18,9 @@ namespace FirstApp.Core
 
              Mvx.IoCProvider.Resolve<IDBConnectionService>();
 
+            Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
             // register the appstart object
-            RegisterCustomAppStart<AppStart>();
-            Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);          
+            RegisterCustomAppStart<AppStart>();                  
         }
     }
 }

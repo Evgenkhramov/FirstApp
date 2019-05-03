@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginController">
             <connections>
+                <outlet property="view" destination="1" id="RRd-Eg-VrN"/>
                 <outlet property="EnterYourLogin" destination="283" id="name-outlet-283"/>
                 <outlet property="EnterYourPasswordForLogin" destination="284" id="name-outlet-284"/>
                 <outlet property="LoginButton" destination="627" id="name-outlet-627"/>

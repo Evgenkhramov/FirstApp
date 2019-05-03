@@ -21,7 +21,7 @@ namespace FirstApp.Core.ViewModels
         public LoginViewModel(IAuthorizationService authorizationService, IDBUserService sQLiteRepository, IRegistrationService registrationService, IFacebookService facebookService,IMvxNavigationService navigationService) : base(navigationService)
         {
             ShowMainViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MainViewModel>());
-            ShowLoginFragmentViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<LoginViewModel>());
+            //ShowLoginFragmentViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<LoginViewModel>());
             _authorizationService = authorizationService;
             _sqlLiteRepository = sQLiteRepository;
             _registrationService = registrationService;
@@ -79,7 +79,7 @@ namespace FirstApp.Core.ViewModels
         }
 
         public async Task OnGoogleAuthenticationCompleted(GoogleModel user)
-        {          
+        {
             var userDatabaseModel = new UserDatabaseModel();
             userDatabaseModel.Name = user.First_name;
             userDatabaseModel.Surname = user.Last_name;
@@ -107,7 +107,7 @@ namespace FirstApp.Core.ViewModels
         {
             Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("You didn't completed the authentication process");
         }
-        
+
         private string _userName;
         public string UserName
         {

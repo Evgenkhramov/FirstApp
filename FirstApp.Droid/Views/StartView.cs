@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Acr.UserDialogs;
+﻿using Acr.UserDialogs;
 using Android.App;
-using Android.Content;
 using Android.Content.PM;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using FirstApp.Core.ViewModels;
 using MvvmCross.Droid.Support.V7.AppCompat;
@@ -36,8 +28,7 @@ namespace FirstApp.Droid.Views
             UserDialogs.Init(this);
             if (bundle == null)
             {
-                ViewModel.ShowLoginFragmentCommand.Execute(null);
-              
+                ViewModel.ShowLoginFragmentCommand.Execute(null);             
             }
         }
 
