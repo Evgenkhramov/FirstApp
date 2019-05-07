@@ -8,7 +8,7 @@ namespace FirstApp.iOS.ViewControllers
     [MvxTabPresentation(WrapInNavigationController = true, TabName = "User Profile", TabIconName = "userProfile")]
     public partial class UserDataController : MvxViewController<UserDataViewModel>
     { 
-        public UserDataController() : base(nameof(TaskListController), null)
+        public UserDataController() : base(nameof(UserDataController), null)
         {
         }
 
@@ -22,11 +22,11 @@ namespace FirstApp.iOS.ViewControllers
             NavigationController.NavigationBarHidden = true;
 
             var set = this.CreateBindingSet<UserDataController, UserDataViewModel>();
-            set.Bind(UserName).To(vm => ViewModel.UserName);
-            set.Bind(UserSurname).To(m => ViewModel.Surname);
-            set.Bind(UserImg).To(m => ViewModel.MyPhoto).WithConversion("ByteArrayToImg");
-            set.Bind(SaveUserButton).To(m => ViewModel.SaveUserData);
-            set.Bind(CancelUserButton).To(m => ViewModel.Cancel);
+            set.Bind(UserName).To(vm => vm.UserName);
+            set.Bind(UserSurname).To(vm => vm.Surname);
+            set.Bind(UserImg).For(v => v.Image).To(vm => vm.MyPhoto).WithConversion("ByteArrayToImg");
+            set.Bind(SaveUserButton).To(vm => vm.SaveUserData);
+            set.Bind(CancelUserButton).To(vm => vm.Cancel);
             //set.Bind(CameraButton).To(m => ViewModel.);
            
             set.Apply();

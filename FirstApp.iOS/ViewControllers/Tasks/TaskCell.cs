@@ -4,7 +4,7 @@ using System;
 using UIKit;
 using FirstApp.Core;
 
-namespace FirstApp.iOS.ViewControllers
+namespace FirstApp.iOS.ViewControllers.Tasks
 {
     public partial class TaskCell : UITableViewCell
     {
