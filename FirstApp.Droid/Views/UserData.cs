@@ -159,6 +159,11 @@ namespace FirstApp.Droid.Views
             ViewModel.CloseFragment.Execute();
         }
 
+        public void ChoosePhoto()
+        {
+            SelectPhoto("Select Photo", "Please, select photo.", "From memory", "From camera");
+        }
+
         //public override void OnActivityResult(int requestCode, int resultCode, Intent data)
         //{
         //    if (resultCode == (int)Result.Ok && requestCode != PickImageId)
@@ -218,12 +223,6 @@ namespace FirstApp.Droid.Views
         //        }
         //    }
         //}
-
-        public void ChoosePhoto()
-        {
-            SelectPhoto("Select Photo", "Please, select photo.", "From memory", "From camera");
-        }
-      
 
 
 
