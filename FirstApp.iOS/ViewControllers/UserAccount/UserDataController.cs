@@ -19,7 +19,19 @@ namespace FirstApp.iOS.ViewControllers
 
         public override void ViewDidLoad()
         {
-            NavigationController.NavigationBarHidden = true;
+            UserName.ShouldReturn = (textField) =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
+
+            UserSurname.ShouldReturn = (textField) =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
+
+            //NavigationController.NavigationBarHidden = true;
 
             var set = this.CreateBindingSet<UserDataController, UserDataViewModel>();
             set.Bind(UserName).To(vm => vm.UserName);
