@@ -8,7 +8,7 @@ using Foundation;
 using System;
 using System.CodeDom.Compiler;
 
-namespace FirstApp.iOS.ViewControllers
+namespace FirstApp.iOS.ViewControllers.UserAccount
 {
     [Register ("UserDataController")]
     partial class UserDataController

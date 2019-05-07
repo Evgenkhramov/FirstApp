@@ -8,7 +8,7 @@ using Foundation;
 using System;
 using System.CodeDom.Compiler;
 
-namespace FirstApp.iOS.ViewControllers
+namespace FirstApp.iOS.ViewControllers.Authentication
 {
     [Register ("StartController")]
     partial class StartController

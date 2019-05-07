@@ -3,7 +3,7 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 
-namespace FirstApp.iOS.ViewControllers
+namespace FirstApp.iOS.ViewControllers.UserAccount
 {
     [MvxTabPresentation(WrapInNavigationController = true, TabName = "User Profile", TabIconName = "userProfile")]
     public partial class UserDataController : MvxViewController<UserDataViewModel>

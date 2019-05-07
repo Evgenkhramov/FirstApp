@@ -4,7 +4,7 @@ using Foundation;
 using MvvmCross.Platforms.Ios.Binding.Views;
 using UIKit;
 
-namespace FirstApp.iOS.ViewControllers
+namespace FirstApp.iOS.ViewControllers.Tasks
 {
     internal class TasksTVS : MvxTableViewSource
     {

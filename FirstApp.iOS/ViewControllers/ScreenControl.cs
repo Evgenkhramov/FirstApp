@@ -1,7 +1,7 @@
 using Foundation;
 using System;
 
-namespace FirstApp.iOS
+namespace FirstApp.iOS.ViewControllers
 {
     public partial class ScreenControl : NSObject
     {

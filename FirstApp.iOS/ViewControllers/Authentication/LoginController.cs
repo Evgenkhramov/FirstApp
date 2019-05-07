@@ -5,7 +5,7 @@ using MvvmCross.Platforms.Ios.Views;
 using System;
 using UIKit;
 
-namespace FirstApp.iOS.ViewControllers
+namespace FirstApp.iOS.ViewControllers.Authentication
 {
     public partial class LoginController : MvxViewController<LoginViewModel>
     {
