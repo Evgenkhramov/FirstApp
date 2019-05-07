@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TaskDetailsController">
             <connections>
+                <outlet property="view" destination="1" id="RRd-Eg-VrN"/>
                 <outlet property="TaskName" destination="1584" id="name-outlet-1584"/>
                 <outlet property="TaskDescription" destination="1634" id="name-outlet-1634"/>
                 <outlet property="AddFileInTaskButton" destination="6198" id="name-outlet-6198"/>

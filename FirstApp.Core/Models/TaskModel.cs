@@ -16,7 +16,6 @@ namespace FirstApp.Core.Models
         public string FileName { get; set; }
         public string Coord { get; set; }
 
-
         [Ignore]
         public IListHandler VmHandler { get; set; }
         //public IMvxCommand<int> DeleteItemVMCommand { get; set; }

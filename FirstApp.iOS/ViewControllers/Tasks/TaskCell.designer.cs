@@ -10,27 +10,27 @@ using System.CodeDom.Compiler;
 
 namespace FirstApp.iOS.ViewControllers
 {
-    [Register ("TaskListController")]
-    partial class TaskListController
+    [Register ("TaskCell")]
+    partial class TaskCell
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton AddNewTaskButton { get; set; }
+        UIKit.UILabel TaskDescription { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITableView TasksTable { get; set; }
+        UIKit.UILabel TaskName { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
-            if (AddNewTaskButton != null) {
-                AddNewTaskButton.Dispose ();
-                AddNewTaskButton = null;
+            if (TaskDescription != null) {
+                TaskDescription.Dispose ();
+                TaskDescription = null;
             }
 
-            if (TasksTable != null) {
-                TasksTable.Dispose ();
-                TasksTable = null;
+            if (TaskName != null) {
+                TaskName.Dispose ();
+                TaskName = null;
             }
         }
     }

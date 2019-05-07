@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TaskCell"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="381" rowHeight="84" customClass="TaskCell" reuseIdentifier="TaskCell">
+            <rect key="frame" x="0.0" y="0.0" width="240" height="84"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="381" id="382">
+                <rect key="frame" x="0.0" y="0.0" width="240" height="83"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" id="769" translatesAutoresizingMaskIntoConstraints="NO">
+                        <rect key="frame" x="0.0" y="4" width="240" height="75.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1155" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="38"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1156" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="0.0" y="38" width="240" height="37.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint id="1157" firstItem="1155" firstAttribute="top" secondItem="769" secondAttribute="top"/>
+                            <constraint id="1158" firstItem="1155" firstAttribute="leading" secondItem="769" secondAttribute="leading"/>
+                            <constraint id="1159" firstItem="1155" firstAttribute="height" secondItem="769" secondAttribute="height" multiplier="0.5"/>
+                            <constraint id="1160" firstItem="1155" firstAttribute="width" secondItem="769" secondAttribute="width"/>
+                            <constraint id="1161" firstItem="1156" firstAttribute="top" secondItem="1155" secondAttribute="bottom"/>
+                            <constraint id="1162" firstItem="1156" firstAttribute="leading" secondItem="769" secondAttribute="leading"/>
+                            <constraint id="1163" firstItem="1156" firstAttribute="height" secondItem="769" secondAttribute="height" multiplier="0.5"/>
+                            <constraint id="1164" firstItem="1156" firstAttribute="width" secondItem="769" secondAttribute="width"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint id="1150" firstItem="769" firstAttribute="width" secondItem="382" secondAttribute="width"/>
+                    <constraint id="1151" firstItem="769" firstAttribute="height" secondItem="382" secondAttribute="height" multiplier="0.9"/>
+                    <constraint id="1152" firstItem="769" firstAttribute="leading" secondItem="382" secondAttribute="leading"/>
+                    <constraint id="1153" firstItem="769" firstAttribute="centerX" secondItem="382" secondAttribute="centerX"/>
+                    <constraint id="1154" firstAttribute="centerY" secondItem="769" secondAttribute="centerY"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="-59" y="85.52607"/>
+            <connections>
+                <outlet property="TaskName" destination="1155" id="name-outlet-1155"/>
+                <outlet property="TaskDescription" destination="1156" id="name-outlet-1156"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

@@ -13,23 +13,28 @@ namespace FirstApp.Core.ViewModels
     {
         private readonly IMvxPictureChooserTask _pictureChooserTask;
         private readonly IDBUserService _sQLiteRepository;
-        private readonly IRegistrationService _registrationService;
+        //private readonly IRegistrationService _registrationService;
         // private readonly IUserDialogService _userDialogService;
 
         private UserDatabaseModel userData;
         private int userId;
-        public UserDataViewModel(IDBUserService sQLiteRepository, IRegistrationService registrationService, /*IUserDialogService userDialogService*/ IMvxPictureChooserTask pictureChooserTask, IMvxNavigationService navigationService) : base(navigationService)
+        public UserDataViewModel(IDBUserService sQLiteRepository, IMvxPictureChooserTask pictureChooserTask, IMvxNavigationService navigationService) : base(navigationService)
         {
+            try { 
             _pictureChooserTask = pictureChooserTask;
             //_userDialogService = userDialogService;
-            _registrationService = registrationService;
+            //_registrationService = registrationService;
             _sQLiteRepository = sQLiteRepository;
 
-            ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
+            //ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
             string id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
             userId = Int32.Parse(id);
             userData = sQLiteRepository.GetItem(userId);
             MyPhoto = userData.Photo;
+            }
+            catch (Exception ex) {
+                ;
+            }
         }
 
         public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }

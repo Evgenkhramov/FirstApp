@@ -6,12 +6,9 @@ using UIKit;
 namespace FirstApp.iOS.ViewControllers
 {
     [MvxRootPresentation]
-    public partial class MainViewController : MvxViewController<MainViewModel>
+    public partial class MainViewController : MvxTabBarViewController<MainViewModel>
     {
-        //public MainViewController() : base("MainViewController", null)
-        //{
-        //}
-
+        private bool _firstTimePresented = true;
         public MainViewController()
         {
         }
@@ -24,12 +21,21 @@ namespace FirstApp.iOS.ViewControllers
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            ViewModel.ShowMainIOS();
+            //ViewModel.ShowMainIOS();
+            //TabBar.BarTintColor = UIColor.FromRGBA(80, 90, 90, 100);
+            //TabBar.TintColor = UIColor.FromRGBA(200,90,90,100);
         }
 
         public override void ViewWillAppear(bool animated)
         {
-            base.ViewWillAppear(animated);
+            if (_firstTimePresented)
+            {
+                _firstTimePresented = false;
+                ViewModel.ShowMainFragmentCommand.Execute(null);
+                ViewModel.ShowUserProfileViewModelCommand.Execute(null);
+            }
+
+            //base.ViewWillAppear(animated);
             //this.NavigationController.NavigationBarHidden = false;
             //this.NavigationController.NavigationItem.Title = "Title";
         }

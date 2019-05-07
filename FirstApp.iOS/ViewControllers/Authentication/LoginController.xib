@@ -44,7 +44,7 @@
                     <rect key="frame" x="41.5" y="178" width="331" height="44"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                 </textField>
                 <view contentMode="scaleToFill" id="622" translatesAutoresizingMaskIntoConstraints="NO">
                     <rect key="frame" x="41.5" y="242" width="331" height="44"/>

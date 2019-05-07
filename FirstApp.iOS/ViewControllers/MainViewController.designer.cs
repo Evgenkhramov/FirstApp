@@ -13,16 +13,8 @@ namespace FirstApp.iOS.ViewControllers
     [Register ("MainViewController")]
     partial class MainViewController
     {
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton rfgsdhtghs { get; set; }
-
         void ReleaseDesignerOutlets ()
         {
-            if (rfgsdhtghs != null) {
-                rfgsdhtghs.Dispose ();
-                rfgsdhtghs = null;
-            }
         }
     }
 }

@@ -69,7 +69,12 @@
     <AppExtensionDebugBundleId />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Converters\ByteArrayToImg.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
+    <Compile Include="ViewControllers\Tasks\TaskCell.cs" />
+    <Compile Include="ViewControllers\Tasks\TaskCell.designer.cs">
+      <DependentUpon>TaskCell.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewControllers\Authentication\StartController.cs" />
     <Compile Include="ViewControllers\Authentication\StartController.designer.cs">
       <DependentUpon>StartController.cs</DependentUpon>
@@ -77,10 +82,6 @@
     <Compile Include="ViewControllers\ScreenControl.cs" />
     <Compile Include="ViewControllers\ScreenControl.designer.cs">
       <DependentUpon>ScreenControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ViewControllers\Tasks\ListItemController.cs" />
-    <Compile Include="ViewControllers\Tasks\ListItemController.designer.cs">
-      <DependentUpon>ListItemController.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewControllers\Tasks\MapController.cs" />
     <Compile Include="ViewControllers\Tasks\MapController.designer.cs">
@@ -94,6 +95,7 @@
     <Compile Include="ViewControllers\Tasks\TaskListController.designer.cs">
       <DependentUpon>TaskListController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewControllers\Tasks\TasksTVS.cs" />
     <Compile Include="ViewControllers\UserAccount\UserDataController.cs" />
     <Compile Include="ViewControllers\UserAccount\UserDataController.designer.cs">
       <DependentUpon>UserDataController.cs</DependentUpon>
@@ -115,7 +117,9 @@
       <DependentUpon>MainViewController.cs</DependentUpon>
     </Compile>
     <Content Include="Resources\LaunchImages\screen.png" />
-    <None Include="Info.plist" />
+    <None Include="Info.plist">
+      <SubType>Designer</SubType>
+    </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -123,21 +127,27 @@
     <InterfaceDefinition Include="ViewControllers\MainViewController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
-    <InterfaceDefinition Include="ViewControllers\UserAccount\UserDataController.xib" />
+    <InterfaceDefinition Include="ViewControllers\UserAccount\UserDataController.xib">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
     <InterfaceDefinition Include="ViewControllers\Tasks\TaskListController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
-    <InterfaceDefinition Include="ViewControllers\Tasks\TaskDetailsController.xib" />
+    <InterfaceDefinition Include="ViewControllers\Tasks\TaskDetailsController.xib">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
     <InterfaceDefinition Include="ViewControllers\Authentication\LoginController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
-    <InterfaceDefinition Include="ViewControllers\Tasks\ListItemController.xib" />
     <InterfaceDefinition Include="ViewControllers\Tasks\MapController.xib" />
     <InterfaceDefinition Include="ViewControllers\Authentication\RegistrationController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
     <InterfaceDefinition Include="ViewControllers\ScreenController.xib" />
     <InterfaceDefinition Include="ViewControllers\Authentication\StartController.xib">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
+    <InterfaceDefinition Include="ViewControllers\Tasks\TaskCell.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
   </ItemGroup>
@@ -153,6 +163,9 @@
     </Reference>
     <Reference Include="MvvmCross, Version=6.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmCross.6.2.3\lib\xamarinios10\MvvmCross.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Plugin.Color, Version=6.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.Plugin.Color.6.2.3\lib\xamarinios10\MvvmCross.Plugin.Color.dll</HintPath>
     </Reference>
     <Reference Include="MvvmCross.Plugin.Json, Version=6.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmCross.Plugin.Json.6.2.3\lib\netstandard2.0\MvvmCross.Plugin.Json.dll</HintPath>
@@ -201,59 +214,86 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\1024.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon1024.png">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\120.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon167.png">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\1201.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon120.png">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\152.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon152.png">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\167.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon180.png">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\180.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon29.png">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\20.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon40.png">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\29.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon58.png">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\40.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon76.png">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\401.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon80.png">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\402.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon87.png">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\58.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\581.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon60.png">
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\60.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\76.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\80.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\801.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\87.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\userProfile.imageset\circle-user-7.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\userProfile.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\taskList.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\LaunchImages.launchimage\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\taskList.imageset\list-simple-7.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\FirstApp.Core\FirstApp.Core.csproj">
       <Project>{fed1e91c-8c6a-46c0-8757-835912ccc95f}</Project>
       <Name>FirstApp.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

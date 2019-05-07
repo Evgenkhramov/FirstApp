@@ -14,5 +14,6 @@ namespace FirstApp.Core
 
         public const string LogOut = "LogOut";
         public const string LogIn = "LogIn";
+        public const int MaxLength = 20;
     }
 }
