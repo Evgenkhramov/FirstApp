@@ -20,19 +20,21 @@ namespace FirstApp.Core.ViewModels
         private int userId;
         public UserDataViewModel(IDBUserService sQLiteRepository, IMvxPictureChooserTask pictureChooserTask, IMvxNavigationService navigationService) : base(navigationService)
         {
-            try { 
-            _pictureChooserTask = pictureChooserTask;
-            //_userDialogService = userDialogService;
-            //_registrationService = registrationService;
-            _sQLiteRepository = sQLiteRepository;
+            try
+            {
+                _pictureChooserTask = pictureChooserTask;
+                //_userDialogService = userDialogService;
+                //_registrationService = registrationService;
+                _sQLiteRepository = sQLiteRepository;
 
-            //ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
-            string id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
-            userId = Int32.Parse(id);
-            userData = sQLiteRepository.GetItem(userId);
-            MyPhoto = userData.Photo;
+                //ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
+                string id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
+                userId = Int32.Parse(id);
+                userData = sQLiteRepository.GetItem(userId);
+                MyPhoto = userData.Photo;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 ;
             }
         }
@@ -90,7 +92,6 @@ namespace FirstApp.Core.ViewModels
                     userData.Photo = MyPhoto;
                     userData.Id = userId;
                     _sQLiteRepository.SaveItem(userData);
-                    await _navigationService.Navigate<MenuViewModel>();
                     await _navigationService.Navigate<TaskListViewModel>();
                 });
             }
@@ -135,12 +136,14 @@ namespace FirstApp.Core.ViewModels
 
         private void DoTakePicture()
         {
-            _pictureChooserTask.TakePicture(400, 95, OnPicture, () => { });
+            _pictureChooserTask.TakePicture(400, 95, OnPicture, () => {
+                var temp = 0;
+            });
         }
 
         private MvxCommand _choosePictureCommand;
 
-        public System.Windows.Input.ICommand ChoosePictureCommand
+        public IMvxCommand ChoosePictureCommand
         {
             get
             {

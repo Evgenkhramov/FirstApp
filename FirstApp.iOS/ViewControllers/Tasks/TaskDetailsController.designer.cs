@@ -23,7 +23,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton CancelTaskButton { get; set; }
+        UIKit.UIButton DeleteTaskButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -57,9 +57,9 @@ namespace FirstApp.iOS.ViewControllers.Tasks
                 AddMapMarkersButton = null;
             }
 
-            if (CancelTaskButton != null) {
-                CancelTaskButton.Dispose ();
-                CancelTaskButton = null;
+            if (DeleteTaskButton != null) {
+                DeleteTaskButton.Dispose ();
+                DeleteTaskButton = null;
             }
 
             if (MapMarkersCount != null) {

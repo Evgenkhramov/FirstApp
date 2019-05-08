@@ -53,6 +53,7 @@
     <MtouchDebug>true</MtouchDebug>
     <CodesignProvision>Anuitex Provisioning Profile</CodesignProvision>
     <MtouchExtraArgs>-v -v -v -v</MtouchExtraArgs>
+    <MtouchSdkVersion>12.2</MtouchSdkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>

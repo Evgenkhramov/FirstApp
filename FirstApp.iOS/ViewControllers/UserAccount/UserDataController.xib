@@ -29,10 +29,10 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="11842">
-                                    <rect key="frame" x="41.5" y="20" width="331" height="294.5"/>
+                                    <rect key="frame" x="41.5" y="20" width="331" height="235.5"/>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11995">
-                                    <rect key="frame" x="41.5" y="329.5" width="331" height="51.5"/>
+                                    <rect key="frame" x="41.5" y="270.5" width="331" height="51.5"/>
                                     <color key="backgroundColor" red="0.34901960784313724" green="0.36470588235294116" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <state key="normal" title="Camera snap">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -44,30 +44,30 @@
                                     </userDefinedRuntimeAttributes>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12204">
-                                    <rect key="frame" x="41.5" y="396" width="331" height="36.5"/>
+                                    <rect key="frame" x="41.5" y="337" width="331" height="37"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Enter your name" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="12631">
-                                    <rect key="frame" x="41.5" y="447.5" width="331" height="44.5"/>
+                                    <rect key="frame" x="41.5" y="389" width="331" height="44"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your surname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12979">
-                                    <rect key="frame" x="41.5" y="507" width="331" height="36.5"/>
+                                    <rect key="frame" x="41.5" y="448" width="331" height="37"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Enter your surname" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="13116">
-                                    <rect key="frame" x="41.5" y="558.5" width="331" height="44.5"/>
+                                    <rect key="frame" x="41.5" y="500" width="331" height="44"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="13265">
-                                    <rect key="frame" x="0.0" y="625.5" width="207" height="110.5"/>
+                                    <rect key="frame" x="0.0" y="544" width="207" height="110.5"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13710">
                                             <rect key="frame" x="20.5" y="30.5" width="166" height="49.5"/>
@@ -91,7 +91,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="13524">
-                                    <rect key="frame" x="207" y="625.5" width="207" height="110.5"/>
+                                    <rect key="frame" x="207" y="544" width="207" height="110.5"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13835">
                                             <rect key="frame" x="20.5" y="30.5" width="166" height="49.5"/>
@@ -120,7 +120,7 @@
                                 <constraint firstItem="11842" firstAttribute="width" secondItem="11716" secondAttribute="width" multiplier="0.8" id="11855"/>
                                 <constraint firstItem="11842" firstAttribute="top" secondItem="11716" secondAttribute="top" constant="20" id="11880"/>
                                 <constraint firstAttribute="centerX" secondItem="11842" secondAttribute="centerX" id="11905"/>
-                                <constraint firstItem="11842" firstAttribute="height" secondItem="11716" secondAttribute="height" multiplier="0.4" id="11942"/>
+                                <constraint firstItem="11842" firstAttribute="height" secondItem="11716" secondAttribute="height" multiplier="0.32" id="11942"/>
                                 <constraint firstItem="11995" firstAttribute="top" secondItem="11842" secondAttribute="bottom" constant="15" id="12020"/>
                                 <constraint firstAttribute="centerX" secondItem="11995" secondAttribute="centerX" id="12045"/>
                                 <constraint firstItem="11995" firstAttribute="width" secondItem="11716" secondAttribute="width" multiplier="0.8" id="12070"/>
@@ -144,11 +144,11 @@
                                 <constraint firstItem="13265" firstAttribute="leading" secondItem="11716" secondAttribute="leading" id="13290"/>
                                 <constraint firstItem="13265" firstAttribute="width" secondItem="11716" secondAttribute="width" multiplier="0.5" id="13315"/>
                                 <constraint firstItem="13265" firstAttribute="height" secondItem="11716" secondAttribute="height" multiplier="0.15" id="13426"/>
-                                <constraint firstAttribute="bottom" secondItem="13265" secondAttribute="bottom" id="13463"/>
                                 <constraint firstAttribute="trailing" secondItem="13524" secondAttribute="trailing" id="13561"/>
-                                <constraint firstAttribute="bottom" secondItem="13524" secondAttribute="bottom" id="13586"/>
                                 <constraint firstItem="13524" firstAttribute="height" secondItem="11716" secondAttribute="height" multiplier="0.15" id="13611"/>
                                 <constraint firstItem="13524" firstAttribute="width" secondItem="11716" secondAttribute="width" multiplier="0.5" id="13636"/>
+                                <constraint id="21357" firstItem="13265" firstAttribute="top" secondItem="13116" secondAttribute="bottom"/>
+                                <constraint id="21367" firstItem="13524" firstAttribute="top" secondItem="13116" secondAttribute="bottom"/>
                             </constraints>
                         </view>
                     </subviews>

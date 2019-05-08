@@ -23,7 +23,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         {
             
 
-            NavigationController.NavigationBarHidden = true;
+           // NavigationController.NavigationBarHidden = true;
 
             View.BackgroundColor = UIColor.Clear;
             _refreshControl = new MvxUIRefreshControl();

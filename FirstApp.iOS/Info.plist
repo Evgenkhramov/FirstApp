@@ -42,5 +42,13 @@
 	<string>Assets.xcassets/AppIcons.appiconset</string>
 	<key>XSLaunchImageAssets</key>
 	<string>Assets.xcassets/LaunchImages.launchimage</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>FirstApp wants to access your Gallery</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>FirstApp wants to access your Gallery</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>FirstApp wants to access your Media Library</string>
+	<key>NSCameraUsageDescription</key>
+	<string>The app needs to use the camera.</string>
 </dict>
 </plist>

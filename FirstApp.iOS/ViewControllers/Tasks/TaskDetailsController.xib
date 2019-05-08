@@ -14,7 +14,7 @@
                 <outlet property="MapMarkersCount" destination="9454" id="name-outlet-9454"/>
                 <outlet property="AddMapMarkersButton" destination="8616" id="name-outlet-8616"/>
                 <outlet property="SaveTaskButton" destination="12970" id="name-outlet-12970"/>
-                <outlet property="CancelTaskButton" destination="13563" id="name-outlet-13563"/>
+                <outlet property="DeleteTaskButton" destination="13563" id="name-outlet-13563"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -90,11 +90,11 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" id="7379" translatesAutoresizingMaskIntoConstraints="NO">
-                                    <rect key="frame" x="41.5" y="301" width="331" height="220.5"/>
+                                    <rect key="frame" x="41.5" y="301" width="331" height="147"/>
                                     <color key="backgroundColor" colorSpace="calibratedRGB" red="0.25098039215686274" green="0.85882352941176465" blue="0.36470588235294116" alpha="1"/>
                                 </view>
-                                <view contentMode="scaleToFill" id="7923" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
-                                    <rect key="frame" x="42" y="531" width="331" height="59"/>
+                                <view contentMode="scaleToFill" id="7923" translatesAutoresizingMaskIntoConstraints="NO">
+                                    <rect key="frame" x="41.5" y="468" width="331" height="59"/>
                                     <color key="backgroundColor" colorSpace="calibratedRGB" red="0.21176470588235294" green="0.81176470588235294" blue="0.50980392156862742" alpha="1"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8566" translatesAutoresizingMaskIntoConstraints="NO" text="Task have:">
@@ -141,7 +141,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" id="12328" translatesAutoresizingMaskIntoConstraints="NO">
-                                    <rect key="frame" x="41.5" y="620.5" width="331" height="59"/>
+                                    <rect key="frame" x="41.5" y="547" width="331" height="59"/>
                                     <color key="backgroundColor" colorSpace="calibratedRGB" red="0.30980392156862746" green="0.90196078431372551" blue="0.60784313725490191" alpha="1"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="12970" translatesAutoresizingMaskIntoConstraints="NO">
@@ -159,7 +159,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="13563" translatesAutoresizingMaskIntoConstraints="NO">
                                             <rect key="frame" x="182" y="10" width="149" height="47"/>
                                             <color key="backgroundColor" colorSpace="calibratedRGB" red="0.29411764705882354" green="0.45490196078431372" blue="0.83921568627450982" alpha="1"/>
-                                            <state key="normal" title="Button">
+                                            <state key="normal" title="Delete Task">
                                                 <color key="titleColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
                                             </state>
                                             <userDefinedRuntimeAttributes>
@@ -179,6 +179,10 @@
                                         <constraint id="13811" firstItem="13563" firstAttribute="width" secondItem="12328" secondAttribute="width" multiplier="0.45"/>
                                         <constraint id="13910" firstItem="13563" firstAttribute="height" secondItem="12328" secondAttribute="height" multiplier="0.8"/>
                                     </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" id="15066" translatesAutoresizingMaskIntoConstraints="NO">
+                                    <rect key="frame" x="0.0" y="625.5" width="414" height="110.5"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                             </subviews>
                             <constraints>
@@ -205,7 +209,7 @@
                                 <constraint id="7478" firstItem="7379" firstAttribute="top" secondItem="4026" secondAttribute="bottom"/>
                                 <constraint id="7577" firstAttribute="centerX" secondItem="7379" secondAttribute="centerX"/>
                                 <constraint id="7676" firstItem="7379" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8"/>
-                                <constraint id="7775" firstItem="7379" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.3"/>
+                                <constraint id="7775" firstItem="7379" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.2"/>
                                 <constraint id="8022" firstItem="7923" firstAttribute="top" secondItem="7379" secondAttribute="bottom" constant="20"/>
                                 <constraint id="8121" firstItem="7923" firstAttribute="centerX" secondItem="989" secondAttribute="centerX"/>
                                 <constraint id="8269" firstItem="7923" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8"/>
@@ -214,6 +218,10 @@
                                 <constraint id="12624" firstItem="12328" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8"/>
                                 <constraint id="12723" firstItem="12328" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.08"/>
                                 <constraint id="12822" firstAttribute="centerX" secondItem="12328" secondAttribute="centerX"/>
+                                <constraint id="15235" firstItem="15066" firstAttribute="width" secondItem="989" secondAttribute="width"/>
+                                <constraint id="15292" firstAttribute="bottom" secondItem="15066" secondAttribute="bottom"/>
+                                <constraint id="15461" firstItem="15066" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.15"/>
+                                <constraint id="15630" firstItem="15066" firstAttribute="leading" secondItem="989" secondAttribute="leading"/>
                             </constraints>
                         </view>
                     </subviews>

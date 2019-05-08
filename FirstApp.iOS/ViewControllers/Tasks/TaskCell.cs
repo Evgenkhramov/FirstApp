@@ -23,8 +23,22 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         internal void UpdateCell(TaskModel task)
         {
-            TaskName.Text = task.TaskName.Substring(0, Constants.MaxLength);
-            TaskDescription.Text = task.TaskDescription.Substring(0, Constants.MaxLength);
+            if (!String.IsNullOrEmpty(task.TaskName) && task.TaskName.Length > Constants.MaxLength)
+            {
+                TaskName.Text = task.TaskName.Substring(0, Constants.MaxLength);
+            }
+            if (!String.IsNullOrEmpty(task.TaskName) && task.TaskName.Length <= Constants.MaxLength)
+            {
+                TaskName.Text = task.TaskName;
+            }
+            if (!String.IsNullOrEmpty(task.TaskDescription) && task.TaskDescription.Length > Constants.MaxLength)
+            {
+                TaskDescription.Text = task.TaskDescription.Substring(0, Constants.MaxLength);
+            }
+            if (!String.IsNullOrEmpty(task.TaskDescription) && task.TaskName.Length <= Constants.MaxLength)
+            {
+                TaskDescription.Text = task.TaskDescription;
+            }
         }
     }
 }
