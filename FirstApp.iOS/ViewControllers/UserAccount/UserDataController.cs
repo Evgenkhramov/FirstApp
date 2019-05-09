@@ -7,15 +7,21 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using MvvmCross.Plugin.PictureChooser;
+using MvvmCross.Presenters;
+using MvvmCross.Presenters.Attributes;
+using MvvmCross.ViewModels;
 using Photos;
 using System.IO;
 using System.Threading.Tasks;
+using UIKit;
 
 namespace FirstApp.iOS.ViewControllers.UserAccount
 {
     [MvxTabPresentation(WrapInNavigationController = true, TabName = "User Profile", TabIconName = "userProfile")]
+
     public partial class UserDataController : MvxViewController<UserDataViewModel>
     {
+
         public UserDataController()
         {
         }
@@ -50,7 +56,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
             set.Bind(UserName).To(vm => vm.UserName);
             set.Bind(UserSurname).To(vm => vm.Surname);
             set.Bind(UserImg).For(v => v.Image).To(vm => vm.MyPhoto).WithConversion("ByteArrayToImg").TwoWay();
-            set.Bind(SaveUserButton).To(vm => vm.SaveUserData);
+            set.Bind(SaveUserButton).To(vm => vm.SaveUserDataiOS);
             set.Bind(CancelUserButton).To(vm => vm.Cancel);
 
             set.Apply();
@@ -65,30 +71,6 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
             //this.NavigationController.NavigationBarHidden = false;
             //this.NavigationController.NavigationItem.Title = "Title";
         }
-
-        //public void ChoosePhoto()
-        //{
-
-        //    AVAuthorizationStatus authStatus = AVCaptureDevice.GetAuthorizationStatus(AVMediaType.Video);
-        //    if (authStatus == AVAuthorizationStatus.Authorized)
-        //    {
-        //        SelectPhoto();
-        //        return;
-        //    }
-
-        //    if (authStatus != AVAuthorizationStatus.Authorized)
-        //    {
-        //        AVCaptureDevice.RequestAccessForMediaType(AVAuthorizationMediaType.Video, (bool access) =>
-        //        {
-        //            if (access == true)
-        //            {
-        //                SelectPhoto();
-        //            };
-        //        });
-        //        return;
-        //    }
-
-        //}
 
         public async Task SelectPhoto()
         {

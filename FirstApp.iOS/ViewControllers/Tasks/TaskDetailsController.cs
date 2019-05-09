@@ -40,7 +40,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             set.Bind(AddMapMarkersButton).To(vm => vm.AddMarker);
             set.Bind(DeleteTaskButton).To(vm => vm.DeleteTask);
             set.Bind(MapMarkersCount).To(vm => vm.MapMarkers);
-            set.Bind(SaveTaskButton).To(vm => vm.SaveTask);
+            set.Bind(SaveTaskButton).To(vm => vm.SaveTaskForiOS);
             
             //set.Bind(CameraButton).To(v => v. );
 

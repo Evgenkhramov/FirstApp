@@ -20,13 +20,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1155" translatesAutoresizingMaskIntoConstraints="NO">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="38"/>
+                                <rect key="frame" x="12" y="0.0" width="216" height="38"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1156" translatesAutoresizingMaskIntoConstraints="NO">
-                                <rect key="frame" x="0.0" y="38" width="240" height="37.5"/>
+                                <rect key="frame" x="12" y="38" width="216" height="37.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -34,13 +34,13 @@
                         </subviews>
                         <constraints>
                             <constraint id="1157" firstItem="1155" firstAttribute="top" secondItem="769" secondAttribute="top"/>
-                            <constraint id="1158" firstItem="1155" firstAttribute="leading" secondItem="769" secondAttribute="leading"/>
                             <constraint id="1159" firstItem="1155" firstAttribute="height" secondItem="769" secondAttribute="height" multiplier="0.5"/>
-                            <constraint id="1160" firstItem="1155" firstAttribute="width" secondItem="769" secondAttribute="width"/>
+                            <constraint id="1160" firstItem="1155" firstAttribute="width" secondItem="769" secondAttribute="width" multiplier="0.9"/>
                             <constraint id="1161" firstItem="1156" firstAttribute="top" secondItem="1155" secondAttribute="bottom"/>
-                            <constraint id="1162" firstItem="1156" firstAttribute="leading" secondItem="769" secondAttribute="leading"/>
                             <constraint id="1163" firstItem="1156" firstAttribute="height" secondItem="769" secondAttribute="height" multiplier="0.5"/>
-                            <constraint id="1164" firstItem="1156" firstAttribute="width" secondItem="769" secondAttribute="width"/>
+                            <constraint id="1164" firstItem="1156" firstAttribute="width" secondItem="769" secondAttribute="width" multiplier="0.9"/>
+                            <constraint id="1579" firstItem="1156" firstAttribute="centerX" secondItem="769" secondAttribute="centerX"/>
+                            <constraint id="1580" firstAttribute="centerX" secondItem="1155" secondAttribute="centerX"/>
                         </constraints>
                     </view>
                 </subviews>

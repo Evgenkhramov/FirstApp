@@ -98,6 +98,21 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
+        public MvxAsyncCommand SaveUserDataiOS
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    userData.Photo = MyPhoto;
+                    userData.Id = userId;
+                    _sQLiteRepository.SaveItem(userData);
+                   await _navigationService.Navigate<MainViewModel>();
+                   
+                });
+            }
+        }
+
         public MvxAsyncCommand Cancel
         {
             get
@@ -137,22 +152,7 @@ namespace FirstApp.Core.ViewModels
 
         private void DoTakePicture()
         {
-           
-                _pictureChooserTask.TakePicture(400, 95, OnPicture, () => { });              
-           
-            //InvokeOnMainThread(() => {
-            //    try { 
-            //    _pictureChooserTask.TakePicture(400, 95, stream => {
-            //        var str = stream;
-            //    }, () =>
-            //    {
-            //        var temp = 0;
-            //    });
-            //    }
-            //    catch (Exception ex) {
-            //        ;
-            //    }
-            //});
+            _pictureChooserTask.TakePicture(400, 95, OnPicture, () => { });
         }
 
         private MvxCommand _choosePictureCommand;

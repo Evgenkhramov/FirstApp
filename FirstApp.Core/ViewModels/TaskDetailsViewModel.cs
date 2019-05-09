@@ -200,7 +200,39 @@ namespace FirstApp.Core.ViewModels
                         //taskModel.TaskName = TaskName;
                         //taskModel.TaskDescription = TaskDescription;
                         _dBTaskService.AddTaskToTable(taskModel);
+                        
                         await _navigationService.Navigate<TaskListViewModel>();
+                    }
+                });
+            }
+        }
+
+        public MvxAsyncCommand SaveTaskForiOS
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+
+                    if (string.IsNullOrEmpty(TaskName))
+                    {
+                        Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Please, enter task name", "Empty task name", "Ok");
+                        //_userDialogService.ShowAlertForUser("Empty task name", "Please, enter task name", "Ok");
+                        return;
+                    }
+                    if (string.IsNullOrEmpty(TaskDescription))
+                    {
+                        Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Please, enter task name", "Empty task description", "Ok");
+                        //_userDialogService.ShowAlertForUser("Empty task description", "Please, enter task name", "Ok");
+                        return;
+                    }
+                    if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName))
+                    {
+                        //taskModel.TaskName = TaskName;
+                        //taskModel.TaskDescription = TaskDescription;
+                        _dBTaskService.AddTaskToTable(taskModel);
+
+                        await _navigationService.Navigate<MainViewModel>();
                     }
                 });
             }
