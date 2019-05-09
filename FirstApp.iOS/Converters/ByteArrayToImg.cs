@@ -10,14 +10,15 @@ using UIKit;
 
 namespace FirstApp.iOS.Converters
 {
-    public class ByteArrayToImgValueConverter: MvxValueConverter<byte[], UIImage>
+    public class ByteArrayToImgValueConverter: MvxValueConverter<string, UIImage>
     {
-        protected override UIImage Convert(byte[] value, Type targetType, object parameter, CultureInfo culture)
+        protected override UIImage Convert(string value, Type targetType, object parameter, CultureInfo culture)
         {
-            var data = NSData.FromArray(value);
-            var uiimage = UIImage.LoadFromData(data);
+            var imageBytes = System.Convert.FromBase64String(value);
+            var imageData = NSData.FromArray(imageBytes);
+            var uiImage = UIImage.LoadFromData(imageData);
 
-            return uiimage;
+            return uiImage;
         }
         
 

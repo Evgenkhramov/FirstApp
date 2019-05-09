@@ -140,5 +140,13 @@ namespace FirstApp.iOS
         {
             plugin.Load();
         }
+
+        public void Include(UIImagePickerController uIImagePickerController)
+        {
+            var x = uIImagePickerController.SourceType;
+            uIImagePickerController.FinishedPickingMedia += (s, e) => { };
+            uIImagePickerController.FinishedPickingImage += (s, e) => { };
+            uIImagePickerController.Canceled += (s, e) => { };
+        }
     }
 }

@@ -1,6 +1,7 @@
 using Acr.UserDialogs;
 using AVFoundation;
 using FirstApp.Core.ViewModels;
+using FirstApp.iOS.Converters;
 using MvvmCross;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
@@ -40,7 +41,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
             CameraButton.TouchUpInside += (sender, e) =>
             {
-                ChoosePhoto();
+                SelectPhoto();
             };
 
             //NavigationController.NavigationBarHidden = true;
@@ -48,7 +49,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
             var set = this.CreateBindingSet<UserDataController, UserDataViewModel>();
             set.Bind(UserName).To(vm => vm.UserName);
             set.Bind(UserSurname).To(vm => vm.Surname);
-            set.Bind(UserImg).For(v => v.Image).To(vm => vm.MyPhoto).WithConversion("InMemoryImage");
+            set.Bind(UserImg).For(v => v.Image).To(vm => vm.MyPhoto).WithConversion("ByteArrayToImg").TwoWay();
             set.Bind(SaveUserButton).To(vm => vm.SaveUserData);
             set.Bind(CancelUserButton).To(vm => vm.Cancel);
 
@@ -65,29 +66,29 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
             //this.NavigationController.NavigationItem.Title = "Title";
         }
 
-        public void ChoosePhoto()
-        {
+        //public void ChoosePhoto()
+        //{
 
-            AVAuthorizationStatus authStatus = AVCaptureDevice.GetAuthorizationStatus(AVMediaType.Video);
-            if (authStatus == AVAuthorizationStatus.Authorized)
-            {
-                SelectPhoto();
-                return;
-            }
+        //    AVAuthorizationStatus authStatus = AVCaptureDevice.GetAuthorizationStatus(AVMediaType.Video);
+        //    if (authStatus == AVAuthorizationStatus.Authorized)
+        //    {
+        //        SelectPhoto();
+        //        return;
+        //    }
 
-            if (authStatus != AVAuthorizationStatus.Authorized)
-            {
-                AVCaptureDevice.RequestAccessForMediaType(AVAuthorizationMediaType.Video, (bool access) =>
-                {
-                    if (access == true)
-                    {
-                        SelectPhoto();
-                    };
-                });
-                return;
-            }
+        //    if (authStatus != AVAuthorizationStatus.Authorized)
+        //    {
+        //        AVCaptureDevice.RequestAccessForMediaType(AVAuthorizationMediaType.Video, (bool access) =>
+        //        {
+        //            if (access == true)
+        //            {
+        //                SelectPhoto();
+        //            };
+        //        });
+        //        return;
+        //    }
 
-        }
+        //}
 
         public async Task SelectPhoto()
         {

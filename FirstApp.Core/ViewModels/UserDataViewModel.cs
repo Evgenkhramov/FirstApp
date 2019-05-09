@@ -6,6 +6,7 @@ using MvvmCross.Plugin.PictureChooser;
 using Plugin.SecureStorage;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace FirstApp.Core.ViewModels
 {
@@ -136,9 +137,22 @@ namespace FirstApp.Core.ViewModels
 
         private void DoTakePicture()
         {
-            _pictureChooserTask.TakePicture(400, 95, OnPicture, () => {
-                var temp = 0;
-            });
+           
+                _pictureChooserTask.TakePicture(400, 95, OnPicture, () => { });              
+           
+            //InvokeOnMainThread(() => {
+            //    try { 
+            //    _pictureChooserTask.TakePicture(400, 95, stream => {
+            //        var str = stream;
+            //    }, () =>
+            //    {
+            //        var temp = 0;
+            //    });
+            //    }
+            //    catch (Exception ex) {
+            //        ;
+            //    }
+            //});
         }
 
         private MvxCommand _choosePictureCommand;

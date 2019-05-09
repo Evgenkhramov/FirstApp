@@ -1,9 +1,11 @@
 ﻿using FirstApp.Core;
 using FirstApp.Core.Interfaces;
+using FirstApp.iOS.Converters;
 using FirstApp.iOS.Services;
 using MvvmCross;
 using MvvmCross.Base;
 using MvvmCross.Binding.Bindings.Target.Construction;
+using MvvmCross.Converters;
 using MvvmCross.IoC;
 using MvvmCross.Platforms.Ios.Core;
 using MvvmCross.Plugin.Json;
@@ -45,5 +47,11 @@ namespace FirstApp.iOS
         //        PropertyInjectorOptions = MvxPropertyInjectorOptions.MvxInject
         //    };
         //}
+
+        protected override void FillValueConverters(IMvxValueConverterRegistry registry)
+        {
+            base.FillValueConverters(registry);
+            registry.AddOrOverwrite("ByteArrayToImg", new ByteArrayToImgValueConverter());
+        }
     }
 }

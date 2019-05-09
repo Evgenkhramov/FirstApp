@@ -49,11 +49,13 @@
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignKey>iPhone Developer: Andrii Dashkovets (4CFP72UPNS)</CodesignKey>
+    <CodesignKey>iPhone Developer: Igor Shumakova (C5BZ29VCZP)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignProvision>Anuitex Provisioning Profile</CodesignProvision>
+    <CodesignProvision>Anuitex Uniq Development Provision</CodesignProvision>
     <MtouchExtraArgs>-v -v -v -v</MtouchExtraArgs>
-    <MtouchSdkVersion>12.2</MtouchSdkVersion>
+    <MtouchSdkVersion>
+    </MtouchSdkVersion>
+    <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
