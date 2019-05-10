@@ -21,7 +21,7 @@
             <point key="canvasLocation" x="7" y="47"/>
             <subviews>
                 <view contentMode="scaleToFill" id="1637" translatesAutoresizingMaskIntoConstraints="NO">
-                    <rect key="frame" x="0.0" y="50" width="414" height="73.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="73.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1642" translatesAutoresizingMaskIntoConstraints="NO">
@@ -45,19 +45,19 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1647" translatesAutoresizingMaskIntoConstraints="NO">
-                    <rect key="frame" x="0.0" y="123.5" width="414" height="589"/>
+                    <rect key="frame" x="0.0" y="73.5" width="414" height="662.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
             </subviews>
             <constraints>
-                <constraint id="1638" firstItem="1637" firstAttribute="top" secondItem="1" secondAttribute="top" constant="50"/>
+                <constraint id="1638" firstItem="1637" firstAttribute="top" secondItem="1" secondAttribute="top"/>
                 <constraint id="1639" firstItem="1637" firstAttribute="leading" secondItem="1" secondAttribute="leading"/>
                 <constraint id="1640" firstItem="1637" firstAttribute="height" secondItem="1" secondAttribute="height" multiplier="0.1"/>
                 <constraint id="1641" firstItem="1637" firstAttribute="width" secondItem="1" secondAttribute="width"/>
                 <constraint id="1651" firstItem="1647" firstAttribute="top" secondItem="1637" secondAttribute="bottom"/>
                 <constraint id="1652" firstItem="1647" firstAttribute="leading" secondItem="1" secondAttribute="leading"/>
                 <constraint id="1653" firstItem="1647" firstAttribute="width" secondItem="1" secondAttribute="width"/>
-                <constraint id="1654" firstItem="1647" firstAttribute="height" secondItem="1" secondAttribute="height" multiplier="0.8"/>
+                <constraint id="2479" firstAttribute="bottom" secondItem="1647" secondAttribute="bottom"/>
             </constraints>
         </view>
     </objects>

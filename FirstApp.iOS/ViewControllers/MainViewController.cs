@@ -4,30 +4,20 @@ using MvvmCross.Platforms.Ios.Views;
 using MvvmCross.Presenters;
 using MvvmCross.Presenters.Attributes;
 using MvvmCross.ViewModels;
+using System;
 using UIKit;
 
 namespace FirstApp.iOS.ViewControllers
 {
     [MvxRootPresentation]
-    public partial class MainViewController : MvxTabBarViewController<MainViewModel>, IMvxOverridePresentationAttribute
+    public partial class MainViewController : MvxTabBarViewController<MainViewModel>
     {
 
         private bool _firstTimePresented = true;
         public MainViewController()
         {
         }
-        public MvxBasePresentationAttribute PresentationAttribute(MvxViewModelRequest request)
-        {
-
-            return new MvxModalPresentationAttribute
-            {
-                WrapInNavigationController = true,
-                ModalPresentationStyle = UIModalPresentationStyle.OverFullScreen,
-                ModalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-            };
-
-
-        }   
+       
 
         public override void DidReceiveMemoryWarning()
         {

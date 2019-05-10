@@ -21,9 +21,13 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public override void ViewDidLoad()
         {
-            
+            base.ViewDidLoad(); 
 
-           // NavigationController.NavigationBarHidden = true;
+            Title = "Task List";
+
+            EdgesForExtendedLayout = UIRectEdge.None;
+
+            // NavigationController.NavigationBarHidden = true;
 
             View.BackgroundColor = UIColor.Clear;
             _refreshControl = new MvxUIRefreshControl();
@@ -39,7 +43,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             set.Bind(source).For(v => v.SelectionChangedCommand).To(vm => vm.ShowTaskChangedView);
             set.Apply();
 
-            base.ViewDidLoad();
+           
         }
 
         public override void ViewWillAppear(bool animated)
