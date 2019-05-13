@@ -19,11 +19,19 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.NSLayoutConstraint cnsTopConstrain { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField EnterConfirm { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField EnterUserPassword { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIScrollView MainScrollView { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -40,6 +48,11 @@ namespace FirstApp.iOS.ViewControllers.Authentication
                 BackButton = null;
             }
 
+            if (cnsTopConstrain != null) {
+                cnsTopConstrain.Dispose ();
+                cnsTopConstrain = null;
+            }
+
             if (EnterConfirm != null) {
                 EnterConfirm.Dispose ();
                 EnterConfirm = null;
@@ -48,6 +61,11 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             if (EnterUserPassword != null) {
                 EnterUserPassword.Dispose ();
                 EnterUserPassword = null;
+            }
+
+            if (MainScrollView != null) {
+                MainScrollView.Dispose ();
+                MainScrollView = null;
             }
 
             if (RegistrationButton != null) {

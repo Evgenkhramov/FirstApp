@@ -4,11 +4,17 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Views;
 using System;
 using UIKit;
+using FirstApp.iOS.Helpers;
+using CoreGraphics;
 
 namespace FirstApp.iOS.ViewControllers.Authentication
 {
     public partial class RegistrationController : MvxViewController<RegistrationViewModel>
     {
+        public UIView activeview;             // Controller that activated the keyboard
+        public nfloat scrollAmount = 0.0f;    // amount to scroll                  
+        private bool moveViewUp = false;
+
         public RegistrationController() : base("RegistrationController", null)
         {
         }
@@ -21,6 +27,16 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         public override void ViewDidLoad()
         {
+            Title = "User Registration";
+            EdgesForExtendedLayout = UIRectEdge.None;
+
+            UIView view = this.View;
+
+            NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.DidShowNotification, KeyBoardUpNotification);
+            // Keyboard Down
+            NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, KeyBoardDownNotification);
+
+
             UserName.ShouldReturn = (textField) =>
             {
                 textField.ResignFirstResponder();
@@ -42,6 +58,34 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             NavigationController.NavigationBarHidden = true;
             base.ViewDidLoad();
             SetBind();
+        }
+
+        private void KeyBoardUpNotification(NSNotification notification)
+        {
+            activeview = ScrollViewTopHelper.GetActiveView(this.View);
+            CGRect keyBourdSize = UIKeyboard.BoundsFromNotification(notification);
+            scrollAmount = ScrollViewTopHelper.GetScrollAmount(activeview, keyBourdSize);
+            // Perform the scrolling
+            if (scrollAmount > 0)
+            {
+                moveViewUp = true;
+                ScrollTheView(moveViewUp);
+            }
+            else
+            {
+                moveViewUp = false;
+            }
+        }
+        private void KeyBoardDownNotification(NSNotification notification)
+        {
+            cnsTopConstrain.Constant = 0;
+            MainScrollView.UpdateConstraints();
+        }
+
+        private void ScrollTheView(bool move)
+        {
+            cnsTopConstrain.Constant = -scrollAmount;
+            MainScrollView.UpdateConstraints();
         }
 
         public override void TouchesBegan(NSSet touches, UIEvent evt)

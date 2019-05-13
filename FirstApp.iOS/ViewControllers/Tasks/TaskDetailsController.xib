@@ -30,40 +30,40 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1484">
-                                    <rect key="frame" x="41.5" y="20" width="331" height="44"/>
+                                    <rect key="frame" x="20.5" y="10" width="373" height="44"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1534">
-                                    <rect key="frame" x="41.5" y="121" width="331" height="44"/>
+                                    <rect key="frame" x="20.5" y="101" width="373" height="44"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1584">
-                                    <rect key="frame" x="41.5" y="74" width="331" height="37"/>
+                                    <rect key="frame" x="20.5" y="54" width="373" height="37"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1634">
-                                    <rect key="frame" x="41.5" y="175" width="331" height="37"/>
+                                    <rect key="frame" x="20.5" y="145" width="373" height="37"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4026">
-                                    <rect key="frame" x="42" y="243" width="331" height="59"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4026">
+                                    <rect key="frame" x="20.5" y="202" width="373" height="58.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5261">
-                                            <rect key="frame" x="0.0" y="10" width="149" height="35"/>
+                                            <rect key="frame" x="0.0" y="10" width="168" height="47"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6198">
-                                            <rect key="frame" x="182" y="10" width="149" height="35"/>
+                                            <rect key="frame" x="205" y="5.5" width="168" height="47.5"/>
                                             <color key="backgroundColor" red="0.21176470588235294" green="0.27843137254901962" blue="0.86274509803921573" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <state key="normal" title="Add file">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -81,28 +81,28 @@
                                         <constraint firstItem="5261" firstAttribute="top" secondItem="4026" secondAttribute="top" constant="10" id="5360"/>
                                         <constraint firstItem="5261" firstAttribute="leading" secondItem="4026" secondAttribute="leading" id="5459"/>
                                         <constraint firstItem="5261" firstAttribute="width" secondItem="4026" secondAttribute="width" multiplier="0.45" constant="0.050003949999999998" id="5558"/>
-                                        <constraint firstItem="5261" firstAttribute="height" secondItem="4026" secondAttribute="height" multiplier="0.6" id="6001"/>
-                                        <constraint firstAttribute="trailing" secondItem="6198" secondAttribute="trailing" id="6248"/>
-                                        <constraint firstItem="6198" firstAttribute="width" secondItem="4026" secondAttribute="width" multiplier="0.45" id="6347"/>
-                                        <constraint firstItem="6198" firstAttribute="top" secondItem="4026" secondAttribute="top" constant="10" id="6446"/>
-                                        <constraint firstItem="6198" firstAttribute="height" secondItem="4026" secondAttribute="height" multiplier="0.6" id="6545"/>
+                                        <constraint firstItem="5261" firstAttribute="height" secondItem="4026" secondAttribute="height" multiplier="0.8" id="6001"/>
+                                        <constraint id="14839" firstItem="6198" firstAttribute="centerY" secondItem="4026" secondAttribute="centerY"/>
+                                        <constraint id="14840" firstAttribute="trailing" secondItem="6198" secondAttribute="trailing"/>
+                                        <constraint id="14841" firstItem="6198" firstAttribute="width" secondItem="4026" secondAttribute="width" multiplier="0.45"/>
+                                        <constraint id="14842" firstItem="6198" firstAttribute="height" secondItem="4026" secondAttribute="height" multiplier="0.8"/>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7379">
-                                    <rect key="frame" x="41.5" y="301" width="331" height="220.5"/>
+                                    <rect key="frame" x="20.5" y="260.5" width="373" height="184"/>
                                     <color key="backgroundColor" red="0.25098039215686274" green="0.85882352941176465" blue="0.36470588235294116" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7923">
-                                    <rect key="frame" x="41.5" y="541.5" width="331" height="59"/>
+                                    <rect key="frame" x="20.5" y="454.5" width="373" height="59"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task have:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8566">
-                                            <rect key="frame" x="0.0" y="15" width="89.5" height="35.5"/>
+                                            <rect key="frame" x="0.0" y="12" width="101" height="35"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8616">
-                                            <rect key="frame" x="215" y="15" width="116" height="35.5"/>
+                                            <rect key="frame" x="242.5" y="6" width="130.5" height="47"/>
                                             <color key="backgroundColor" red="0.27058823529411763" green="0.36078431372549019" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <state key="normal" title="Map Markers">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -117,7 +117,7 @@
                                             </connections>
                                         </button>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9454">
-                                            <rect key="frame" x="109.5" y="15" width="85.5" height="35.5"/>
+                                            <rect key="frame" x="121" y="6" width="101.5" height="47"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
@@ -126,24 +126,24 @@
                                     <color key="backgroundColor" red="0.21176470588235294" green="0.81176470588235294" blue="0.50980392156862742" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstItem="8566" firstAttribute="leading" secondItem="7923" secondAttribute="leading" id="8813"/>
-                                        <constraint firstItem="8566" firstAttribute="top" secondItem="7923" secondAttribute="top" constant="15" id="8912"/>
                                         <constraint firstItem="8566" firstAttribute="width" secondItem="7923" secondAttribute="width" multiplier="0.27" id="9011"/>
                                         <constraint firstItem="8566" firstAttribute="height" secondItem="7923" secondAttribute="height" multiplier="0.6" id="9110"/>
-                                        <constraint firstItem="9454" firstAttribute="height" secondItem="7923" secondAttribute="height" multiplier="0.6" id="9603"/>
-                                        <constraint firstItem="9454" firstAttribute="top" secondItem="7923" secondAttribute="top" constant="15" id="9751"/>
+                                        <constraint firstItem="9454" firstAttribute="height" secondItem="7923" secondAttribute="height" multiplier="0.8" id="9603"/>
                                         <constraint firstAttribute="trailing" secondItem="8616" secondAttribute="trailing" id="9998"/>
-                                        <constraint firstItem="8616" firstAttribute="top" secondItem="7923" secondAttribute="top" constant="15" id="10097"/>
-                                        <constraint firstItem="8616" firstAttribute="height" secondItem="7923" secondAttribute="height" multiplier="0.6" id="10196"/>
+                                        <constraint firstItem="8616" firstAttribute="height" secondItem="7923" secondAttribute="height" multiplier="0.8" id="10196"/>
                                         <constraint firstItem="8616" firstAttribute="width" secondItem="7923" secondAttribute="width" multiplier="0.35" id="10295"/>
                                         <constraint firstItem="9454" firstAttribute="leading" secondItem="8566" secondAttribute="trailing" constant="20" id="10541"/>
                                         <constraint firstItem="8616" firstAttribute="leading" secondItem="9454" secondAttribute="trailing" constant="20" id="10787"/>
+                                        <constraint id="14843" firstAttribute="centerY" secondItem="8616" secondAttribute="centerY"/>
+                                        <constraint id="14844" firstItem="9454" firstAttribute="centerY" secondItem="7923" secondAttribute="centerY"/>
+                                        <constraint id="14846" firstAttribute="centerY" secondItem="8566" secondAttribute="centerY"/>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="12328">
-                                    <rect key="frame" x="41.5" y="620.5" width="331" height="59"/>
+                                    <rect key="frame" x="20.5" y="523.5" width="373" height="59"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12970">
-                                            <rect key="frame" x="0.0" y="10" width="149" height="47"/>
+                                            <rect key="frame" x="0.0" y="10" width="168" height="47.5"/>
                                             <color key="backgroundColor" red="0.25098039215686274" green="0.35686274509803922" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <state key="normal" title="Save">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -155,7 +155,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13563">
-                                            <rect key="frame" x="182" y="10" width="149" height="47"/>
+                                            <rect key="frame" x="205" y="10" width="168" height="47.5"/>
                                             <color key="backgroundColor" red="0.29411764705882354" green="0.45490196078431372" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <state key="normal" title="Delete Task">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -182,38 +182,38 @@
                             </subviews>
                             <color key="backgroundColor" red="0.30588235294117649" green="0.83921568627450982" blue="0.40784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstItem="1484" firstAttribute="top" secondItem="989" secondAttribute="top" constant="20" id="1684"/>
                                 <constraint firstAttribute="centerX" secondItem="1484" secondAttribute="centerX" id="1783"/>
-                                <constraint firstItem="1484" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.06" id="1882"/>
-                                <constraint firstItem="1484" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8" id="2030"/>
-                                <constraint firstItem="1584" firstAttribute="top" secondItem="1484" secondAttribute="bottom" constant="10" id="2227"/>
+                                <constraint firstItem="1484" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.06" id="1882" constant="-0.159999"/>
+                                <constraint firstItem="1484" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.9" id="2030" constant="0.4000099"/>
+                                <constraint firstItem="1584" firstAttribute="top" secondItem="1484" secondAttribute="bottom" id="2227"/>
                                 <constraint firstAttribute="centerX" secondItem="1584" secondAttribute="centerX" id="2375"/>
                                 <constraint firstItem="1584" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.05" id="2474"/>
-                                <constraint firstItem="1584" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8" id="2573"/>
+                                <constraint firstItem="1584" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.9" id="2573"/>
                                 <constraint firstAttribute="centerX" secondItem="1534" secondAttribute="centerX" id="3023"/>
                                 <constraint firstItem="1534" firstAttribute="top" secondItem="1584" secondAttribute="bottom" constant="10" id="3122"/>
-                                <constraint firstItem="1534" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8" id="3221"/>
+                                <constraint firstItem="1534" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.9" id="3221"/>
                                 <constraint firstItem="1534" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.06" id="3320"/>
-                                <constraint firstItem="1634" firstAttribute="top" secondItem="1534" secondAttribute="bottom" constant="10" id="3468"/>
+                                <constraint firstItem="1634" firstAttribute="top" secondItem="1534" secondAttribute="bottom" id="3468"/>
                                 <constraint firstItem="1634" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.05" id="3567"/>
-                                <constraint firstItem="1634" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8" id="3666"/>
+                                <constraint firstItem="1634" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.9" id="3666"/>
                                 <constraint firstAttribute="centerX" secondItem="1634" secondAttribute="centerX" id="3829"/>
-                                <constraint firstItem="4026" firstAttribute="top" secondItem="1634" secondAttribute="bottom" constant="30" id="4125"/>
-                                <constraint firstItem="4026" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8" id="4224"/>
+                                <constraint firstItem="4026" firstAttribute="top" secondItem="1634" secondAttribute="bottom" constant="20" id="4125"/>
                                 <constraint firstItem="4026" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.08" id="4323"/>
                                 <constraint firstAttribute="centerX" secondItem="4026" secondAttribute="centerX" id="4422"/>
                                 <constraint firstItem="7379" firstAttribute="top" secondItem="4026" secondAttribute="bottom" id="7478"/>
                                 <constraint firstAttribute="centerX" secondItem="7379" secondAttribute="centerX" id="7577"/>
-                                <constraint firstItem="7379" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8" id="7676"/>
-                                <constraint firstItem="7379" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.3" id="7775"/>
-                                <constraint firstItem="7923" firstAttribute="top" secondItem="7379" secondAttribute="bottom" constant="20" id="8022"/>
+                                <constraint firstItem="7379" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.9" id="7676"/>
+                                <constraint firstItem="7379" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.25" id="7775"/>
+                                <constraint firstItem="7923" firstAttribute="top" secondItem="7379" secondAttribute="bottom" constant="10" id="8022"/>
                                 <constraint firstItem="7923" firstAttribute="centerX" secondItem="989" secondAttribute="centerX" id="8121"/>
-                                <constraint firstItem="7923" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8" id="8269"/>
+                                <constraint firstItem="7923" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.9" id="8269"/>
                                 <constraint firstItem="7923" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.08" id="8368"/>
-                                <constraint firstItem="12328" firstAttribute="top" secondItem="7923" secondAttribute="bottom" constant="20" id="12525"/>
-                                <constraint firstItem="12328" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.8" id="12624"/>
+                                <constraint firstItem="12328" firstAttribute="top" secondItem="7923" secondAttribute="bottom" constant="10" id="12525"/>
+                                <constraint firstItem="12328" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.9" id="12624"/>
                                 <constraint firstItem="12328" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.08" id="12723"/>
                                 <constraint firstAttribute="centerX" secondItem="12328" secondAttribute="centerX" id="12822"/>
+                                <constraint id="14836" firstItem="1484" firstAttribute="top" secondItem="989" secondAttribute="top" constant="10"/>
+                                <constraint id="14838" firstItem="4026" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.9"/>
                             </constraints>
                         </view>
                     </subviews>

@@ -1,3 +1,5 @@
+using FirstApp.Core;
+using FirstApp.Core.Authentication;
 using FirstApp.Core.ViewModels;
 using Foundation;
 using MvvmCross.Binding.BindingContext;
@@ -9,6 +11,9 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 {
     public partial class LoginController : MvxViewController<LoginViewModel>
     {
+        private FacebookAuthenticator _authFacebook;
+        static readonly int GET_ACCOUNTS = 0;
+
         public LoginController() : base()
         {
         }
@@ -19,6 +24,8 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         public override void ViewDidLoad()
         {
+            FacebookButton.TouchUpInside += OnFacebookLoginButtonClicked;
+
             EnterYourLogin.ShouldReturn = (textField) => 
             {
                 textField.ResignFirstResponder();
@@ -33,6 +40,15 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             NavigationController.NavigationBarHidden = true;
             SetBind();
             base.ViewDidLoad();
+        }
+
+        private void OnFacebookLoginButtonClicked(object sender, EventArgs e)
+        {
+            _authFacebook = new FacebookAuthenticator(Configuration.ClientId, Configuration.Scope, ViewModel);
+            var authenticator = _authFacebook.GetAuthenticator();
+            var ui = authenticator.GetUI();
+            //intent.SetFlags(ActivityFlags.NoHistory);
+            PresentViewController(ui, true, null);
         }
 
         public override void TouchesBegan(NSSet touches, UIEvent evt)

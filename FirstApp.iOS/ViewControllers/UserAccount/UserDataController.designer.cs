@@ -23,7 +23,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.NSLayoutConstraint cnsBottomScroll { get; set; }
+        UIKit.NSLayoutConstraint cnsButtomScroll { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -57,9 +57,9 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
                 CancelUserButton = null;
             }
 
-            if (cnsBottomScroll != null) {
-                cnsBottomScroll.Dispose ();
-                cnsBottomScroll = null;
+            if (cnsButtomScroll != null) {
+                cnsButtomScroll.Dispose ();
+                cnsButtomScroll = null;
             }
 
             if (MainScroll != null) {

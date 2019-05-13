@@ -14,6 +14,7 @@ using MvvmCross.Presenters.Attributes;
 using MvvmCross.ViewModels;
 using Photos;
 using System;
+using FirstApp.iOS.Helpers;
 using System.IO;
 using System.Threading.Tasks;
 using UIKit;
@@ -24,16 +25,13 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
     public partial class UserDataController : MvxViewController<UserDataViewModel>
     {
-
         public UIView activeview;             // Controller that activated the keyboard
-        public nfloat scroll_amount = 0.0f;    // amount to scroll 
-        public nfloat bottom = 0.0f;           // bottom point
-        public nfloat offset = 10.0f;          // extra offset
+        public nfloat scrollAmount = 0.0f;    // amount to scroll                            // extra offset
         private bool moveViewUp = false;
 
         public UserDataController()
         {
-           
+
         }
 
         public MvxBasePresentationAttribute PresentationAttribute()
@@ -57,7 +55,8 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
             EdgesForExtendedLayout = UIRectEdge.None;
 
-            // Keyboard popup
+            UIView view = this.View;
+
             NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.DidShowNotification, KeyBoardUpNotification);
             // Keyboard Down
             NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, KeyBoardDownNotification);
@@ -91,84 +90,35 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
             set.Apply();
 
             base.ViewDidLoad();
-        }
-
-        public void GetActiveView(UIView view)
-        {
-            foreach (UIView item in view.Subviews)
-            {
-                if (view.IsFirstResponder)
-                {
-                    activeview = item;
-                    return;
-                }
-                else
-                    GetActiveView(item);
-            }
-        }
+        }   
 
         private void KeyBoardUpNotification(NSNotification notification)
         {
-
-
-            // get the keyboard size
-            CGRect r = UIKeyboard.BoundsFromNotification(notification);
-            
-            cnsBottomScroll.Constant = r.Height;
-            MainScroll.UpdateConstraints();
-            //GetActiveView(this.View);
-            // Find what opened the keyboard
-            //foreach (UIView view in this.View.Subviews)
-            //{
-            //    if (view.IsFirstResponder)
-            //        activeview = view;
-            //}
-
-            // Bottom of the controller = initial position + height + offset      
-           // bottom = (activeview.Frame.Y + activeview.Frame.Height + offset);
-
-            // Calculate how far we need to scroll
-           // scroll_amount = (r.Height - (View.Frame.Size.Height - bottom));
-
+            activeview = ScrollViewTopHelper.GetActiveView(this.View);
+            CGRect keyBourdSize = UIKeyboard.BoundsFromNotification(notification);
+            scrollAmount = ScrollViewTopHelper.GetScrollAmount(activeview, keyBourdSize);      
             // Perform the scrolling
-            //if (scroll_amount > 0)
-            //{
-            //    moveViewUp = true;
-            //    ScrollTheView(moveViewUp);
-            //}
-            //else
-            //{
-            //    moveViewUp = false;
-            //}
+            if (scrollAmount > 0)
+            {
+                moveViewUp = true;
+                ScrollTheView(moveViewUp);
+            }
+            else
+            {
+                moveViewUp = false;
+            }
         }
         private void KeyBoardDownNotification(NSNotification notification)
         {
-            cnsBottomScroll.Constant = 0;
+            cnsButtomScroll.Constant = 0;
             MainScroll.UpdateConstraints();
         }
 
-        //private void ScrollTheView(bool move)
-        //{
-
-        //    // scroll the view up or down
-        //    UIView.BeginAnimations(string.Empty, System.IntPtr.Zero);
-        //    UIView.SetAnimationDuration(0.3);
-
-        //    CGRect frame = View.Frame;
-
-        //    if (move)
-        //    {
-        //        frame.Y -= scroll_amount;
-        //    }
-        //    else
-        //    {
-        //        frame.Y += scroll_amount;
-        //        scroll_amount = 0;
-        //    }
-
-        //    View.Frame = frame;
-        //    UIView.CommitAnimations();
-        //}
+        private void ScrollTheView(bool move)
+        {
+            cnsButtomScroll.Constant = -scrollAmount;
+            MainScroll.UpdateConstraints();
+        }
 
         public override void TouchesBegan(NSSet touches, UIEvent evt)
         {
@@ -180,10 +130,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
         public override void ViewWillAppear(bool animated)
         {
-
-            //base.ViewWillAppear(animated);
-            //this.NavigationController.NavigationBarHidden = false;
-            //this.NavigationController.NavigationItem.Title = "Title";
+            
         }
 
         public async Task SelectPhoto()
