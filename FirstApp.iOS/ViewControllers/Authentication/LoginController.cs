@@ -1,5 +1,6 @@
 using FirstApp.Core;
 using FirstApp.Core.Authentication;
+using FirstApp.Core.Models;
 using FirstApp.Core.Services;
 using FirstApp.Core.ViewModels;
 using Foundation;
@@ -12,6 +13,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 {
     public partial class LoginController : MvxViewController<LoginViewModel>, IGoogleAuthenticationDelegate 
     {
+        private GoogleModeliOS user = new GoogleModeliOS();
         public static GoogleAuthenticator _authGoogle;
 
         private FacebookAuthenticator _authFacebook;
@@ -29,7 +31,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
         {
             base.ViewDidLoad();
 
-            _authGoogle = new GoogleAuthenticator(Configuration.ClientIdGoogle, Configuration.Scope, Configuration.iOSRedirectUrlGoogle, this);
+            _authGoogle = new GoogleAuthenticator(Configuration.ClientIdGoogle, Configuration.GoogleScope, Configuration.iOSRedirectUrlGoogle, this);
 
             FacebookButton.TouchUpInside += OnFacebookLoginButtonClicked;
 
@@ -65,9 +67,11 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             DismissViewController(true, null);
 
             var googleService = new GoogleService();
-            var email = await googleService.GetEmailAsync(token.TokenType, token.AccessToken);
+            user = await googleService.GetUserProfileAsync(token.TokenType, token.AccessToken);
+
+            await ViewModel.SaveUserGoogleiOS(user);
             //ViewModel. AddUserToTable(email);
-            ViewModel.Execute(null);
+            //ViewModel.Execute(null);
         }
 
         public void OnAuthenticationCanceled()

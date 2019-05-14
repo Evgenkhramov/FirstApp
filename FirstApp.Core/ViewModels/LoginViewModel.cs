@@ -98,6 +98,27 @@ namespace FirstApp.Core.ViewModels
             _navigationService.Navigate<MainViewModel>();
         }
 
+        public async Task SaveUserGoogleiOS(GoogleModeliOS userData)
+        {
+            var userDatabaseModel = new UserDatabaseModel();
+            userDatabaseModel.Name = userData.UserName.GivenName;
+            userDatabaseModel.Surname = userData.UserName.FamilyName;
+            userDatabaseModel.Email = userData.Emails[0].Value;
+            //userDatabaseModel.UserId = userData.Id;
+            userDatabaseModel.PhotoURL = userData.UserImage.Url;
+            userDatabaseModel.HowDoLogin = Enums.LoginMethod.Google;
+
+            string userPhoto = await _facebookService.GetImageFromUrlToBase64(userDatabaseModel.PhotoURL);
+            userDatabaseModel.Photo = userPhoto;
+
+            int userIdInDB = _sqlLiteRepository.SaveItem(userDatabaseModel);
+            string idInDB = userIdInDB.ToString();
+            _registrationService.UserRegistration(userDatabaseModel.Name, userDatabaseModel.Email, idInDB);
+
+            _navigationService.Navigate<MainViewModel>();
+
+        }
+
         public async Task OnAuthenticationCanceled()
         {
             Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("You didn't completed the authentication process");

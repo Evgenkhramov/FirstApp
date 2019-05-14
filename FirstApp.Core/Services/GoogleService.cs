@@ -12,15 +12,14 @@ namespace FirstApp.Core.Services
     public class GoogleService
     {
 
-        public async Task<string> GetEmailAsync(string tokenType, string accessToken)
+        public async Task<GoogleModeliOS> GetUserProfileAsync(string tokenType, string accessToken)
         {
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
-            var json = await httpClient.GetStringAsync("https://www.googleapis.com/userinfo/email?alt=json");
-            var email = JsonConvert.DeserializeObject<GoogleEmail>(json);
+            var json = await httpClient.GetStringAsync("https://www.googleapis.com/plus/v1/people/me?alt=json&access_token=" + accessToken);
+            var user = JsonConvert.DeserializeObject<GoogleModeliOS>(json);
 
-            return email.Data.Email;
+            return user;
         }
-
     }
 }
