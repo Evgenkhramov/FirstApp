@@ -30,6 +30,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public override void ViewDidLoad()
         {
+            SetupNavigationBar();
             base.ViewDidLoad();
 
             Title = "Task Details";
@@ -49,7 +50,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
                 return true;
             };
 
-            //NavigationController.NavigationBarHidden = true;
+         
 
             var set = this.CreateBindingSet<TaskDetailsController, TaskDetailsViewModel>();
             set.Bind(TaskName).To(vm => vm.TaskName);
@@ -64,6 +65,31 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             set.Apply();
 
+        }
+
+        private void SetupNavigationBar()
+        {
+            //var _backButton = new UIButton(UIButtonType.Custom);
+            //_backButton.Frame = new CGRect(0, 0, 40, 40);
+            //_backButton.SetImage(UIImage.FromBundle("Back"), UIControlState.Normal);
+
+            var _backButton = new UIButton(UIButtonType.Custom);
+            _backButton.Frame = new CGRect(0, 0, 40, 40);
+            _backButton.SetImage(UIImage.FromBundle("backButton"), UIControlState.Normal);
+
+
+            //_addTask.SetImage(UIImage.FromBundle("LogOutButton"), UIControlState.Normal);
+
+            NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[] { new UIBarButtonItem(_backButton) }, false);
+
+            //UINavigationBar.Appearance.BarTintColor = UIColor.FromRGB(43, 61, 80);
+
+            //_addTask.TouchUpInside += AddButtonClick;
+
+            var set = this.CreateBindingSet<TaskDetailsController, TaskDetailsViewModel>();
+            set.Bind(_backButton).To(vm => vm.BackCommand);
+            set.Apply();
+            //_logoutButton.TouchUpInside += LogoutButtonClick;
         }
 
         public void GetActiveView(UIView view)

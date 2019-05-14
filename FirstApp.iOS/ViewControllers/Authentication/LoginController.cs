@@ -1,5 +1,6 @@
 using FirstApp.Core;
 using FirstApp.Core.Authentication;
+using FirstApp.Core.Services;
 using FirstApp.Core.ViewModels;
 using Foundation;
 using MvvmCross.Binding.BindingContext;
@@ -9,8 +10,10 @@ using UIKit;
 
 namespace FirstApp.iOS.ViewControllers.Authentication
 {
-    public partial class LoginController : MvxViewController<LoginViewModel>
+    public partial class LoginController : MvxViewController<LoginViewModel>, IGoogleAuthenticationDelegate 
     {
+        public static GoogleAuthenticator _authGoogle;
+
         private FacebookAuthenticator _authFacebook;
         static readonly int GET_ACCOUNTS = 0;
 
@@ -24,7 +27,13 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         public override void ViewDidLoad()
         {
+            base.ViewDidLoad();
+
+            _authGoogle = new GoogleAuthenticator(Configuration.ClientIdGoogle, Configuration.Scope, Configuration.iOSRedirectUrlGoogle, this);
+
             FacebookButton.TouchUpInside += OnFacebookLoginButtonClicked;
+
+            GoogleButton.TouchUpInside += OnGoogleLoginButtonClicked;
 
             EnterYourLogin.ShouldReturn = (textField) => 
             {
@@ -39,7 +48,61 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             };
             NavigationController.NavigationBarHidden = true;
             SetBind();
-            base.ViewDidLoad();
+          
+        }
+
+        private void OnGoogleLoginButtonClicked(object sender, EventArgs e)
+        {
+            
+            var authentificator = _authGoogle.GetAuthenticator();
+            var viewController = authentificator.GetUI();
+            PresentViewController(viewController, true, null);
+
+        }
+
+        public async void OnAuthenticationCompleted(GoogleOAuthToken token)
+        {
+            DismissViewController(true, null);
+
+            var googleService = new GoogleService();
+            var email = await googleService.GetEmailAsync(token.TokenType, token.AccessToken);
+            //ViewModel. AddUserToTable(email);
+            ViewModel.Execute(null);
+        }
+
+        public void OnAuthenticationCanceled()
+        {
+            DismissViewController(true, null);
+            var alertController = new UIAlertController
+            {
+                Title = "Authentication Canceled",
+                Message = "You didn`t completed the authentication process"
+
+            };
+            alertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Default, (UIAlertAction obj) =>
+            {
+            }));
+            PresentViewController(alertController, true, null);
+
+            DismissViewController(true, null);
+        }
+
+        public void OnAuthenticationFailed(string message, Exception exception)
+        {
+            // SFSafariViewController doesn't dismiss itself
+            DismissViewController(true, null);
+
+            var alertController = new UIAlertController
+            {
+                Title = message,
+                Message = exception?.ToString()
+            };
+            alertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Default, (UIAlertAction obj) =>
+            {
+            }));
+            PresentViewController(alertController, true, null);
+
+            DismissViewController(true, null);
         }
 
         private void OnFacebookLoginButtonClicked(object sender, EventArgs e)

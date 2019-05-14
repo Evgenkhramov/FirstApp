@@ -1,4 +1,5 @@
-﻿using FirstApp.Core.ViewModels;
+﻿using CoreGraphics;
+using FirstApp.Core.ViewModels;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using MvvmCross.Presenters;
@@ -12,12 +13,10 @@ namespace FirstApp.iOS.ViewControllers
     [MvxRootPresentation]
     public partial class MainViewController : MvxTabBarViewController<MainViewModel>
     {
-
         private bool _firstTimePresented = true;
         public MainViewController()
         {
         }
-       
 
         public override void DidReceiveMemoryWarning()
         {

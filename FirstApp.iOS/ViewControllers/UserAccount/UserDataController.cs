@@ -2,20 +2,14 @@ using Acr.UserDialogs;
 using AVFoundation;
 using CoreGraphics;
 using FirstApp.Core.ViewModels;
-using FirstApp.iOS.Converters;
 using Foundation;
 using MvvmCross;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
-using MvvmCross.Plugin.PictureChooser;
-using MvvmCross.Presenters;
-using MvvmCross.Presenters.Attributes;
-using MvvmCross.ViewModels;
 using Photos;
 using System;
 using FirstApp.iOS.Helpers;
-using System.IO;
 using System.Threading.Tasks;
 using UIKit;
 
@@ -34,16 +28,6 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
         }
 
-        public MvxBasePresentationAttribute PresentationAttribute()
-        {
-            return new MvxModalPresentationAttribute
-            {
-                ModalPresentationStyle = UIModalPresentationStyle.PageSheet,
-                ModalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-            };
-        }
-
-
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
@@ -51,6 +35,8 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
         public override void ViewDidLoad()
         {
+            base.ViewDidLoad();
+
             Title = "User Profile";
 
             EdgesForExtendedLayout = UIRectEdge.None;
@@ -89,7 +75,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
             set.Apply();
 
-            base.ViewDidLoad();
+            
         }   
 
         private void KeyBoardUpNotification(NSNotification notification)

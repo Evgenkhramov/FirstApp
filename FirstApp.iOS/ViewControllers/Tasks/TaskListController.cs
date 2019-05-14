@@ -1,3 +1,4 @@
+using CoreGraphics;
 using FirstApp.Core.ViewModels;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
@@ -21,6 +22,8 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public override void ViewDidLoad()
         {
+            SetupNavigationBar();
+
             base.ViewDidLoad(); 
 
             Title = "Task List";
@@ -38,12 +41,35 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             TasksTable.AddSubview(_refreshControl);
 
             var set = this.CreateBindingSet<TaskListController, TaskListViewModel>();
-            set.Bind(AddNewTaskButton).To(vm => vm.CreateNewTask);
+            //set.Bind(AddNewTaskButton).To(vm => vm.CreateNewTask);
             set.Bind(source).To(m => m.TaskCollection);
             set.Bind(source).For(v => v.SelectionChangedCommand).To(vm => vm.ShowTaskChangedView);
-            set.Apply();
+            set.Apply();           
+        }
 
-           
+        private void SetupNavigationBar()
+        {
+            //var _backButton = new UIButton(UIButtonType.Custom);
+            //_backButton.Frame = new CGRect(0, 0, 40, 40);
+            //_backButton.SetImage(UIImage.FromBundle("Back"), UIControlState.Normal);
+
+            var _addTask = new UIButton(UIButtonType.Custom);
+            _addTask.Frame = new CGRect(0, 0, 40, 40);
+            _addTask.SetImage(UIImage.FromBundle("taskList"), UIControlState.Normal);
+
+
+            //_addTask.SetImage(UIImage.FromBundle("LogOutButton"), UIControlState.Normal);
+
+            NavigationItem.SetRightBarButtonItems(new UIBarButtonItem[] { new UIBarButtonItem(_addTask) }, false);
+
+            //UINavigationBar.Appearance.BarTintColor = UIColor.FromRGB(43, 61, 80);
+
+             //_addTask.TouchUpInside += AddButtonClick;
+
+            var set = this.CreateBindingSet<TaskListController, TaskListViewModel>();
+            set.Bind(_addTask).To(vm => vm.CreateNewTask);
+            set.Apply();
+            //_logoutButton.TouchUpInside += LogoutButtonClick;
         }
 
         public override void ViewWillAppear(bool animated)

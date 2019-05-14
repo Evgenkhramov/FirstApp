@@ -37,10 +37,6 @@ namespace FirstApp.iOS.ViewControllers.Authentication
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton RegistrationButton { get; set; }
 
-        [Action ("UIButton641_TouchUpInside:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void UIButton641_TouchUpInside (UIKit.UIButton sender);
-
         void ReleaseDesignerOutlets ()
         {
             if (EnterYourLogin != null) {

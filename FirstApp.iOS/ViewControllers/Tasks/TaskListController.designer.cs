@@ -15,19 +15,10 @@ namespace FirstApp.iOS.ViewControllers.Tasks
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton AddNewTaskButton { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITableView TasksTable { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
-            if (AddNewTaskButton != null) {
-                AddNewTaskButton.Dispose ();
-                AddNewTaskButton = null;
-            }
-
             if (TasksTable != null) {
                 TasksTable.Dispose ();
                 TasksTable = null;
