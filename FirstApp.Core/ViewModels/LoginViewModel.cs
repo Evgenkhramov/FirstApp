@@ -101,11 +101,11 @@ namespace FirstApp.Core.ViewModels
         public async Task SaveUserGoogleiOS(GoogleModeliOS userData)
         {
             var userDatabaseModel = new UserDatabaseModel();
-            userDatabaseModel.Name = userData.UserName.GivenName;
-            userDatabaseModel.Surname = userData.UserName.FamilyName;
-            userDatabaseModel.Email = userData.Emails[0].Value;
+            userDatabaseModel.Name = userData.name.GivenName;
+            userDatabaseModel.Surname = userData.name.FamilyName;
+            userDatabaseModel.Email = userData.emails[0].Value;
             //userDatabaseModel.UserId = userData.Id;
-            userDatabaseModel.PhotoURL = userData.UserImage.Url;
+            userDatabaseModel.PhotoURL = userData.image.url;
             userDatabaseModel.HowDoLogin = Enums.LoginMethod.Google;
 
             string userPhoto = await _facebookService.GetImageFromUrlToBase64(userDatabaseModel.PhotoURL);

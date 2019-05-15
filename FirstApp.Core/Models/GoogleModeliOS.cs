@@ -9,11 +9,11 @@ namespace FirstApp.Core.Models
 
         public string Kind { get; set; }
         public string Etag { get; set; }
-        public List<Email> Emails { get; set; }
+        public List<Email> emails { get; set; }
         public string Id { get; set; }
         public string DisplayName { get; set; }
-        public Name UserName { get; set; }
-        public Image UserImage { get; set; }
+        public Name name { get; set; }
+        public Image image { get; set; }
 
         public class Email
         {
@@ -29,8 +29,8 @@ namespace FirstApp.Core.Models
 
         public class Image
         {
-            public string Url { get; set; }
-            public bool IsDefault { get; set; }
+            public string url { get; set; }
+            public bool isDefault { get; set; }
         }
     }
 }

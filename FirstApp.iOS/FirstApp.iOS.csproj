@@ -52,8 +52,7 @@
     </CodesignEntitlements>
     <CodesignKey>iPhone Developer: Igor Shumakova (C5BZ29VCZP)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignProvision>
-    </CodesignProvision>
+    <CodesignProvision>Anuitex Uniq Development Provision</CodesignProvision>
     <MtouchExtraArgs>-v -v -v -v</MtouchExtraArgs>
     <MtouchSdkVersion>
     </MtouchSdkVersion>
