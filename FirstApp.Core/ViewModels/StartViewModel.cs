@@ -10,8 +10,7 @@ namespace FirstApp.Core.ViewModels
         public StartViewModel(IAuthorizationService authorizationService, IMvxNavigationService navigationService) : base(navigationService)
         {
             _authorizationService = authorizationService;
-            ShowLoginFragmentCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<LoginViewModel>());
-            
+            ShowLoginFragmentCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<LoginViewModel>());            
         }
         public IMvxAsyncCommand ShowLoginFragmentCommand { get; private set; }
     }

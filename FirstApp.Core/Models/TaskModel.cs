@@ -1,8 +1,6 @@
 ﻿using FirstApp.Core.Interfaces;
 using MvvmCross.Commands;
 using SQLite;
-using System.Collections.Generic;
-
 namespace FirstApp.Core.Models
 {
     [Table("Tasks")]
@@ -18,31 +16,27 @@ namespace FirstApp.Core.Models
 
         [Ignore]
         public IListHandler VmHandler { get; set; }
-        //public IMvxCommand<int> DeleteItemVMCommand { get; set; }
+
         public IMvxCommand<int> DeleteItemCommand
         {
             get
             {
                 return new MvxCommand<int>((param) =>
                 {
-                    //DeleteItemVMCommand.Execute(Id);
-                     VmHandler.RemoveCollectionItem(Id);
-                });              
+                    VmHandler.RemoveCollectionItem(Id);
+                });
             }
         }
 
-        //public IMvxCommand<TaskModel> ItemClickVMCommand { get; set; }
         public IMvxCommand<TaskModel> ItemClickCommand
         {
             get
             {
                 return new MvxCommand<TaskModel>((param) =>
                 {
-                    //ItemClickVMCommand.Execute(this);
                     VmHandler.CollectionItemClick(this);
-                });              
+                });
             }
-
         }
     }
 }

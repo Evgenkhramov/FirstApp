@@ -11,17 +11,15 @@ namespace FirstApp.Core.Models
         public int Id { get; set; }
         public int TaskId { get; set; }
         public string FileName { get; set; }
-        
+
         [Ignore]
         public IFileListHandler VmHandler { get; set; }
-        //public IMvxCommand<int> DeleteItemVMCommand { get; set; }
         public IMvxCommand<int> DeleteItemCommand
         {
             get
             {
                 return new MvxCommand<int>((param) =>
                 {
-                    //DeleteItemVMCommand.Execute(Id);
                     VmHandler.RemoveCollectionItem(Id);
                 });
             }

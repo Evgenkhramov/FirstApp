@@ -10,6 +10,7 @@ namespace FirstApp.Core.Services
     public class DBUserService : IDBUserService
     {
         private SQLiteConnection _connect;
+
         public DBUserService(IDBConnectionService connect)
         {
             _connect = connect.GetDatebaseConnection();
@@ -39,10 +40,12 @@ namespace FirstApp.Core.Services
         {
             return _connect.Get<UserDatabaseModel>(id);
         }
+
         public int DeleteItem(int id)
         {
             return _connect.Delete<UserDatabaseModel>(id);
         }
+
         public int SaveItem(UserDatabaseModel item)
         {
             if (item.Id != 0)

@@ -10,6 +10,6 @@ namespace FirstApp.Core.Interfaces
         void AddTaskToTable(TaskModel tasks);
         List<TaskModel> LoadListItemsTask();
         void DeleteTaskFromTable(int taskId);
-        void UpdateLocalDatabese(List<TaskModel> items);
+        //void UpdateLocalDatabese(List<TaskModel> items);
     }
 }

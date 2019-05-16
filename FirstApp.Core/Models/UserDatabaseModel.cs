@@ -3,7 +3,6 @@ using SQLite;
 
 namespace FirstApp.Core.Models
 {
-
     [Table("Users")]
     public class UserDatabaseModel
     {

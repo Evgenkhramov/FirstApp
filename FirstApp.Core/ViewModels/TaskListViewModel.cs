@@ -3,6 +3,7 @@ using FirstApp.Core.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using System.Collections.Specialized;
 using System.Threading.Tasks;
 
 namespace FirstApp.Core.ViewModels
@@ -16,6 +17,7 @@ namespace FirstApp.Core.ViewModels
         {
             _dBTaskService = dBTaskService;
             DeleteItemCommand = new MvxCommand<int>(RemoveCollectionItem);
+            DeleteItemCommandiOS = new MvxCommand<int>(RemoveCollectionItemiOS);
             AddData();
             ShowTaskChangedView = new MvxAsyncCommand<TaskModel>(CollectionItemClick);
         }
@@ -35,9 +37,16 @@ namespace FirstApp.Core.ViewModels
             }
 
             TaskCollection = new MvxObservableCollection<TaskModel>();
-            TaskCollection.AddRange(list);
-           
+            TaskCollection.AddRange(list);            
+
             IsRefreshTaskCollection = false;
+        }
+
+        void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            MvxObservableCollection<TaskModel> obsSender = sender as MvxObservableCollection<TaskModel>;
+
+            var element = e.OldItems.Count;
         }
 
         private bool _isRefreshTaskCollection;
@@ -79,6 +88,7 @@ namespace FirstApp.Core.ViewModels
         public IMvxCommand<int> ItemClickCommand { get; set; }
 
         public IMvxCommand<int> DeleteItemCommand { get; set; }
+        public IMvxCommand<int> DeleteItemCommandiOS { get; set; }
 
         public override void ViewAppearing()
         {
@@ -103,6 +113,13 @@ namespace FirstApp.Core.ViewModels
             }
 
             TaskCollection.Remove(item: _itemForDelete);
+        }
+
+        public void RemoveCollectionItemiOS(int itemId)
+        {
+            var idForDB = TaskCollection[itemId].Id;
+            TaskCollection.RemoveAt(itemId);          
+            _dBTaskService.DeleteTaskFromTable(idForDB);       
         }
     }
 }

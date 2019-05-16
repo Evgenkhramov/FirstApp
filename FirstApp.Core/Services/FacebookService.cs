@@ -4,7 +4,6 @@ using FirstApp.Core.Models;
 using FirstApp.Core.Interfaces;
 using System;
 using System.Net.Http;
-//using Android.Util;
 
 namespace FirstApp.Core.Services
 {
@@ -16,12 +15,11 @@ namespace FirstApp.Core.Services
             var json = httpClient.GetStringAsync($"https://graph.facebook.com/me?fields=email,first_name,last_name,id,picture&access_token={accessToken}").Result;
             var user = JsonConvert.DeserializeObject<FacebookModel>(json);
             return user;
-
         }
 
         public async Task<string> GetImageFromUrlToBase64(string url)
         {
-            String userPhoto = null;
+            string userPhoto = null;
             var httpClient = new HttpClient();
             try
             {

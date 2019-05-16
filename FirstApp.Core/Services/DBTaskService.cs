@@ -30,7 +30,7 @@ namespace FirstApp.Core.Services
         public void DeleteTaskFromTable(int taskId)
         {
             if (taskId >= 0)
-                _connect.Delete<TaskModel>(taskId);//.Where(x => x.Id == _task.Id).Delete();
+                _connect.Delete<TaskModel>(taskId);
         }
 
         public List<TaskModel> LoadListItemsTask()
@@ -39,14 +39,14 @@ namespace FirstApp.Core.Services
             return ListFromDatabase;
         }
 
-        public void UpdateLocalDatabese(List<TaskModel> items)
-        {
-            _connect.DropTable<TaskModel>();
-            _connect.CreateTable<TaskModel>();
-            for (int i = 0; i < items.Count; i++)
-            {
-                _connect.Insert(items[i]);
-            }
-        }
+        //public void UpdateLocalDatabese(List<TaskModel> items)
+        //{
+        //    _connect.DropTable<TaskModel>();
+        //    _connect.CreateTable<TaskModel>();
+        //    for (int i = 0; i < items.Count; i++)
+        //    {
+        //        _connect.Insert(items[i]);
+        //    }
+        //}
     }
 }

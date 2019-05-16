@@ -21,30 +21,6 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             base.DidReceiveMemoryWarning();
         }
 
-        //public override void CommitEditingStyle(UITableView tableView, UITableViewCellEditingStyle editingStyle, Foundation.NSIndexPath indexPath)
-        //{
-        //    switch (editingStyle)
-        //    {
-        //        case UITableViewCellEditingStyle.Delete:
-        //            // remove the item from the underlying data source
-        //            ViewModel.TaskCollection.RemoveAt(indexPath.Row);
-        //            // delete the row from the table
-        //            tableView.DeleteRows(new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
-        //            break;
-        //        case UITableViewCellEditingStyle.None:
-        //            //Console.WriteLine("CommitEditingStyle:None called");
-        //            break;
-        //    }
-        //}
-        //public override bool CanEditRow(UITableView tableView, NSIndexPath indexPath)
-        //{
-        //    return false; // return false if you wish to disable editing for a specific indexPath or for all rows
-        //}
-        //public override string TitleForDeleteConfirmation(UITableView tableView, NSIndexPath indexPath)
-        //{   // Optional - default text is 'Delete'
-        //    return "Trash Task";// + tableItems[indexPath.Row].SubHeading + ")";
-        //}
-
         public override void ViewDidLoad()
         {
             SetupNavigationBar();
@@ -69,6 +45,12 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             //set.Bind(AddNewTaskButton).To(vm => vm.CreateNewTask);
             set.Bind(source).To(m => m.TaskCollection);
             set.Bind(source).For(v => v.SelectionChangedCommand).To(vm => vm.ShowTaskChangedView);
+            set.Bind(source).For(s => s.DeleteRowCommandiOS).To(vm => vm.DeleteItemCommandiOS);
+            //set.Bind(source).For(v => v.SelectedItemChanged+=).To(vm => vm.CollectionChanged);
+
+            set.Bind(_refreshControl).For(r => r.IsRefreshing).To(vm => vm.IsRefreshTaskCollection);
+            set.Bind(_refreshControl).For(r => r.RefreshCommand).To(vm => vm.RefreshTaskCommand);
+
             set.Apply();           
         }
 
@@ -87,10 +69,6 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             NavigationItem.SetRightBarButtonItems(new UIBarButtonItem[] { new UIBarButtonItem(_addTask) }, false);
 
-            //UINavigationBar.Appearance.BarTintColor = UIColor.FromRGB(43, 61, 80);
-
-             //_addTask.TouchUpInside += AddButtonClick;
-
             var set = this.CreateBindingSet<TaskListController, TaskListViewModel>();
             set.Bind(_addTask).To(vm => vm.CreateNewTask);
             set.Apply();
@@ -100,8 +78,6 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            //this.NavigationController.NavigationBarHidden = false;
-            //this.NavigationController.NavigationItem.Title = "Title";
         }
     }
 }

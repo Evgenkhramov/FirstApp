@@ -14,9 +14,6 @@ namespace FirstApp.Core.ViewModels
     {
         private readonly IMvxPictureChooserTask _pictureChooserTask;
         private readonly IDBUserService _sQLiteRepository;
-        //private readonly IRegistrationService _registrationService;
-        // private readonly IUserDialogService _userDialogService;
-
         private UserDatabaseModel userData;
         private int userId;
         public UserDataViewModel(IDBUserService sQLiteRepository, IMvxPictureChooserTask pictureChooserTask, IMvxNavigationService navigationService) : base(navigationService)
@@ -24,10 +21,7 @@ namespace FirstApp.Core.ViewModels
             try
             {
                 _pictureChooserTask = pictureChooserTask;
-                //_userDialogService = userDialogService;
-                //_registrationService = registrationService;
                 _sQLiteRepository = sQLiteRepository;
-
                 //ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
                 string id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
                 userId = Int32.Parse(id);

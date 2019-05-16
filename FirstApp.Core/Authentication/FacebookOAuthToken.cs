@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FirstApp.Core.Authentication
+﻿namespace FirstApp.Core.Authentication
 {
     public class FacebookOAuthToken
     {

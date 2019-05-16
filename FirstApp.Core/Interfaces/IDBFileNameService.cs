@@ -6,7 +6,7 @@ namespace FirstApp.Core.Interfaces
     public interface IDBFileNameService
     {
         void AddFileNameToTable(FileListModel fileName);
-        List<FileListModel> GetFileNameFromDB(int taskId);
+        List<FileListModel> GetFileNameListFromDB(int taskId);
         void DeleteFileName(int id);
     }
 }

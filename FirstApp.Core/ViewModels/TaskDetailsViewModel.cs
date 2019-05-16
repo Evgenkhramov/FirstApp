@@ -12,17 +12,16 @@ namespace FirstApp.Core.ViewModels
 {
     public class TaskDetailsViewModel : BaseViewModel<TaskModel>, IFileListHandler
     {
-        public TaskModel taskModel = new TaskModel();
+        public TaskModel TaskModel = new TaskModel();
         public int TaskId;
         private readonly IDBFileNameService _dBFileNameService;
         private readonly IDBMapMarkerService _dBMapMarkerService;
         private readonly IDBTaskService _dBTaskService;
-        //private readonly IUserDialogService _userDialogService;
+
         public TaskDetailsViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService, IDBMapMarkerService dBMapMarkerService,
-            /*IUserDialogService userDialogService,*/ IDBFileNameService dBFileNameService) : base(navigationService)
+             IDBFileNameService dBFileNameService) : base(navigationService)
         {
             _dBMapMarkerService = dBMapMarkerService;
-            //_userDialogService = userDialogService;
             _dBTaskService = dBTaskService;
             _dBFileNameService = dBFileNameService;
 
@@ -40,8 +39,8 @@ namespace FirstApp.Core.ViewModels
                 TaskName = null;
                 TaskDescription = null;
                 MapMarkers = null;
-                _dBTaskService.AddTaskToTable(taskModel);
-                TaskId = taskModel.Id;
+                _dBTaskService.AddTaskToTable(TaskModel);
+                TaskId = TaskModel.Id;
                 AddFileName();
             }
         }
@@ -50,24 +49,23 @@ namespace FirstApp.Core.ViewModels
         {
             if (parametr != null)
             {
-                taskModel.Id = parametr.Id;
+                TaskModel.Id = parametr.Id;
                 TaskId = parametr.Id;
                 TaskName = parametr.TaskName;
                 TaskDescription = parametr.TaskDescription;
-                MapMarkers = _dBMapMarkerService.GetMapMarkerFromDB(TaskId).Count.ToString();
+                MapMarkers = _dBMapMarkerService.GetMapMarkerListFromDB(TaskId).Count.ToString();
                 AddFileName();
                 return;
             }
             TaskName = null;
             TaskDescription = null;
             MapMarkers = null;
-            _dBTaskService.AddTaskToTable(taskModel);
-            TaskId = taskModel.Id;
+            _dBTaskService.AddTaskToTable(TaskModel);
+            TaskId = TaskModel.Id;
         }
 
         public void AddFileName()
         {
-
             FileNameList = new MvxObservableCollection<FileListModel>() { };
             List<FileListModel> list = GetFileNameListFromDB(TaskId);
             foreach (var item in list)
@@ -115,7 +113,7 @@ namespace FirstApp.Core.ViewModels
             set
             {
                 _taskName = value;
-                taskModel.TaskName = _taskName;
+                TaskModel.TaskName = _taskName;
                 RaisePropertyChanged(() => TaskName);
             }
         }
@@ -127,12 +125,10 @@ namespace FirstApp.Core.ViewModels
             set
             {
                 _taskDescription = value;
-                taskModel.TaskDescription = _taskDescription;
+                TaskModel.TaskDescription = _taskDescription;
                 RaisePropertyChanged(() => TaskDescription);
             }
         }
-
-        // ListView listView = new ListView(){ };
 
         private string _mapMarkers;
         public string MapMarkers
@@ -170,11 +166,10 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    var result = await _navigationService.Navigate<MapViewModel, TaskModel>(taskModel);
+                    var result = await _navigationService.Navigate<MapViewModel, TaskModel>(TaskModel);
                 });
             }
         }
-
 
         public MvxAsyncCommand SaveTask
         {
@@ -186,7 +181,6 @@ namespace FirstApp.Core.ViewModels
                     if (string.IsNullOrEmpty(TaskName))
                     {
                         Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Please, enter task name", "Empty task name", "Ok");
-                        //_userDialogService.ShowAlertForUser("Empty task name", "Please, enter task name", "Ok");
                         return;
                     }
                     if (string.IsNullOrEmpty(TaskDescription))
@@ -199,8 +193,8 @@ namespace FirstApp.Core.ViewModels
                     {
                         //taskModel.TaskName = TaskName;
                         //taskModel.TaskDescription = TaskDescription;
-                        _dBTaskService.AddTaskToTable(taskModel);
-                        
+                        _dBTaskService.AddTaskToTable(TaskModel);
+
                         await _navigationService.Navigate<TaskListViewModel>();
                     }
                 });
@@ -217,20 +211,18 @@ namespace FirstApp.Core.ViewModels
                     if (string.IsNullOrEmpty(TaskName))
                     {
                         Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Please, enter task name", "Empty task name", "Ok");
-                        //_userDialogService.ShowAlertForUser("Empty task name", "Please, enter task name", "Ok");
+                        
                         return;
                     }
                     if (string.IsNullOrEmpty(TaskDescription))
                     {
                         Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Please, enter task name", "Empty task description", "Ok");
-                        //_userDialogService.ShowAlertForUser("Empty task description", "Please, enter task name", "Ok");
+                       
                         return;
                     }
                     if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName))
                     {
-                        //taskModel.TaskName = TaskName;
-                        //taskModel.TaskDescription = TaskDescription;
-                        _dBTaskService.AddTaskToTable(taskModel);
+                        _dBTaskService.AddTaskToTable(TaskModel);
 
                         await _navigationService.Navigate<MainViewModel>();
                     }
@@ -265,13 +257,11 @@ namespace FirstApp.Core.ViewModels
                 return new MvxAsyncCommand(async () =>
                 {
                     bool answ = Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync("Do you want to delete this task?", "Delete Task?", "Yes", "No").Result;
-                    //var answ = await _userDialogService.ShowAlertForUserWithSomeLogic("Delete Task?", "Do you want to delete this task?", "Yes", "No");
-
+                   
                     if (answ)
                     {
                         _dBTaskService.DeleteTaskFromTable(TaskId);
                         await _navigationService.Navigate<TaskListViewModel>();
-
                         //await _navigationService.Close(this);
                     }
                     if (!answ)
@@ -284,8 +274,7 @@ namespace FirstApp.Core.ViewModels
         }
         public List<FileListModel> GetFileNameListFromDB(int taskId)
         {
-
-            List<FileListModel> list = _dBFileNameService.GetFileNameFromDB(taskId);
+            List<FileListModel> list = _dBFileNameService.GetFileNameListFromDB(taskId);
             return list;
         }
 
@@ -319,7 +308,7 @@ namespace FirstApp.Core.ViewModels
 
         public override void ViewAppearing()
         {
-            MapMarkers = _dBMapMarkerService.GetMapMarkerFromDB(TaskId).Count.ToString();
+            MapMarkers = _dBMapMarkerService.GetMapMarkerListFromDB(TaskId).Count.ToString();
         }
     }
 }

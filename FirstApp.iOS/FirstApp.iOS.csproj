@@ -47,12 +47,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>ARM64</MtouchArch>
+    <MtouchArch>ARMv7, ARMv7s, ARM64</MtouchArch>
     <CodesignEntitlements>
     </CodesignEntitlements>
-    <CodesignKey>iPhone Developer: Igor Shumakova (C5BZ29VCZP)</CodesignKey>
+    <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignProvision>Anuitex Uniq Development Provision</CodesignProvision>
+    <CodesignProvision>
+    </CodesignProvision>
     <MtouchExtraArgs>-v -v -v -v</MtouchExtraArgs>
     <MtouchSdkVersion>
     </MtouchSdkVersion>

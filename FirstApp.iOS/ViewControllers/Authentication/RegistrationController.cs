@@ -107,8 +107,8 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             set.Bind(UserName).To(vm => vm.RegistrationUserName);
             set.Bind(EnterUserPassword).To(vm => vm.RegistrationUserPassword);
             set.Bind(EnterConfirm).To(vm => vm.RegistrationUserPasswordConfirm);
-            set.Bind(RegistrationButton).To(vm => vm.UserRegistration);
-            set.Bind(BackButton).To(vm => vm.BackView);
+            set.Bind(RegistrationButton).To(vm => vm.UserRegistrationCommand);
+            set.Bind(BackButton).To(vm => vm.BackViewCommand);
 
             set.Apply();
         }

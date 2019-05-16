@@ -1,7 +1,7 @@
 ﻿using FirstApp.Core.Models;
-using FirstApp.Core.ViewModels;
 using Foundation;
 using MvvmCross.Platforms.Ios.Binding.Views;
+using System.Windows.Input;
 using UIKit;
 
 namespace FirstApp.iOS.ViewControllers.Tasks
@@ -24,18 +24,20 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             return (UITableViewCell)cell;
         }
 
-        public override void CommitEditingStyle(UITableView tableView, UITableViewCellEditingStyle editingStyle,NSIndexPath indexPath)
+        public override void CommitEditingStyle(UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
         {
             switch (editingStyle)
             {
                 case UITableViewCellEditingStyle.Delete:
+                    DeleteRowCommandiOS.Execute(indexPath.Row);
                     // remove the item from the underlying data source
-                    TaskListViewModel.RemoveCollectionItem(indexPath.Row);
-                    // delete the row from the table
-                    tableView.DeleteRows(new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
+                    //if (ItemsSource is MvxObservableCollection<TaskModel> sourceCollection)
+                    //{
+                    //    sourceCollection.RemoveAt(indexPath.Row);
+                    //}
                     break;
                 case UITableViewCellEditingStyle.None:
-                    //Console.WriteLine("CommitEditingStyle:None called");
+
                     break;
             }
         }
@@ -43,9 +45,12 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         {
             return true; // return false if you wish to disable editing for a specific indexPath or for all rows
         }
+
         public override string TitleForDeleteConfirmation(UITableView tableView, NSIndexPath indexPath)
         {   // Optional - default text is 'Delete'
             return "Trash Task";// + tableItems[indexPath.Row].SubHeading + ")";
         }
+
+        public ICommand DeleteRowCommandiOS { get; set; }
     }
 }

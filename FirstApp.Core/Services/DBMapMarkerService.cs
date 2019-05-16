@@ -19,14 +19,14 @@ namespace FirstApp.Core.Services
             _connect.Insert(marker);
         }
 
-        public List<MapMarkerModel> GetMapMarkerFromDB(int taskId)
+        public List<MapMarkerModel> GetMapMarkerListFromDB(int taskId)
         {
             List<MapMarkerModel> coord;
             coord = new List<MapMarkerModel>();
-             var list = _connect.Query<MapMarkerModel>($"SELECT ALL * FROM MapMarker WHERE TaskId = {taskId}");
+            var list = _connect.Query<MapMarkerModel>($"SELECT ALL * FROM MapMarker WHERE TaskId = {taskId}");
             if (list.Count > 0)
             {
-                foreach(MapMarkerModel item in list)
+                foreach (MapMarkerModel item in list)
                 {
                     MapMarkerModel row = new MapMarkerModel();
                     row.Id = item.Id;
@@ -38,6 +38,7 @@ namespace FirstApp.Core.Services
             }
             return coord;
         }
+
         public void DeleteMarker(int id)
         {
             _connect.Delete<MapMarkerModel>(id);

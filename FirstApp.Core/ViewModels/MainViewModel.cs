@@ -12,6 +12,7 @@ namespace FirstApp.Core.ViewModels
             ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
             ShowUserProfileViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<UserDataViewModel>());
         }
+
         public IMvxAsyncCommand ShowMainFragmentCommand { get; private set; }
         public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }
         public IMvxAsyncCommand ShowUserProfileViewModelCommand { get; private set; }
@@ -21,6 +22,7 @@ namespace FirstApp.Core.ViewModels
             await _navigationService.Navigate<MenuViewModel>();
             await _navigationService.Navigate<TaskListViewModel>();
         }
+
         public async Task ShowMainIOS()
         {
             await _navigationService.Navigate<TaskListViewModel>();

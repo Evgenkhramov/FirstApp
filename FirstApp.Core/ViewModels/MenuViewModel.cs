@@ -1,14 +1,10 @@
 ﻿using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
-using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using Plugin.SecureStorage;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
 
 namespace FirstApp.Core.ViewModels
 {

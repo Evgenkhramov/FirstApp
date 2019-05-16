@@ -1,17 +1,13 @@
 ﻿using FirstApp.Core.Models;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FirstApp.Core.Services
 {
     public class GoogleService
     {
-
         public async Task<GoogleModeliOS> GetUserProfileAsync(string tokenType, string accessToken)
         {
             var httpClient = new HttpClient();

@@ -1,9 +1,7 @@
 ﻿using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using SQLite;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FirstApp.Core.Services
 {
@@ -22,7 +20,7 @@ namespace FirstApp.Core.Services
             _connect.Insert(fileName);
         }
 
-        public List<FileListModel> GetFileNameFromDB(int taskId)
+        public List<FileListModel> GetFileNameListFromDB(int taskId)
         {
             List<FileListModel> list = _connect.Query<FileListModel>($"SELECT * FROM FileName WHERE TaskId = {taskId}");
             return list;

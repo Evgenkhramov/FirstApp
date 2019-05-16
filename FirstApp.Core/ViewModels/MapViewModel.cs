@@ -14,13 +14,12 @@ namespace FirstApp.Core.ViewModels
         List<MapMarkerModel> _markerList;
         TaskModel taskModel;
         public int _taskId;
-        //private IUserDialogService _userDialogService;
+       
         private IDBMapMarkerService _dBMapMarkerService;
 
-        public MapViewModel(IMvxNavigationService navigationService, IDBMapMarkerService dBMapMarkerService/*, IUserDialogService userDialogService*/) : base(navigationService)
+        public MapViewModel(IMvxNavigationService navigationService, IDBMapMarkerService dBMapMarkerService) : base(navigationService)
         {
             _markerList = new List<MapMarkerModel>();
-            //_userDialogService = userDialogService;
             _dBMapMarkerService = dBMapMarkerService;
             MarkerCount = 0;
             SaveButton = false;
@@ -64,7 +63,6 @@ namespace FirstApp.Core.ViewModels
                     {
                         var answ =  Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync("Do you want to save your markers?", "Save Markers?", "Yes", "No").Result;
                 
-                        //var answ = await _userDialogService.ShowAlertForUserWithSomeLogic("Save Markers?", "Do you want to save your markers?", "Yes", "No");
                         if (answ)
                         {
                             foreach (MapMarkerModel item in _markerList)
@@ -79,7 +77,7 @@ namespace FirstApp.Core.ViewModels
                             await _navigationService.Close(this);
                         }
                     }
-                    else
+                    if (_markerList.Count <= 0)
                     {
                         await _navigationService.Close(this);
                     }
@@ -102,7 +100,7 @@ namespace FirstApp.Core.ViewModels
                         _markerList.Clear();
                         await _navigationService.Close(this);
                     }
-                    else
+                    if (_markerList.Count <= 0)
                     {
                         await _navigationService.Close(this);
                     }
@@ -118,7 +116,7 @@ namespace FirstApp.Core.ViewModels
 
         public List<MapMarkerModel> GetMarkerList()
         {
-            List<MapMarkerModel> markers = _dBMapMarkerService.GetMapMarkerFromDB(_taskId);
+            List<MapMarkerModel> markers = _dBMapMarkerService.GetMapMarkerListFromDB(_taskId);
             return markers;
         }
     }

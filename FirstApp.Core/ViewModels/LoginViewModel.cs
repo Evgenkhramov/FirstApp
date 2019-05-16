@@ -96,28 +96,7 @@ namespace FirstApp.Core.ViewModels
             _registrationService.UserRegistration(user.First_name, user.Email, idInDB);
 
             _navigationService.Navigate<MainViewModel>();
-        }
-
-        public async Task SaveUserGoogleiOS(GoogleModeliOS userData)
-        {
-            var userDatabaseModel = new UserDatabaseModel();
-            userDatabaseModel.Name = userData.name.GivenName;
-            userDatabaseModel.Surname = userData.name.FamilyName;
-            userDatabaseModel.Email = userData.emails[0].Value;
-            //userDatabaseModel.UserId = userData.Id;
-            userDatabaseModel.PhotoURL = userData.image.url;
-            userDatabaseModel.HowDoLogin = Enums.LoginMethod.Google;
-
-            string userPhoto = await _facebookService.GetImageFromUrlToBase64(userDatabaseModel.PhotoURL);
-            userDatabaseModel.Photo = userPhoto;
-
-            int userIdInDB = _sqlLiteRepository.SaveItem(userDatabaseModel);
-            string idInDB = userIdInDB.ToString();
-            _registrationService.UserRegistration(userDatabaseModel.Name, userDatabaseModel.Email, idInDB);
-
-            _navigationService.Navigate<MainViewModel>();
-
-        }
+        }      
 
         public async Task OnAuthenticationCanceled()
         {
@@ -127,6 +106,24 @@ namespace FirstApp.Core.ViewModels
         public async Task OnAuthenticationFailed()
         {
             Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("You didn't completed the authentication process");
+        }
+
+        public async Task SaveUserGoogleiOS(GoogleModeliOS userData)
+        {
+            var userDatabaseModel = new UserDatabaseModel();
+            userDatabaseModel.Name = userData.name.GivenName;
+            userDatabaseModel.Surname = userData.name.FamilyName;
+            userDatabaseModel.Email = userData.emails[0].Value;
+            userDatabaseModel.PhotoURL = userData.image.url;
+            userDatabaseModel.HowDoLogin = Enums.LoginMethod.Google;
+            string userPhoto = await _facebookService.GetImageFromUrlToBase64(userDatabaseModel.PhotoURL);
+            userDatabaseModel.Photo = userPhoto;
+            int userIdInDB = _sqlLiteRepository.SaveItem(userDatabaseModel);
+            string idInDB = userIdInDB.ToString();
+            _registrationService.UserRegistration(userDatabaseModel.Name, userDatabaseModel.Email, idInDB);
+
+            _navigationService.Navigate<MainViewModel>();
+
         }
 
         private string _userName;
