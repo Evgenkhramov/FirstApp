@@ -1,13 +1,14 @@
-﻿using System;
+﻿using FirstApp.Core.Models;
+using System;
 using Xamarin.Auth;
 
-namespace FirstApp.Core.Authentication
-{
+namespace FirstApp.Core.Providers
+{ 
     public class FacebookAuthenticator
     {
-        private const string AuthorizeUrl = "https://www.facebook.com/dialog/oauth/";
-        private const string RedirectUrl = "https://www.facebook.com/connect/login_success.html";
-        private const bool IsUsingNativeUI = false;
+        private const string AUTORIZE_URL = "https://www.facebook.com/dialog/oauth/";
+        private const string REDIRECT_URL = "https://www.facebook.com/connect/login_success.html";
+        private const bool IS_USING_NATIVE_UI = false;
 
         private OAuth2Authenticator _auth;
         private IFacebookAuthenticationDelegate _authenticationDelegate;
@@ -17,9 +18,9 @@ namespace FirstApp.Core.Authentication
             _authenticationDelegate = authenticationDelegate;
 
             _auth = new OAuth2Authenticator(clientId, scope,
-                                            new Uri(AuthorizeUrl),
-                                            new Uri(RedirectUrl),
-                                            null, IsUsingNativeUI);
+                                            new Uri(AUTORIZE_URL),
+                                            new Uri(REDIRECT_URL),
+                                            null, IS_USING_NATIVE_UI);
 
             _auth.Completed += OnAuthenticationCompleted;
             _auth.Error += OnAuthenticationFailed;

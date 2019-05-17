@@ -1,6 +1,6 @@
-﻿namespace FirstApp.Core.Authentication
+﻿namespace FirstApp.Core.Models
 {
-    public class FacebookOAuthToken
+    public class GoogleOAuthToken
     {
         public string TokenType { get; set; }
         public string AccessToken { get; set; }

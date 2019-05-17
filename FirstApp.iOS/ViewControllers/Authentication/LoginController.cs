@@ -1,6 +1,6 @@
 using FirstApp.Core;
-using FirstApp.Core.Authentication;
 using FirstApp.Core.Models;
+using FirstApp.Core.Providers;
 using FirstApp.Core.Services;
 using FirstApp.Core.ViewModels;
 using Foundation;
@@ -11,16 +11,17 @@ using UIKit;
 
 namespace FirstApp.iOS.ViewControllers.Authentication
 {
-    public partial class LoginController : MvxViewController<LoginViewModel>, IGoogleAuthenticationDelegate 
+    public partial class LoginController : MvxViewController<LoginViewModel>, IGoogleAuthenticationDelegate
     {
         private GoogleModeliOS user = new GoogleModeliOS();
         public static GoogleAuthenticator _authGoogle;
 
         private FacebookAuthenticator _authFacebook;
-        static readonly int GET_ACCOUNTS = 0;
+        static int GET_ACCOUNTS;
 
         public LoginController() : base()
         {
+            GET_ACCOUNTS = 0;
         }
         public override void DidReceiveMemoryWarning()
         {
@@ -49,17 +50,14 @@ namespace FirstApp.iOS.ViewControllers.Authentication
                 return true;
             };
             NavigationController.NavigationBarHidden = true;
-            SetBind();
-          
+            SetBind();         
         }
 
         private void OnGoogleLoginButtonClicked(object sender, EventArgs e)
-        {
-            
+        {            
             var authentificator = _authGoogle.GetAuthenticator();
             var viewController = authentificator.GetUI();
             PresentViewController(viewController, true, null);
-
         }
 
         public async void OnAuthenticationCompleted(GoogleOAuthToken token)
@@ -70,8 +68,6 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             user = await googleService.GetUserProfileAsync(token.TokenType, token.AccessToken);
 
             await ViewModel.SaveUserGoogleiOS(user);
-            //ViewModel. AddUserToTable(email);
-            //ViewModel.Execute(null);
         }
 
         public void OnAuthenticationCanceled()
@@ -133,8 +129,6 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             set.Bind(EnterYourPasswordForLogin).To(vm => vm.UserPassword);
             set.Bind(LoginButton).To(vm => vm.UserLogin);
             set.Bind(RegistrationButton).To(vm => vm.UserRegistration);
-            //set.Bind(LoginButton).For(v=> v.Enabled).To(vm => vm.UserLogin);
-            //set.Bind(LoginButton).For(v=> v.Enabled).To(vm => vm.UserLogin);
 
             set.Apply();
         }

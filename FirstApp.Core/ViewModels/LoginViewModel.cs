@@ -1,7 +1,7 @@
 ﻿using Acr.UserDialogs;
-using FirstApp.Core.Authentication;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
+using FirstApp.Core.Providers;
 using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -18,10 +18,9 @@ namespace FirstApp.Core.ViewModels
         private readonly IDBUserService _sqlLiteRepository;
         private readonly IFacebookService _facebookService;
 
-        public LoginViewModel(IAuthorizationService authorizationService, IDBUserService sQLiteRepository, IRegistrationService registrationService, IFacebookService facebookService,IMvxNavigationService navigationService) : base(navigationService)
+        public LoginViewModel(IAuthorizationService authorizationService, IDBUserService sQLiteRepository, IRegistrationService registrationService, IFacebookService facebookService, IMvxNavigationService navigationService) : base(navigationService)
         {
             ShowMainViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MainViewModel>());
-            //ShowLoginFragmentViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<LoginViewModel>());
             _authorizationService = authorizationService;
             _sqlLiteRepository = sQLiteRepository;
             _registrationService = registrationService;
@@ -96,7 +95,7 @@ namespace FirstApp.Core.ViewModels
             _registrationService.UserRegistration(user.First_name, user.Email, idInDB);
 
             _navigationService.Navigate<MainViewModel>();
-        }      
+        }
 
         public async Task OnAuthenticationCanceled()
         {

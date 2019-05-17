@@ -1,13 +1,14 @@
-﻿using System;
+﻿using FirstApp.Core.Models;
+using System;
 using Xamarin.Auth;
 
-namespace FirstApp.Core.Authentication
+namespace FirstApp.Core.Providers
 {
     public class GoogleAuthenticator
     {
-        private const string AuthorizeUrl = "https://accounts.google.com/o/oauth2/v2/auth";
-        private const string AccessTokenUrl = "https://www.googleapis.com/oauth2/v4/token";
-        private const bool IsUsingNativeUI = true;
+        private const string AUTORIZE_URL = "https://accounts.google.com/o/oauth2/v2/auth";
+        private const string ACCESS_TOKEN_URL = "https://www.googleapis.com/oauth2/v4/token";
+        private const bool IS_USING_NATIVE_UI = true;
 
         private OAuth2Authenticator _auth;
         private IGoogleAuthenticationDelegate _authenticationDelegate;
@@ -17,10 +18,10 @@ namespace FirstApp.Core.Authentication
             _authenticationDelegate = authenticationDelegate;
 
             _auth = new OAuth2Authenticator(clientId, string.Empty, scope,
-                                            new Uri(AuthorizeUrl),
+                                            new Uri(AUTORIZE_URL),
                                             new Uri(redirectUrl),
-                                            new Uri(AccessTokenUrl),
-                                            null, IsUsingNativeUI);
+                                            new Uri(ACCESS_TOKEN_URL),
+                                            null, IS_USING_NATIVE_UI);
 
             _auth.Completed += OnAuthenticationCompleted;
             _auth.Error += OnAuthenticationFailed;
