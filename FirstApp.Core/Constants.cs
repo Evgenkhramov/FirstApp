@@ -28,6 +28,8 @@
         public const string SaveMarkers = "Save Markers??";
         public const string WantDeleteTask = "Do you want to delete this task?";
         public const string DeleteTask = "Delete Task?";
+        public const string LocationPermission = "Received response for Location permission request.";
+        public const string LocationPermissionNotGranted = "Location permission was NOT granted.";
 
         public const string LogOut = "LogOut";
         public const string LogIn = "LogIn";

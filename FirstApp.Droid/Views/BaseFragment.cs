@@ -12,14 +12,6 @@ namespace FirstApp.Droid.Views
 {
     public abstract class BaseFragment : MvxFragment
     {
-        public MvxAppCompatActivity ParentActivity
-        {
-            get
-            {
-                return (MvxAppCompatActivity)Activity;
-            }
-        }
-
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var ignore = base.OnCreateView(inflater, container, savedInstanceState);
@@ -27,15 +19,18 @@ namespace FirstApp.Droid.Views
             var view = this.BindingInflate(FragmentId, null);
 
             CloseMenu();
+
             return view;
         }
 
         protected abstract int FragmentId { get; }
+
         public async Task CloseMenu()
         {
             ((MainView)Activity).DrawerLayout.CloseDrawers();
             await Task.Delay(TimeSpan.FromMilliseconds(250));
         }
+
         public async Task OpenMenu()
         {
             ((MainView)Activity).DrawerLayout.OpenDrawer(GravityCompat.Start);

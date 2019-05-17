@@ -21,6 +21,8 @@ using Android.Content.PM;
 using Android.Support.V4.App;
 using FirstApp.Core.Models;
 using FirstApp.Core.Providers;
+using MvvmCross;
+using Acr.UserDialogs;
 
 namespace FirstApp.Droid.Views
 {
@@ -32,12 +34,9 @@ namespace FirstApp.Droid.Views
         private FacebookAuthenticator _authFacebook;
         static readonly int GET_ACCOUNTS = 0;
         private GoogleModel _user = new GoogleModel();
-
-        GoogleApiClient mGoogleApiClient;
+        private GoogleApiClient _mGoogleApiClient;
         private ConnectionResult _mConnectionResult;
-        Button mGsignBtn;
-        TextView TxtName, TxtEmail;
-        ImageView ImgProfile;
+        private Button _mGsignBtn;
         private bool _mIntentInProgress;
         private bool _mSignInClicked;
         private bool _mInfoPopulated;
@@ -45,13 +44,13 @@ namespace FirstApp.Droid.Views
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            var view = base.OnCreateView(inflater, container, savedInstanceState);
+            View view = base.OnCreateView(inflater, container, savedInstanceState);
 
             var facebookLoginButton = view.FindViewById<Button>(Resource.Id.facebookLoginButton);
             facebookLoginButton.Click += OnFacebookLoginButtonClicked;
 
-            mGsignBtn = view.FindViewById<Button>(Resource.Id.sign_in_button);
-            mGsignBtn.Click += GetPermissions;
+            _mGsignBtn = view.FindViewById<Button>(Resource.Id.sign_in_button);
+            _mGsignBtn.Click += GetPermissions;
 
             GoogleApiClient.Builder builder = new GoogleApiClient.Builder(this.Context);
             builder.AddConnectionCallbacks(this);
@@ -59,22 +58,22 @@ namespace FirstApp.Droid.Views
             builder.AddApi(PlusClass.API);
             builder.AddScope(PlusClass.ScopePlusProfile);
             builder.AddScope(PlusClass.ScopePlusLogin);
-            //Build our IGoogleApiClient  
-            mGoogleApiClient = builder.Build();
+           
+            _mGoogleApiClient = builder.Build();
 
             return view;
         }
         public override void OnStart()
         {
             base.OnStart();
-            mGoogleApiClient.Connect();
+            _mGoogleApiClient.Connect();
         }
         public override void OnStop()
         {
             base.OnStop();
-            if (mGoogleApiClient.IsConnected)
+            if (_mGoogleApiClient.IsConnected)
             {
-                mGoogleApiClient.Disconnect();
+                _mGoogleApiClient.Disconnect();
             }
         }
 
@@ -93,18 +92,16 @@ namespace FirstApp.Droid.Views
         {
             if (requestCode == GET_ACCOUNTS)
             {
-                // Received permission result for camera permission.
-                Log.Info(TAG, "Received response for Location permission request.");
+                Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.LocationPermission);
 
-                // Check if the only required permission has been granted
                 if ((grantResults.Length == 1) && (grantResults[0] == Permission.Granted))
                 {
-                    // Location permission has been granted, okay to retrieve the location of the device.
+                   
                     MGsignBtn_Click();
                 }
                 else
                 {
-                    Log.Info(TAG, "Location permission was NOT granted.");
+                    Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.LocationPermissionNotGranted);
                 }
             }
             else
@@ -115,8 +112,8 @@ namespace FirstApp.Droid.Views
 
         public void OnConnected(Bundle connectionHint)
         {
-            var person = PlusClass.PeopleApi.GetCurrentPerson(mGoogleApiClient);
-            var email = PlusClass.AccountApi.GetAccountName(mGoogleApiClient);
+            var person = PlusClass.PeopleApi.GetCurrentPerson(_mGoogleApiClient);
+            var email = PlusClass.AccountApi.GetAccountName(_mGoogleApiClient);
             var name = string.Empty;
             if (person != null)
             {
@@ -129,21 +126,22 @@ namespace FirstApp.Droid.Views
 
         private void MGsignBtn_Click()
         {
-            if (!mGoogleApiClient.IsConnecting)
+            if (!_mGoogleApiClient.IsConnecting)
             {
                 _mSignInClicked = true;
                 ResolveSignIn();
 
             }
-            else if (mGoogleApiClient.IsConnected)
+            else if (_mGoogleApiClient.IsConnected)
             {
-                PlusClass.AccountApi.ClearDefaultAccount(mGoogleApiClient);
-                mGoogleApiClient.Disconnect();
+                PlusClass.AccountApi.ClearDefaultAccount(_mGoogleApiClient);
+                _mGoogleApiClient.Disconnect();
             }
         }
+
         private void ResolveSignIn()
         {
-            if (mGoogleApiClient.IsConnecting)
+            if (_mGoogleApiClient.IsConnecting)
             {
                 return;
             }
@@ -154,31 +152,14 @@ namespace FirstApp.Droid.Views
                     _mIntentInProgress = true;
                     StartIntentSenderForResult(_mConnectionResult.Resolution.IntentSender, 0, null, 0, 0, 0, null);
                 }
-                catch (Android.Content.IntentSender.SendIntentException io)
+                catch (IntentSender.SendIntentException io)
                 {
                     _mIntentInProgress = false;
-                    mGoogleApiClient.Connect();
+                    _mGoogleApiClient.Connect();
                 }
             }
         }
-        private Bitmap GetImageBitmapFromUrl(String url)
-        {
-            Bitmap imageBitmap = null;
-            try
-            {
-                using (var webClient = new WebClient())
-                {
-                    var imageBytes = webClient.DownloadData(url);
-                    if (imageBytes != null && imageBytes.Length > 0)
-                    {
-                        imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
-                    }
-                }
-                return imageBitmap;
-            }
-            catch (IOException e) { }
-            return null;
-        }
+
         public override void OnActivityResult(int requestCode, int resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
@@ -190,9 +171,9 @@ namespace FirstApp.Droid.Views
                     _mSignInClicked = false;
                 }
                 _mIntentInProgress = false;
-                if (!mGoogleApiClient.IsConnecting)
+                if (!_mGoogleApiClient.IsConnecting)
                 {
-                    mGoogleApiClient.Connect();
+                    _mGoogleApiClient.Connect();
                 }
             }
         }
@@ -200,14 +181,11 @@ namespace FirstApp.Droid.Views
         public void OnConnectionFailed(ConnectionResult result)
         {
             if (!_mIntentInProgress)
-            {
-                //Store the ConnectionResult so that we can use it later when the user clicks 'sign-in;
+            {  
                 _mConnectionResult = result;
 
                 if (_mSignInClicked)
                 {
-                    //The user has already clicked 'sign-in' so we attempt to resolve all
-                    //errors until the user is signed in, or the cancel
                     ResolveSignIn();
                 }
             }

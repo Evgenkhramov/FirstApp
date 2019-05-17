@@ -15,10 +15,11 @@ namespace FirstApp.Droid.Services
 
         public SQLiteConnection GetDatebaseConnection()
         {
-            var dbName = Constants.NameDB;
-            var path = Path.Combine(System.Environment.
+            string dbName = Constants.NameDB;
+            string path = Path.Combine(System.Environment.
               GetFolderPath(System.Environment.
               SpecialFolder.Personal), dbName);
+
             return new SQLiteConnection(path);
         }
     }
