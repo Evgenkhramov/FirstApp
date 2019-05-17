@@ -1,5 +1,4 @@
-﻿
-namespace FirstApp.Droid.Interfaces
+﻿namespace FirstApp.Droid.Interfaces
 {
     public interface IBackButtonListener
     {

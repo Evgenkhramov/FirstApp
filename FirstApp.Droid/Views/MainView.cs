@@ -8,7 +8,6 @@ using FirstApp.Core.ViewModels;
 using FirstApp.Droid.Interfaces;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using Plugin.Permissions;
 
 namespace FirstApp.Droid.Views
 {
@@ -33,16 +32,9 @@ namespace FirstApp.Droid.Views
 
             if (bundle == null)
             {
-                //ViewModel.ShowMainFragmentCommand.Execute(null);
-                //ViewModel.ShowMenuViewModelCommand.Execute(null);
                 ViewModel.ShowMain();
             }
         }
-
-        //public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
-        //{
-        //    PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        //}
 
         public void OpenDraweble()
         {
@@ -57,9 +49,8 @@ namespace FirstApp.Droid.Views
             }
             else
             {
-                // Ignoring stuff about DrawerLayout, etc for demo purposes.
-                var currentFragment = SupportFragmentManager.FindFragmentById(Resource.Id.content_frame_new);
-                var listener = currentFragment as IBackButtonListener;
+                Android.Support.V4.App.Fragment currentFragment = SupportFragmentManager.FindFragmentById(Resource.Id.content_frame_new);
+                IBackButtonListener listener = currentFragment as IBackButtonListener;
                 if (listener != null)
                 {
                     listener.OnBackPressed();
@@ -71,7 +62,10 @@ namespace FirstApp.Droid.Views
         public void HideSoftKeyboard()
         {
             if (CurrentFocus == null)
+            {
                 return;
+            }
+               
             InputMethodManager inputMethodManager = (InputMethodManager)GetSystemService(InputMethodService);
             inputMethodManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, 0);
             CurrentFocus.ClearFocus();

@@ -1,26 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V4.View;
 using Android.Views;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.ViewModels;
-using Android.Widget;
 
 namespace FirstApp.Droid.Views
 {
-   public abstract class BaseFragment : MvxFragment
+    public abstract class BaseFragment : MvxFragment
     {
-        //private Android.Support.V7.Widget.Toolbar _mainToolbar;
-       
         public MvxAppCompatActivity ParentActivity
         {
             get
@@ -34,8 +25,6 @@ namespace FirstApp.Droid.Views
             var ignore = base.OnCreateView(inflater, container, savedInstanceState);
             
             var view = this.BindingInflate(FragmentId, null);
-
-           //_mainToolbar = view.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
 
             CloseMenu();
             return view;

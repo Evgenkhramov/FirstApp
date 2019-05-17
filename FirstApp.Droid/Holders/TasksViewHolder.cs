@@ -1,18 +1,15 @@
 ﻿using Android.Content.Res;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using FirstApp.Core.Models;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
-using System;
 
 namespace FirstApp.Droid.Holders
 {
     public class TasksViewHolder : MvxRecyclerViewHolder
     {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
         public static int ScreenWidth;
         public TextView NameTaskHolder { get; set; }
         public TextView DescriptionTaskHolder { get; set; }
@@ -20,12 +17,9 @@ namespace FirstApp.Droid.Holders
         public TasksViewHolder(View itemView, IMvxAndroidBindingContext context) : base(itemView, context)
         {
             ScreenWidth = Resources.System.DisplayMetrics.WidthPixels;
-           
-
             NameTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskName);
             NameTaskHolder.LayoutParameters.Width = ScreenWidth - 75;
-            DescriptionTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskShortDescription);
-            
+            DescriptionTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskShortDescription);      
        
             this.DelayBind(() =>
             {

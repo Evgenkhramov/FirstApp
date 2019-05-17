@@ -18,13 +18,11 @@ namespace FirstApp.Droid.Services
         private readonly RecyclerView.Adapter _adapter;
         MvxObservableCollection<TaskModel> _taskList;
         MvxAsyncCommand<int> _deleteCommand;
-        MvxAsyncCommand<int> _deleteItemFromList;
-        //private readonly IUserDialogService _userDialogService;
+        MvxAsyncCommand<int> _deleteItemFromList;      
 
         public SimpleItemTouchHelperCallback(RecyclerView.Adapter adapter, MvxObservableCollection<TaskModel> taskList,
             MvxAsyncCommand<int> deleteCommand, MvxAsyncCommand<int> deleteItemFromList)
-        {
-            //_userDialogService = userDialogService;
+        {       
             _adapter = adapter;
             _taskList = taskList;
             _deleteCommand = deleteCommand;
@@ -34,11 +32,7 @@ namespace FirstApp.Droid.Services
         public override void OnChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, bool isCurrentlyActive)
         {
             base.OnChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-            //int position = viewHolder.AdapterPosition;
-            //View v = recyclerView.GetLayoutManager().FindViewByPosition(position);
-            //Button hidden = v.FindViewById<Button>(Resource.Id.hidden);
-            //var parametr = new LinearLayout.LayoutParams((int)-dX, -1);
-            //hidden.LayoutParameters = parametr;
+            
         }
 
         public override int GetMovementFlags(RecyclerView p0, RecyclerView.ViewHolder p1)
@@ -56,13 +50,6 @@ namespace FirstApp.Droid.Services
 
         public override void OnSwiped(RecyclerView.ViewHolder holder, int p1)
         {
-            //bool answer = _userDialogService.ShowAlertForUserWithSomeLogic("Delete this task", "Do you want to delete this task?", "Yes", "No");
-
-            //int position = holder.AdapterPosition;
-            //int itemId = _taskList[position].Id;
-            //_deleteCommand.Execute(itemId);
-            //_deleteItemFromList.Execute(position);
-            //_adapter.NotifyItemRemoved(position);
         }
     }
 }

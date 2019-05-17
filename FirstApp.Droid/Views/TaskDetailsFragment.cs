@@ -21,28 +21,27 @@ namespace FirstApp.Droid.Views
     {
         static readonly int READ_EXTERNAL_STORAGE = 0;
         static readonly int ACCESS_COARSE_LOCATION = 1;
-        private int fileCode = 1000;
-        private int mapCode = 1100;
-        
-        ListView _listFileNameView;
-        public Button getFileButton;
-        public Button getMarkerButton;
-        public Button menuButton;
+        private int _fileCode = 1000;
+        private int _mapCode = 1100;
+
+        public Button GetFileButton;
+        public Button GetMarkerButton;
+        public Button MenuButton;
         protected override int FragmentId => Resource.Layout.TaskDetailsFragment;
         public string TAG { get; private set; }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            var view = base.OnCreateView(inflater, container, savedInstanceState);
+            View view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            getMarkerButton= view.FindViewById<Button>(Resource.Id.getMapMarker);
-            getMarkerButton.Click += (object sender, EventArgs e) =>
+            GetMarkerButton = view.FindViewById<Button>(Resource.Id.getMapMarker);
+            GetMarkerButton.Click += (object sender, EventArgs e) =>
               {
                   GetMapPositionPermissions(sender, e);
               };
 
-            getFileButton = view.FindViewById<Button>(Resource.Id.getFileButton);
-            getFileButton.Click += (object sender, EventArgs e) =>
+            GetFileButton = view.FindViewById<Button>(Resource.Id.getFileButton);
+            GetFileButton.Click += (object sender, EventArgs e) =>
             {
                 GetStoragePermissions(sender, e);
             };
@@ -55,9 +54,9 @@ namespace FirstApp.Droid.Views
             if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.AccessCoarseLocation) != (int)Permission.Granted)
             {
                 RequestPermissions(new String[] { Manifest.Permission.AccessCoarseLocation }, ACCESS_COARSE_LOCATION);
-
             }
-            else if (ContextCompat.CheckSelfPermission(this.Context, Manifest.Permission.AccessCoarseLocation) == (int)Permission.Granted)
+
+            if (ContextCompat.CheckSelfPermission(this.Context, Manifest.Permission.AccessCoarseLocation) == (int)Permission.Granted)
             {
                 AddMarker();
             }
@@ -68,9 +67,9 @@ namespace FirstApp.Droid.Views
             if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.ReadExternalStorage) != (int)Permission.Granted)
             {
                 RequestPermissions(new String[] { Manifest.Permission.ReadExternalStorage }, READ_EXTERNAL_STORAGE);
-
             }
-            else if (ContextCompat.CheckSelfPermission(this.Context, Manifest.Permission.ReadExternalStorage) == (int)Permission.Granted)
+
+            if (ContextCompat.CheckSelfPermission(this.Context, Manifest.Permission.ReadExternalStorage) == (int)Permission.Granted)
             {
                 OpenFile();
             }
@@ -80,13 +79,10 @@ namespace FirstApp.Droid.Views
         {
             if (requestCode == READ_EXTERNAL_STORAGE)
             {
-                // Received permission result for camera permission.
                 Log.Info(TAG, "Received response for Location permission request.");
 
-                // Check if the only required permission has been granted
                 if ((grantResults.Length == 1) && (grantResults[0] == Permission.Granted))
                 {
-                    // Location permission has been granted, okay to retrieve the location of the device.
                     OpenFile();
                 }
                 else
@@ -94,15 +90,12 @@ namespace FirstApp.Droid.Views
                     Log.Info(TAG, "Location permission was NOT granted.");
                 }
             }
-            if(requestCode == ACCESS_COARSE_LOCATION)
+            if (requestCode == ACCESS_COARSE_LOCATION)
             {
-                // Received permission result for camera permission.
                 Log.Info(TAG, "Received response for Coarse location permission request.");
 
-                // Check if the only required permission has been granted
                 if ((grantResults.Length == 1) && (grantResults[0] == Permission.Granted))
                 {
-                    // Location permission has been granted, okay to retrieve the location of the device.
                     AddMarker();
                 }
                 else
@@ -126,19 +119,17 @@ namespace FirstApp.Droid.Views
             Intent intent = new Intent();
             intent.SetType("*/*");
             intent.SetAction(Intent.ActionGetContent);
-            //intent.AddCategory(Intent.CategoryOpenable);
-            StartActivityForResult(Intent.CreateChooser(intent, "Select File"), fileCode);
+            StartActivityForResult(Intent.CreateChooser(intent, "Select File"), _fileCode);
         }
 
         public override void OnActivityResult(int requestCode, int resultCode, Intent data)
         {
-            if (requestCode == fileCode)
+            if (requestCode == _fileCode)
             {
                 string fileName = null;
 
                 if (resultCode == (int)Result.Ok)
                 {
-                    //fileName = data.Data.LastPathSegment;
                     System.Uri uri = new System.Uri(data.DataString);
 
                     fileName = System.IO.Path.GetFileNameWithoutExtension(uri.LocalPath);
@@ -147,7 +138,7 @@ namespace FirstApp.Droid.Views
                 }
             }
         }
-       
+
         public void OnBackPressed()
         {
             ViewModel.BackCommand.Execute();

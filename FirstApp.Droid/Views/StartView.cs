@@ -23,9 +23,12 @@ namespace FirstApp.Droid.Views
 
             SetContentView(Resource.Layout.StartView);
 
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+
             SetActionBar(toolbar);
+
             UserDialogs.Init(this);
+
             if (bundle == null)
             {
                 ViewModel.ShowLoginFragmentCommand.Execute(null);             

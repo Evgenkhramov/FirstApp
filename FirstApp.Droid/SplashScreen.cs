@@ -1,5 +1,4 @@
-﻿
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using FirstApp.Droid;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
