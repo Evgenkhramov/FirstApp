@@ -10,29 +10,21 @@ namespace FirstApp.Core.ViewModels
 {
     public class MenuViewModel : BaseViewModel
     {
-        private readonly IDBUserService _sqliteRepository;
-        private int userId;
-        private string id;
-        private UserDatabaseModel userData;
-
-        private MvxObservableCollection<MenuItem> _menuItems;
-        public MvxObservableCollection<MenuItem> MenuItems
-        {
-            get => _menuItems;
-            set => SetProperty(ref _menuItems, value);
-        }
+        private readonly IDBUserService _sqliteUserRepository;
+        private int _userId;
+        private string _id;
+        private UserDatabaseModel userData;      
 
         public MenuViewModel(IDBUserService sQLiteRepository, IMvxNavigationService navigationService) : base(navigationService)
         {
-            _sqliteRepository = sQLiteRepository;
+            _sqliteUserRepository = sQLiteRepository;
 
-            id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
-            if (!string.IsNullOrEmpty(id))
+            _id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
+            if (!string.IsNullOrEmpty(_id))
             {
-                userId = Int32.Parse(id);
-                userData = sQLiteRepository.GetItem(userId);
+                _userId = Int32.Parse(_id);
+                userData = sQLiteRepository.GetItem(_userId);
                 MyIcon = userData.Photo;
-
                 MyName = $"{userData.Name} {userData.Surname}";
             }
 
@@ -43,17 +35,24 @@ namespace FirstApp.Core.ViewModels
             };
         }
 
+        private MvxObservableCollection<MenuItem> _menuItems;
+        public MvxObservableCollection<MenuItem> MenuItems
+        {
+            get => _menuItems;
+            set => SetProperty(ref _menuItems, value);
+        }
+
         public MvxAsyncCommand<MenuItem> ItemClickedCommand
         {
             get
             {
                 return new MvxAsyncCommand<MenuItem>(async (param) =>
                 {
-                    if (param.Title == "Log Out")
+                    if (param.Title == Constants.LogOutUser)
                     {
-                        CrossSecureStorage.Current.DeleteKey(id);
+                        CrossSecureStorage.Current.DeleteKey(_id);
                         CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
-                        _sqliteRepository.DeleteItem(userId);
+                        _sqliteUserRepository.DeleteItem(_userId);
                     }
                     await _navigationService.Navigate(param.ShowCommand);
                 });
@@ -95,13 +94,14 @@ namespace FirstApp.Core.ViewModels
 
         public class MenuItem
         {
+            public string Title { get; private set; }
+            public Type ShowCommand { get; private set; }
+
             public MenuItem(string title, MenuViewModel parent, Type viewModelUrl)
             {
                 Title = title;
                 ShowCommand = viewModelUrl;
-            }
-            public string Title { get; private set; }
-            public Type ShowCommand { get; private set; }
+            }       
         }
     }
 }

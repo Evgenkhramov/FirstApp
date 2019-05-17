@@ -12,8 +12,8 @@ namespace FirstApp.Core.Services
         {
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
-            var json = await httpClient.GetStringAsync("https://www.googleapis.com/plus/v1/people/me?alt=json&access_token=" + accessToken);
-            var user =  JsonConvert.DeserializeObject<GoogleModeliOS>(json);
+            string json = await httpClient.GetStringAsync("https://www.googleapis.com/plus/v1/people/me?alt=json&access_token=" + accessToken);
+            GoogleModeliOS user =  JsonConvert.DeserializeObject<GoogleModeliOS>(json);
 
             return user;
         }

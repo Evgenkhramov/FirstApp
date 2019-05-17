@@ -10,7 +10,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using FirstApp.Core;
-using FirstApp.Core.Authentication;
 using FirstApp.Core.ViewModels;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using System.IO;
@@ -21,6 +20,7 @@ using Android.Support.V4.Content;
 using Android.Content.PM;
 using Android.Support.V4.App;
 using FirstApp.Core.Models;
+using FirstApp.Core.Providers;
 
 namespace FirstApp.Droid.Views
 {

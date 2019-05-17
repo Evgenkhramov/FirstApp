@@ -4,7 +4,6 @@ using FirstApp.Core.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace FirstApp.Core.Services
 {
     public class DBUserService : IDBUserService
@@ -25,15 +24,12 @@ namespace FirstApp.Core.Services
         public bool IsLoginInDB(string login)
         {
             UserDatabaseModel findUser = _connect.Table<UserDatabaseModel>().FirstOrDefault(x => x.Name == login);
-            if (findUser == null)
-            {
-                return false;
-            }
-            else
+
+            if (findUser != null)
             {
                 return true;
             }
-
+            return false;
         }
 
         public UserDatabaseModel GetItem(int id)
@@ -53,10 +49,8 @@ namespace FirstApp.Core.Services
                 _connect.Update(item);
                 return item.Id;
             }
-            else
-            {
-                return _connect.Insert(item);
-            }
+
+            return _connect.Insert(item);
         }
     }
 }

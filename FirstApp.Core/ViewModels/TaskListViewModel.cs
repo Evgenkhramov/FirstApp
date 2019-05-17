@@ -32,12 +32,10 @@ namespace FirstApp.Core.ViewModels
             foreach (var item in list)
             {
                 item.VmHandler = this;
-                //item.DeleteItemVMCommand = DeleteItemCommand;
-                //item.ItemClickVMCommand = ShowTaskChangedView;
             }
 
             TaskCollection = new MvxObservableCollection<TaskModel>();
-            TaskCollection.AddRange(list);            
+            TaskCollection.AddRange(list);
 
             IsRefreshTaskCollection = false;
         }
@@ -46,7 +44,7 @@ namespace FirstApp.Core.ViewModels
         {
             MvxObservableCollection<TaskModel> obsSender = sender as MvxObservableCollection<TaskModel>;
 
-            var element = e.OldItems.Count;
+            int element = e.OldItems.Count;
         }
 
         private bool _isRefreshTaskCollection;
@@ -88,6 +86,7 @@ namespace FirstApp.Core.ViewModels
         public IMvxCommand<int> ItemClickCommand { get; set; }
 
         public IMvxCommand<int> DeleteItemCommand { get; set; }
+
         public IMvxCommand<int> DeleteItemCommandiOS { get; set; }
 
         public override void ViewAppearing()
@@ -97,29 +96,29 @@ namespace FirstApp.Core.ViewModels
 
         public async Task CollectionItemClick(TaskModel model)
         {
-            var result = await _navigationService.Navigate<TaskDetailsViewModel, TaskModel>(model);
+            await _navigationService.Navigate<TaskDetailsViewModel, TaskModel>(model);
         }
-        
+
         public void RemoveCollectionItem(int itemId)
         {
-            TaskModel _itemForDelete = null;
+            TaskModel itemForDelete = null;
             _dBTaskService.DeleteTaskFromTable(itemId);
             foreach (TaskModel item in TaskCollection)
             {
                 if (item.Id == itemId)
                 {
-                    _itemForDelete = item;
+                    itemForDelete = item;
                 }
             }
 
-            TaskCollection.Remove(item: _itemForDelete);
+            TaskCollection.Remove(item: itemForDelete);
         }
 
         public void RemoveCollectionItemiOS(int itemId)
         {
             var idForDB = TaskCollection[itemId].Id;
-            TaskCollection.RemoveAt(itemId);          
-            _dBTaskService.DeleteTaskFromTable(idForDB);       
+            TaskCollection.RemoveAt(itemId);
+            _dBTaskService.DeleteTaskFromTable(idForDB);
         }
     }
 }

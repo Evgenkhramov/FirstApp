@@ -6,7 +6,6 @@ using MvvmCross.Plugin.PictureChooser;
 using Plugin.SecureStorage;
 using System;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace FirstApp.Core.ViewModels
 {
@@ -14,19 +13,18 @@ namespace FirstApp.Core.ViewModels
     {
         private readonly IMvxPictureChooserTask _pictureChooserTask;
         private readonly IDBUserService _sQLiteRepository;
-        private UserDatabaseModel userData;
-        private int userId;
+        private UserDatabaseModel _userData;
+        private int _userId;
         public UserDataViewModel(IDBUserService sQLiteRepository, IMvxPictureChooserTask pictureChooserTask, IMvxNavigationService navigationService) : base(navigationService)
         {
             try
             {
                 _pictureChooserTask = pictureChooserTask;
-                _sQLiteRepository = sQLiteRepository;
-                //ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
+                _sQLiteRepository = sQLiteRepository;     
                 string id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
-                userId = Int32.Parse(id);
-                userData = sQLiteRepository.GetItem(userId);
-                MyPhoto = userData.Photo;
+                _userId = Int32.Parse(id);
+                _userData = sQLiteRepository.GetItem(_userId);
+                MyPhoto = _userData.Photo;
             }
             catch (Exception ex)
             {
@@ -39,20 +37,20 @@ namespace FirstApp.Core.ViewModels
         private string _userName;
         public string UserName
         {
-            get => _userName = userData.Name;
+            get => _userName = _userData.Name;
             set
             {
                 _userName = value;
-                userData.Name = _userName;
+                _userData.Name = _userName;
             }
         }
 
         public void SavePhoto(string photo)
         {
-            userData.Id = userId;
-            userData.Photo = photo;
-            MyPhoto = userData.Photo;
-            _sQLiteRepository.SaveItem(userData);
+            _userData.Id = _userId;
+            _userData.Photo = photo;
+            MyPhoto = _userData.Photo;
+            _sQLiteRepository.SaveItem(_userData);
         }
 
         private string _myPhoto;
@@ -70,11 +68,11 @@ namespace FirstApp.Core.ViewModels
         private string _surname;
         public string Surname
         {
-            get => _surname = userData.Surname;
+            get => _surname = _userData.Surname;
             set
             {
                 _surname = value;
-                userData.Surname = _surname;
+                _userData.Surname = _surname;
             }
         }
 
@@ -84,9 +82,9 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    userData.Photo = MyPhoto;
-                    userData.Id = userId;
-                    _sQLiteRepository.SaveItem(userData);
+                    _userData.Photo = MyPhoto;
+                    _userData.Id = _userId;
+                    _sQLiteRepository.SaveItem(_userData);
                     await _navigationService.Navigate<TaskListViewModel>();
                 });
             }
@@ -98,9 +96,9 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    userData.Photo = MyPhoto;
-                    userData.Id = userId;
-                    _sQLiteRepository.SaveItem(userData);
+                    _userData.Photo = MyPhoto;
+                    _userData.Id = _userId;
+                    _sQLiteRepository.SaveItem(_userData);
                    await _navigationService.Navigate<MainViewModel>();
                    
                 });
@@ -113,9 +111,9 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    userData = _sQLiteRepository.GetItem(userId);
-                    Surname = userData.Surname;
-                    UserName = userData.Name;
+                    _userData = _sQLiteRepository.GetItem(_userId);
+                    Surname = _userData.Surname;
+                    UserName = _userData.Name;
                     await _navigationService.Navigate<UserDataViewModel>();
                 });
             }

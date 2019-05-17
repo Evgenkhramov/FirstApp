@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FirstApp.Core
+﻿namespace FirstApp.Core
 {
     public class Constants
     {
@@ -12,8 +8,31 @@ namespace FirstApp.Core
         public const string SequreKeyForUserPassword = "UserPassword";
         public const string SequreKeyForLoged = "Loged";
 
+        public const string DidNotComplite = "You didn't completed the authentication process";
+        public const string InvalidUserNameOrPassword = "Invalid username or password!";
+        public const string ThisNameIsUsed = "This name is already in the database, enter other name";
+        public const string UseCorrectName = "Enter correct name";
+        public const string EnterName = "Please, enter name";
+        public const string CorrectPassword = "Password must have minimum eight characters, at least one letter and one numbe!";
+        public const string EnterPassword = "Enter Password!";
+        public const string PasswordConfirm = "Password and password confirm must be the same!";
+        public const string EnterPasswordConfirm = "Enter PasswordConfirm!";
+        public const string Ok = "Ok";
+        public const string Yes = "Yes";
+        public const string No = "No";
+        public const string EnterTaskName = "Please, enter task name";
+        public const string EmptyTaskName = "Empty task name";
+        public const string EnterTaskDescription = "Please, enter task description";
+        public const string EmptyTaskDescription = "Empty task description";
+        public const string WantSaveMarkers = "Do you want to save your markers?";
+        public const string SaveMarkers = "Save Markers??";
+        public const string WantDeleteTask = "Do you want to delete this task?";
+        public const string DeleteTask = "Delete Task?";
+
         public const string LogOut = "LogOut";
         public const string LogIn = "LogIn";
+        public const string LogOutUser = "Log Out";
+
         public const int MaxLength = 20;
     }
 }

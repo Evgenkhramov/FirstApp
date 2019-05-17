@@ -9,6 +9,7 @@ namespace FirstApp.Core.Services
     public class DBTaskService : IDBTaskService
     {
         private SQLiteConnection _connect;
+
         public DBTaskService(IDBConnectionService connecting)
         {        
             _connect = connecting.GetDatebaseConnection();
@@ -21,7 +22,7 @@ namespace FirstApp.Core.Services
             {
                 _connect.Insert(task);
             }
-            else
+            if (task.Id != 0)
             {
                 _connect.Update(task);
             }
@@ -30,23 +31,16 @@ namespace FirstApp.Core.Services
         public void DeleteTaskFromTable(int taskId)
         {
             if (taskId >= 0)
+            {
                 _connect.Delete<TaskModel>(taskId);
+            }
         }
 
         public List<TaskModel> LoadListItemsTask()
         {
             List<TaskModel> ListFromDatabase = (from i in _connect.Table<TaskModel>() select i).ToList();
+
             return ListFromDatabase;
         }
-
-        //public void UpdateLocalDatabese(List<TaskModel> items)
-        //{
-        //    _connect.DropTable<TaskModel>();
-        //    _connect.CreateTable<TaskModel>();
-        //    for (int i = 0; i < items.Count; i++)
-        //    {
-        //        _connect.Insert(items[i]);
-        //    }
-        //}
     }
 }

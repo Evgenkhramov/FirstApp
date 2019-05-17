@@ -10,14 +10,15 @@ namespace FirstApp.Core.ViewModels
 {
     public class RegistrationViewModel : BaseViewModel
     {
-        private readonly Regex PasswordRegExp = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private readonly Regex NameRegExp = new Regex(@"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
+        private readonly Regex _passwordRegExp;
+        private readonly Regex _nameRegExp;
         private readonly IRegistrationService _registrationService;
         private readonly IDBUserService _dBUserService;
 
         public RegistrationViewModel(IRegistrationService registrationService, IDBUserService dBUserService, IMvxNavigationService navigationService) : base(navigationService)
         {
+            _passwordRegExp = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            _nameRegExp = new Regex(@"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             _registrationService = registrationService;
             _dBUserService = dBUserService;
             HaveGone = false;
@@ -84,14 +85,12 @@ namespace FirstApp.Core.ViewModels
                 return new MvxAsyncCommand(async () =>
                 {
                     await _navigationService.Close(this);
-                    //await _navigationService.Navigate<LoginViewModel>();
                 });
             }
         }
 
         public MvxAsyncCommand UserRegistrationCommand
         {
-
             get
             {
                 return new MvxAsyncCommand(async () =>
@@ -127,12 +126,11 @@ namespace FirstApp.Core.ViewModels
                             await _navigationService.Close(this);
                             await _navigationService.Navigate<MainViewModel>();
                         }
-                        else
-                        {
-                            Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("This name is already in the database, enter other name");
-                            //_userDialogService.ShowAlertForUser("Error", "This name is already in the database, enter other name ", "Ok");
-                        }
 
+                        if (_dBUserService.IsLoginInDB(RegistrationUserName))
+                        {
+                            Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.ThisNameIsUsed);
+                        }
                     }
                 });
             }
@@ -142,36 +140,36 @@ namespace FirstApp.Core.ViewModels
         {
             if (!string.IsNullOrEmpty(RegistrationUserName))
             {
-                if (!NameRegExp.IsMatch(RegistrationUserName))
+                if (!_nameRegExp.IsMatch(RegistrationUserName))
                 {
-                    Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Enter correct name");
+                    Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.UseCorrectName);
+
                     return false;
                 }
+
                 return true;
             }
-            else
-            {
-                Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Please, enter name");
-                return false;
-            }
+
+            Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.EnterName);
+
+            return false;
         }
         private bool PasswordValidator()
         {
             if (!string.IsNullOrEmpty(RegistrationUserPassword))
             {
-                if (!PasswordRegExp.IsMatch(RegistrationUserPassword))
+                if (!_passwordRegExp.IsMatch(RegistrationUserPassword))
                 {
-                    Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Password must have minimum eight characters, at least one letter and one numbe!");
+                    Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.CorrectPassword);
                     return false;
                 }
-                else
-                {
-                    return true;
-                }
+
+                return true;
             }
             else
             {
-                Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Enter Password!");
+                Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.EnterPassword);
+
                 return false;
             }
         }
@@ -179,25 +177,19 @@ namespace FirstApp.Core.ViewModels
         {
             if (!string.IsNullOrEmpty(RegistrationUserPasswordConfirm))
             {
-                if (PasswordRegExp.IsMatch(RegistrationUserPasswordConfirm) && (RegistrationUserPassword.Equals(RegistrationUserPasswordConfirm)))
+                if (_passwordRegExp.IsMatch(RegistrationUserPasswordConfirm) && (RegistrationUserPassword.Equals(RegistrationUserPasswordConfirm)))
                 {
                     return true;
                 }
-                else
-                {
-                    Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Password and password confirm must be the same!");
-
-                    return false;
-                }
-            }
-            else
-            {
-                Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Enter PasswordConfirm!");
+                Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.PasswordConfirm);
 
                 return false;
             }
+
+            Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.EnterPasswordConfirm);
+
+            return false;
         }
     }
-
 }
 

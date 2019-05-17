@@ -10,9 +10,9 @@ namespace FirstApp.Core.ViewModels
 {
     public class MapViewModel : BaseViewModel<TaskModel>
     {
-        int MarkerCount;
+        private int _markerCount;
         List<MapMarkerModel> _markerList;
-        TaskModel taskModel;
+        private TaskModel _taskModel;
         public int _taskId;
        
         private IDBMapMarkerService _dBMapMarkerService;
@@ -21,16 +21,15 @@ namespace FirstApp.Core.ViewModels
         {
             _markerList = new List<MapMarkerModel>();
             _dBMapMarkerService = dBMapMarkerService;
-            MarkerCount = 0;
+            _markerCount = 0;
             SaveButton = false;
             HaveGone = false;
         }
 
         public override void Prepare(TaskModel task)
         {
-            taskModel = task;
+            _taskModel = task;
             _taskId = task.Id;
-
         }
 
         private bool _saveButton;
@@ -100,6 +99,7 @@ namespace FirstApp.Core.ViewModels
                         _markerList.Clear();
                         await _navigationService.Close(this);
                     }
+
                     if (_markerList.Count <= 0)
                     {
                         await _navigationService.Close(this);

@@ -25,7 +25,6 @@ namespace FirstApp.Core.ViewModels
 
     public abstract class BaseViewModel<TParameter> : MvxViewModel<TParameter>
         where TParameter : class
-
     {
         public IMvxNavigationService _navigationService;
         protected BaseViewModel(IMvxNavigationService navigationService)

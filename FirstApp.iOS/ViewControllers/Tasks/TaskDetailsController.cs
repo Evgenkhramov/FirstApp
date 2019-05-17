@@ -4,14 +4,12 @@ using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Views;
 using System;
-using System.Drawing;
 using UIKit;
 
 namespace FirstApp.iOS.ViewControllers.Tasks
 {
     public partial class TaskDetailsController : MvxViewController<TaskDetailsViewModel>
     {
-
         public UIView activeview;             // Controller that activated the keyboard
         public nfloat scroll_amount = 0.0f;    // amount to scroll 
         public nfloat bottom = 0.0f;           // bottom point
@@ -20,7 +18,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public TaskDetailsController() : base(nameof(TaskDetailsController), null)
         {
-            // activeview = View;
+
         }
 
         public override void DidReceiveMemoryWarning()

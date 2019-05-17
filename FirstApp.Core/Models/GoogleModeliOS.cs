@@ -1,17 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace FirstApp.Core.Models
 {
     public class GoogleModeliOS
     {
-
         public string Kind { get; set; }
         public string Etag { get; set; }
-        public List<Email> emails { get; set; }
+        [JsonProperty(PropertyName = "emails")]
+        public List<Email> Emails { get; set; }
         public string Id { get; set; }
         public string DisplayName { get; set; }
-        public Name name { get; set; }
-        public Image image { get; set; }
+        [JsonProperty(PropertyName = "name")]
+        public Name UserName { get; set; }
+        [JsonProperty(PropertyName = "image")]
+        public Image UserImage { get; set; }
 
         public class Email
         {
@@ -27,8 +30,10 @@ namespace FirstApp.Core.Models
 
         public class Image
         {
-            public string url { get; set; }
-            public bool isDefault { get; set; }
+            [JsonProperty(PropertyName = "url")]
+            public string Url { get; set; }
+            [JsonProperty(PropertyName = "isDefault")]
+            public bool IsDefault { get; set; }
         }
     }
 }

@@ -48,7 +48,8 @@ namespace FirstApp.Core.Providers
                 };
                 _authenticationDelegate.OnAuthenticationCompleted(token);
             }
-            else
+
+            if (!e.IsAuthenticated)
             {
                 _authenticationDelegate.OnAuthenticationCanceled();
             }

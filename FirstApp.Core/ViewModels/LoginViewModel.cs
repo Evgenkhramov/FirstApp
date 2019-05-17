@@ -54,20 +54,23 @@ namespace FirstApp.Core.ViewModels
 
         public async Task OnAuthenticationCompleted(FacebookOAuthToken token)
         {
-            var user = await _facebookService.GetUserDataAsync(token.AccessToken);
+            FacebookModel user = await _facebookService.GetUserDataAsync(token.AccessToken);
             if (user == null)
             {
                 return;
             }
+
             var userDatabaseModel = new UserDatabaseModel();
+
             userDatabaseModel.Name = user.First_name;
             userDatabaseModel.Surname = user.Last_name;
             userDatabaseModel.Email = user.Email;
             userDatabaseModel.UserId = user.Id;
-            userDatabaseModel.PhotoURL = user.picture.data.url;
+            userDatabaseModel.PhotoURL = user.UserPicture.PictureData.Url;
             userDatabaseModel.HowDoLogin = Enums.LoginMethod.Facebook;
 
             string userPhoto = await _facebookService.GetImageFromUrlToBase64(userDatabaseModel.PhotoURL);
+
             userDatabaseModel.Photo = userPhoto;
 
             int userIdInDB = _sqlLiteRepository.SaveItem(userDatabaseModel);
@@ -80,6 +83,7 @@ namespace FirstApp.Core.ViewModels
         public async Task OnGoogleAuthenticationCompleted(GoogleModel user)
         {
             var userDatabaseModel = new UserDatabaseModel();
+
             userDatabaseModel.Name = user.First_name;
             userDatabaseModel.Surname = user.Last_name;
             userDatabaseModel.Email = user.Email;
@@ -99,21 +103,22 @@ namespace FirstApp.Core.ViewModels
 
         public async Task OnAuthenticationCanceled()
         {
-            Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("You didn't completed the authentication process");
+            Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.DidNotComplite);
         }
 
         public async Task OnAuthenticationFailed()
         {
-            Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("You didn't completed the authentication process");
+            Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.DidNotComplite);
         }
 
         public async Task SaveUserGoogleiOS(GoogleModeliOS userData)
         {
             var userDatabaseModel = new UserDatabaseModel();
-            userDatabaseModel.Name = userData.name.GivenName;
-            userDatabaseModel.Surname = userData.name.FamilyName;
-            userDatabaseModel.Email = userData.emails[0].Value;
-            userDatabaseModel.PhotoURL = userData.image.url;
+
+            userDatabaseModel.Name = userData.UserName.GivenName;
+            userDatabaseModel.Surname = userData.UserName.FamilyName;
+            userDatabaseModel.Email = userData.Emails[0].Value;
+            userDatabaseModel.PhotoURL = userData.UserImage.Url;
             userDatabaseModel.HowDoLogin = Enums.LoginMethod.Google;
             string userPhoto = await _facebookService.GetImageFromUrlToBase64(userDatabaseModel.PhotoURL);
             userDatabaseModel.Photo = userPhoto;
@@ -156,9 +161,9 @@ namespace FirstApp.Core.ViewModels
                         CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogIn);
                         await _navigationService.Navigate<MainViewModel>();
                     }
-                    else
+                    if (!_authorizationService.IsLoggedIn(UserName, UserPassword))
                     {
-                        Mvx.IoCProvider.Resolve<IUserDialogs>().Alert("Invalid username or password!");
+                        Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.InvalidUserNameOrPassword);
                     }
                 });
             }

@@ -36,6 +36,7 @@ namespace FirstApp.Core.Services
                     coord.Add(row);
                 }
             }
+
             return coord;
         }
 

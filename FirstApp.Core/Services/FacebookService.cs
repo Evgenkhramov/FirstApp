@@ -12,8 +12,8 @@ namespace FirstApp.Core.Services
         public async Task<FacebookModel> GetUserDataAsync(string accessToken)
         {
             var httpClient = new HttpClient();
-            var json = httpClient.GetStringAsync($"https://graph.facebook.com/me?fields=email,first_name,last_name,id,picture&access_token={accessToken}").Result;
-            var user = JsonConvert.DeserializeObject<FacebookModel>(json);
+            string json = httpClient.GetStringAsync($"https://graph.facebook.com/me?fields=email,first_name,last_name,id,picture&access_token={accessToken}").Result;
+            FacebookModel user = JsonConvert.DeserializeObject<FacebookModel>(json);
             return user;
         }
 
@@ -31,7 +31,7 @@ namespace FirstApp.Core.Services
                     var imageBytes = await response.Content.ReadAsByteArrayAsync();
                     if (imageBytes != null && imageBytes.Length > 0)
                     {
-                        userPhoto = Convert.ToBase64String(imageBytes);/* Base64.EncodeToString(imageBytes, Base64Flags.Default);*/
+                        userPhoto = Convert.ToBase64String(imageBytes);
                     }
                 }
             }
