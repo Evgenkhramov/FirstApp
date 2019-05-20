@@ -24,6 +24,7 @@ namespace FirstApp.Droid.Views
         public async Task CloseMenu()
         {           
             ((MainView)Activity).DrawerLayout.CloseDrawers();
+
             await Task.Delay(TimeSpan.FromMilliseconds(250));
         }
     }

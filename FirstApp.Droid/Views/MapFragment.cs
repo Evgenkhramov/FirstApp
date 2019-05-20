@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using Android.Gms.Common.Apis;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
-using Android.Locations;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -22,8 +20,6 @@ namespace FirstApp.Droid.Views
     [Register("firstApp.Droid.Views.MapFragment")]
     public class MapFragment : BaseFragment<MapViewModel>, IOnMapReadyCallback, IBackButtonListener
     {
-        //LocationManager locationManager;
-        //GoogleApiClient apiClient;
         public List<MapMarkerModel> MarkerListFromDB;
         public MapMarkerModel MarcerRow;
         private MapView _mapView;
@@ -43,24 +39,24 @@ namespace FirstApp.Droid.Views
 
             MarkerListFromDB = new List<MapMarkerModel>();
             MarcerRow = new MapMarkerModel();
+
             return view;
         }
 
         public void OnMapReady(GoogleMap googleMap)
         {
             this._map = googleMap;
-            //Setup and customize your Google Map
-
             this._map.UiSettings.CompassEnabled = false;
             this._map.UiSettings.MyLocationButtonEnabled = true;
             this._map.UiSettings.MapToolbarEnabled = true;
             this._map.MyLocationEnabled = true;
 
-            MapMarkerModel myLocation = new MapMarkerModel();
+            var myLocation = new MapMarkerModel();
 
             var getPosition = GetCurrentPosition().Result;
 
-            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            var builder = new LatLngBounds.Builder();
+
             myLocation.Lat = getPosition.Latitude;
             myLocation.Lng = getPosition.Longitude;
             builder.Include(new LatLng(myLocation.Lat, myLocation.Lng));
@@ -75,6 +71,7 @@ namespace FirstApp.Droid.Views
                     builder.Include(new LatLng(coord.Lat, coord.Lng));
                 }
             }
+
             LatLngBounds bound = builder.Build();
 
             _map.MoveCamera(CameraUpdateFactory.NewLatLngBounds(bound, 100));
@@ -90,7 +87,7 @@ namespace FirstApp.Droid.Views
                     ViewModel.SaveMarkerInList(MarcerRow);
                     var title = $"Marker Task {ViewModel._taskId}";
                     markerOption.SetTitle(title);
-                    
+
                     Marker marker = googleMap.AddMarker(markerOption);
                 }
             };

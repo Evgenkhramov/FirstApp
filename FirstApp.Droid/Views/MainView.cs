@@ -59,6 +59,7 @@ namespace FirstApp.Droid.Views
                 CloseApplication();
             }
         }
+
         public void HideSoftKeyboard()
         {
             if (CurrentFocus == null)

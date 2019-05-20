@@ -14,6 +14,7 @@ namespace FirstApp.iOS.Services
     class DBConnectionService : IDBConnectionService
     {
         public SQLiteConnection connection;
+
         public DBConnectionService()
         {
             connection = GetDatebaseConnection();
@@ -23,6 +24,7 @@ namespace FirstApp.iOS.Services
         {
             string dbName = Constants.NameDB;
             string path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), dbName);
+
             return new SQLiteConnection(path);
         }
     }

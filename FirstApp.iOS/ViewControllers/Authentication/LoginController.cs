@@ -110,7 +110,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             _authFacebook = new FacebookAuthenticator(Configuration.ClientId, Configuration.Scope, ViewModel);
             var authenticator = _authFacebook.GetAuthenticator();
             var ui = authenticator.GetUI();
-            //intent.SetFlags(ActivityFlags.NoHistory);
+            
             PresentViewController(ui, true, null);
         }
 
