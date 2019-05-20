@@ -11,12 +11,14 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 {
     public partial class RegistrationController : MvxViewController<RegistrationViewModel>
     {
-        public UIView activeview;             // Controller that activated the keyboard
-        public nfloat scrollAmount = 0.0f;    // amount to scroll                  
-        private bool _moveViewUp = false;
+        public UIView activeview;             
+        public nfloat scrollAmount;   
+        private bool _moveViewUp;
 
         public RegistrationController() : base("RegistrationController", null)
         {
+            scrollAmount = 0.0f;
+            _moveViewUp = false;
         }
 
         public override void DidReceiveMemoryWarning()

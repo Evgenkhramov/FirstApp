@@ -20,12 +20,14 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
     public partial class UserDataController : MvxViewController<UserDataViewModel>
     {
-        public UIView activeview;             
-        public nfloat scrollAmount = 0.0f;                    
-        private bool _moveViewUp = false;
+        public UIView activeview;
+        public nfloat scrollAmount;
+        private bool _moveViewUp;
 
         public UserDataController()
         {
+            scrollAmount = 0.0f;
+            _moveViewUp = false;
         }
 
         public override void DidReceiveMemoryWarning()
@@ -37,7 +39,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
         {
             base.ViewDidLoad();
 
-            Title = "User Profile";
+            Title = Constants.UserProfile;
 
             EdgesForExtendedLayout = UIRectEdge.None;
 

@@ -38,6 +38,7 @@
         public const string PleaseSelectPhoto = "Please, Select Photo";
         public const string FromMemory = "From memory";
         public const string FromCamera = "From camera";
+        public const string UserProfile = "User Profile";
 
 
 
