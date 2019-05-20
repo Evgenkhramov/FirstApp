@@ -9,6 +9,7 @@
         public const string SequreKeyForLoged = "Loged";
 
         public const string DidNotComplite = "You didn't completed the authentication process";
+        public const string CencelAuth = "Authentication Canceled";
         public const string InvalidUserNameOrPassword = "Invalid username or password!";
         public const string ThisNameIsUsed = "This name is already in the database, enter other name";
         public const string UseCorrectName = "Enter correct name";
@@ -30,6 +31,15 @@
         public const string DeleteTask = "Delete Task?";
         public const string LocationPermission = "Received response for Location permission request.";
         public const string LocationPermissionNotGranted = "Location permission was NOT granted.";
+        public const string TaskDetails = "Task Details";
+        public const string TaskList = "Task List";
+        public const string TaskCell = "TaskCell";
+        public const string SelectPhoto = "Select Photo";
+        public const string PleaseSelectPhoto = "Please, Select Photo";
+        public const string FromMemory = "From memory";
+        public const string FromCamera = "From camera";
+
+
 
         public const string LogOut = "LogOut";
         public const string LogIn = "LogIn";

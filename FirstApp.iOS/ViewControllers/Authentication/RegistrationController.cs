@@ -13,7 +13,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
     {
         public UIView activeview;             // Controller that activated the keyboard
         public nfloat scrollAmount = 0.0f;    // amount to scroll                  
-        private bool moveViewUp = false;
+        private bool _moveViewUp = false;
 
         public RegistrationController() : base("RegistrationController", null)
         {
@@ -22,7 +22,6 @@ namespace FirstApp.iOS.ViewControllers.Authentication
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
-
         }
 
         public override void ViewDidLoad()
@@ -36,22 +35,24 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             // Keyboard Down
             NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, KeyBoardDownNotification);
 
-
             UserName.ShouldReturn = (textField) =>
             {
                 textField.ResignFirstResponder();
+
                 return true;
             };
 
             EnterUserPassword.ShouldReturn = (textField) =>
             {
                 textField.ResignFirstResponder();
+
                 return true;
             };
 
             EnterConfirm.ShouldReturn = (textField) =>
             {
                 textField.ResignFirstResponder();
+
                 return true;
             };
 
@@ -68,12 +69,12 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             // Perform the scrolling
             if (scrollAmount > 0)
             {
-                moveViewUp = true;
-                ScrollTheView(moveViewUp);
+                _moveViewUp = true;
+                ScrollTheView(_moveViewUp);
             }
             else
             {
-                moveViewUp = false;
+                _moveViewUp = false;
             }
         }
         private void KeyBoardDownNotification(NSNotification notification)

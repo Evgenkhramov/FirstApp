@@ -10,7 +10,6 @@ using MvvmCross.IoC;
 using MvvmCross.Platforms.Ios.Core;
 using MvvmCross.Plugin.Json;
 using MvvmCross.ViewModels;
-using UIKit;
 
 namespace FirstApp.iOS
 {
@@ -36,17 +35,9 @@ namespace FirstApp.iOS
                       .AsInterfaces()
                       .RegisterAsLazySingleton();
             Mvx.RegisterType<IDBConnectionService, DBConnectionService>();
-           // Mvx.RegisterType<IPhotoService, PhotoService>();
+         
             return new Core.App();
         }
-
-        //protected override IMvxIocOptions CreateIocOptions()
-        //{
-        //    return new MvxIocOptions
-        //    {
-        //        PropertyInjectorOptions = MvxPropertyInjectorOptions.MvxInject
-        //    };
-        //}
 
         protected override void FillValueConverters(IMvxValueConverterRegistry registry)
         {

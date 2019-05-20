@@ -9,6 +9,7 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using FirstApp.Droid.Interfaces;
+using FirstApp.Core;
 
 namespace FirstApp.Droid.Views
 {
@@ -70,7 +71,7 @@ namespace FirstApp.Droid.Views
 
         public void ChoosePhoto()
         {
-            SelectPhoto("Select Photo", "Please, select photo.", "From memory", "From camera");
+            SelectPhoto(Constants.SelectPhoto, Constants.PleaseSelectPhoto, Constants.FromMemory, Constants.FromCamera);
         }
     }
 }

@@ -1,4 +1,5 @@
 using CoreGraphics;
+using FirstApp.Core;
 using FirstApp.Core.ViewModels;
 using Foundation;
 using MvvmCross.Binding.BindingContext;
@@ -18,7 +19,6 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public TaskDetailsController() : base(nameof(TaskDetailsController), null)
         {
-
         }
 
         public override void DidReceiveMemoryWarning()
@@ -31,10 +31,9 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             SetupNavigationBar();
             base.ViewDidLoad();
 
-            Title = "Task Details";
+            Title = Constants.TaskDetails;
 
             EdgesForExtendedLayout = UIRectEdge.None;
-
 
             TaskName.ShouldReturn = (textField) =>
             {
@@ -48,8 +47,6 @@ namespace FirstApp.iOS.ViewControllers.Tasks
                 return true;
             };
 
-         
-
             var set = this.CreateBindingSet<TaskDetailsController, TaskDetailsViewModel>();
             set.Bind(TaskName).To(vm => vm.TaskName);
             set.Bind(TaskDescription).To(vm => vm.TaskDescription);
@@ -59,35 +56,20 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             set.Bind(MapMarkersCount).To(vm => vm.MapMarkers);
             set.Bind(SaveTaskButton).To(vm => vm.SaveTaskForiOS);
 
-            //set.Bind(CameraButton).To(v => v. );
-
             set.Apply();
-
         }
 
         private void SetupNavigationBar()
         {
-            //var _backButton = new UIButton(UIButtonType.Custom);
-            //_backButton.Frame = new CGRect(0, 0, 40, 40);
-            //_backButton.SetImage(UIImage.FromBundle("Back"), UIControlState.Normal);
-
             var _backButton = new UIButton(UIButtonType.Custom);
             _backButton.Frame = new CGRect(0, 0, 40, 40);
             _backButton.SetImage(UIImage.FromBundle("backButton"), UIControlState.Normal);
 
-
-            //_addTask.SetImage(UIImage.FromBundle("LogOutButton"), UIControlState.Normal);
-
             NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[] { new UIBarButtonItem(_backButton) }, false);
 
-            //UINavigationBar.Appearance.BarTintColor = UIColor.FromRGB(43, 61, 80);
-
-            //_addTask.TouchUpInside += AddButtonClick;
-
             var set = this.CreateBindingSet<TaskDetailsController, TaskDetailsViewModel>();
-            set.Bind(_backButton).To(vm => vm.BackCommand);
+            set.Bind(_backButton).To(vm => vm.BackCommandiOS);
             set.Apply();
-            //_logoutButton.TouchUpInside += LogoutButtonClick;
         }
 
         public void GetActiveView(UIView view)
@@ -114,10 +96,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public override void ViewWillAppear(bool animated)
         {
-
-            //base.ViewWillAppear(animated);
-            //this.NavigationController.NavigationBarHidden = false;
-            //this.NavigationController.NavigationItem.Title = "Title";
+            base.ViewWillAppear(animated);
         }
     }
 }

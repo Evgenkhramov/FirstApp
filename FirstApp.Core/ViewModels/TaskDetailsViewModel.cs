@@ -191,7 +191,7 @@ namespace FirstApp.Core.ViewModels
                     if (string.IsNullOrEmpty(TaskDescription))
                     {
                         Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.EnterTaskDescription, Constants.EmptyTaskDescription, Constants.Ok);
-                        
+
                         return;
                     }
                     if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName))
@@ -214,20 +214,20 @@ namespace FirstApp.Core.ViewModels
                     if (string.IsNullOrEmpty(TaskName))
                     {
                         Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.EnterTaskName, Constants.EmptyTaskName, Constants.Ok);
-                        
+
                         return;
                     }
                     if (string.IsNullOrEmpty(TaskDescription))
                     {
                         Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.EnterTaskDescription, Constants.EmptyTaskDescription, Constants.Ok);
-                       
+
                         return;
                     }
                     if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName))
                     {
                         _dBTaskService.AddTaskToTable(_thisTaskModel);
 
-                        await _navigationService.Navigate<MainViewModel>();
+                        await _navigationService.Close(this);
                     }
                 });
             }
@@ -240,7 +240,7 @@ namespace FirstApp.Core.ViewModels
                 return new MvxAsyncCommand(async () =>
                 {
                     bool answ = await Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync(Constants.WantSaveMarkers, Constants.SaveMarkers, Constants.Yes, Constants.No);
-                    
+
                     if (answ)
                     {
                         SaveTask.Execute();
@@ -253,18 +253,38 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
+        public MvxAsyncCommand BackCommandiOS
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    bool answ = await Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync(Constants.WantSaveMarkers, Constants.SaveMarkers, Constants.Yes, Constants.No);
+
+                    if (answ)
+                    {
+                        SaveTaskForiOS.Execute();
+                    }
+                    if (!answ)
+                    {
+                        await _navigationService.Close(this);
+                    }
+                });
+            }
+        }
+
         public MvxAsyncCommand DeleteTask
         {
-            get 
+            get
             {
                 return new MvxAsyncCommand(async () =>
                 {
                     bool answ = Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync(Constants.WantDeleteTask, Constants.DeleteTask, Constants.Yes, Constants.No).Result;
-                   
+
                     if (answ)
                     {
                         _dBTaskService.DeleteTaskFromTable(_taskId);
-                        await _navigationService.Navigate<TaskListViewModel>();   
+                        await _navigationService.Navigate<TaskListViewModel>();
                     }
                     if (!answ)
                     {

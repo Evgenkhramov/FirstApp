@@ -98,9 +98,7 @@ namespace FirstApp.Core.ViewModels
                 {
                     _userData.Photo = MyPhoto;
                     _userData.Id = _userId;
-                    _sQLiteRepository.SaveItem(_userData);
-                   await _navigationService.Navigate<MainViewModel>();
-                   
+                    _sQLiteRepository.SaveItem(_userData);                   
                 });
             }
         }

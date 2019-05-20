@@ -1,6 +1,6 @@
 using CoreGraphics;
+using FirstApp.Core;
 using FirstApp.Core.ViewModels;
-using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
@@ -27,11 +27,9 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             base.ViewDidLoad(); 
 
-            Title = "Task List";
+            Title = Constants.TaskList;
 
             EdgesForExtendedLayout = UIRectEdge.None;
-
-            // NavigationController.NavigationBarHidden = true;
 
             View.BackgroundColor = UIColor.Clear;
             _refreshControl = new MvxUIRefreshControl();
@@ -42,11 +40,10 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             TasksTable.AddSubview(_refreshControl);
 
             var set = this.CreateBindingSet<TaskListController, TaskListViewModel>();
-            //set.Bind(AddNewTaskButton).To(vm => vm.CreateNewTask);
+
             set.Bind(source).To(m => m.TaskCollection);
             set.Bind(source).For(v => v.SelectionChangedCommand).To(vm => vm.ShowTaskChangedView);
             set.Bind(source).For(s => s.DeleteRowCommandiOS).To(vm => vm.DeleteItemCommandiOS);
-            //set.Bind(source).For(v => v.SelectedItemChanged+=).To(vm => vm.CollectionChanged);
 
             set.Bind(_refreshControl).For(r => r.IsRefreshing).To(vm => vm.IsRefreshTaskCollection);
             set.Bind(_refreshControl).For(r => r.RefreshCommand).To(vm => vm.RefreshTaskCommand);
@@ -56,23 +53,15 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         private void SetupNavigationBar()
         {
-            //var _backButton = new UIButton(UIButtonType.Custom);
-            //_backButton.Frame = new CGRect(0, 0, 40, 40);
-            //_backButton.SetImage(UIImage.FromBundle("Back"), UIControlState.Normal);
-
             var _addTask = new UIButton(UIButtonType.Custom);
             _addTask.Frame = new CGRect(0, 0, 40, 40);
             _addTask.SetImage(UIImage.FromBundle("taskList"), UIControlState.Normal);
-
-
-            //_addTask.SetImage(UIImage.FromBundle("LogOutButton"), UIControlState.Normal);
 
             NavigationItem.SetRightBarButtonItems(new UIBarButtonItem[] { new UIBarButtonItem(_addTask) }, false);
 
             var set = this.CreateBindingSet<TaskListController, TaskListViewModel>();
             set.Bind(_addTask).To(vm => vm.CreateNewTask);
             set.Apply();
-            //_logoutButton.TouchUpInside += LogoutButtonClick;
         }
 
         public override void ViewWillAppear(bool animated)

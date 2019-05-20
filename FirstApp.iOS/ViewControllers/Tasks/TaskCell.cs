@@ -18,7 +18,6 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         protected TaskCell(IntPtr handle) : base(handle)
         {
-            // Note: this .ctor should not contain any initialization logic.
         }
 
         internal void UpdateCell(TaskModel task)

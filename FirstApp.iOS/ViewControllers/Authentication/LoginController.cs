@@ -75,9 +75,8 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             DismissViewController(true, null);
             var alertController = new UIAlertController
             {
-                Title = "Authentication Canceled",
-                Message = "You didn`t completed the authentication process"
-
+                Title = Constants.CencelAuth,
+                Message = Constants.DidNotComplite
             };
             alertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Default, (UIAlertAction obj) =>
             {

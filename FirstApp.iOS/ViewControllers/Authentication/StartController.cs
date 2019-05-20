@@ -1,9 +1,5 @@
 using FirstApp.Core.ViewModels;
-using Foundation;
-using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
-using System;
-using UIKit;
 
 namespace FirstApp.iOS.ViewControllers.Authentication
 {
@@ -20,8 +16,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
         }
 
         public override void ViewDidLoad()
-        {
-            
+        {         
             NavigationController.NavigationBarHidden = true;
             base.ViewDidLoad();
             ViewModel.ShowLoginFragmentCommand.Execute(null);
@@ -30,9 +25,6 @@ namespace FirstApp.iOS.ViewControllers.Authentication
         public override void ViewWillAppear(bool animated)
          {
             base.ViewWillAppear(animated);
-            //this.NavigationController.NavigationBarHidden = false;
-            //this.NavigationController.NavigationItem.Title = "Title";
         }
-
     }
 }

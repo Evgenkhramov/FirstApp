@@ -12,6 +12,7 @@ using System;
 using FirstApp.iOS.Helpers;
 using System.Threading.Tasks;
 using UIKit;
+using FirstApp.Core;
 
 namespace FirstApp.iOS.ViewControllers.UserAccount
 {
@@ -19,13 +20,12 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
     public partial class UserDataController : MvxViewController<UserDataViewModel>
     {
-        public UIView activeview;             // Controller that activated the keyboard
-        public nfloat scrollAmount = 0.0f;    // amount to scroll                            // extra offset
-        private bool moveViewUp = false;
+        public UIView activeview;             
+        public nfloat scrollAmount = 0.0f;                    
+        private bool _moveViewUp = false;
 
         public UserDataController()
         {
-
         }
 
         public override void DidReceiveMemoryWarning()
@@ -44,7 +44,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
             UIView view = this.View;
 
             NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.DidShowNotification, KeyBoardUpNotification);
-            // Keyboard Down
+
             NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, KeyBoardDownNotification);
 
             UserName.ShouldReturn = (textField) =>
@@ -64,8 +64,6 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
                 SelectPhoto();
             };
 
-            //NavigationController.NavigationBarHidden = true;
-
             var set = this.CreateBindingSet<UserDataController, UserDataViewModel>();
             set.Bind(UserName).To(vm => vm.UserName);
             set.Bind(UserSurname).To(vm => vm.Surname);
@@ -73,9 +71,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
             set.Bind(SaveUserButton).To(vm => vm.SaveUserDataiOS);
             set.Bind(CancelUserButton).To(vm => vm.Cancel);
 
-            set.Apply();
-
-            
+            set.Apply();     
         }   
 
         private void KeyBoardUpNotification(NSNotification notification)
@@ -83,17 +79,18 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
             activeview = ScrollViewTopHelper.GetActiveView(this.View);
             CGRect keyBourdSize = UIKeyboard.BoundsFromNotification(notification);
             scrollAmount = ScrollViewTopHelper.GetScrollAmount(activeview, keyBourdSize);      
-            // Perform the scrolling
+            
             if (scrollAmount > 0)
             {
-                moveViewUp = true;
-                ScrollTheView(moveViewUp);
+                _moveViewUp = true;
+                ScrollTheView(_moveViewUp);
             }
-            else
+            if (scrollAmount <= 0)
             {
-                moveViewUp = false;
+                _moveViewUp = false;
             }
         }
+
         private void KeyBoardDownNotification(NSNotification notification)
         {
             cnsButtomScroll.Constant = 0;
@@ -108,24 +105,21 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
         public override void TouchesBegan(NSSet touches, UIEvent evt)
         {
-            // hide the keyboard from all views
             View.EndEditing(true);
 
             base.TouchesBegan(touches, evt);
         }
 
         public override void ViewWillAppear(bool animated)
-        {
-            
+        {       
         }
 
         public async Task SelectPhoto()
         {
-            bool answ = await Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync("Please, select photo.", "Select Photo", "From memory", "From camera");
+            bool answ = await Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync(Constants.PleaseSelectPhoto, Constants.SelectPhoto, Constants.FromMemory, Constants.FromCamera);
 
             if (answ)
             {
-
                 PHAuthorizationStatus photos = PHPhotoLibrary.AuthorizationStatus;
                 if (photos == PHAuthorizationStatus.Authorized)
                 {
@@ -174,7 +168,6 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
             }
         }
-
 
         public async Task GetPhoto()
         {
