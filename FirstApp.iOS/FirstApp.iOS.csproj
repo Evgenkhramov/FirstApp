@@ -79,6 +79,7 @@
     <Compile Include="Converters\ByteArrayToImg.cs" />
     <Compile Include="Helpers\ScrollViewTopHelper.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
+    <Compile Include="Services\GetCurrentPlatformService.cs" />
     <Compile Include="ViewControllers\Tasks\TaskCell.cs" />
     <Compile Include="ViewControllers\Tasks\TaskCell.designer.cs">
       <DependentUpon>TaskCell.cs</DependentUpon>

@@ -68,7 +68,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
             set.Bind(UserName).To(vm => vm.UserName);
             set.Bind(UserSurname).To(vm => vm.Surname);
             set.Bind(UserImg).For(v => v.Image).To(vm => vm.MyPhoto).WithConversion("ByteArrayToImg").TwoWay();
-            set.Bind(SaveUserButton).To(vm => vm.SaveUserDataiOS);
+            set.Bind(SaveUserButton).To(vm => vm.SaveUserData);
             set.Bind(CancelUserButton).To(vm => vm.Cancel);
 
             set.Apply();     

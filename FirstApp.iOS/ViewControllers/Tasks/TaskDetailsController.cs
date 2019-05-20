@@ -54,7 +54,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             set.Bind(AddMapMarkersButton).To(vm => vm.AddMarker);
             set.Bind(DeleteTaskButton).To(vm => vm.DeleteTask);
             set.Bind(MapMarkersCount).To(vm => vm.MapMarkers);
-            set.Bind(SaveTaskButton).To(vm => vm.SaveTaskForiOS);
+            set.Bind(SaveTaskButton).To(vm => vm.SaveTask);
 
             set.Apply();
         }
@@ -68,7 +68,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[] { new UIBarButtonItem(_backButton) }, false);
 
             var set = this.CreateBindingSet<TaskDetailsController, TaskDetailsViewModel>();
-            set.Bind(_backButton).To(vm => vm.BackCommandiOS);
+            set.Bind(_backButton).To(vm => vm.BackCommand);
             set.Apply();
         }
 

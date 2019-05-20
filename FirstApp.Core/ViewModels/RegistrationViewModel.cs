@@ -104,11 +104,18 @@ namespace FirstApp.Core.ViewModels
                     {
                         password = PasswordValidator();
                     }
+
                     if (password)
                     {
                         passwordConfirm = PasswordConfirmValidator();
                     }
-                    if (name && password && passwordConfirm)
+
+                    if (name && password && passwordConfirm && _dBUserService.IsLoginInDB(RegistrationUserName))
+                    {
+                        Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.ThisNameIsUsed);
+                    }
+
+                    if (name && password && passwordConfirm && !_dBUserService.IsLoginInDB(RegistrationUserName))
                     {
                         var userDatabaseModel = new UserDatabaseModel
                         {
@@ -116,21 +123,12 @@ namespace FirstApp.Core.ViewModels
                             Password = RegistrationUserPassword,
                             HowDoLogin = Enums.LoginMethod.App
                         };
+                        _dBUserService.SaveItem(userDatabaseModel);
+                        string userId = userDatabaseModel.Id.ToString();
+                        _registrationService.UserRegistration(RegistrationUserName, RegistrationUserPassword, userId);
 
-                        if (!_dBUserService.IsLoginInDB(RegistrationUserName))
-                        {
-                            _dBUserService.SaveItem(userDatabaseModel);
-                            string userId = userDatabaseModel.Id.ToString();
-                            _registrationService.UserRegistration(RegistrationUserName, RegistrationUserPassword, userId);
-
-                            await _navigationService.Close(this);
-                            await _navigationService.Navigate<MainViewModel>();
-                        }
-
-                        if (_dBUserService.IsLoginInDB(RegistrationUserName))
-                        {
-                            Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.ThisNameIsUsed);
-                        }
+                        await _navigationService.Close(this);
+                        await _navigationService.Navigate<MainViewModel>();
                     }
                 });
             }
@@ -154,6 +152,7 @@ namespace FirstApp.Core.ViewModels
 
             return false;
         }
+
         private bool PasswordValidator()
         {
             if (!string.IsNullOrEmpty(RegistrationUserPassword))
@@ -173,6 +172,7 @@ namespace FirstApp.Core.ViewModels
                 return false;
             }
         }
+
         private bool PasswordConfirmValidator()
         {
             if (!string.IsNullOrEmpty(RegistrationUserPasswordConfirm))

@@ -15,10 +15,12 @@ namespace FirstApp.Core.ViewModels
         private readonly IDBUserService _sQLiteRepository;
         private UserDatabaseModel _userData;
         private int _userId;
-        public UserDataViewModel(IDBUserService sQLiteRepository, IMvxPictureChooserTask pictureChooserTask, IMvxNavigationService navigationService) : base(navigationService)
+        private readonly IGetCurrentPlatformService _getCurrentPlatform;
+        public UserDataViewModel(IGetCurrentPlatformService getCurrentPlatform, IDBUserService sQLiteRepository, IMvxPictureChooserTask pictureChooserTask, IMvxNavigationService navigationService) : base(navigationService)
         {
             try
             {
+                _getCurrentPlatform = getCurrentPlatform;
                 _pictureChooserTask = pictureChooserTask;
                 _sQLiteRepository = sQLiteRepository;     
                 string id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
@@ -85,20 +87,11 @@ namespace FirstApp.Core.ViewModels
                     _userData.Photo = MyPhoto;
                     _userData.Id = _userId;
                     _sQLiteRepository.SaveItem(_userData);
-                    await _navigationService.Navigate<TaskListViewModel>();
-                });
-            }
-        }
-
-        public MvxAsyncCommand SaveUserDataiOS
-        {
-            get
-            {
-                return new MvxAsyncCommand(async () =>
-                {
-                    _userData.Photo = MyPhoto;
-                    _userData.Id = _userId;
-                    _sQLiteRepository.SaveItem(_userData);                   
+                    var platform = _getCurrentPlatform.CurrentPlatform();
+                    if (platform == Enums.CurrentPlatform.Android)
+                    {
+                        await _navigationService.Navigate<TaskListViewModel>();
+                    }
                 });
             }
         }

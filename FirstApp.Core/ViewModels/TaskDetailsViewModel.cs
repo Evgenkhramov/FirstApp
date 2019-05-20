@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using FirstApp.Core.Enums;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross;
@@ -12,15 +13,18 @@ namespace FirstApp.Core.ViewModels
 {
     public class TaskDetailsViewModel : BaseViewModel<TaskModel>, IFileListHandler
     {
+        private CurrentPlatform _platform;
         private TaskModel _thisTaskModel;
         private int _taskId;
         private readonly IDBFileNameService _dBFileNameService;
         private readonly IDBMapMarkerService _dBMapMarkerService;
         private readonly IDBTaskService _dBTaskService;
+        private readonly IGetCurrentPlatformService _getCurrentPlatformService;
 
-        public TaskDetailsViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService, IDBMapMarkerService dBMapMarkerService,
+        public TaskDetailsViewModel(IGetCurrentPlatformService getCurrentPlatformService, IMvxNavigationService navigationService, IDBTaskService dBTaskService, IDBMapMarkerService dBMapMarkerService,
              IDBFileNameService dBFileNameService) : base(navigationService)
         {
+            _getCurrentPlatformService = getCurrentPlatformService;
             _dBMapMarkerService = dBMapMarkerService;
             _dBTaskService = dBTaskService;
             _dBFileNameService = dBFileNameService;
@@ -31,6 +35,7 @@ namespace FirstApp.Core.ViewModels
 
             SaveButton = true;
             HaveGone = false;
+            _platform = _getCurrentPlatformService.CurrentPlatform();
         }
 
         public override async Task Initialize()
@@ -194,36 +199,13 @@ namespace FirstApp.Core.ViewModels
 
                         return;
                     }
-                    if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName))
+                    if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName) && _platform == CurrentPlatform.Android)
                     {
                         _dBTaskService.AddTaskToTable(_thisTaskModel);
 
                         await _navigationService.Navigate<TaskListViewModel>();
                     }
-                });
-            }
-        }
-
-        public MvxAsyncCommand SaveTaskForiOS
-        {
-            get
-            {
-                return new MvxAsyncCommand(async () =>
-                {
-
-                    if (string.IsNullOrEmpty(TaskName))
-                    {
-                        Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.EnterTaskName, Constants.EmptyTaskName, Constants.Ok);
-
-                        return;
-                    }
-                    if (string.IsNullOrEmpty(TaskDescription))
-                    {
-                        Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.EnterTaskDescription, Constants.EmptyTaskDescription, Constants.Ok);
-
-                        return;
-                    }
-                    if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName))
+                    if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName) && _platform == CurrentPlatform.iOS)
                     {
                         _dBTaskService.AddTaskToTable(_thisTaskModel);
 
@@ -253,26 +235,6 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        public MvxAsyncCommand BackCommandiOS
-        {
-            get
-            {
-                return new MvxAsyncCommand(async () =>
-                {
-                    bool answ = await Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync(Constants.WantSaveMarkers, Constants.SaveMarkers, Constants.Yes, Constants.No);
-
-                    if (answ)
-                    {
-                        SaveTaskForiOS.Execute();
-                    }
-                    if (!answ)
-                    {
-                        await _navigationService.Close(this);
-                    }
-                });
-            }
-        }
-
         public MvxAsyncCommand DeleteTask
         {
             get
@@ -293,6 +255,7 @@ namespace FirstApp.Core.ViewModels
                 });
             }
         }
+
         public List<FileListModel> GetFileNameListFromDB(int taskId)
         {
             List<FileListModel> list = _dBFileNameService.GetFileNameListFromDB(taskId);

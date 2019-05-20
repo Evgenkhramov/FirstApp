@@ -35,7 +35,8 @@ namespace FirstApp.iOS
                       .AsInterfaces()
                       .RegisterAsLazySingleton();
             Mvx.RegisterType<IDBConnectionService, DBConnectionService>();
-         
+            Mvx.RegisterType<IGetCurrentPlatformService, GetCurrentPlatformService>();
+
             return new Core.App();
         }
 
