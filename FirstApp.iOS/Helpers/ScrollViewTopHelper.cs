@@ -6,7 +6,6 @@ namespace FirstApp.iOS.Helpers
 {
     public class ScrollViewTopHelper
     {
-
         public static UIView GetActiveView(UIView view)
         {
             UIView activeview = null;

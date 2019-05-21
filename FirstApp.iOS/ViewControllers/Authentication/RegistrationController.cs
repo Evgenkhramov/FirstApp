@@ -6,6 +6,7 @@ using System;
 using UIKit;
 using FirstApp.iOS.Helpers;
 using CoreGraphics;
+using FirstApp.Core;
 
 namespace FirstApp.iOS.ViewControllers.Authentication
 {
@@ -28,7 +29,9 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         public override void ViewDidLoad()
         {
-            Title = "User Registration";
+            base.ViewDidLoad();
+
+            Title = Constants.UserRegistration;
             EdgesForExtendedLayout = UIRectEdge.None;
 
             UIView view = this.View;
@@ -59,7 +62,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             };
 
             NavigationController.NavigationBarHidden = true;
-            base.ViewDidLoad();
+            
             SetBind();
         }
 

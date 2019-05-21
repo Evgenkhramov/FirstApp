@@ -1,5 +1,7 @@
-﻿using FirstApp.Core.Interfaces;
+﻿using Acr.UserDialogs;
+using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.Plugin.PictureChooser;
@@ -106,6 +108,28 @@ namespace FirstApp.Core.ViewModels
                     Surname = _userData.Surname;
                     UserName = _userData.Name;
                     await _navigationService.Navigate<UserDataViewModel>();
+                });
+            }
+        }
+
+        public MvxAsyncCommand LogOutCommand
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    bool answ = await Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync(Constants.WantLogOut, Constants.WLogOut, Constants.Yes, Constants.No);
+                    if (answ)
+                    {
+                        CrossSecureStorage.Current.DeleteKey(Constants.SequreKeyForUserIdInDB);
+                        CrossSecureStorage.Current.DeleteKey(Constants.SequreKeyForUserName);
+                        CrossSecureStorage.Current.DeleteKey(Constants.SequreKeyForUserPassword);
+                        CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
+
+                        _sQLiteRepository.DeleteItem(_userId);
+
+                        await _navigationService.Navigate<LoginViewModel>();
+                    }                
                 });
             }
         }

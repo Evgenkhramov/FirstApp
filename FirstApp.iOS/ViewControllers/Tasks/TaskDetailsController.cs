@@ -51,7 +51,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             set.Bind(TaskName).To(vm => vm.TaskName);
             set.Bind(TaskDescription).To(vm => vm.TaskDescription);
             set.Bind(AddFileInTaskButton).To(vm => vm.AddFile);
-            set.Bind(AddMapMarkersButton).To(vm => vm.AddMarker);
+            set.Bind(AddMapMarkersButton).To(vm => vm.AddMarkerCommand);
             set.Bind(DeleteTaskButton).To(vm => vm.DeleteTask);
             set.Bind(MapMarkersCount).To(vm => vm.MapMarkers);
             set.Bind(SaveTaskButton).To(vm => vm.SaveTask);

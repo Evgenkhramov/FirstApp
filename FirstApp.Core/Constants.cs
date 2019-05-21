@@ -7,6 +7,8 @@
         public const string SequreKeyForUserName = "UserName";
         public const string SequreKeyForUserPassword = "UserPassword";
         public const string SequreKeyForLoged = "Loged";
+        public const string WantLogOut = "Are you sure want Log Out? All data will be lost!";
+        public const string WLogOut = "Are you sure want Log Out?";
 
         public const string DidNotComplite = "You didn't completed the authentication process";
         public const string CencelAuth = "Authentication Canceled";
@@ -39,9 +41,8 @@
         public const string FromMemory = "From memory";
         public const string FromCamera = "From camera";
         public const string UserProfile = "User Profile";
-
-
-
+        public const string UserRegistration = "User Registration";
+                    
         public const string LogOut = "LogOut";
         public const string LogIn = "LogIn";
         public const string LogOutUser = "Log Out";

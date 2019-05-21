@@ -74,6 +74,9 @@
                                                     <real key="value" value="5"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="AddFileInTaskButton_TouchUpInside:" destination="-1" id="15330" eventType="touchUpInside"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" red="0.34509803921568627" green="0.85098039215686272" blue="0.45882352941176469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

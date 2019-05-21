@@ -27,6 +27,10 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton LogOutButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIScrollView MainScroll { get; set; }
 
         [Outlet]
@@ -60,6 +64,11 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
             if (cnsButtomScroll != null) {
                 cnsButtomScroll.Dispose ();
                 cnsButtomScroll = null;
+            }
+
+            if (LogOutButton != null) {
+                LogOutButton.Dispose ();
+                LogOutButton = null;
             }
 
             if (MainScroll != null) {

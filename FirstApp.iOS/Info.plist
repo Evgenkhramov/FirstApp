@@ -61,7 +61,14 @@
 			<string>Viewer</string>
 		</dict>
 	</array>
+  <key>LSApplicationQueriesSchemes</key>
+  <array>
+    <string>googlechromes</string>
+    <string>comgooglemaps</string>
+  </array>
 	<key>CFBundleIdentifier</key>
 	<string>com.firstapp.xamarin</string>
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>Trying to locate Xamarin HQ</string>
 </dict>
 </plist>

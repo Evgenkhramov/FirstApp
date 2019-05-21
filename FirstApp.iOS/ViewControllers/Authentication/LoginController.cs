@@ -49,7 +49,9 @@ namespace FirstApp.iOS.ViewControllers.Authentication
                 textField.ResignFirstResponder();
                 return true;
             };
+
             NavigationController.NavigationBarHidden = true;
+
             SetBind();         
         }
 
