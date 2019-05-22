@@ -28,8 +28,9 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public override void ViewDidLoad()
         {
-            SetupNavigationBar();
             base.ViewDidLoad();
+
+            SetupNavigationBar();        
 
             Title = Constants.TaskDetails;
 
@@ -56,7 +57,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             set.Bind(MapMarkersCount).To(vm => vm.MapMarkers);
             set.Bind(SaveTaskButton).To(vm => vm.SaveTask);
 
-            set.Apply();
+            set.Apply();       
         }
 
         private void SetupNavigationBar()

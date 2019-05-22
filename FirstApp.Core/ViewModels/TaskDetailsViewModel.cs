@@ -177,10 +177,6 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    if (_platform == CurrentPlatform.iOS)
-                    {
-                        await _navigationService.Navigate<MapViewModel>();
-                    }
                     var result = await _navigationService.Navigate<MapViewModel, TaskModel>(_thisTaskModel);
                 });
             }

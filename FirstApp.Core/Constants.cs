@@ -42,6 +42,7 @@
         public const string FromCamera = "From camera";
         public const string UserProfile = "User Profile";
         public const string UserRegistration = "User Registration";
+        public const string MapMarkers = "Map Marker";
                     
         public const string LogOut = "LogOut";
         public const string LogIn = "LogIn";

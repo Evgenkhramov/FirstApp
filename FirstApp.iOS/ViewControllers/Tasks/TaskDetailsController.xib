@@ -115,9 +115,7 @@
                                                     <real key="value" value="5"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="UIButton8616_TouchUpInside:" destination="-1" eventType="touchUpInside" id="14350"/>
-                                            </connections>
+                                            <connections/>
                                         </button>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9454">
                                             <rect key="frame" x="121" y="6" width="101.5" height="47"/>

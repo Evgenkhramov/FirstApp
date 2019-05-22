@@ -45,10 +45,6 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void AddFileInTaskButton_TouchUpInside (UIKit.UIButton sender);
 
-        [Action ("UIButton8616_TouchUpInside:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void UIButton8616_TouchUpInside (UIKit.UIButton sender);
-
         void ReleaseDesignerOutlets ()
         {
             if (AddFileInTaskButton != null) {

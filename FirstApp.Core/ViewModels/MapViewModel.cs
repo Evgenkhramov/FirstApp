@@ -14,7 +14,7 @@ namespace FirstApp.Core.ViewModels
         List<MapMarkerModel> _markerList;
         private TaskModel _taskModel;
         public int _taskId;
-       
+
         private IDBMapMarkerService _dBMapMarkerService;
 
         public MapViewModel(IMvxNavigationService navigationService, IDBMapMarkerService dBMapMarkerService) : base(navigationService)
@@ -60,8 +60,8 @@ namespace FirstApp.Core.ViewModels
                 {
                     if (_markerList.Count > 0)
                     {
-                        var answ =  Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync("Do you want to save your markers?", "Save Markers?", "Yes", "No").Result;
-                
+                        var answ = Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync("Do you want to save your markers?", "Save Markers?", "Yes", "No").Result;
+
                         if (answ)
                         {
                             foreach (MapMarkerModel item in _markerList)
@@ -84,7 +84,7 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        public MvxAsyncCommand SaveMapMarker
+        public MvxAsyncCommand SaveMapMarkerCommand
         {
             get
             {

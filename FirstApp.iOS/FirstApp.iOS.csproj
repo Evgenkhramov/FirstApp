@@ -306,6 +306,12 @@
     <ImageAsset Include="Assets.xcassets\backButton.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\saveButton.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\saveButton.imageset\save 40 (1).pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\userProfile.imageset\circle-user-7.pdf">
       <Visible>false</Visible>
     </ImageAsset>
