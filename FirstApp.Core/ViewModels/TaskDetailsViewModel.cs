@@ -242,15 +242,16 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    bool answ = Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync(Constants.WantDeleteTask, Constants.DeleteTask, Constants.Yes, Constants.No).Result;
+                    bool answ = await Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync(Constants.WantDeleteTask, Constants.DeleteTask, Constants.Yes, Constants.No);
 
-                    if (answ)
+                    if (answ && _platform==CurrentPlatform.iOS)
+                    {    
+                        _dBTaskService.DeleteTaskFromTable(_taskId);
+                        await _navigationService.Close(this);
+                    }
+                    if (answ && _platform == CurrentPlatform.Android)
                     {
                         _dBTaskService.DeleteTaskFromTable(_taskId);
-                        await _navigationService.Navigate<TaskListViewModel>();
-                    }
-                    if (!answ)
-                    {
                         await _navigationService.Navigate<TaskListViewModel>();
                     }
                 });

@@ -60,7 +60,7 @@ namespace FirstApp.Core.ViewModels
                 {
                     if (_markerList.Count > 0)
                     {
-                        var answ = Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync("Do you want to save your markers?", "Save Markers?", "Yes", "No").Result;
+                        var answ = await Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync("Do you want to save your markers?", "Save Markers?", "Yes", "No");
 
                         if (answ)
                         {

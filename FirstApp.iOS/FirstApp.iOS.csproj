@@ -92,9 +92,9 @@
     <Compile Include="ViewControllers\ScreenControl.designer.cs">
       <DependentUpon>ScreenControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewControllers\Tasks\MapController.cs" />
-    <Compile Include="ViewControllers\Tasks\MapController.designer.cs">
-      <DependentUpon>MapController.cs</DependentUpon>
+    <Compile Include="ViewControllers\Tasks\MapViewController.cs" />
+    <Compile Include="ViewControllers\Tasks\MapViewController.designer.cs">
+      <DependentUpon>MapViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewControllers\Tasks\TaskDetailsController.cs" />
     <Compile Include="ViewControllers\Tasks\TaskDetailsController.designer.cs">
@@ -148,7 +148,7 @@
     <InterfaceDefinition Include="ViewControllers\Authentication\LoginController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
-    <InterfaceDefinition Include="ViewControllers\Tasks\MapController.xib">
+    <InterfaceDefinition Include="ViewControllers\Tasks\MapViewController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
     <InterfaceDefinition Include="ViewControllers\Authentication\RegistrationController.xib">

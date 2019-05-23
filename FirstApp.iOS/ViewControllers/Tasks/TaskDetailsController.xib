@@ -10,12 +10,12 @@
             <connections>
                 <outlet property="AddFileInTaskButton" destination="6198" id="name-outlet-6198"/>
                 <outlet property="AddMapMarkersButton" destination="8616" id="name-outlet-8616"/>
-                <outlet property="DeleteTaskButton" destination="13563" id="name-outlet-13563"/>
                 <outlet property="MapMarkersCount" destination="9454" id="name-outlet-9454"/>
-                <outlet property="SaveTaskButton" destination="12970" id="name-outlet-12970"/>
                 <outlet property="TaskDescription" destination="1634" id="name-outlet-1634"/>
                 <outlet property="TaskName" destination="1584" id="name-outlet-1584"/>
                 <outlet property="view" destination="1" id="RRd-Eg-VrN"/>
+                <outlet property="SaveTaskButton" destination="16319" id="name-outlet-16319"/>
+                <outlet property="DeleteTaskButton" destination="16328" id="name-outlet-16328"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -79,7 +79,6 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.34509803921568627" green="0.85098039215686272" blue="0.45882352941176469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstItem="5261" firstAttribute="top" secondItem="4026" secondAttribute="top" constant="10" id="5360"/>
                                         <constraint firstItem="5261" firstAttribute="leading" secondItem="4026" secondAttribute="leading" id="5459"/>
@@ -124,7 +123,6 @@
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.21176470588235294" green="0.81176470588235294" blue="0.50980392156862742" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstItem="8566" firstAttribute="leading" secondItem="7923" secondAttribute="leading" id="8813"/>
                                         <constraint firstItem="8566" firstAttribute="width" secondItem="7923" secondAttribute="width" multiplier="0.27" id="9011"/>
@@ -140,44 +138,44 @@
                                         <constraint id="14846" firstAttribute="centerY" secondItem="8566" secondAttribute="centerY"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="12328">
-                                    <rect key="frame" x="20.5" y="523.5" width="373" height="59"/>
+                                <view contentMode="scaleToFill" id="16309" translatesAutoresizingMaskIntoConstraints="NO">
+                                    <rect key="frame" x="20.5" y="523.5" width="373" height="44"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12970">
-                                            <rect key="frame" x="0.0" y="10" width="168" height="47.5"/>
-                                            <color key="backgroundColor" red="0.25098039215686274" green="0.35686274509803922" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <state key="normal" title="Save">
-                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="16319" translatesAutoresizingMaskIntoConstraints="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="168" height="44"/>
+                                            <color key="backgroundColor" colorSpace="calibratedRGB" red="0.28627450980392155" green="0.45882352941176469" blue="0.83921568627450982" alpha="1"/>
+                                            <state key="normal" title="Save Task">
+                                                <color key="titleColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
                                             </state>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
                                                     <real key="value" value="5"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13563">
-                                            <rect key="frame" x="205" y="10" width="168" height="47.5"/>
-                                            <color key="backgroundColor" red="0.29411764705882354" green="0.45490196078431372" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="16328" translatesAutoresizingMaskIntoConstraints="NO">
+                                            <rect key="frame" x="205" y="0.0" width="168" height="44"/>
+                                            <color key="backgroundColor" colorSpace="calibratedRGB" red="0.26666666666666666" green="0.35294117647058826" blue="0.77254901960784317" alpha="1"/>
                                             <state key="normal" title="Delete Task">
-                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="titleColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
                                             </state>
+                                            <connections/>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
                                                     <real key="value" value="5"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.30980392156862746" green="0.90196078431372551" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstItem="12970" firstAttribute="leading" secondItem="12328" secondAttribute="leading" id="13069"/>
-                                        <constraint firstItem="12970" firstAttribute="top" secondItem="12328" secondAttribute="top" constant="10" id="13217"/>
-                                        <constraint firstItem="12970" firstAttribute="width" secondItem="12328" secondAttribute="width" multiplier="0.45" id="13316"/>
-                                        <constraint firstItem="12970" firstAttribute="height" secondItem="12328" secondAttribute="height" multiplier="0.8" id="13415"/>
-                                        <constraint firstAttribute="trailing" secondItem="13563" secondAttribute="trailing" id="13613"/>
-                                        <constraint firstItem="13563" firstAttribute="top" secondItem="12328" secondAttribute="top" constant="10" id="13712"/>
-                                        <constraint firstItem="13563" firstAttribute="width" secondItem="12328" secondAttribute="width" multiplier="0.45" id="13811"/>
-                                        <constraint firstItem="13563" firstAttribute="height" secondItem="12328" secondAttribute="height" multiplier="0.8" id="13910"/>
+                                        <constraint id="16320" firstAttribute="bottom" secondItem="16319" secondAttribute="bottom"/>
+                                        <constraint id="16321" firstItem="16319" firstAttribute="leading" secondItem="16309" secondAttribute="leading"/>
+                                        <constraint id="16322" firstItem="16319" firstAttribute="width" secondItem="16309" secondAttribute="width" multiplier="0.45"/>
+                                        <constraint id="16323" firstItem="16319" firstAttribute="height" secondItem="16309" secondAttribute="height"/>
+                                        <constraint id="16329" firstAttribute="bottom" secondItem="16328" secondAttribute="bottom"/>
+                                        <constraint id="16330" firstAttribute="trailing" secondItem="16328" secondAttribute="trailing"/>
+                                        <constraint id="16331" firstItem="16328" firstAttribute="height" secondItem="16309" secondAttribute="height"/>
+                                        <constraint id="16332" firstItem="16328" firstAttribute="width" secondItem="16309" secondAttribute="width" multiplier="0.45"/>
                                     </constraints>
                                 </view>
                             </subviews>
@@ -209,12 +207,12 @@
                                 <constraint firstItem="7923" firstAttribute="centerX" secondItem="989" secondAttribute="centerX" id="8121"/>
                                 <constraint firstItem="7923" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.9" id="8269"/>
                                 <constraint firstItem="7923" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.08" id="8368"/>
-                                <constraint firstItem="12328" firstAttribute="top" secondItem="7923" secondAttribute="bottom" constant="10" id="12525"/>
-                                <constraint firstItem="12328" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.9" id="12624"/>
-                                <constraint firstItem="12328" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.08" id="12723"/>
-                                <constraint firstAttribute="centerX" secondItem="12328" secondAttribute="centerX" id="12822"/>
                                 <constraint id="14836" firstItem="1484" firstAttribute="top" secondItem="989" secondAttribute="top" constant="10"/>
                                 <constraint id="14838" firstItem="4026" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.9"/>
+                                <constraint id="16310" firstItem="16309" firstAttribute="top" secondItem="7923" secondAttribute="bottom" constant="10"/>
+                                <constraint id="16311" firstAttribute="centerX" secondItem="16309" secondAttribute="centerX"/>
+                                <constraint id="16312" firstItem="16309" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.9"/>
+                                <constraint id="16313" firstItem="16309" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.06"/>
                             </constraints>
                         </view>
                     </subviews>

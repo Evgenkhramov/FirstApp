@@ -11,7 +11,7 @@ using System.CodeDom.Compiler;
 namespace FirstApp.iOS.ViewControllers.Tasks
 {
     [Register ("MapController")]
-    partial class MapController
+    partial class MapViewController
     {
         void ReleaseDesignerOutlets ()
         {

@@ -3,28 +3,23 @@ using CoreLocation;
 using FirstApp.Core;
 using FirstApp.Core.Models;
 using FirstApp.Core.ViewModels;
-using Foundation;
 using MapKit;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Views;
-using MvvmCross.ViewModels;
-using System;
 using System.Collections.Generic;
 using UIKit;
 
 namespace FirstApp.iOS.ViewControllers.Tasks
 {
-    public partial class MapController : MvxViewController<MapViewModel>
+    public partial class MapViewController : MvxViewController<MapViewModel>
     {
-        private MKMapRect _zoomRect;
         private IUICoordinateSpace _coordinateSpace;
         CLLocationManager locationManager;
         public List<MapMarkerModel> MarkerListFromDB;
         public MapMarkerModel MarcerRow;
         private MKMapView _map;
-        private bool _isTouch;
 
-        public MapController() : base(nameof(MapController), null)
+        public MapViewController() : base(nameof(MapViewController), null)
         {
             _map = new MKMapView(UIScreen.MainScreen.Bounds);
             _coordinateSpace = _map.CoordinateSpace;
@@ -32,7 +27,6 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             _map.ScrollEnabled = true;
             MarkerListFromDB = new List<MapMarkerModel>();
             MarcerRow = new MapMarkerModel();
-            _isTouch = false;
         }
 
         public override void ViewDidLoad()
@@ -43,16 +37,12 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             EdgesForExtendedLayout = UIRectEdge.None;
 
-
             Title = Constants.MapMarkers;
 
             locationManager = new CLLocationManager();
             locationManager.RequestWhenInUseAuthorization();
+
             _map.ShowsUserLocation = true;
-
-            MKCoordinateRegion region;
-            MKCoordinateSpan span;
-
 
             MarkerListFromDB = ViewModel.GetMarkerList();
 
@@ -67,43 +57,13 @@ namespace FirstApp.iOS.ViewControllers.Tasks
                     });
 
                 }
-            }
-
-            _zoomRect = new MKMapRect();
-
-
-            foreach (MapMarkerModel element in MarkerListFromDB)
-            {
-                MKMapPoint annotationPoint = new MKMapPoint(element.Lat, element.Lng);
-                MKMapRect pointRect = new MKMapRect(annotationPoint.X, annotationPoint.Y, 0.1, 0.1);
-
-                if (_zoomRect.IsEmpty)
-                {
-                    _zoomRect = pointRect;                  
-                }
-                if (!_zoomRect.IsEmpty)
-                {
-                    _zoomRect = MKMapRect.Union(_zoomRect, pointRect);
-                }
-            }
-               
+            }          
 
             UILongPressGestureRecognizer longp = new UILongPressGestureRecognizer(LongPress);
             _map.AddGestureRecognizer(longp);
 
-            //region.Center = _zoomRect.;
-            //span.LatitudeDelta = 0.005;
-            //span.LongitudeDelta = 0.005;
-            //region.Span = span;
-            //_map.SetRegion(region, true);
+            _map.ShowAnnotations(_map.Annotations, false);
 
-            //_map.SetVisibleMapRect(_zoomRect, new UIEdgeInsets(20, 20, 20, 20), true);
-
-            region.Center = new CLLocationCoordinate2D(_zoomRect.Origin.X, _zoomRect.Origin.Y);
-            span.LatitudeDelta = _zoomRect.Size.Width;
-            span.LongitudeDelta = _zoomRect.Size.Height;
-            region.Span = span;
-            _map.SetRegion(region, true);
             View = _map;
         }
 
@@ -121,7 +81,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             NavigationItem.SetRightBarButtonItems(new UIBarButtonItem[] { new UIBarButtonItem(_saveButton) }, false);
 
-            var set = this.CreateBindingSet<MapController, MapViewModel>();
+            var set = this.CreateBindingSet<MapViewController, MapViewModel>();
             set.Bind(_backButton).To(vm => vm.BackCommand);
             set.Bind(_saveButton).To(vm => vm.SaveMapMarkerCommand);
             set.Apply();
@@ -146,6 +106,5 @@ namespace FirstApp.iOS.ViewControllers.Tasks
                 });
             }
         }
-
     }
 }
