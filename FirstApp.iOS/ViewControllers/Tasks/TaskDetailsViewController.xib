@@ -16,6 +16,7 @@
                 <outlet property="view" destination="1" id="RRd-Eg-VrN"/>
                 <outlet property="SaveTaskButton" destination="16319" id="name-outlet-16319"/>
                 <outlet property="DeleteTaskButton" destination="16328" id="name-outlet-16328"/>
+                <outlet property="FileListView" destination="7379" id="name-outlet-7379"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -74,9 +75,7 @@
                                                     <real key="value" value="5"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="AddFileInTaskButton_TouchUpInside:" destination="-1" id="15330" eventType="touchUpInside"/>
-                                            </connections>
+                                            <connections/>
                                         </button>
                                     </subviews>
                                     <constraints>

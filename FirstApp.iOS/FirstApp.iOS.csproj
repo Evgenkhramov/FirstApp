@@ -80,44 +80,44 @@
     <Compile Include="Helpers\ScrollViewTopHelper.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Services\GetCurrentPlatformService.cs" />
-    <Compile Include="ViewControllers\Tasks\TaskCell.cs" />
-    <Compile Include="ViewControllers\Tasks\TaskCell.designer.cs">
-      <DependentUpon>TaskCell.cs</DependentUpon>
+    <Compile Include="ViewControllers\Tasks\TaskCellViewController.cs" />
+    <Compile Include="ViewControllers\Tasks\TaskCellViewController.designer.cs">
+      <DependentUpon>TaskCellViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewControllers\Authentication\StartController.cs" />
-    <Compile Include="ViewControllers\Authentication\StartController.designer.cs">
-      <DependentUpon>StartController.cs</DependentUpon>
+    <Compile Include="ViewControllers\Authentication\StartViewController.cs" />
+    <Compile Include="ViewControllers\Authentication\StartViewController.designer.cs">
+      <DependentUpon>StartViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewControllers\ScreenControl.cs" />
-    <Compile Include="ViewControllers\ScreenControl.designer.cs">
-      <DependentUpon>ScreenControl.cs</DependentUpon>
+    <Compile Include="ViewControllers\ScreenViewController.cs" />
+    <Compile Include="ViewControllers\ScreenViewController.designer.cs">
+      <DependentUpon>ScreenViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewControllers\Tasks\MapViewController.cs" />
     <Compile Include="ViewControllers\Tasks\MapViewController.designer.cs">
       <DependentUpon>MapViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewControllers\Tasks\TaskDetailsController.cs" />
-    <Compile Include="ViewControllers\Tasks\TaskDetailsController.designer.cs">
-      <DependentUpon>TaskDetailsController.cs</DependentUpon>
+    <Compile Include="ViewControllers\Tasks\TaskDetailsViewController.cs" />
+    <Compile Include="ViewControllers\Tasks\TaskDetailsViewController.designer.cs">
+      <DependentUpon>TaskDetailsViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewControllers\Tasks\TaskListController.cs" />
-    <Compile Include="ViewControllers\Tasks\TaskListController.designer.cs">
-      <DependentUpon>TaskListController.cs</DependentUpon>
+    <Compile Include="ViewControllers\Tasks\TaskListViewController.cs" />
+    <Compile Include="ViewControllers\Tasks\TaskListViewController.designer.cs">
+      <DependentUpon>TaskListViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewControllers\Tasks\TasksTVS.cs" />
-    <Compile Include="ViewControllers\UserAccount\UserDataController.cs" />
-    <Compile Include="ViewControllers\UserAccount\UserDataController.designer.cs">
-      <DependentUpon>UserDataController.cs</DependentUpon>
+    <Compile Include="ViewControllers\UserAccount\UserProfileViewController.cs" />
+    <Compile Include="ViewControllers\UserAccount\UserProfileViewController.designer.cs">
+      <DependentUpon>UserProfileViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewControllers\Authentication\LoginController.cs" />
-    <Compile Include="ViewControllers\Authentication\LoginController.designer.cs">
-      <DependentUpon>LoginController.cs</DependentUpon>
+    <Compile Include="ViewControllers\Authentication\LoginViewController.cs" />
+    <Compile Include="ViewControllers\Authentication\LoginViewController.designer.cs">
+      <DependentUpon>LoginViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="ViewControllers\Authentication\RegistrationController.cs" />
-    <Compile Include="ViewControllers\Authentication\RegistrationController.designer.cs">
-      <DependentUpon>RegistrationController.cs</DependentUpon>
+    <Compile Include="ViewControllers\Authentication\RegistrationViewController.cs" />
+    <Compile Include="ViewControllers\Authentication\RegistrationViewController.designer.cs">
+      <DependentUpon>RegistrationViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Services\DBConnectionService.cs" />
     <Compile Include="Setup.cs" />
@@ -136,29 +136,29 @@
     <InterfaceDefinition Include="ViewControllers\MainViewController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
-    <InterfaceDefinition Include="ViewControllers\UserAccount\UserDataController.xib">
+    <InterfaceDefinition Include="ViewControllers\UserAccount\UserProfileViewController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
-    <InterfaceDefinition Include="ViewControllers\Tasks\TaskListController.xib">
+    <InterfaceDefinition Include="ViewControllers\Tasks\TaskListViewController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
-    <InterfaceDefinition Include="ViewControllers\Tasks\TaskDetailsController.xib">
+    <InterfaceDefinition Include="ViewControllers\Tasks\TaskDetailsViewController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
-    <InterfaceDefinition Include="ViewControllers\Authentication\LoginController.xib">
+    <InterfaceDefinition Include="ViewControllers\Authentication\LoginViewController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
     <InterfaceDefinition Include="ViewControllers\Tasks\MapViewController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
-    <InterfaceDefinition Include="ViewControllers\Authentication\RegistrationController.xib">
+    <InterfaceDefinition Include="ViewControllers\Authentication\RegistrationViewController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
-    <InterfaceDefinition Include="ViewControllers\ScreenController.xib" />
-    <InterfaceDefinition Include="ViewControllers\Authentication\StartController.xib">
+    <InterfaceDefinition Include="ViewControllers\ScreenViewController.xib" />
+    <InterfaceDefinition Include="ViewControllers\Authentication\StartViewController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
-    <InterfaceDefinition Include="ViewControllers\Tasks\TaskCell.xib">
+    <InterfaceDefinition Include="ViewControllers\Tasks\TaskCellViewController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
   </ItemGroup>
@@ -194,6 +194,12 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK-1.0" />
+    <Reference Include="Plugin.FilePicker, Version=2.0.135.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Plugin.FilePicker.2.0.135\lib\Xamarin.iOS10\Plugin.FilePicker.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.FilePicker.Abstractions, Version=2.0.135.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Plugin.FilePicker.2.0.135\lib\Xamarin.iOS10\Plugin.FilePicker.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Plugin.Geolocator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xam.Plugin.Geolocator.4.5.0.6\lib\xamarinios10\Plugin.Geolocator.dll</HintPath>
     </Reference>

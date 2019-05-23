@@ -10,8 +10,8 @@ using System.CodeDom.Compiler;
 
 namespace FirstApp.iOS.ViewControllers.Tasks
 {
-    [Register ("TaskCell")]
-    partial class TaskCell
+    [Register ("TaskCellViewController")]
+    partial class TaskCellViewController
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]

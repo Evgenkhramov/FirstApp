@@ -3,10 +3,10 @@ using MvvmCross.Platforms.Ios.Views;
 
 namespace FirstApp.iOS.ViewControllers.Authentication
 {
-    public partial class StartController : MvxViewController<StartViewModel>
+    public partial class StartViewController : MvxViewController<StartViewModel>
     {
 
-        public StartController() : base("StartController", null)
+        public StartViewController() : base("StartController", null)
         {
         }
 

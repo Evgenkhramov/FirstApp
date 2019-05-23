@@ -11,7 +11,7 @@ using System.CodeDom.Compiler;
 namespace FirstApp.iOS.ViewControllers.UserAccount
 {
     [Register ("UserDataController")]
-    partial class UserDataController
+    partial class UserProfileViewController
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]

@@ -18,13 +18,13 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 {
     [MvxTabPresentation(WrapInNavigationController = true, TabName = "User Profile", TabIconName = "userProfile")]
 
-    public partial class UserDataController : MvxViewController<UserDataViewModel>
+    public partial class UserProfileViewController : MvxViewController<UserDataViewModel>
     {
         public UIView activeview;
         public nfloat scrollAmount;
         private bool _moveViewUp;
 
-        public UserDataController()
+        public UserProfileViewController()
         {
             scrollAmount = 0.0f;
             _moveViewUp = false;
@@ -66,7 +66,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
                 SelectPhoto();
             };
 
-            var set = this.CreateBindingSet<UserDataController, UserDataViewModel>();
+            var set = this.CreateBindingSet<UserProfileViewController, UserDataViewModel>();
             set.Bind(UserName).To(vm => vm.UserName);
             set.Bind(UserSurname).To(vm => vm.Surname);
             set.Bind(UserImg).For(v => v.Image).To(vm => vm.MyPhoto).WithConversion("ByteArrayToImg").TwoWay();

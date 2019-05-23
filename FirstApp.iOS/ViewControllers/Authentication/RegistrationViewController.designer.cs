@@ -11,7 +11,7 @@ using System.CodeDom.Compiler;
 namespace FirstApp.iOS.ViewControllers.Authentication
 {
     [Register ("RegistrationController")]
-    partial class RegistrationController
+    partial class RegistrationViewController
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]

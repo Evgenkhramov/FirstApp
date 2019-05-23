@@ -11,7 +11,7 @@ using System.CodeDom.Compiler;
 namespace FirstApp.iOS.ViewControllers.Tasks
 {
     [Register ("TaskDetailsController")]
-    partial class TaskDetailsController
+    partial class TaskDetailsViewController
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -24,6 +24,10 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton DeleteTaskButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIView FileListView { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -41,10 +45,6 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField TaskName { get; set; }
 
-        [Action ("AddFileInTaskButton_TouchUpInside:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void AddFileInTaskButton_TouchUpInside (UIKit.UIButton sender);
-
         void ReleaseDesignerOutlets ()
         {
             if (AddFileInTaskButton != null) {
@@ -60,6 +60,11 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             if (DeleteTaskButton != null) {
                 DeleteTaskButton.Dispose ();
                 DeleteTaskButton = null;
+            }
+
+            if (FileListView != null) {
+                FileListView.Dispose ();
+                FileListView = null;
             }
 
             if (MapMarkersCount != null) {

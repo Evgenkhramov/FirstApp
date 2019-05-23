@@ -11,7 +11,7 @@ using System.CodeDom.Compiler;
 namespace FirstApp.iOS.ViewControllers.Tasks
 {
     [Register ("TaskListController")]
-    partial class TaskListController
+    partial class TaskListViewController
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]

@@ -29,7 +29,7 @@ namespace Blank
             // Convert iOS NSUrl to C#/netxf/BCL System.Uri - common API
             var uri_netfx = new Uri(url.AbsoluteString);
 
-            LoginController._authGoogle?.OnPageLoading(uri_netfx);
+            LoginViewController._authGoogle?.OnPageLoading(uri_netfx);
 
             return true;
         }

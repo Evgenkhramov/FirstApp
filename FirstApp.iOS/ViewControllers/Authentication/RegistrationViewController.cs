@@ -10,13 +10,13 @@ using FirstApp.Core;
 
 namespace FirstApp.iOS.ViewControllers.Authentication
 {
-    public partial class RegistrationController : MvxViewController<RegistrationViewModel>
+    public partial class RegistrationViewController : MvxViewController<RegistrationViewModel>
     {
         public UIView activeview;             
         public nfloat scrollAmount;   
         private bool _moveViewUp;
 
-        public RegistrationController() : base("RegistrationController", null)
+        public RegistrationViewController() : base("RegistrationController", null)
         {
             scrollAmount = 0.0f;
             _moveViewUp = false;
@@ -109,7 +109,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         private void SetBind()
         {
-            var set = this.CreateBindingSet<RegistrationController, RegistrationViewModel>();
+            var set = this.CreateBindingSet<RegistrationViewController, RegistrationViewModel>();
             set.Bind(UserName).To(vm => vm.RegistrationUserName);
             set.Bind(EnterUserPassword).To(vm => vm.RegistrationUserPassword);
             set.Bind(EnterConfirm).To(vm => vm.RegistrationUserPasswordConfirm);

@@ -8,10 +8,10 @@ using Foundation;
 using System;
 using System.CodeDom.Compiler;
 
-namespace FirstApp.iOS.ViewControllers
+namespace FirstApp.iOS.ViewControllers.Authentication
 {
-    [Register ("ScreenControl")]
-    partial class ScreenControl
+    [Register ("StartController")]
+    partial class StartViewController
     {
         void ReleaseDesignerOutlets ()
         {

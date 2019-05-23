@@ -6,17 +6,17 @@ using FirstApp.Core;
 
 namespace FirstApp.iOS.ViewControllers.Tasks
 {
-    public partial class TaskCell : UITableViewCell
+    public partial class TaskCellViewController : UITableViewCell
     {
-        public static readonly NSString Key = new NSString("TaskCell");
+        public static readonly NSString Key = new NSString(Constants.TaskCell);
         public static readonly UINib Nib;
 
-        static TaskCell()
+        static TaskCellViewController()
         {
-            Nib = UINib.FromName("TaskCell", NSBundle.MainBundle);
+            Nib = UINib.FromName(Constants.TaskCell, NSBundle.MainBundle);
         }
 
-        protected TaskCell(IntPtr handle) : base(handle)
+        protected TaskCellViewController(IntPtr handle) : base(handle)
         {
         }
 

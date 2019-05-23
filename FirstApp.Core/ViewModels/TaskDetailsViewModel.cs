@@ -222,7 +222,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    bool answ = await Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync(Constants.WantSaveMarkers, Constants.SaveMarkers, Constants.Yes, Constants.No);
+                    bool answ = await Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync(Constants.WantSaveTask, Constants.SaveTask, Constants.Yes, Constants.No);
 
                     if (answ)
                     {

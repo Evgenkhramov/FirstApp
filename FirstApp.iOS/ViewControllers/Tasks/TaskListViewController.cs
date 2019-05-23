@@ -9,10 +9,10 @@ using UIKit;
 namespace FirstApp.iOS.ViewControllers.Tasks
 {
     [MvxTabPresentation(WrapInNavigationController = true, TabName = "Task List", TabIconName = "taskList")]
-    public partial class TaskListController : MvxViewController<TaskListViewModel>
+    public partial class TaskListViewController : MvxViewController<TaskListViewModel>
     {
         private MvxUIRefreshControl _refreshControl;
-        public TaskListController () : base (nameof(TaskListController), null)
+        public TaskListViewController () : base (nameof(TaskListViewController), null)
         {
         }
 
@@ -34,12 +34,12 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             View.BackgroundColor = UIColor.Clear;
             _refreshControl = new MvxUIRefreshControl();
 
-            TasksTable.RegisterNibForCellReuse(TaskCell.Nib, TaskCell.Key);
+            TasksTable.RegisterNibForCellReuse(TaskCellViewController.Nib, TaskCellViewController.Key);
             var source = new TasksTVS(TasksTable);
             TasksTable.Source = source;
             TasksTable.AddSubview(_refreshControl);
 
-            var set = this.CreateBindingSet<TaskListController, TaskListViewModel>();
+            var set = this.CreateBindingSet<TaskListViewController, TaskListViewModel>();
 
             set.Bind(source).To(m => m.TaskCollection);
             set.Bind(source).For(v => v.SelectionChangedCommand).To(vm => vm.ShowTaskChangedView);
@@ -59,7 +59,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             NavigationItem.SetRightBarButtonItems(new UIBarButtonItem[] { new UIBarButtonItem(_addTask) }, false);
 
-            var set = this.CreateBindingSet<TaskListController, TaskListViewModel>();
+            var set = this.CreateBindingSet<TaskListViewController, TaskListViewModel>();
             set.Bind(_addTask).To(vm => vm.CreateNewTask);
             set.Apply();
         }

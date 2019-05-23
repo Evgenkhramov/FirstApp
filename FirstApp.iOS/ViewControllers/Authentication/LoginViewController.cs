@@ -11,7 +11,7 @@ using UIKit;
 
 namespace FirstApp.iOS.ViewControllers.Authentication
 {
-    public partial class LoginController : MvxViewController<LoginViewModel>, IGoogleAuthenticationDelegate
+    public partial class LoginViewController : MvxViewController<LoginViewModel>, IGoogleAuthenticationDelegate
     {
         private GoogleModeliOS user = new GoogleModeliOS();
         public static GoogleAuthenticator _authGoogle;
@@ -19,7 +19,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
         private FacebookAuthenticator _authFacebook;
         static int GET_ACCOUNTS;
 
-        public LoginController() : base()
+        public LoginViewController() : base()
         {
             GET_ACCOUNTS = 0;
         }
@@ -125,7 +125,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         private void SetBind()
         {
-            var set = this.CreateBindingSet<LoginController, LoginViewModel>();
+            var set = this.CreateBindingSet<LoginViewController, LoginViewModel>();
             set.Bind(EnterYourLogin).To(vm => vm.UserName);
             set.Bind(EnterYourPasswordForLogin).To(vm => vm.UserPassword);
             set.Bind(LoginButton).To(vm => vm.UserLogin);

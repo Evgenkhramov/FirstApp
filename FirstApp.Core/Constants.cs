@@ -35,7 +35,7 @@
         public const string LocationPermissionNotGranted = "Location permission was NOT granted.";
         public const string TaskDetails = "Task Details";
         public const string TaskList = "Task List";
-        public const string TaskCell = "TaskCell";
+        public const string TaskCell = "TaskCellViewController";
         public const string SelectPhoto = "Select Photo";
         public const string PleaseSelectPhoto = "Please, Select Photo";
         public const string FromMemory = "From memory";
@@ -43,6 +43,8 @@
         public const string UserProfile = "User Profile";
         public const string UserRegistration = "User Registration";
         public const string MapMarkers = "Map Marker";
+        public const string WantSaveTask = "Do you want to save task?";
+        public const string SaveTask = "Save task?";
                     
         public const string LogOut = "LogOut";
         public const string LogIn = "LogIn";
