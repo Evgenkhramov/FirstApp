@@ -27,7 +27,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIView FileListView { get; set; }
+        UIKit.UITableView FileTabelView { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -62,9 +62,9 @@ namespace FirstApp.iOS.ViewControllers.Tasks
                 DeleteTaskButton = null;
             }
 
-            if (FileListView != null) {
-                FileListView.Dispose ();
-                FileListView = null;
+            if (FileTabelView != null) {
+                FileTabelView.Dispose ();
+                FileTabelView = null;
             }
 
             if (MapMarkersCount != null) {

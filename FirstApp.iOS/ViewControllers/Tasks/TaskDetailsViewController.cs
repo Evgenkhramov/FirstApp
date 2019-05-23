@@ -14,6 +14,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 {
     public partial class TaskDetailsViewController : MvxViewController<TaskDetailsViewModel>
     {
+        private MvxUIRefreshControl _refreshControl;
         public UIView activeview;             // Controller that activated the keyboard
         public nfloat scroll_amount = 0.0f;    // amount to scroll 
         public nfloat bottom = 0.0f;           // bottom point
@@ -51,6 +52,13 @@ namespace FirstApp.iOS.ViewControllers.Tasks
                 return true;
             };
 
+            _refreshControl = new MvxUIRefreshControl();
+
+            FileTabelView.RegisterNibForCellReuse(FileItemCellViewController.Nib, FileItemCellViewController.Key);
+            var source = new FileTVS(FileTabelView);
+            FileTabelView.Source = source;
+            //FileTabelView.AddSubview(_refreshControl);
+
             AddFileInTaskButton.TouchUpInside += (sender, e) =>
              {
                  OpenFile(sender, e);
@@ -58,15 +66,16 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             var set = this.CreateBindingSet<TaskDetailsViewController, TaskDetailsViewModel>();
             set.Bind(TaskName).To(vm => vm.TaskName);
+            set.Bind(source).To(vm => vm.FileNameList);
+            set.Bind(source).For(s => s.DeleteRowCommandiOS).To(vm => vm.DeleteFileItemCommand);
             set.Bind(TaskDescription).To(vm => vm.TaskDescription);
             set.Bind(AddMapMarkersButton).To(vm => vm.AddMarkerCommand);
             set.Bind(DeleteTaskButton).To(vm => vm.DeleteTask);
             set.Bind(MapMarkersCount).To(vm => vm.MapMarkers);
             set.Bind(SaveTaskButton).To(vm => vm.SaveTask);
+            //set.Bind(FileTabelView).To(vm => vm.FileNameList);
 
             set.Apply();
-
-            FileListView.AddSubview (Mvx)
         }
 
         public async void OpenFile(object sender, EventArgs e)
@@ -86,8 +95,10 @@ namespace FirstApp.iOS.ViewControllers.Tasks
                 System.Console.WriteLine("Exception choosing file: " + ex.ToString());
             }
 
-            if (string.IsNullOrEmpty(fileName))
+            if (!string.IsNullOrEmpty(fileName))
+            {
                 ViewModel.SaveFileName(fileName);
+            }                
         }
 
         private void SetupNavigationBar()

@@ -77,6 +77,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Converters\ByteArrayToImg.cs" />
+    <Compile Include="ViewControllers\Tasks\FileTVS.cs" />
+    <Compile Include="ViewControllers\Tasks\FileItemCellViewController.cs" />
+    <Compile Include="ViewControllers\Tasks\FileItemCellViewController.designer.cs">
+      <DependentUpon>FileItemCellViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ScrollViewTopHelper.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Services\GetCurrentPlatformService.cs" />
@@ -159,6 +164,9 @@
       <SubType>Designer</SubType>
     </InterfaceDefinition>
     <InterfaceDefinition Include="ViewControllers\Tasks\TaskCellViewController.xib">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
+    <InterfaceDefinition Include="ViewControllers\Tasks\FileItemCellViewController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
   </ItemGroup>

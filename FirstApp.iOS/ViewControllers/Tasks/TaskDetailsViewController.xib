@@ -16,7 +16,7 @@
                 <outlet property="view" destination="1" id="RRd-Eg-VrN"/>
                 <outlet property="SaveTaskButton" destination="16319" id="name-outlet-16319"/>
                 <outlet property="DeleteTaskButton" destination="16328" id="name-outlet-16328"/>
-                <outlet property="FileListView" destination="7379" id="name-outlet-7379"/>
+                <outlet property="FileTabelView" destination="17007" id="name-outlet-17007"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -89,12 +89,8 @@
                                         <constraint id="14842" firstItem="6198" firstAttribute="height" secondItem="4026" secondAttribute="height" multiplier="0.8"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7379">
-                                    <rect key="frame" x="20.5" y="260.5" width="373" height="184"/>
-                                    <color key="backgroundColor" red="0.25098039215686274" green="0.85882352941176465" blue="0.36470588235294116" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7923">
-                                    <rect key="frame" x="20.5" y="454.5" width="373" height="59"/>
+                                    <rect key="frame" x="20.5" y="481.5" width="373" height="59"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task have:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8566">
                                             <rect key="frame" x="0.0" y="12" width="101" height="35"/>
@@ -138,7 +134,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" id="16309" translatesAutoresizingMaskIntoConstraints="NO">
-                                    <rect key="frame" x="20.5" y="523.5" width="373" height="44"/>
+                                    <rect key="frame" x="20.5" y="550.5" width="373" height="44"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="16319" translatesAutoresizingMaskIntoConstraints="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="168" height="44"/>
@@ -177,6 +173,10 @@
                                         <constraint id="16332" firstItem="16328" firstAttribute="width" secondItem="16309" secondAttribute="width" multiplier="0.45"/>
                                     </constraints>
                                 </view>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="17007" translatesAutoresizingMaskIntoConstraints="NO">
+                                    <rect key="frame" x="20.5" y="260.5" width="373" height="221"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </tableView>
                             </subviews>
                             <color key="backgroundColor" red="0.30588235294117649" green="0.83921568627450982" blue="0.40784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -198,11 +198,6 @@
                                 <constraint firstItem="4026" firstAttribute="top" secondItem="1634" secondAttribute="bottom" constant="20" id="4125"/>
                                 <constraint firstItem="4026" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.08" id="4323"/>
                                 <constraint firstAttribute="centerX" secondItem="4026" secondAttribute="centerX" id="4422"/>
-                                <constraint firstItem="7379" firstAttribute="top" secondItem="4026" secondAttribute="bottom" id="7478"/>
-                                <constraint firstAttribute="centerX" secondItem="7379" secondAttribute="centerX" id="7577"/>
-                                <constraint firstItem="7379" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.9" id="7676"/>
-                                <constraint firstItem="7379" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.25" id="7775"/>
-                                <constraint firstItem="7923" firstAttribute="top" secondItem="7379" secondAttribute="bottom" constant="10" id="8022"/>
                                 <constraint firstItem="7923" firstAttribute="centerX" secondItem="989" secondAttribute="centerX" id="8121"/>
                                 <constraint firstItem="7923" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.9" id="8269"/>
                                 <constraint firstItem="7923" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.08" id="8368"/>
@@ -212,6 +207,11 @@
                                 <constraint id="16311" firstAttribute="centerX" secondItem="16309" secondAttribute="centerX"/>
                                 <constraint id="16312" firstItem="16309" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.9"/>
                                 <constraint id="16313" firstItem="16309" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.06"/>
+                                <constraint id="17008" firstItem="17007" firstAttribute="top" secondItem="4026" secondAttribute="bottom"/>
+                                <constraint id="17010" firstItem="17007" firstAttribute="height" secondItem="989" secondAttribute="height" multiplier="0.3"/>
+                                <constraint id="17011" firstItem="17007" firstAttribute="width" secondItem="989" secondAttribute="width" multiplier="0.9"/>
+                                <constraint id="17012" firstAttribute="centerX" secondItem="17007" secondAttribute="centerX"/>
+                                <constraint id="17497" firstItem="7923" firstAttribute="top" secondItem="17007" secondAttribute="bottom"/>
                             </constraints>
                         </view>
                     </subviews>

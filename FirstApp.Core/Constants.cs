@@ -45,6 +45,7 @@
         public const string MapMarkers = "Map Marker";
         public const string WantSaveTask = "Do you want to save task?";
         public const string SaveTask = "Save task?";
+        public const string FileItemCell = "FileItemCellViewController";
                     
         public const string LogOut = "LogOut";
         public const string LogIn = "LogIn";

@@ -32,6 +32,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             EdgesForExtendedLayout = UIRectEdge.None;
 
             View.BackgroundColor = UIColor.Clear;
+
             _refreshControl = new MvxUIRefreshControl();
 
             TasksTable.RegisterNibForCellReuse(TaskCellViewController.Nib, TaskCellViewController.Key);
