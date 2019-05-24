@@ -51,7 +51,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public override string TitleForDeleteConfirmation(UITableView tableView, NSIndexPath indexPath)
         {
-            return "Del File";
+            return Constants.DeleteFile;
         }
 
         public ICommand DeleteRowCommandiOS { get; set; }

@@ -10,14 +10,14 @@
             <connections>
                 <outlet property="view" destination="1" id="RRd-Eg-VrN"/>
                 <outlet property="CameraButton" destination="11995" id="name-outlet-11995"/>
-                <outlet property="CancelUserButton" destination="13835" id="name-outlet-13835"/>
-                <outlet property="SaveUserButton" destination="13710" id="name-outlet-13710"/>
                 <outlet property="UserImg" destination="11842" id="name-outlet-11842"/>
                 <outlet property="UserName" destination="12631" id="name-outlet-12631"/>
                 <outlet property="UserSurname" destination="13116" id="name-outlet-13116"/>
                 <outlet property="MainScroll" destination="11207" id="name-outlet-11207"/>
                 <outlet property="cnsButtomScroll" destination="11356" id="name-outlet-11356"/>
                 <outlet property="LogOutButton" destination="23358" id="name-outlet-23358"/>
+                <outlet property="SaveUserButton" destination="23854" id="name-outlet-23854"/>
+                <outlet property="CancelUserButton" destination="23855" id="name-outlet-23855"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -69,56 +69,8 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="13265">
-                                    <rect key="frame" x="0.0" y="544" width="207" height="110.5"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13710">
-                                            <rect key="frame" x="20.5" y="30.5" width="166" height="49.5"/>
-                                            <color key="backgroundColor" red="0.33725490196078434" green="0.47450980392156861" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <state key="normal" title="Save">
-                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <real key="value" value="5"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" red="0.20000000000000001" green="0.85882352941176465" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <constraints>
-                                        <constraint firstItem="13710" firstAttribute="width" secondItem="13265" secondAttribute="width" multiplier="0.8" id="13723"/>
-                                        <constraint firstItem="13710" firstAttribute="height" secondItem="13265" secondAttribute="height" multiplier="0.45" id="13748"/>
-                                        <constraint firstAttribute="centerY" secondItem="13710" secondAttribute="centerY" id="13773"/>
-                                        <constraint firstAttribute="centerX" secondItem="13710" secondAttribute="centerX" id="13798"/>
-                                    </constraints>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="13524">
-                                    <rect key="frame" x="207" y="544" width="207" height="110.5"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13835">
-                                            <rect key="frame" x="20.5" y="30.5" width="166" height="49.5"/>
-                                            <color key="backgroundColor" red="0.34901960784313724" green="0.47843137254901963" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <state key="normal" title="Cancel">
-                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <real key="value" value="5"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" red="0.27058823529411763" green="0.84705882352941175" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <constraints>
-                                        <constraint firstItem="13835" firstAttribute="width" secondItem="13524" secondAttribute="width" multiplier="0.8" id="13872"/>
-                                        <constraint firstItem="13835" firstAttribute="height" secondItem="13524" secondAttribute="height" multiplier="0.45" id="13897"/>
-                                        <constraint firstAttribute="centerX" secondItem="13835" secondAttribute="centerX" id="13922"/>
-                                        <constraint firstAttribute="centerY" secondItem="13835" secondAttribute="centerY" id="13947"/>
-                                    </constraints>
-                                </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="23358" translatesAutoresizingMaskIntoConstraints="NO">
-                                    <rect key="frame" x="41.5" y="664.5" width="331" height="44"/>
+                                    <rect key="frame" x="41.5" y="618" width="331" height="44.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17" weight="heavy"/>
                                     <color key="backgroundColor" colorSpace="calibratedRGB" red="0.42352941176470588" green="0.41568627450980394" blue="0.984313725490196" alpha="1"/>
                                     <state key="normal" title="Log Out">
@@ -130,6 +82,46 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </button>
+                                <view contentMode="scaleToFill" id="23849" translatesAutoresizingMaskIntoConstraints="NO">
+                                    <rect key="frame" x="41.5" y="554" width="331" height="44"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="23854" translatesAutoresizingMaskIntoConstraints="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="149" height="44"/>
+                                            <color key="backgroundColor" colorSpace="calibratedRGB" red="0.27843137254901962" green="0.31764705882352939" blue="0.77254901960784317" alpha="1"/>
+                                            <state key="normal" title="Save">
+                                                <color key="titleColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="23855" translatesAutoresizingMaskIntoConstraints="NO">
+                                            <rect key="frame" x="182" y="0.0" width="149" height="44"/>
+                                            <color key="backgroundColor" colorSpace="calibratedRGB" red="0.16470588235294117" green="0.33333333333333331" blue="0.81176470588235294" alpha="1"/>
+                                            <state key="normal" title="Cancel">
+                                                <color key="titleColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint id="23856" firstItem="23854" firstAttribute="leading" secondItem="23849" secondAttribute="leading"/>
+                                        <constraint id="23857" firstItem="23854" firstAttribute="top" secondItem="23849" secondAttribute="top"/>
+                                        <constraint id="23858" firstItem="23854" firstAttribute="height" secondItem="23849" secondAttribute="height"/>
+                                        <constraint id="23859" firstItem="23854" firstAttribute="width" secondItem="23849" secondAttribute="width" multiplier="0.45"/>
+                                        <constraint id="23860" firstItem="23855" firstAttribute="centerY" secondItem="23849" secondAttribute="centerY"/>
+                                        <constraint id="23861" firstItem="23855" firstAttribute="top" secondItem="23849" secondAttribute="top"/>
+                                        <constraint id="23862" firstAttribute="trailing" secondItem="23855" secondAttribute="trailing"/>
+                                        <constraint id="23863" firstItem="23855" firstAttribute="height" secondItem="23849" secondAttribute="height"/>
+                                        <constraint id="23864" firstItem="23855" firstAttribute="width" secondItem="23849" secondAttribute="width" multiplier="0.45"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" red="0.27058823529411763" green="0.84705882352941175" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -157,18 +149,14 @@
                                 <constraint firstItem="13116" firstAttribute="top" secondItem="12979" secondAttribute="bottom" constant="15" id="13154"/>
                                 <constraint firstItem="13116" firstAttribute="height" secondItem="11716" secondAttribute="height" multiplier="0.06" id="13179"/>
                                 <constraint firstItem="13116" firstAttribute="width" secondItem="11716" secondAttribute="width" multiplier="0.8" id="13204"/>
-                                <constraint firstItem="13265" firstAttribute="leading" secondItem="11716" secondAttribute="leading" id="13290"/>
-                                <constraint firstItem="13265" firstAttribute="width" secondItem="11716" secondAttribute="width" multiplier="0.5" id="13315"/>
-                                <constraint firstItem="13265" firstAttribute="height" secondItem="11716" secondAttribute="height" multiplier="0.15" id="13426"/>
-                                <constraint firstAttribute="trailing" secondItem="13524" secondAttribute="trailing" id="13561"/>
-                                <constraint firstItem="13524" firstAttribute="height" secondItem="11716" secondAttribute="height" multiplier="0.15" id="13611"/>
-                                <constraint firstItem="13524" firstAttribute="width" secondItem="11716" secondAttribute="width" multiplier="0.5" id="13636"/>
-                                <constraint id="21357" firstItem="13265" firstAttribute="top" secondItem="13116" secondAttribute="bottom"/>
-                                <constraint id="21367" firstItem="13524" firstAttribute="top" secondItem="13116" secondAttribute="bottom"/>
-                                <constraint id="23359" firstItem="23358" firstAttribute="top" secondItem="13265" secondAttribute="bottom" constant="10"/>
                                 <constraint id="23360" firstItem="23358" firstAttribute="width" secondItem="11716" secondAttribute="width" multiplier="0.8"/>
                                 <constraint id="23361" firstAttribute="centerX" secondItem="23358" secondAttribute="centerX"/>
                                 <constraint id="23362" firstItem="23358" firstAttribute="height" secondItem="11716" secondAttribute="height" multiplier="0.06"/>
+                                <constraint id="23850" firstAttribute="centerX" secondItem="23849" secondAttribute="centerX"/>
+                                <constraint id="23851" firstItem="23849" firstAttribute="width" secondItem="11716" secondAttribute="width" multiplier="0.8"/>
+                                <constraint id="23852" firstItem="23849" firstAttribute="height" secondItem="11716" secondAttribute="height" multiplier="0.06"/>
+                                <constraint id="23853" firstItem="23849" firstAttribute="top" secondItem="13116" secondAttribute="bottom" constant="10"/>
+                                <constraint id="23865" firstItem="23358" firstAttribute="top" secondItem="23849" secondAttribute="bottom" constant="20"/>
                             </constraints>
                         </view>
                     </subviews>

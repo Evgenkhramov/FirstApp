@@ -18,17 +18,20 @@ namespace FirstApp.Core.ViewModels
         private UserDatabaseModel _userData;
         private int _userId;
         private readonly IGetCurrentPlatformService _getCurrentPlatform;
+
         public UserDataViewModel(IGetCurrentPlatformService getCurrentPlatform, IDBUserService sQLiteRepository, IMvxPictureChooserTask pictureChooserTask, IMvxNavigationService navigationService) : base(navigationService)
         {
             try
             {
                 _getCurrentPlatform = getCurrentPlatform;
                 _pictureChooserTask = pictureChooserTask;
-                _sQLiteRepository = sQLiteRepository;     
+                _sQLiteRepository = sQLiteRepository;
                 string id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
                 _userId = Int32.Parse(id);
                 _userData = sQLiteRepository.GetItem(_userId);
                 MyPhoto = _userData.Photo;
+                UserName = _userData.Name;
+                Surname = _userData.Surname;
             }
             catch (Exception ex)
             {
@@ -41,11 +44,14 @@ namespace FirstApp.Core.ViewModels
         private string _userName;
         public string UserName
         {
-            get => _userName = _userData.Name;
+            get
+            {
+                return _userName;
+            }
             set
             {
                 _userName = value;
-                _userData.Name = _userName;
+                RaisePropertyChanged(() => UserName);
             }
         }
 
@@ -60,7 +66,10 @@ namespace FirstApp.Core.ViewModels
         private string _myPhoto;
         public string MyPhoto
         {
-            get => _myPhoto;
+            get
+            {
+                return _myPhoto;
+            }
             set
             {
                 _myPhoto = value;
@@ -72,11 +81,14 @@ namespace FirstApp.Core.ViewModels
         private string _surname;
         public string Surname
         {
-            get => _surname = _userData.Surname;
+            get
+            {
+                return _surname;
+            }
             set
             {
                 _surname = value;
-                _userData.Surname = _surname;
+                RaisePropertyChanged(() => Surname);
             }
         }
 
@@ -105,9 +117,15 @@ namespace FirstApp.Core.ViewModels
                 return new MvxAsyncCommand(async () =>
                 {
                     _userData = _sQLiteRepository.GetItem(_userId);
+                    MyPhoto = _userData.Photo;
                     Surname = _userData.Surname;
                     UserName = _userData.Name;
-                    await _navigationService.Navigate<UserDataViewModel>();
+                    var platform = _getCurrentPlatform.CurrentPlatform();
+
+                    if (platform == Enums.CurrentPlatform.Android)
+                    {
+                        await _navigationService.Navigate<TaskListViewModel>();
+                    }
                 });
             }
         }
@@ -129,7 +147,7 @@ namespace FirstApp.Core.ViewModels
                         _sQLiteRepository.DeleteItem(_userId);
 
                         await _navigationService.Navigate<LoginViewModel>();
-                    }                
+                    }
                 });
             }
         }

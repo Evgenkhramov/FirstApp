@@ -16,19 +16,10 @@ namespace FirstApp.iOS.ViewControllers.Tasks
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton DeleteFileButton { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel FileLabel { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
-            if (DeleteFileButton != null) {
-                DeleteFileButton.Dispose ();
-                DeleteFileButton = null;
-            }
-
             if (FileLabel != null) {
                 FileLabel.Dispose ();
                 FileLabel = null;

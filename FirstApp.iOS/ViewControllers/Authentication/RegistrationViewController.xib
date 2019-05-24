@@ -101,7 +101,7 @@
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1296" translatesAutoresizingMaskIntoConstraints="NO">
-                                    <rect key="frame" x="83" y="446.5" width="248" height="44"/>
+                                    <rect key="frame" x="41.5" y="446.5" width="331" height="44"/>
                                     <color key="backgroundColor" colorSpace="calibratedRGB" red="0.30980392156862746" green="0.27843137254901962" blue="0.90196078431372551" alpha="1"/>
                                     <state key="normal" title="Registration">
                                         <color key="titleColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
@@ -143,7 +143,7 @@
                                 <constraint id="1351" firstItem="1295" firstAttribute="width" secondItem="1269" secondAttribute="width" multiplier="0.8"/>
                                 <constraint id="1352" firstItem="1295" firstAttribute="height" secondItem="1269" secondAttribute="height" multiplier="0.06"/>
                                 <constraint id="1353" firstAttribute="centerX" secondItem="1296" secondAttribute="centerX"/>
-                                <constraint id="1354" firstItem="1296" firstAttribute="width" secondItem="1269" secondAttribute="width" multiplier="0.6"/>
+                                <constraint id="1354" firstItem="1296" firstAttribute="width" secondItem="1269" secondAttribute="width" multiplier="0.8"/>
                                 <constraint id="1355" firstItem="1296" firstAttribute="height" secondItem="1269" secondAttribute="height" multiplier="0.06"/>
                                 <constraint id="1356" firstItem="1296" firstAttribute="top" secondItem="1295" secondAttribute="bottom" constant="40"/>
                             </constraints>

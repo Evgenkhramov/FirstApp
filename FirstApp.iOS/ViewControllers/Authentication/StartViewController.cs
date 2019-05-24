@@ -6,7 +6,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
     public partial class StartViewController : MvxViewController<StartViewModel>
     {
 
-        public StartViewController() : base("StartViewController", null)
+        public StartViewController() : base(nameof(StartViewController), null)
         {
         }
 

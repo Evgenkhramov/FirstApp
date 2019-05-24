@@ -25,7 +25,9 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         {
             SetupNavigationBar();
 
-            base.ViewDidLoad(); 
+            base.ViewDidLoad();
+
+            //TabBarController.TabBar.Hidden = false;
 
             Title = Constants.TaskList;
 

@@ -2,7 +2,6 @@ using CoreGraphics;
 using FirstApp.Core;
 using FirstApp.Core.ViewModels;
 using Foundation;
-using MvvmCross;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Views;
 using Plugin.FilePicker;
@@ -32,13 +31,17 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public override void ViewDidLoad()
         {
+            
+
             base.ViewDidLoad();
+
+            TabBarController.TabBar.Hidden = true;
 
             SetupNavigationBar();
 
             Title = Constants.TaskDetails;
 
-            EdgesForExtendedLayout = UIRectEdge.None;
+            //EdgesForExtendedLayout = UIRectEdge.None;
 
             TaskName.ShouldReturn = (textField) =>
             {
@@ -57,8 +60,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             FileTabelView.RegisterNibForCellReuse(FileItemCellViewController.Nib, FileItemCellViewController.Key);
             var source = new FileTVS(FileTabelView);
             FileTabelView.Source = source;
-            //FileTabelView.AddSubview(_refreshControl);
-
+          
             AddFileInTaskButton.TouchUpInside += (sender, e) =>
              {
                  OpenFile(sender, e);
@@ -73,8 +75,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             set.Bind(DeleteTaskButton).To(vm => vm.DeleteTask);
             set.Bind(MapMarkersCount).To(vm => vm.MapMarkers);
             set.Bind(SaveTaskButton).To(vm => vm.SaveTask);
-            //set.Bind(FileTabelView).To(vm => vm.FileNameList);
-
+            
             set.Apply();
         }
 

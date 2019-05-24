@@ -9,7 +9,6 @@
         public const string SequreKeyForLoged = "Loged";
         public const string WantLogOut = "Are you sure want Log Out? All data will be lost!";
         public const string WLogOut = "Are you sure want Log Out?";
-
         public const string DidNotComplite = "You didn't completed the authentication process";
         public const string CencelAuth = "Authentication Canceled";
         public const string InvalidUserNameOrPassword = "Invalid username or password!";
@@ -46,11 +45,10 @@
         public const string WantSaveTask = "Do you want to save task?";
         public const string SaveTask = "Save task?";
         public const string FileItemCell = "FileItemCellViewController";
-                    
+        public const string DeleteFile = "Delete File";                  
         public const string LogOut = "LogOut";
         public const string LogIn = "LogIn";
         public const string LogOutUser = "Log Out";
-
         public const int MaxLength = 20;
     }
 }

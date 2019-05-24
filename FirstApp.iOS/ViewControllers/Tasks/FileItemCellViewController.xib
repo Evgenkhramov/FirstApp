@@ -18,33 +18,17 @@
                         <rect key="frame" x="0.0" y="7" width="427" height="127.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1143" translatesAutoresizingMaskIntoConstraints="NO">
-                                <rect key="frame" x="5" y="19" width="256" height="89.5"/>
+                                <rect key="frame" x="5" y="19" width="384.5" height="89.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1374" translatesAutoresizingMaskIntoConstraints="NO">
-                                <rect key="frame" x="294" y="19" width="128" height="89.5"/>
-                                <color key="backgroundColor" colorSpace="calibratedRGB" red="0.32941176470588235" green="0.35294117647058826" blue="0.90196078431372551" alpha="1"/>
-                                <state key="normal" title="Del">
-                                    <color key="titleColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
                         </subviews>
                         <constraints>
                             <constraint id="1159" firstItem="1143" firstAttribute="leading" secondItem="871" secondAttribute="leading" constant="5"/>
                             <constraint id="1205" firstItem="1143" firstAttribute="centerY" secondItem="871" secondAttribute="centerY"/>
                             <constraint id="1236" firstItem="1143" firstAttribute="height" secondItem="871" secondAttribute="height" multiplier="0.7"/>
-                            <constraint id="1267" firstItem="1143" firstAttribute="width" secondItem="871" secondAttribute="width" multiplier="0.6"/>
-                            <constraint id="1405" firstAttribute="centerY" secondItem="1374" secondAttribute="centerY"/>
-                            <constraint id="1436" firstItem="1374" firstAttribute="height" secondItem="871" secondAttribute="height" multiplier="0.7"/>
-                            <constraint id="1467" firstAttribute="trailing" secondItem="1374" secondAttribute="trailing" constant="5"/>
-                            <constraint id="1498" firstItem="1374" firstAttribute="width" secondItem="871" secondAttribute="width" multiplier="0.3"/>
+                            <constraint id="1267" firstItem="1143" firstAttribute="width" secondItem="871" secondAttribute="width" multiplier="0.9"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -58,7 +42,6 @@
             <point key="canvasLocation" x="-75" y="-160.5"/>
             <connections>
                 <outlet property="FileLabel" destination="1143" id="name-outlet-1143"/>
-                <outlet property="DeleteFileButton" destination="1374" id="name-outlet-1374"/>
             </connections>
         </tableViewCell>
     </objects>
