@@ -10,7 +10,7 @@ using System.CodeDom.Compiler;
 
 namespace FirstApp.iOS.ViewControllers.Tasks
 {
-    [Register ("TaskListController")]
+    [Register ("TaskListViewController")]
     partial class TaskListViewController
     {
         [Outlet]

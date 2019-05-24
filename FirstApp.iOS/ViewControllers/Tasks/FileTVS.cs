@@ -30,7 +30,12 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             switch (editingStyle)
             {
                 case UITableViewCellEditingStyle.Delete:
-                    DeleteRowCommandiOS.Execute(indexPath.Row);
+
+                    if (ItemsSource is System.Collections.ObjectModel.ObservableCollection<FileListModel> sourceCollection)
+                    {
+                        var fileId = sourceCollection[indexPath.Row].Id;
+                        DeleteRowCommandiOS.Execute(fileId);
+                    }
 
                     break;
                 case UITableViewCellEditingStyle.None:

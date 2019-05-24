@@ -10,7 +10,7 @@ using System.CodeDom.Compiler;
 
 namespace FirstApp.iOS.ViewControllers.UserAccount
 {
-    [Register ("UserDataController")]
+    [Register ("UserProfileViewController")]
     partial class UserProfileViewController
     {
         [Outlet]

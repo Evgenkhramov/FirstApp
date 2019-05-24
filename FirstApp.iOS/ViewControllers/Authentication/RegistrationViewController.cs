@@ -16,7 +16,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
         public nfloat scrollAmount;   
         private bool _moveViewUp;
 
-        public RegistrationViewController() : base("RegistrationController", null)
+        public RegistrationViewController() : base("RegistrationViewController", null)
         {
             scrollAmount = 0.0f;
             _moveViewUp = false;

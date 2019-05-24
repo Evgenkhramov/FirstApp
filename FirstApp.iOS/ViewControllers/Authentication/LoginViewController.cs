@@ -23,6 +23,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
         {
             GET_ACCOUNTS = 0;
         }
+
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
@@ -38,13 +39,13 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
             GoogleButton.TouchUpInside += OnGoogleLoginButtonClicked;
 
-            EnterYourLogin.ShouldReturn = (textField) => 
+            EnterYourLogin.ShouldReturn = (textField) =>
             {
                 textField.ResignFirstResponder();
                 return true;
             };
 
-            EnterYourPasswordForLogin.ShouldReturn = (textField) => 
+            EnterYourPasswordForLogin.ShouldReturn = (textField) =>
             {
                 textField.ResignFirstResponder();
                 return true;
@@ -52,11 +53,11 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
             NavigationController.NavigationBarHidden = true;
 
-            SetBind();         
+            SetBind();
         }
 
         private void OnGoogleLoginButtonClicked(object sender, EventArgs e)
-        {            
+        {
             var authentificator = _authGoogle.GetAuthenticator();
             var viewController = authentificator.GetUI();
             PresentViewController(viewController, true, null);
@@ -90,7 +91,6 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         public void OnAuthenticationFailed(string message, Exception exception)
         {
-            // SFSafariViewController doesn't dismiss itself
             DismissViewController(true, null);
 
             var alertController = new UIAlertController
@@ -111,7 +111,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             _authFacebook = new FacebookAuthenticator(Configuration.ClientId, Configuration.Scope, ViewModel);
             var authenticator = _authFacebook.GetAuthenticator();
             var ui = authenticator.GetUI();
-            
+
             PresentViewController(ui, true, null);
         }
 

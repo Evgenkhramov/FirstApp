@@ -10,7 +10,7 @@ using System.CodeDom.Compiler;
 
 namespace FirstApp.iOS.ViewControllers.Authentication
 {
-    [Register ("LoginController")]
+    [Register ("LoginViewController")]
     partial class LoginViewController
     {
         [Outlet]
