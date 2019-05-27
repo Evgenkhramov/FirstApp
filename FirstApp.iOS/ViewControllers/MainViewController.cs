@@ -14,7 +14,7 @@ namespace FirstApp.iOS.ViewControllers
         }
 
         public override void DidReceiveMemoryWarning()
-        {
+        {   
             base.DidReceiveMemoryWarning();
         }
 
@@ -31,6 +31,6 @@ namespace FirstApp.iOS.ViewControllers
                 ViewModel.ShowMainFragmentCommand.Execute(null);
                 ViewModel.ShowUserProfileViewModelCommand.Execute(null);
             }
-        }      
+        }
     }
 }

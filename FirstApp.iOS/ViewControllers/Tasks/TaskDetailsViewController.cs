@@ -31,11 +31,11 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public override void ViewDidLoad()
         {
-            
+
 
             base.ViewDidLoad();
-
-            TabBarController.TabBar.Hidden = true;
+            //HidesBottomBarWhenPushed = true;
+            
 
             SetupNavigationBar();
 
@@ -60,7 +60,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             FileTabelView.RegisterNibForCellReuse(FileItemCellViewController.Nib, FileItemCellViewController.Key);
             var source = new FileTVS(FileTabelView);
             FileTabelView.Source = source;
-          
+
             AddFileInTaskButton.TouchUpInside += (sender, e) =>
              {
                  OpenFile(sender, e);
@@ -75,7 +75,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             set.Bind(DeleteTaskButton).To(vm => vm.DeleteTask);
             set.Bind(MapMarkersCount).To(vm => vm.MapMarkers);
             set.Bind(SaveTaskButton).To(vm => vm.SaveTask);
-            
+
             set.Apply();
         }
 
@@ -99,7 +99,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             if (!string.IsNullOrEmpty(fileName))
             {
                 ViewModel.SaveFileName(fileName);
-            }                
+            }
         }
 
         private void SetupNavigationBar()
@@ -139,6 +139,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public override void ViewWillAppear(bool animated)
         {
+            TabBarController.TabBar.Hidden = true;
             base.ViewWillAppear(animated);
         }
     }

@@ -27,8 +27,6 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             base.ViewDidLoad();
 
-            //TabBarController.TabBar.Hidden = false;
-
             Title = Constants.TaskList;
 
             EdgesForExtendedLayout = UIRectEdge.None;
@@ -69,6 +67,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public override void ViewWillAppear(bool animated)
         {
+            TabBarController.TabBar.Hidden = false;
             base.ViewWillAppear(animated);
         }
     }
