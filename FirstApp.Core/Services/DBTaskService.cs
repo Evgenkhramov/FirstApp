@@ -11,7 +11,7 @@ namespace FirstApp.Core.Services
         private SQLiteConnection _connect;
 
         public DBTaskService(IDBConnectionService connecting)
-        {        
+        {
             _connect = connecting.GetDatebaseConnection();
             _connect.CreateTable<TaskModel>();
         }
@@ -21,11 +21,9 @@ namespace FirstApp.Core.Services
             if (task.Id == 0)
             {
                 _connect.Insert(task);
+                return;
             }
-            if (task.Id != 0)
-            {
-                _connect.Update(task);
-            }
+            _connect.Update(task);
         }
 
         public void DeleteTaskFromTable(int taskId)

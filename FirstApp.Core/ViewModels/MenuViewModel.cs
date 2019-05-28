@@ -1,4 +1,5 @@
-﻿using FirstApp.Core.Interfaces;
+﻿using Acr.UserDialogs;
+using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -10,12 +11,20 @@ namespace FirstApp.Core.ViewModels
 {
     public class MenuViewModel : BaseViewModel
     {
+
+        #region Variables
+
         private readonly IDBUserService _sqliteUserRepository;
         private int _userId;
         private string _id;
-        private UserDatabaseModel userData;      
+        private UserDatabaseModel userData;
 
-        public MenuViewModel(IDBUserService sQLiteRepository, IMvxNavigationService navigationService) : base(navigationService)
+        #endregion Variables
+
+        #region Constructors
+
+        public MenuViewModel(IDBUserService sQLiteRepository, IMvxNavigationService navigationService,
+                    IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
             _sqliteUserRepository = sQLiteRepository;
 
@@ -35,28 +44,15 @@ namespace FirstApp.Core.ViewModels
             };
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         private MvxObservableCollection<MenuItem> _menuItems;
         public MvxObservableCollection<MenuItem> MenuItems
         {
             get => _menuItems;
             set => SetProperty(ref _menuItems, value);
-        }
-
-        public MvxAsyncCommand<MenuItem> ItemClickedCommand
-        {
-            get
-            {
-                return new MvxAsyncCommand<MenuItem>(async (param) =>
-                {
-                    if (param.Title == Constants.LogOutUser)
-                    {
-                        CrossSecureStorage.Current.DeleteKey(_id);
-                        CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
-                        _sqliteUserRepository.DeleteItem(_userId);
-                    }
-                    await _navigationService.Navigate(param.ShowCommand);
-                });
-            }
         }
 
         private string _myIcon;
@@ -67,17 +63,6 @@ namespace FirstApp.Core.ViewModels
             {
                 _myIcon = value;
                 RaisePropertyChanged(() => MyIcon);
-            }
-        }
-
-        public MvxAsyncCommand EditUserData
-        {
-            get
-            {
-                return new MvxAsyncCommand(async () =>
-                {
-                    await _navigationService.Navigate<UserDataViewModel>();
-                });
             }
         }
 
@@ -92,6 +77,43 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
+        #endregion Properties
+
+        #region Commands  
+
+        public MvxAsyncCommand<MenuItem> ItemClickedCommand
+        {
+            get
+            {
+                return new MvxAsyncCommand<MenuItem>(async (param) =>
+                {
+                    if (!(param.Title == Constants.LogOutUser))
+                    {
+                        await _navigationService.Navigate(param.ShowCommand);
+                        return;
+                    }
+
+                    CrossSecureStorage.Current.DeleteKey(_id);
+                    CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
+                    _sqliteUserRepository.DeleteItem(_userId);
+                    await _navigationService.Navigate(param.ShowCommand);
+                });
+            }
+        }
+
+        public MvxAsyncCommand EditUserData
+        {
+            get
+            {
+                return new MvxAsyncCommand(async () =>
+                {
+                    await _navigationService.Navigate<UserDataViewModel>();
+                });
+            }
+        }
+
+        #endregion Commands
+
         public class MenuItem
         {
             public string Title { get; private set; }
@@ -101,7 +123,7 @@ namespace FirstApp.Core.ViewModels
             {
                 Title = title;
                 ShowCommand = viewModelUrl;
-            }       
+            }
         }
     }
 }

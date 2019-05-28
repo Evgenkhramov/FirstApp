@@ -4,7 +4,7 @@ using Xamarin.Auth;
 
 namespace FirstApp.Core.Providers
 {
-    public class GoogleAuthenticator
+    public class GoogleAuthenticator : IDisposable
     {
         private const string AUTORIZE_URL = "https://accounts.google.com/o/oauth2/v2/auth";
         private const string ACCESS_TOKEN_URL = "https://www.googleapis.com/oauth2/v4/token";
@@ -37,27 +37,34 @@ namespace FirstApp.Core.Providers
             _auth.OnPageLoading(uri);
         }
 
-        private void OnAuthenticationCompleted(object sender, AuthenticatorCompletedEventArgs e)
+        private void OnAuthenticationCompleted(object sender, AuthenticatorCompletedEventArgs eventArgs)
         {
-            if (e.IsAuthenticated)
+            if (eventArgs.IsAuthenticated)
             {
                 var token = new GoogleOAuthToken
                 {
-                    TokenType = e.Account.Properties["token_type"],
-                    AccessToken = e.Account.Properties["access_token"]
+                    TokenType = eventArgs.Account.Properties["token_type"],
+                    AccessToken = eventArgs.Account.Properties["access_token"]
                 };
                 _authenticationDelegate.OnAuthenticationCompleted(token);
             }
 
-            if (!e.IsAuthenticated)
+            if (!eventArgs.IsAuthenticated)
             {
                 _authenticationDelegate.OnAuthenticationCanceled();
             }
+
         }
 
-        private void OnAuthenticationFailed(object sender, AuthenticatorErrorEventArgs e)
+        private void OnAuthenticationFailed(object sender, AuthenticatorErrorEventArgs eventArgs)
         {
-            _authenticationDelegate.OnAuthenticationFailed(e.Message, e.Exception);
+            _authenticationDelegate.OnAuthenticationFailed(eventArgs.Message, eventArgs.Exception);      
+        }
+
+        public void Dispose()
+        {
+            _auth.Completed -= OnAuthenticationCompleted;
+            _auth.Error -= OnAuthenticationFailed;
         }
     }
 }

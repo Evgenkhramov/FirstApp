@@ -138,5 +138,10 @@ namespace FirstApp.iOS.ViewControllers.Authentication
         {
             base.ViewWillAppear(animated);
         }
+        public override void ViewDidDisappear(bool animated)
+        {
+           // _authGoogle.Dispose();
+            base.ViewDidDisappear(animated);
+        }
     }
 }

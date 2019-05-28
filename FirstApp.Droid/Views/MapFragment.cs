@@ -57,18 +57,18 @@ namespace FirstApp.Droid.Views
 
             var builder = new LatLngBounds.Builder();
 
-            myLocation.Lat = getPosition.Latitude;
-            myLocation.Lng = getPosition.Longitude;
-            builder.Include(new LatLng(myLocation.Lat, myLocation.Lng));
+            myLocation.Latitude = getPosition.Latitude;
+            myLocation.Longitude = getPosition.Longitude;
+            builder.Include(new LatLng(myLocation.Latitude, myLocation.Longitude));
 
-            _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(myLocation.Lat, myLocation.Lng)).SetTitle($"Marker Task {ViewModel._taskId}").SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueGreen)));
+            _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(myLocation.Latitude, myLocation.Longitude)).SetTitle($"Marker Task {ViewModel._taskId}").SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueGreen)));
             MarkerListFromDB = ViewModel.GetMarkerList();
             if (MarkerListFromDB != null && MarkerListFromDB.Count > 0)
             {
                 foreach (MapMarkerModel coord in MarkerListFromDB)
                 {
-                    _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(coord.Lat, coord.Lng)).SetTitle($"Marker Task {ViewModel._taskId}"));
-                    builder.Include(new LatLng(coord.Lat, coord.Lng));
+                    _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(coord.Latitude, coord.Longitude)).SetTitle($"Marker Task {ViewModel._taskId}"));
+                    builder.Include(new LatLng(coord.Latitude, coord.Longitude));
                 }
             }
 
@@ -82,8 +82,8 @@ namespace FirstApp.Droid.Views
                 {
                     markerOption.SetPosition(e.Point);
                     MarcerRow = new MapMarkerModel();
-                    MarcerRow.Lat = markerOption.Position.Latitude;
-                    MarcerRow.Lng = markerOption.Position.Longitude;
+                    MarcerRow.Latitude = markerOption.Position.Latitude;
+                    MarcerRow.Longitude = markerOption.Position.Longitude;
                     ViewModel.SaveMarkerInList(MarcerRow);
                     var title = $"Marker Task {ViewModel._taskId}";
                     markerOption.SetTitle(title);

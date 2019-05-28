@@ -1,27 +1,35 @@
-﻿using System.Threading.Tasks;
+﻿using FirstApp.Core.Interfaces;
+using FirstApp.Core.ViewModels;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using FirstApp.Core.ViewModels;
 using Plugin.SecureStorage;
-using FirstApp.Core.Interfaces;
 using System;
+using System.Threading.Tasks;
 
 namespace FirstApp.Core
 {
     public class AppStart : MvxAppStart
     {
+        #region Variables
+
         private readonly IMvxNavigationService _mvxNavigationService;
         private readonly IAuthorizationService _authorizationService;
 
-        public AppStart(IMvxApplication app,
-                        IMvxNavigationService mvxNavigationService,
-                        IAuthorizationService loginService)
-            : base(app, mvxNavigationService)
+        #endregion Variables
+
+        #region Constructors
+
+        public AppStart(IMvxApplication app, IMvxNavigationService mvxNavigationService,
+                               IAuthorizationService loginService)
+                   : base(app, mvxNavigationService)
         {
             _mvxNavigationService = mvxNavigationService;
             _authorizationService = loginService;
         }
 
+        #endregion Constructors
+
+        #region Overrides
         protected override Task NavigateToFirstViewModel(object hint = null)
         {
             string sequreKeyForLoged = CrossSecureStorage.Current.GetValue(Constants.SequreKeyForLoged);
@@ -29,11 +37,11 @@ namespace FirstApp.Core
             {
                 return _mvxNavigationService.Navigate<MainViewModel>();
             }
-            else
-            {
-                return _mvxNavigationService.Navigate<StartViewModel>();
-            }
+
+            return _mvxNavigationService.Navigate<StartViewModel>();
+
             //return _mvxNavigationService.Navigate<StartViewModel>();
         }
+        #endregion Overrides
     }
 }

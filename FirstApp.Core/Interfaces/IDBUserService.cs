@@ -1,8 +1,5 @@
-﻿using FirstApp.Core.Services;
-using System;
+﻿using FirstApp.Core.Models;
 using System.Collections.Generic;
-using System.Text;
-using FirstApp.Core.Models;
 
 namespace FirstApp.Core.Interfaces
 {

@@ -1,56 +1,41 @@
-﻿using System.Collections.Generic;
-using Acr.UserDialogs;
-using FirstApp.Core.Interfaces;
+﻿using Acr.UserDialogs;
 using FirstApp.Core.Models;
-using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using System.Collections.Generic;
 
 namespace FirstApp.Core.ViewModels
 {
     public class MapViewModel : BaseViewModel<TaskModel>
     {
-        private int _markerCount;
+        #region Variables
+
         List<MapMarkerModel> _markerList;
         private TaskModel _taskModel;
         public int _taskId;
 
-        private IDBMapMarkerService _dBMapMarkerService;
+        #endregion Variables
 
-        public MapViewModel(IMvxNavigationService navigationService, IDBMapMarkerService dBMapMarkerService) : base(navigationService)
+        #region Constructors
+
+        public MapViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
             _markerList = new List<MapMarkerModel>();
-            _dBMapMarkerService = dBMapMarkerService;
-            _markerCount = 0;
             SaveButton = false;
             HaveGone = false;
         }
 
-        public override void Prepare(TaskModel task)
-        {
-            _taskModel = task;
-            _taskId = task.Id;
-        }
+        #endregion Constructors
 
-        private bool _saveButton;
-        public bool SaveButton
-        {
-            get => _saveButton;
-            set
-            {
-                _saveButton = value;
-            }
-        }
+        #region Properties
 
-        private bool _haveGone;
-        public bool HaveGone
-        {
-            get => _haveGone;
-            set
-            {
-                _haveGone = value;
-            }
-        }
+        public bool SaveButton { get; set; }
+
+        public bool HaveGone { get; set; }
+
+        #endregion Properties
+
+        #region Commands  
 
         public MvxAsyncCommand BackCommand
         {
@@ -58,28 +43,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    if (_markerList.Count > 0)
-                    {
-                        var answ = await Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync("Do you want to save your markers?", "Save Markers?", "Yes", "No");
-
-                        if (answ)
-                        {
-                            foreach (MapMarkerModel item in _markerList)
-                            {
-                                _dBMapMarkerService.AddMarkerToTable(item);
-                            }
-                            _markerList.Clear();
-                            await _navigationService.Close(this);
-                        }
-                        if (!answ)
-                        {
-                            await _navigationService.Close(this);
-                        }
-                    }
-                    if (_markerList.Count <= 0)
-                    {
-                        await _navigationService.Close(this);
-                    }
+                    SaveMapMarkerCommand.Execute();
                 });
             }
         }
@@ -90,23 +54,25 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    if (_markerList.Count > 0)
-                    {
-                        foreach (MapMarkerModel item in _markerList)
-                        {
-                            _dBMapMarkerService.AddMarkerToTable(item);
-                        }
-                        _markerList.Clear();
-                        await _navigationService.Close(this);
-                    }
-
                     if (_markerList.Count <= 0)
                     {
                         await _navigationService.Close(this);
+                        return;
                     }
+                    foreach (MapMarkerModel item in _markerList)
+                    {
+                        TaskDetailsViewModel.MapMarkerList.Add(item);
+                    }
+
+                    _markerList.Clear();
+                    await _navigationService.Close(this);
                 });
             }
         }
+
+        #endregion Commands
+
+        #region Methods
 
         public void SaveMarkerInList(MapMarkerModel marker)
         {
@@ -116,8 +82,20 @@ namespace FirstApp.Core.ViewModels
 
         public List<MapMarkerModel> GetMarkerList()
         {
-            List<MapMarkerModel> markers = _dBMapMarkerService.GetMapMarkerListFromDB(_taskId);
+            List<MapMarkerModel> markers = TaskDetailsViewModel.MapMarkerList;
             return markers;
         }
+
+        #endregion Methods
+
+        #region Overrides
+
+        public override void Prepare(TaskModel task)
+        {
+            _taskModel = task;
+            _taskId = task.Id;
+        }
+
+        #endregion Overrides
     }
 }

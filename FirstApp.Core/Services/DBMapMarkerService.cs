@@ -31,8 +31,8 @@ namespace FirstApp.Core.Services
                     MapMarkerModel row = new MapMarkerModel();
                     row.Id = item.Id;
                     row.TaskId = item.TaskId;
-                    row.Lat = item.Lat;
-                    row.Lng = item.Lng;
+                    row.Latitude = item.Latitude;
+                    row.Longitude = item.Longitude;
                     coord.Add(row);
                 }
             }

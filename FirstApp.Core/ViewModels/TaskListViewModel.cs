@@ -1,4 +1,5 @@
-﻿using FirstApp.Core.Interfaces;
+﻿using Acr.UserDialogs;
+using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -10,42 +11,26 @@ namespace FirstApp.Core.ViewModels
 {
     public class TaskListViewModel : BaseViewModel, IListHandler
     {
-        public int taskItem;
+        #region Variables
+
         private readonly IDBTaskService _dBTaskService;
 
-        public TaskListViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService) : base(navigationService)
+        #endregion Variables
+
+        #region Constructors
+
+        public TaskListViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
             _dBTaskService = dBTaskService;
-            DeleteItemCommand = new MvxCommand<int>(RemoveCollectionItem);
+            DeleteItemCommand = new MvxCommand<int>(RemoveTaskCollectionItem);
             DeleteItemCommandiOS = new MvxCommand<int>(RemoveCollectionItemiOS);
             AddData();
             ShowTaskChangedView = new MvxAsyncCommand<TaskModel>(CollectionItemClick);
         }
-        public IMvxCommand<TaskModel> ShowTaskChangedView { get; set; }
 
-        public void AddData()
-        {
-            IsRefreshTaskCollection = true;
+        #endregion Constructors
 
-            var list = _dBTaskService.LoadListItemsTask();
-
-            foreach (var item in list)
-            {
-                item.VmHandler = this;
-            }
-
-            TaskCollection = new MvxObservableCollection<TaskModel>();
-            TaskCollection.AddRange(list);
-
-            IsRefreshTaskCollection = false;
-        }
-
-        void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            MvxObservableCollection<TaskModel> obsSender = sender as MvxObservableCollection<TaskModel>;
-
-            int element = e.OldItems.Count;
-        }
+        #region Properties
 
         private bool _isRefreshTaskCollection;
         public bool IsRefreshTaskCollection
@@ -58,9 +43,6 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        private MvxCommand _refreshCommand;
-        public MvxCommand RefreshTaskCommand => _refreshCommand = _refreshCommand ?? new MvxCommand(AddData);
-
         private MvxObservableCollection<TaskModel> _taskCollection;
         public MvxObservableCollection<TaskModel> TaskCollection
         {
@@ -71,6 +53,15 @@ namespace FirstApp.Core.ViewModels
                 RaisePropertyChanged(() => TaskCollection);
             }
         }
+
+        #endregion Properties
+
+        #region Commands  
+
+        public IMvxCommand<TaskModel> ShowTaskChangedView { get; set; }
+
+        private MvxCommand _refreshCommand;
+        public MvxCommand RefreshTaskCommand => _refreshCommand = _refreshCommand ?? new MvxCommand(AddData);
 
         public MvxAsyncCommand CreateNewTask
         {
@@ -89,9 +80,32 @@ namespace FirstApp.Core.ViewModels
 
         public IMvxCommand<int> DeleteItemCommandiOS { get; set; }
 
-        public override void ViewAppearing()
+        #endregion Commands
+
+        #region Methods
+
+        public void AddData()
         {
-            RefreshTaskCommand.Execute();
+            IsRefreshTaskCollection = true;
+
+            var list = _dBTaskService.LoadListItemsTask();
+
+            foreach (var item in list)
+            {
+                item.VmHandler = this;
+            }
+
+            TaskCollection = new MvxObservableCollection<TaskModel>();
+            TaskCollection.AddRange(list);
+
+            IsRefreshTaskCollection = false;
+        }
+
+        void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
+        {
+            MvxObservableCollection<TaskModel> obsSender = sender as MvxObservableCollection<TaskModel>;
+
+            int element = eventArgs.OldItems.Count;
         }
 
         public async Task CollectionItemClick(TaskModel model)
@@ -99,7 +113,7 @@ namespace FirstApp.Core.ViewModels
             await _navigationService.Navigate<TaskDetailsViewModel, TaskModel>(model);
         }
 
-        public void RemoveCollectionItem(int itemId)
+        public void RemoveTaskCollectionItem(int itemId)
         {
             TaskModel itemForDelete = null;
             _dBTaskService.DeleteTaskFromTable(itemId);
@@ -120,5 +134,16 @@ namespace FirstApp.Core.ViewModels
             TaskCollection.RemoveAt(itemId);
             _dBTaskService.DeleteTaskFromTable(idForDB);
         }
+
+        #endregion Methods
+
+        #region Overrides
+
+        public override void ViewAppearing()
+        {
+            RefreshTaskCommand.Execute();
+        }
+
+        #endregion Overrides
     }
 }

@@ -1,13 +1,13 @@
-﻿using FirstApp.Core.Enums;
-using FirstApp.Core.Interfaces;
+﻿using FirstApp.Core.Interfaces;
+using FirstApp.Core.Models;
 
 namespace FirstApp.Droid.Services
 {
-    class GetCurrentPlatformService : IGetCurrentPlatformService
+    public class CurrentPlatformService : ICurrentPlatformService
     {
-        public CurrentPlatform CurrentPlatform()
+        public CurrentPlatformType GetCurrentPlatform()
         {
-            CurrentPlatform answ = Core.Enums.CurrentPlatform.Android;
+            CurrentPlatformType answ = CurrentPlatformType.Android;
 
             return answ;
         }

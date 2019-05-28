@@ -1,5 +1,4 @@
-﻿using FirstApp.Core.Enums;
-using SQLite;
+﻿using SQLite;
 
 namespace FirstApp.Core.Models
 {
@@ -15,6 +14,6 @@ namespace FirstApp.Core.Models
         public string Email { get; set; }
         public string Photo { get; set; }
         public string PhotoURL { get; set; }
-        public LoginMethod HowDoLogin { get; set; }
+        public LoginType TypeUserLogin { get; set; }
     }
 }

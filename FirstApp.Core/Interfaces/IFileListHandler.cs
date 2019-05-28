@@ -2,6 +2,6 @@
 {
     public interface IFileListHandler
     {
-        void RemoveCollectionItem(int itemId);
+        void RemoveFileCollectionItem(int itemId);
     }
 }

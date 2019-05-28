@@ -1,6 +1,6 @@
 ﻿using FirstApp.Core.Interfaces;
-using SQLite;
 using FirstApp.Core.Models;
+using SQLite;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,7 +18,7 @@ namespace FirstApp.Core.Services
 
         public IEnumerable<UserDatabaseModel> GetItems()
         {
-            return (from i in _connect.Table<UserDatabaseModel>() select i).ToList();
+            return (from item in _connect.Table<UserDatabaseModel>() select item).ToList();
         }
 
         public bool IsLoginInDB(string login)
@@ -29,6 +29,7 @@ namespace FirstApp.Core.Services
             {
                 return true;
             }
+
             return false;
         }
 

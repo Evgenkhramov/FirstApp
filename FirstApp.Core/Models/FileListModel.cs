@@ -20,10 +20,9 @@ namespace FirstApp.Core.Models
             {
                 return new MvxCommand<int>((param) =>
                 {
-                    VmHandler.RemoveCollectionItem(Id);
+                    VmHandler.RemoveFileCollectionItem(Id);
                 });
             }
         }
-
     }
 }

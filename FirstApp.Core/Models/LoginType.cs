@@ -1,6 +1,6 @@
-﻿namespace FirstApp.Core.Enums
+﻿namespace FirstApp.Core.Models
 {
-    public enum LoginMethod
+    public enum LoginType
     {
         None = 0,
         App = 1,

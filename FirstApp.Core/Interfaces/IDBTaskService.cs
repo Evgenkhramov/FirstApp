@@ -1,7 +1,5 @@
 ﻿using FirstApp.Core.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FirstApp.Core.Interfaces
 {
@@ -10,6 +8,5 @@ namespace FirstApp.Core.Interfaces
         void AddTaskToTable(TaskModel tasks);
         List<TaskModel> LoadListItemsTask();
         void DeleteTaskFromTable(int taskId);
-        //void UpdateLocalDatabese(List<TaskModel> items);
     }
 }

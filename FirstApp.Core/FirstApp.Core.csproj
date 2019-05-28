@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Interfaces\IOAuthService.cs" />
     <Compile Remove="Interfaces\IUserDialogService.cs" />
   </ItemGroup>
 

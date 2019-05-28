@@ -53,11 +53,13 @@ namespace FirstApp.iOS.ViewControllers.Tasks
                     _map.AddAnnotations(new MKPointAnnotation()
                     {
                         Title = $"Marker Task {ViewModel._taskId}",
-                        Coordinate = new CLLocationCoordinate2D(coord.Lat, coord.Lng)
+                        Coordinate = new CLLocationCoordinate2D(coord.Latitude, coord.Longitude)
                     });
 
                 }
             }          
+
+
 
             UILongPressGestureRecognizer longp = new UILongPressGestureRecognizer(LongPress);
             _map.AddGestureRecognizer(longp);
@@ -95,8 +97,8 @@ namespace FirstApp.iOS.ViewControllers.Tasks
                 CLLocationCoordinate2D coordinate = _map.ConvertPoint(location, _map);
 
                 MarcerRow = new MapMarkerModel();
-                MarcerRow.Lat = coordinate.Latitude;
-                MarcerRow.Lng = coordinate.Longitude;
+                MarcerRow.Latitude = coordinate.Latitude;
+                MarcerRow.Longitude = coordinate.Longitude;
                 ViewModel.SaveMarkerInList(MarcerRow);
 
                 _map.AddAnnotations(new MKPointAnnotation()

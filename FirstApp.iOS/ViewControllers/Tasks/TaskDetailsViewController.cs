@@ -31,17 +31,13 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public override void ViewDidLoad()
         {
-
-
-            base.ViewDidLoad();
-            //HidesBottomBarWhenPushed = true;
-            
+            base.ViewDidLoad(); 
 
             SetupNavigationBar();
 
             Title = Constants.TaskDetails;
 
-            //EdgesForExtendedLayout = UIRectEdge.None;
+            //EdgesForExtendedLayout = UIRectEdge.None; 
 
             TaskName.ShouldReturn = (textField) =>
             {
@@ -73,7 +69,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             set.Bind(TaskDescription).To(vm => vm.TaskDescription);
             set.Bind(AddMapMarkersButton).To(vm => vm.AddMarkerCommand);
             set.Bind(DeleteTaskButton).To(vm => vm.DeleteTask);
-            set.Bind(MapMarkersCount).To(vm => vm.MapMarkers);
+            set.Bind(MapMarkersCount).To(vm => vm.MarkersCounter);
             set.Bind(SaveTaskButton).To(vm => vm.SaveTask);
 
             set.Apply();
@@ -139,6 +135,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public override void ViewWillAppear(bool animated)
         {
+            ViewModel.UpdateMarkersCounter();
             TabBarController.TabBar.Hidden = true;
             base.ViewWillAppear(animated);
         }

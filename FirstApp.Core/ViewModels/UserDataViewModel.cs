@@ -1,7 +1,6 @@
 ﻿using Acr.UserDialogs;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
-using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.Plugin.PictureChooser;
@@ -13,13 +12,22 @@ namespace FirstApp.Core.ViewModels
 {
     public class UserDataViewModel : BaseViewModel
     {
+        #region Variables
+
         private readonly IMvxPictureChooserTask _pictureChooserTask;
         private readonly IDBUserService _sQLiteRepository;
         private UserDatabaseModel _userData;
         private int _userId;
-        private readonly IGetCurrentPlatformService _getCurrentPlatform;
+        private readonly ICurrentPlatformService _getCurrentPlatform;
+        private byte[] _bytes;
 
-        public UserDataViewModel(IGetCurrentPlatformService getCurrentPlatform, IDBUserService sQLiteRepository, IMvxPictureChooserTask pictureChooserTask, IMvxNavigationService navigationService) : base(navigationService)
+        #endregion Variables
+
+        #region Constructors
+
+        public UserDataViewModel(ICurrentPlatformService getCurrentPlatform, IDBUserService sQLiteRepository,
+              IMvxPictureChooserTask pictureChooserTask, IMvxNavigationService navigationService,
+              IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
             try
             {
@@ -39,28 +47,22 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }
+        #endregion Constructors
 
-        private string _userName;
-        public string UserName
+        #region Properties
+
+        private string _surname;
+        public string Surname
         {
             get
             {
-                return _userName;
+                return _surname;
             }
             set
             {
-                _userName = value;
-                RaisePropertyChanged(() => UserName);
+                _surname = value;
+                RaisePropertyChanged(() => Surname);
             }
-        }
-
-        public void SavePhoto(string photo)
-        {
-            _userData.Id = _userId;
-            _userData.Photo = photo;
-            MyPhoto = _userData.Photo;
-            _sQLiteRepository.SaveItem(_userData);
         }
 
         private string _myPhoto;
@@ -78,19 +80,25 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        private string _surname;
-        public string Surname
+        private string _userName;
+        public string UserName
         {
             get
             {
-                return _surname;
+                return _userName;
             }
             set
             {
-                _surname = value;
-                RaisePropertyChanged(() => Surname);
+                _userName = value;
+                RaisePropertyChanged(() => UserName);
             }
         }
+
+        #endregion Properties
+
+        #region Commands  
+
+        public IMvxAsyncCommand ShowMenuViewModelCommand { get; private set; }
 
         public MvxAsyncCommand SaveUserData
         {
@@ -101,8 +109,8 @@ namespace FirstApp.Core.ViewModels
                     _userData.Photo = MyPhoto;
                     _userData.Id = _userId;
                     _sQLiteRepository.SaveItem(_userData);
-                    var platform = _getCurrentPlatform.CurrentPlatform();
-                    if (platform == Enums.CurrentPlatform.Android)
+                    var platform = _getCurrentPlatform.GetCurrentPlatform();
+                    if (platform == CurrentPlatformType.Android)
                     {
                         await _navigationService.Navigate<TaskListViewModel>();
                     }
@@ -117,12 +125,13 @@ namespace FirstApp.Core.ViewModels
                 return new MvxAsyncCommand(async () =>
                 {
                     _userData = _sQLiteRepository.GetItem(_userId);
+
                     MyPhoto = _userData.Photo;
                     Surname = _userData.Surname;
                     UserName = _userData.Name;
-                    var platform = _getCurrentPlatform.CurrentPlatform();
+                    var platform = _getCurrentPlatform.GetCurrentPlatform();
 
-                    if (platform == Enums.CurrentPlatform.Android)
+                    if (platform == CurrentPlatformType.Android)
                     {
                         await _navigationService.Navigate<TaskListViewModel>();
                     }
@@ -136,18 +145,20 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    bool answ = await Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync(Constants.WantLogOut, Constants.WLogOut, Constants.Yes, Constants.No);
-                    if (answ)
+                    bool answ = await _userDialogs.ConfirmAsync(Constants.WantLogOut, Constants.WLogOut, Constants.Yes, Constants.No);
+                    if (!answ)
                     {
-                        CrossSecureStorage.Current.DeleteKey(Constants.SequreKeyForUserIdInDB);
-                        CrossSecureStorage.Current.DeleteKey(Constants.SequreKeyForUserName);
-                        CrossSecureStorage.Current.DeleteKey(Constants.SequreKeyForUserPassword);
-                        CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
-
-                        _sQLiteRepository.DeleteItem(_userId);
-
-                        await _navigationService.Navigate<LoginViewModel>();
+                        return;
                     }
+
+                    CrossSecureStorage.Current.DeleteKey(Constants.SequreKeyForUserIdInDB);
+                    CrossSecureStorage.Current.DeleteKey(Constants.SequreKeyForUserName);
+                    CrossSecureStorage.Current.DeleteKey(Constants.SequreKeyForUserPassword);
+                    CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
+
+                    _sQLiteRepository.DeleteItem(_userId);
+
+                    await _navigationService.Navigate<LoginViewModel>();
                 });
             }
         }
@@ -175,11 +186,6 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        private void DoTakePicture()
-        {
-            _pictureChooserTask.TakePicture(400, 95, OnPicture, () => { });
-        }
-
         private MvxCommand _choosePictureCommand;
 
         public IMvxCommand ChoosePictureCommand
@@ -191,12 +197,27 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
+        #endregion Commands
+
+        #region Methods
+
+        public void SavePhoto(string photo)
+        {
+            _userData.Id = _userId;
+            _userData.Photo = photo;
+            MyPhoto = _userData.Photo;
+            _sQLiteRepository.SaveItem(_userData);
+        }
+
+        private void DoTakePicture()
+        {
+            _pictureChooserTask.TakePicture(400, 95, OnPicture, () => { });
+        }
+
         private void DoChoosePicture()
         {
             _pictureChooserTask.ChoosePictureFromLibrary(400, 95, OnPicture, () => { });
         }
-
-        private byte[] _bytes;
 
         public byte[] Bytes
         {
@@ -211,6 +232,8 @@ namespace FirstApp.Core.ViewModels
             Bytes = memoryStream.ToArray();
             MyPhoto = Convert.ToBase64String(Bytes);
         }
+
+        #endregion Methods
     }
 }
 

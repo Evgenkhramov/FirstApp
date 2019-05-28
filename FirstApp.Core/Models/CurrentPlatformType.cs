@@ -1,6 +1,6 @@
-﻿namespace FirstApp.Core.Enums
+﻿namespace FirstApp.Core.Models
 {
-    public enum CurrentPlatform
+    public enum CurrentPlatformType
     {
         None = 0,
         Android = 1,

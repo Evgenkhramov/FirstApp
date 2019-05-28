@@ -1,5 +1,4 @@
-﻿
-namespace FirstApp.Core.Models
+﻿namespace FirstApp.Core.Models
 {
     public class GoogleModel
     {

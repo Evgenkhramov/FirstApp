@@ -1,8 +1,6 @@
 ﻿using Acr.UserDialogs;
-using FirstApp.Core.Enums;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
-using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
@@ -13,108 +11,48 @@ namespace FirstApp.Core.ViewModels
 {
     public class TaskDetailsViewModel : BaseViewModel<TaskModel>, IFileListHandler
     {
-        private CurrentPlatform _platform;
+        #region Variables
+
+        private CurrentPlatformType _platform;
         private TaskModel _thisTaskModel;
+        public static List<MapMarkerModel> MapMarkerList;
         private int _taskId;
         private readonly IDBFileNameService _dBFileNameService;
         private readonly IDBMapMarkerService _dBMapMarkerService;
         private readonly IDBTaskService _dBTaskService;
-        private readonly IGetCurrentPlatformService _getCurrentPlatformService;
+        private readonly ICurrentPlatformService _getCurrentPlatformService;
 
-        public TaskDetailsViewModel(IGetCurrentPlatformService getCurrentPlatformService, IMvxNavigationService navigationService, IDBTaskService dBTaskService, IDBMapMarkerService dBMapMarkerService,
-             IDBFileNameService dBFileNameService) : base(navigationService)
+        #endregion Variables
+
+        #region Constructors
+
+        public TaskDetailsViewModel(ICurrentPlatformService getCurrentPlatformService, IMvxNavigationService navigationService,
+            IDBTaskService dBTaskService, IDBMapMarkerService dBMapMarkerService, IDBFileNameService dBFileNameService,
+            IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
             _getCurrentPlatformService = getCurrentPlatformService;
+            _platform = _getCurrentPlatformService.GetCurrentPlatform();
             _dBMapMarkerService = dBMapMarkerService;
             _dBTaskService = dBTaskService;
             _dBFileNameService = dBFileNameService;
 
             _thisTaskModel = new TaskModel();
 
-            DeleteFileItemCommand = new MvxCommand<int>(RemoveCollectionItem);
+            MapMarkerList = new List<MapMarkerModel>();
+
+            DeleteFileItemCommand = new MvxCommand<int>(RemoveFileCollectionItem);
 
             SaveButton = true;
             HaveGone = false;
-            _platform = _getCurrentPlatformService.CurrentPlatform();
         }
 
-        public override async Task Initialize()
-        {
-            await base.Initialize();
-            if (_taskId == 0)
-            {
-                TaskName = null;
-                TaskDescription = null;
-                MapMarkers = null;
-                _dBTaskService.AddTaskToTable(_thisTaskModel);
-                _taskId = _thisTaskModel.Id;
-                AddFileName();
-            }
-        }
+        #endregion Constructors
 
-        public override void Prepare(TaskModel parametr)
-        {
-            if (parametr != null)
-            {
-                _thisTaskModel.Id = parametr.Id;
-                _taskId = parametr.Id;
-                TaskName = parametr.TaskName;
-                TaskDescription = parametr.TaskDescription;
-                MapMarkers = _dBMapMarkerService.GetMapMarkerListFromDB(_taskId).Count.ToString();
-                AddFileName();
+        #region Properties
 
-                return;
-            }
-            TaskName = null;
-            TaskDescription = null;
-            MapMarkers = null;
-            _dBTaskService.AddTaskToTable(_thisTaskModel);
-            _taskId = _thisTaskModel.Id;
-        }
+        public bool SaveButton { get; set; }
 
-        public void AddFileName()
-        {
-            FileNameList = new MvxObservableCollection<FileListModel>() { };
-
-            List<FileListModel> list = GetFileNameListFromDB(_taskId);
-
-            foreach (var item in list)
-            {
-                item.VmHandler = this;
-            }
-            FileNameList.AddRange(list);
-        }
-
-        public MvxObservableCollection<FileListModel> _fileNameList;
-        public MvxObservableCollection<FileListModel> FileNameList
-        {
-            get => _fileNameList;
-            set
-            {
-                _fileNameList = value;
-                RaisePropertyChanged(() => FileNameList);
-            }
-        }
-
-        private bool _saveButton;
-        public bool SaveButton
-        {
-            get => _saveButton;
-            set
-            {
-                _saveButton = value;
-            }
-        }
-
-        private bool _haveGone;
-        public bool HaveGone
-        {
-            get => _haveGone;
-            set
-            {
-                _haveGone = value;
-            }
-        }
+        public bool HaveGone { get; set; }
 
         private string _taskName;
         public string TaskName
@@ -140,16 +78,31 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
+        public MvxObservableCollection<FileListModel> _fileNameList;
+        public MvxObservableCollection<FileListModel> FileNameList
+        {
+            get => _fileNameList;
+            set
+            {
+                _fileNameList = value;
+                RaisePropertyChanged(() => FileNameList);
+            }
+        }
+
         private string _mapMarkers;
-        public string MapMarkers
+        public string MarkersCounter
         {
             get => _mapMarkers;
             set
             {
                 _mapMarkers = value;
-                RaisePropertyChanged(() => MapMarkers);
+                RaisePropertyChanged(() => MarkersCounter);
             }
         }
+
+        #endregion Properties
+
+        #region Commands  
 
         public MvxAsyncCommand AddFile
         {
@@ -188,27 +141,26 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-
                     if (string.IsNullOrEmpty(TaskName))
                     {
-                        Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.EnterTaskName, Constants.EmptyTaskName, Constants.Ok);
+                        _userDialogs.Alert(Constants.EnterTaskName, Constants.EmptyTaskName, Constants.Ok);
                         return;
                     }
                     if (string.IsNullOrEmpty(TaskDescription))
                     {
-                        Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.EnterTaskDescription, Constants.EmptyTaskDescription, Constants.Ok);
+                        _userDialogs.Alert(Constants.EnterTaskDescription, Constants.EmptyTaskDescription, Constants.Ok);
 
                         return;
                     }
-                    if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName) && _platform == CurrentPlatform.Android)
+                    if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName) && _platform == CurrentPlatformType.Android)
                     {
                         _dBTaskService.AddTaskToTable(_thisTaskModel);
 
                         await _navigationService.Navigate<TaskListViewModel>();
                     }
-                    if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName) && _platform == CurrentPlatform.iOS)
+                    if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName) && _platform == CurrentPlatformType.iOS)
                     {
-                        _dBTaskService.AddTaskToTable(_thisTaskModel);
+                        SaveDataToDB(_thisTaskModel, MapMarkerList, FileNameList);
 
                         await _navigationService.Close(this);
                     }
@@ -222,16 +174,14 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    bool answ = await Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync(Constants.WantSaveTask, Constants.SaveTask, Constants.Yes, Constants.No);
+                    bool answ = await _userDialogs.ConfirmAsync(Constants.WantSaveTask, Constants.SaveTask, Constants.Yes, Constants.No);
 
                     if (answ)
                     {
                         SaveTask.Execute();
+                        return;
                     }
-                    if (!answ)
-                    {
-                        await _navigationService.Close(this);
-                    }
+                    await _navigationService.Close(this);
                 });
             }
         }
@@ -242,19 +192,74 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    bool answ = await Mvx.IoCProvider.Resolve<IUserDialogs>().ConfirmAsync(Constants.WantDeleteTask, Constants.DeleteTask, Constants.Yes, Constants.No);
+                    bool answ = await _userDialogs.ConfirmAsync(Constants.WantDeleteTask, Constants.DeleteTask, Constants.Yes, Constants.No);
 
-                    if (answ && _platform==CurrentPlatform.iOS)
-                    {    
+                    if (answ && _platform == CurrentPlatformType.iOS)
+                    {
                         _dBTaskService.DeleteTaskFromTable(_taskId);
                         await _navigationService.Close(this);
                     }
-                    if (answ && _platform == CurrentPlatform.Android)
+                    if (answ && _platform == CurrentPlatformType.Android)
                     {
                         _dBTaskService.DeleteTaskFromTable(_taskId);
                         await _navigationService.Navigate<TaskListViewModel>();
                     }
                 });
+            }
+        }
+
+        public IMvxCommand<int> DeleteFileItemCommand { get; set; }
+
+        #endregion Commands
+
+        #region Methods
+
+        public void AddFileName()
+        {
+            FileNameList = new MvxObservableCollection<FileListModel>() { };
+
+            List<FileListModel> list = GetFileNameListFromDB(_taskId);
+
+            foreach (var item in list)
+            {
+                item.VmHandler = this;
+            }
+
+            FileNameList.AddRange(list);
+        }
+
+        private void SaveDataToDB(TaskModel task, List<MapMarkerModel> mapMarkerList, MvxObservableCollection<FileListModel> fileNameList)
+        {
+            _dBTaskService.AddTaskToTable(_thisTaskModel);
+
+            _taskId = _thisTaskModel.Id;
+
+            if (mapMarkerList.Count > 0)
+            {
+                foreach (MapMarkerModel item in mapMarkerList)
+                {
+                    item.TaskId = _taskId;
+                    if (item.Id == 0)
+                    {
+                        _dBMapMarkerService.AddMarkerToTable(item);
+                    }
+                }
+
+                mapMarkerList.Clear();
+            }
+
+            if (fileNameList.Count > 0)
+            {
+                foreach (FileListModel item in fileNameList)
+                {
+                    item.TaskId = _taskId;
+                    if (item.Id == 0)
+                    {
+                        _dBFileNameService.AddFileNameToTable(item);
+                    }
+                }
+
+                fileNameList.Clear();
             }
         }
 
@@ -267,15 +272,17 @@ namespace FirstApp.Core.ViewModels
 
         public void SaveFileName(string name)
         {
-            var item = new FileListModel();
-            item.TaskId = _taskId;
-            item.FileName = name;
-            item.VmHandler = this;
+            var item = new FileListModel
+            {
+                TaskId = _taskId,
+                FileName = name,
+                VmHandler = this
+            };
+
             _fileNameList.Add(item);
-            _dBFileNameService.AddFileNameToTable(item);
         }
 
-        public void RemoveCollectionItem(int itemId)
+        public void RemoveFileCollectionItem(int itemId)
         {
             _dBFileNameService.DeleteFileName(itemId);
 
@@ -294,11 +301,52 @@ namespace FirstApp.Core.ViewModels
             FileNameList.Remove(item: _itemForDelete);
         }
 
-        public IMvxCommand<int> DeleteFileItemCommand { get; set; }
+
+        public void UpdateMarkersCounter()
+        {
+            MarkersCounter = MapMarkerList.Count.ToString();
+        }
+
+        #endregion Methods
+
+        #region Overrides
+
+        public override async Task Initialize()
+        {
+            await base.Initialize();
+            if (_taskId == 0)
+            {
+                TaskName = null;
+                TaskDescription = null;
+                MarkersCounter = null;
+                AddFileName();
+            }
+        }
+
+        public override void Prepare(TaskModel parametr)
+        {
+            if (parametr != null)
+            {
+                _thisTaskModel.Id = parametr.Id;
+                _taskId = parametr.Id;
+                TaskName = parametr.TaskName;
+                TaskDescription = parametr.TaskDescription;
+                MapMarkerList = _dBMapMarkerService.GetMapMarkerListFromDB(_taskId);
+                MarkersCounter = MapMarkerList.Count.ToString();
+                AddFileName();
+
+                return;
+            }
+            TaskName = null;
+            TaskDescription = null;
+            MarkersCounter = null;
+        }
 
         public override void ViewAppearing()
         {
-            MapMarkers = _dBMapMarkerService.GetMapMarkerListFromDB(_taskId).Count.ToString();
+            MarkersCounter = _dBMapMarkerService.GetMapMarkerListFromDB(_taskId).Count.ToString();
         }
+
+        #endregion Overrides
     }
 }

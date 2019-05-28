@@ -3,8 +3,8 @@ using System;
 using Xamarin.Auth;
 
 namespace FirstApp.Core.Providers
-{ 
-    public class FacebookAuthenticator
+{
+    public class FacebookAuthenticator : IDisposable
     {
         private const string AUTORIZE_URL = "https://www.facebook.com/dialog/oauth/";
         private const string REDIRECT_URL = "https://www.facebook.com/connect/login_success.html";
@@ -56,6 +56,12 @@ namespace FirstApp.Core.Providers
         private void OnAuthenticationFailed(object sender, AuthenticatorErrorEventArgs e)
         {
             _authenticationDelegate.OnAuthenticationFailed();
+        }
+
+        public void Dispose()
+        {
+            _auth.Error -= OnAuthenticationFailed;
+            _auth.Completed -= OnAuthenticationCompleted;
         }
     }
 }

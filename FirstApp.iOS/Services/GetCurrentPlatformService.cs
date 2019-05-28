@@ -1,13 +1,13 @@
-﻿using FirstApp.Core.Enums;
-using FirstApp.Core.Interfaces;
+﻿using FirstApp.Core.Interfaces;
+using FirstApp.Core.Models;
 
 namespace FirstApp.iOS.Services
 {
-    class GetCurrentPlatformService : IGetCurrentPlatformService
+    public class CurrentPlatformService : ICurrentPlatformService
     {
-        public CurrentPlatform CurrentPlatform()
+        public CurrentPlatformType GetCurrentPlatform()
         {
-            CurrentPlatform answ = Core.Enums.CurrentPlatform.iOS;
+            CurrentPlatformType answ = CurrentPlatformType.iOS;
 
             return answ;
         }
