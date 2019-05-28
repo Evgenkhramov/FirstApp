@@ -10,12 +10,13 @@ namespace FirstApp.Droid.Converters
     {
         protected override Bitmap Convert(string imageString, Type targetType, object parameter, CultureInfo culture)
         {
-            if (imageString.Length!= 0)
+            if (imageString.Length == 0)
             {
-                byte[] imageAsBytes = Base64.Decode(imageString, Base64Flags.Default);
-                return BitmapFactory.DecodeByteArray(imageAsBytes, 0, imageAsBytes.Length);
+                return null;
             }
-            return null;
-        }      
+            byte[] imageAsBytes = Base64.Decode(imageString, Base64Flags.Default);
+
+            return BitmapFactory.DecodeByteArray(imageAsBytes, 0, imageAsBytes.Length);
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Acr.UserDialogs;
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.Support.V4.View;
 using Android.Support.V4.Widget;
@@ -20,13 +19,48 @@ namespace FirstApp.Droid.Views
         )]
     public class MainView : MvxAppCompatActivity<MainViewModel>
     {
+        #region Properties
+
         public DrawerLayout DrawerLayout { get; set; }
+
+        #endregion Properties
+
+        #region Methods
+
+        public void OpenDraweble()
+        {
+            DrawerLayout.OpenDrawer(GravityCompat.Start);
+        }
+
+        public void HideSoftKeyboard()
+        {
+            if (CurrentFocus == null)
+            {
+                return;
+            }
+
+            InputMethodManager inputMethodManager = (InputMethodManager)GetSystemService(InputMethodService);
+            inputMethodManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, 0);
+            CurrentFocus.ClearFocus();
+        }
+
+        public void CloseApplication()
+        {
+            Activity activity = (Activity)this;
+            activity.FinishAffinity();
+        }
+
+        #endregion Methods
+
+        #region Overrides
+
         protected override void OnCreate(Android.OS.Bundle bundle)
         {
             base.OnCreate(bundle);
+
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, bundle);
+
             SetContentView(Resource.Layout.MainView);
-            UserDialogs.Init(this);
 
             DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 
@@ -36,18 +70,13 @@ namespace FirstApp.Droid.Views
             }
         }
 
-        public void OpenDraweble()
-        {
-            DrawerLayout.OpenDrawer(GravityCompat.Start);
-        }
-
         public override void OnBackPressed()
         {
             if (DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.Start))
             {
                 DrawerLayout.CloseDrawers();
             }
-            else
+            if (!(DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.Start)))
             {
                 Android.Support.V4.App.Fragment currentFragment = SupportFragmentManager.FindFragmentById(Resource.Id.content_frame_new);
                 IBackButtonListener listener = currentFragment as IBackButtonListener;
@@ -60,22 +89,6 @@ namespace FirstApp.Droid.Views
             }
         }
 
-        public void HideSoftKeyboard()
-        {
-            if (CurrentFocus == null)
-            {
-                return;
-            }
-               
-            InputMethodManager inputMethodManager = (InputMethodManager)GetSystemService(InputMethodService);
-            inputMethodManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, 0);
-            CurrentFocus.ClearFocus();
-        }
-
-        public void CloseApplication()
-        {
-            var activity = (Activity)this;
-            activity.FinishAffinity();
-        }
+        #endregion Overrides
     }
 }

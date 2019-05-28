@@ -143,12 +143,12 @@ namespace FirstApp.Core.ViewModels
                 {
                     if (string.IsNullOrEmpty(TaskName))
                     {
-                        _userDialogs.Alert(Constants.EnterTaskName, Constants.EmptyTaskName, Constants.Ok);
+                        _userDialogs.Alert(Constants.EnterTaskName, Constants.EmptyTaskName, Strings.Ok);
                         return;
                     }
                     if (string.IsNullOrEmpty(TaskDescription))
                     {
-                        _userDialogs.Alert(Constants.EnterTaskDescription, Constants.EmptyTaskDescription, Constants.Ok);
+                        _userDialogs.Alert(Constants.EnterTaskDescription, Constants.EmptyTaskDescription, Strings.Ok);
 
                         return;
                     }
@@ -174,7 +174,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    bool answ = await _userDialogs.ConfirmAsync(Constants.WantSaveTask, Constants.SaveTask, Constants.Yes, Constants.No);
+                    bool answ = await _userDialogs.ConfirmAsync(Constants.WantSaveTask, Constants.SaveTask, Strings.Yes , Strings.No);
 
                     if (answ)
                     {
@@ -192,7 +192,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    bool answ = await _userDialogs.ConfirmAsync(Constants.WantDeleteTask, Constants.DeleteTask, Constants.Yes, Constants.No);
+                    bool answ = await _userDialogs.ConfirmAsync(Constants.WantDeleteTask, Constants.DeleteTask, Strings.Yes, Strings.No);
 
                     if (answ && _platform == CurrentPlatformType.iOS)
                     {

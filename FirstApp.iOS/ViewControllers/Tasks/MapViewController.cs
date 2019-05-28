@@ -16,7 +16,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         private IUICoordinateSpace _coordinateSpace;
         CLLocationManager locationManager;
         public List<MapMarkerModel> MarkerListFromDB;
-        public MapMarkerModel MarcerRow;
+        private MapMarkerModel _marcerRow;
         private MKMapView _map;
 
         public MapViewController() : base(nameof(MapViewController), null)
@@ -26,7 +26,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             _map.ZoomEnabled = true;
             _map.ScrollEnabled = true;
             MarkerListFromDB = new List<MapMarkerModel>();
-            MarcerRow = new MapMarkerModel();
+            _marcerRow = new MapMarkerModel();
         }
 
         public override void ViewDidLoad()
@@ -96,10 +96,10 @@ namespace FirstApp.iOS.ViewControllers.Tasks
                 CGPoint location = touches.LocationInView(_map);
                 CLLocationCoordinate2D coordinate = _map.ConvertPoint(location, _map);
 
-                MarcerRow = new MapMarkerModel();
-                MarcerRow.Latitude = coordinate.Latitude;
-                MarcerRow.Longitude = coordinate.Longitude;
-                ViewModel.SaveMarkerInList(MarcerRow);
+                _marcerRow = new MapMarkerModel();
+                _marcerRow.Latitude = coordinate.Latitude;
+                _marcerRow.Longitude = coordinate.Longitude;
+                ViewModel.SaveMarkerInList(_marcerRow);
 
                 _map.AddAnnotations(new MKPointAnnotation()
                 {

@@ -1,17 +1,28 @@
-﻿using System.IO;
-using FirstApp.Core;
+﻿using FirstApp.Core;
 using FirstApp.Core.Interfaces;
 using SQLite;
+using System.IO;
 
 namespace FirstApp.Droid.Services
 {
     public class DBConnectionService : IDBConnectionService
     {
+        #region Variables
+
         public SQLiteConnection connection;
+
+        #endregion Variables
+
+        #region Constructors
+
         public DBConnectionService()
         {
             connection = GetDatebaseConnection();
         }
+
+        #endregion Constructors
+
+        #region Methods
 
         public SQLiteConnection GetDatebaseConnection()
         {
@@ -22,5 +33,7 @@ namespace FirstApp.Droid.Services
 
             return new SQLiteConnection(path);
         }
+
+        #endregion Methods
     }
 }

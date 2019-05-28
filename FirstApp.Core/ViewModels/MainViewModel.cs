@@ -46,11 +46,6 @@ namespace FirstApp.Core.ViewModels
             await _navigationService.Navigate<TaskListViewModel>();
         }
 
-        //public async Task ShowMainIOS()
-        //{
-        //    await _navigationService.Navigate<TaskListViewModel>();
-        //}
-
         #endregion Methods
     }
 }

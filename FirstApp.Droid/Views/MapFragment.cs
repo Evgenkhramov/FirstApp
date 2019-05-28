@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Android.Gms.Maps;
+﻿using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.OS;
 using Android.Runtime;
@@ -9,10 +8,11 @@ using FirstApp.Core.Models;
 using FirstApp.Core.ViewModels;
 using FirstApp.Droid.Interfaces;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using System;
-using System.Threading.Tasks;
-using Plugin.Geolocator.Abstractions;
 using Plugin.Geolocator;
+using Plugin.Geolocator.Abstractions;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FirstApp.Droid.Views
 {
@@ -20,12 +20,80 @@ namespace FirstApp.Droid.Views
     [Register("firstApp.Droid.Views.MapFragment")]
     public class MapFragment : BaseFragment<MapViewModel>, IOnMapReadyCallback, IBackButtonListener
     {
-        public List<MapMarkerModel> MarkerListFromDB;
-        public MapMarkerModel MarcerRow;
+        #region Variables
+
+        private List<MapMarkerModel> _markerListFromDB;
+        private MapMarkerModel _marcerRow;
         private MapView _mapView;
         private GoogleMap _map;
-        public Button MenuButton;
         protected override int FragmentId => Resource.Layout.MapFragment;
+
+        #endregion Variables
+
+        #region Methods
+
+        public void OnMapReady(GoogleMap googleMap)
+        {
+            _map = googleMap;
+            _map.UiSettings.CompassEnabled = false;
+            _map.UiSettings.MyLocationButtonEnabled = true;
+            _map.UiSettings.MapToolbarEnabled = true;
+            _map.MyLocationEnabled = true;
+
+            var myLocation = new MapMarkerModel();
+
+            Position getPosition = GetCurrentPosition().Result;
+
+            var builder = new LatLngBounds.Builder();
+
+            myLocation.Latitude = getPosition.Latitude;
+            myLocation.Longitude = getPosition.Longitude;
+            builder.Include(new LatLng(myLocation.Latitude, myLocation.Longitude));
+
+            _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(myLocation.Latitude, myLocation.Longitude)).SetTitle($"Marker Task {ViewModel._taskId}")
+                .SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueGreen)));
+
+            _markerListFromDB = ViewModel.GetMarkerList();
+
+            if (_markerListFromDB != null && _markerListFromDB.Count > 0)
+            {
+                foreach (MapMarkerModel coord in _markerListFromDB)
+                {
+                    _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(coord.Latitude, coord.Longitude))
+                        .SetTitle($"Marker Task {ViewModel._taskId}"));
+
+                    builder.Include(new LatLng(coord.Latitude, coord.Longitude));
+                }
+            }
+
+            LatLngBounds bound = builder.Build();
+
+            _map.MoveCamera(CameraUpdateFactory.NewLatLngBounds(bound, 100));
+
+            _map.MapClick += ClickOnMap();
+
+        }
+
+        private EventHandler<GoogleMap.MapClickEventArgs> ClickOnMap()
+        {
+            using (var markerOption = new MarkerOptions())
+            {
+                markerOption.SetPosition(e.Point);
+                _marcerRow = new MapMarkerModel();
+                _marcerRow.Latitude = markerOption.Position.Latitude;
+                _marcerRow.Longitude = markerOption.Position.Longitude;
+                ViewModel.SaveMarkerInList(_marcerRow);
+                var title = $"Marker Task {ViewModel._taskId}";
+                markerOption.SetTitle(title);
+
+                Marker marker = _map.AddMarker(markerOption);
+            }
+            return marker;
+        }
+
+
+
+        #endregion Methods
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -37,61 +105,14 @@ namespace FirstApp.Droid.Views
 
             _mapView.GetMapAsync(this);
 
-            MarkerListFromDB = new List<MapMarkerModel>();
-            MarcerRow = new MapMarkerModel();
+            _markerListFromDB = new List<MapMarkerModel>();
+
+            _marcerRow = new MapMarkerModel();
 
             return view;
         }
 
-        public void OnMapReady(GoogleMap googleMap)
-        {
-            this._map = googleMap;
-            this._map.UiSettings.CompassEnabled = false;
-            this._map.UiSettings.MyLocationButtonEnabled = true;
-            this._map.UiSettings.MapToolbarEnabled = true;
-            this._map.MyLocationEnabled = true;
-
-            var myLocation = new MapMarkerModel();
-
-            var getPosition = GetCurrentPosition().Result;
-
-            var builder = new LatLngBounds.Builder();
-
-            myLocation.Latitude = getPosition.Latitude;
-            myLocation.Longitude = getPosition.Longitude;
-            builder.Include(new LatLng(myLocation.Latitude, myLocation.Longitude));
-
-            _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(myLocation.Latitude, myLocation.Longitude)).SetTitle($"Marker Task {ViewModel._taskId}").SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueGreen)));
-            MarkerListFromDB = ViewModel.GetMarkerList();
-            if (MarkerListFromDB != null && MarkerListFromDB.Count > 0)
-            {
-                foreach (MapMarkerModel coord in MarkerListFromDB)
-                {
-                    _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(coord.Latitude, coord.Longitude)).SetTitle($"Marker Task {ViewModel._taskId}"));
-                    builder.Include(new LatLng(coord.Latitude, coord.Longitude));
-                }
-            }
-
-            LatLngBounds bound = builder.Build();
-
-            _map.MoveCamera(CameraUpdateFactory.NewLatLngBounds(bound, 100));
-
-            googleMap.MapClick += (object sender, GoogleMap.MapClickEventArgs e) =>
-            {
-                using (var markerOption = new MarkerOptions())
-                {
-                    markerOption.SetPosition(e.Point);
-                    MarcerRow = new MapMarkerModel();
-                    MarcerRow.Latitude = markerOption.Position.Latitude;
-                    MarcerRow.Longitude = markerOption.Position.Longitude;
-                    ViewModel.SaveMarkerInList(MarcerRow);
-                    var title = $"Marker Task {ViewModel._taskId}";
-                    markerOption.SetTitle(title);
-
-                    Marker marker = googleMap.AddMarker(markerOption);
-                }
-            };
-        }
+       
 
         public static async Task<Position> GetCurrentPosition()
         {
