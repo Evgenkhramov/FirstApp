@@ -1,14 +1,14 @@
-﻿using System;
-using Android.OS;
+﻿using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using FirstApp.Core.ViewModels;
-using MvvmCross.Platforms.Android.Presenters.Attributes;
-using Android.Support.V7.Widget;
+using FirstApp.Droid.Adaptere;
 using MvvmCross.Droid.Support.V7.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
-using FirstApp.Droid.Adaptere;
+using MvvmCross.Platforms.Android.Presenters.Attributes;
+using System;
 
 namespace FirstApp.Droid.Views
 {
@@ -16,10 +16,29 @@ namespace FirstApp.Droid.Views
     [Register("firstApp.Droid.Views.TaskListFragment")]
     public class TaskListFragment : BaseFragment<TaskListViewModel>
     {
-        public Button MenuButton;
+        #region Variables
+
+        private Button _menuButton;
         protected override int FragmentId => Resource.Layout.TaskListFragment;
         public MvxRecyclerView RecyclerView;
-        public RecyclerView.LayoutManager LayoutManager;    
+        public RecyclerView.LayoutManager LayoutManager;
+
+        #endregion Variables
+
+        #region Methods
+
+        public void SetupRecyclerView(View view)
+        {
+            RecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.recycView);
+            LayoutManager = new LinearLayoutManager(this.Context);
+            RecyclerView.SetLayoutManager(LayoutManager);
+            TaskListAdapter recyclerAdapter = new TaskListAdapter((IMvxAndroidBindingContext)BindingContext);
+            RecyclerView.Adapter = recyclerAdapter;
+        }
+
+        #endregion Methods
+
+        #region Overrides
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -28,21 +47,15 @@ namespace FirstApp.Droid.Views
 
             RecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.recycView);
 
-            MenuButton = view.FindViewById<Button>(Resource.Id.menu_icon);
-            MenuButton.Click += (object sender, EventArgs e) =>
+            _menuButton = view.FindViewById<Button>(Resource.Id.menu_icon);
+            _menuButton.Click += (object sender, EventArgs e) =>
             {
                 OpenMenu();
             };
 
             return view;
         }
-        public void SetupRecyclerView(View view)
-        {
-            RecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.recycView);
-            LayoutManager = new LinearLayoutManager(this.Context);
-            RecyclerView.SetLayoutManager(LayoutManager);
-            TaskListAdapter recyclerAdapter = new TaskListAdapter((IMvxAndroidBindingContext)this.BindingContext);
-            RecyclerView.Adapter = recyclerAdapter;
-        }
+
+        #endregion Overrides
     }
 }

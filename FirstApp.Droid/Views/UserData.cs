@@ -1,15 +1,15 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using FirstApp.Core;
 using FirstApp.Core.ViewModels;
+using FirstApp.Droid.Interfaces;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
-using FirstApp.Droid.Interfaces;
-using FirstApp.Core;
+using System;
 
 namespace FirstApp.Droid.Views
 {
@@ -17,34 +17,26 @@ namespace FirstApp.Droid.Views
     [Register("firstApp.Droid.Views.UserDataFragment")]
     public class UserData : BaseFragment<UserDataViewModel>, IBackButtonListener
     {
-        public static readonly int PickImageId = 1000;
-        Button MenuButton;
-        Button BtnCamera;
-        ImageView CameraPreview;
+        #region Variables
+
+        private static readonly int PickImageId = 1000;
+        private Button _menuButton;
+        private Button _btnCamera;
+        private ImageView _cameraPreview;
         private string _imagePath;
         protected override int FragmentId => Resource.Layout.UserDataFragment;
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            View view = base.OnCreateView(inflater, container, savedInstanceState);
-            MenuButton = view.FindViewById<Button>(Resource.Id.menu_icon);
-            BtnCamera = view.FindViewById<Button>(Resource.Id.btnCamera);
-            CameraPreview = view.FindViewById<ImageView>(Resource.Id.camera_preview);
-            BtnCamera.Click += GetPermissions;
-            MenuButton.Click += (object sender, EventArgs e) =>
-            {
-                OpenMenu();
-            };
-            return view;
-        }
+        #endregion Variables
 
-        public async void GetPermissions(object sender, System.EventArgs e)
+        #region Methods
+
+        private async void GetPermissions(object sender, EventArgs e)
         {
 
             if (await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Storage) != PermissionStatus.Granted ||
                       await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Camera) != PermissionStatus.Granted)
             {
-                var results = await CrossPermissions.Current.RequestPermissionsAsync(Plugin.Permissions.Abstractions.Permission.Storage, Plugin.Permissions.Abstractions.Permission.Camera);                  
+                var results = await CrossPermissions.Current.RequestPermissionsAsync(Plugin.Permissions.Abstractions.Permission.Storage, Plugin.Permissions.Abstractions.Permission.Camera);
             }
 
             if (await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Storage) == PermissionStatus.Granted &&
@@ -73,5 +65,36 @@ namespace FirstApp.Droid.Views
         {
             SelectPhoto(Constants.SelectPhoto, Constants.PleaseSelectPhoto, Constants.FromMemory, Constants.FromCamera);
         }
+
+        private void OpenAndroidMenu(object sender, EventArgs e)
+        {
+            OpenMenu();
+        }
+
+        #endregion Methods
+
+        #region Overrides
+
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            View view = base.OnCreateView(inflater, container, savedInstanceState);
+            _menuButton = view.FindViewById<Button>(Resource.Id.menu_icon);
+            _btnCamera = view.FindViewById<Button>(Resource.Id.btnCamera);
+            _cameraPreview = view.FindViewById<ImageView>(Resource.Id.camera_preview);
+            _btnCamera.Click += GetPermissions;
+            _menuButton.Click += OpenAndroidMenu;
+
+            return view;
+        }
+
+        public override void OnDestroyView()
+        {
+            _btnCamera.Click -= GetPermissions;
+            _menuButton.Click -= OpenAndroidMenu;
+
+            base.OnDestroyView();
+        }
+
+        #endregion Overrides
     }
 }

@@ -1,5 +1,4 @@
-﻿using Acr.UserDialogs;
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.Widget;
 using FirstApp.Core.ViewModels;
@@ -17,6 +16,8 @@ namespace FirstApp.Droid.Views
         )]
     public class StartView : MvxAppCompatActivity<StartViewModel>
     {
+        #region Overrides
+
         protected override void OnCreate(Android.OS.Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -27,16 +28,20 @@ namespace FirstApp.Droid.Views
 
             SetActionBar(toolbar);
 
-            UserDialogs.Init(this);
-
             if (bundle == null)
             {
-                ViewModel.ShowLoginFragmentCommand.Execute(null);             
+                ViewModel.ShowLoginFragmentCommand.Execute(null);
             }
         }
+
+        #endregion Overrides
+
+        #region Methods
 
         private void Initialize()
         {
         }
+
+        #endregion Methods
     }
 }

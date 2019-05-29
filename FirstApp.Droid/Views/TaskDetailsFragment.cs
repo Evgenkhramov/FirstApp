@@ -1,17 +1,18 @@
-﻿using Android.App;
+﻿using Acr.UserDialogs.Infrastructure;
+using Android;
+using Android.App;
+using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
+using FirstApp.Core;
 using FirstApp.Core.ViewModels;
+using FirstApp.Droid.Interfaces;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using System;
-using Android.Content;
-using Android.Support.V4.Content;
-using Android;
-using Android.Content.PM;
-using Acr.UserDialogs.Infrastructure;
-using FirstApp.Droid.Interfaces;
 
 namespace FirstApp.Droid.Views
 {
@@ -19,35 +20,21 @@ namespace FirstApp.Droid.Views
     [Register("firstApp.Droid.Views.TaskDetailsFragment")]
     public class TaskDetailsFragment : BaseFragment<TaskDetailsViewModel>, IBackButtonListener
     {
+        #region Variables
+
         static readonly int READ_EXTERNAL_STORAGE = 0;
         static readonly int ACCESS_COARSE_LOCATION = 1;
         private int _fileCode = 1000;
         private int _mapCode = 1100;
-
-        public Button GetFileButton;
-        public Button GetMarkerButton;
-        public Button MenuButton;
+        private Button _getFileButton;
+        private Button _getMarkerButton;
+        private Button _menuButton;
         protected override int FragmentId => Resource.Layout.TaskDetailsFragment;
         public string TAG { get; private set; }
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            View view = base.OnCreateView(inflater, container, savedInstanceState);
+        #endregion Variables
 
-            GetMarkerButton = view.FindViewById<Button>(Resource.Id.getMapMarker);
-            GetMarkerButton.Click += (object sender, EventArgs e) =>
-              {
-                  GetMapPositionPermissions(sender, e);
-              };
-
-            GetFileButton = view.FindViewById<Button>(Resource.Id.getFileButton);
-            GetFileButton.Click += (object sender, EventArgs e) =>
-            {
-                GetStoragePermissions(sender, e);
-            };
-
-            return view;
-        }
+        #region Methods
 
         public void GetMapPositionPermissions(object sender, EventArgs e)
         {
@@ -73,6 +60,41 @@ namespace FirstApp.Droid.Views
             {
                 OpenFile();
             }
+        }
+
+        public void AddMarker()
+        {
+            ViewModel.AddMarkerCommand.Execute();
+        }
+
+        public void OpenFile()
+        {
+            var intent = new Intent();
+            intent.SetType("*/*");
+            intent.SetAction(Intent.ActionGetContent);
+            StartActivityForResult(Intent.CreateChooser(intent, Constants.SelectFile), _fileCode);
+        }
+
+        public void OnBackPressed()
+        {
+            ViewModel.BackCommand.Execute();
+        }
+
+        #endregion Methods
+
+        #region Overrides
+
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            View view = base.OnCreateView(inflater, container, savedInstanceState);
+
+            _getMarkerButton = view.FindViewById<Button>(Resource.Id.getMapMarker);
+            _getMarkerButton.Click += GetMapPositionPermissions; 
+
+            _getFileButton = view.FindViewById<Button>(Resource.Id.getFileButton);
+            _getFileButton.Click += GetStoragePermissions;
+
+            return view;
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
@@ -109,19 +131,6 @@ namespace FirstApp.Droid.Views
             }
         }
 
-        public void AddMarker()
-        {
-            ViewModel.AddMarkerCommand.Execute();
-        }
-
-        public void OpenFile()
-        {
-            Intent intent = new Intent();
-            intent.SetType("*/*");
-            intent.SetAction(Intent.ActionGetContent);
-            StartActivityForResult(Intent.CreateChooser(intent, "Select File"), _fileCode);
-        }
-
         public override void OnActivityResult(int requestCode, int resultCode, Intent data)
         {
             if (requestCode == _fileCode)
@@ -130,7 +139,7 @@ namespace FirstApp.Droid.Views
 
                 if (resultCode == (int)Result.Ok)
                 {
-                    System.Uri uri = new System.Uri(data.DataString);
+                    Uri uri = new Uri(data.DataString);
 
                     fileName = System.IO.Path.GetFileNameWithoutExtension(uri.LocalPath);
 
@@ -139,14 +148,18 @@ namespace FirstApp.Droid.Views
             }
         }
 
-        public void OnBackPressed()
-        {
-            ViewModel.BackCommand.Execute();
-        }
-
         public override void OnResume()
         {
             base.OnResume();
         }
+
+        public override void OnDestroyView()
+        {
+            _getMarkerButton.Click -= GetMapPositionPermissions;
+            _getFileButton.Click -= GetStoragePermissions;
+            base.OnDestroyView();
+        }
+
+        #endregion Overrides
     }
 }

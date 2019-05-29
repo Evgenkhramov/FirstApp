@@ -10,6 +10,8 @@ namespace FirstApp.Droid.Views
     [Register("firstApp.Droid.Views.RegistrationFragment")]
     public class RegistrationFragment : BaseFragment<RegistrationViewModel>
     {
+        #region Overrides
+
         protected override int FragmentId => Resource.Layout.RegistrationFragment;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -18,5 +20,7 @@ namespace FirstApp.Droid.Views
 
             return view;
         }
+
+        #endregion Overrides
     }
 }

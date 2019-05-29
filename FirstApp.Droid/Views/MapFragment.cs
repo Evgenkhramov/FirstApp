@@ -3,7 +3,6 @@ using Android.Gms.Maps.Model;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
-using Android.Widget;
 using FirstApp.Core.Models;
 using FirstApp.Core.ViewModels;
 using FirstApp.Droid.Interfaces;
@@ -70,15 +69,15 @@ namespace FirstApp.Droid.Views
 
             _map.MoveCamera(CameraUpdateFactory.NewLatLngBounds(bound, 100));
 
-            _map.MapClick += ClickOnMap();
+            _map.MapClick += ClickOnMap;
 
         }
 
-        private EventHandler<GoogleMap.MapClickEventArgs> ClickOnMap()
+        private void ClickOnMap(object sender, GoogleMap.MapClickEventArgs eventArgs)
         {
             using (var markerOption = new MarkerOptions())
             {
-                markerOption.SetPosition(e.Point);
+                markerOption.SetPosition(eventArgs.Point);
                 _marcerRow = new MapMarkerModel();
                 _marcerRow.Latitude = markerOption.Position.Latitude;
                 _marcerRow.Longitude = markerOption.Position.Longitude;
@@ -88,12 +87,42 @@ namespace FirstApp.Droid.Views
 
                 Marker marker = _map.AddMarker(markerOption);
             }
-            return marker;
         }
 
+        public static async Task<Position> GetCurrentPosition()
+        {
+            Position _position = null;
 
+            IGeolocator locator = CrossGeolocator.Current;
+            locator.DesiredAccuracy = 100;
+
+            _position = await locator.GetLastKnownLocationAsync();
+
+            if (_position != null)
+            {
+                return _position;
+            }
+
+            if (!locator.IsGeolocationAvailable || !locator.IsGeolocationEnabled)
+            {
+                return null;
+            }
+
+            _position = await locator.GetPositionAsync(TimeSpan.FromSeconds(20), null, true);
+
+            if (_position == null)
+            {
+                return null;
+            }
+
+            //var output = string.Format($"Time: {_position.Timestamp} \nLat: {_position.Latitude} \nLong: {_position.Longitude} \nAltitude: {_position.Altitude} \nAltitude Accuracy: {_position.AltitudeAccuracy} \nAccuracy: { _position.Accuracy} \nHeading: {_position.Heading} \nSpeed: {_position.Speed}");
+
+            return _position;
+        }
 
         #endregion Methods
+
+        #region Overrides
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -112,44 +141,10 @@ namespace FirstApp.Droid.Views
             return view;
         }
 
-       
-
-        public static async Task<Position> GetCurrentPosition()
+        public override void OnDestroyView()
         {
-            Position _position = null;
-            try
-            {
-                var locator = CrossGeolocator.Current;
-                locator.DesiredAccuracy = 100;
-
-                _position = await locator.GetLastKnownLocationAsync();
-
-                if (_position != null)
-                {
-                    return _position;
-                }
-
-                if (!locator.IsGeolocationAvailable || !locator.IsGeolocationEnabled)
-                {
-                    return null;
-                }
-
-                _position = await locator.GetPositionAsync(TimeSpan.FromSeconds(20), null, true);
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-            if (_position == null)
-                return null;
-
-            var output = string.Format("Time: {0} \nLat: {1} \nLong: {2} \nAltitude: {3} \nAltitude Accuracy: {4} \nAccuracy: {5} \nHeading: {6} \nSpeed: {7}",
-                    _position.Timestamp, _position.Latitude, _position.Longitude,
-                    _position.Altitude, _position.AltitudeAccuracy, _position.Accuracy, _position.Heading, _position.Speed);
-
-            return _position;
+            _map.MapClick -= ClickOnMap;
+            base.OnDestroyView();
         }
 
         public void OnBackPressed()
@@ -186,5 +181,7 @@ namespace FirstApp.Droid.Views
             base.OnPause();
             _mapView.OnPause();
         }
+
+        #endregion Overrides
     }
 }

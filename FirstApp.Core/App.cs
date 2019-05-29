@@ -3,7 +3,6 @@ using MvvmCross;
 using MvvmCross.IoC;
 using MvvmCross.ViewModels;
 
-
 namespace FirstApp.Core
 {
     public class App : MvxApplication

@@ -1,8 +1,8 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.Runtime;
 using FirstApp.Core;
 using MvvmCross.Droid.Support.V7.AppCompat;
+using System;
 
 namespace FirstApp.Droid
 {

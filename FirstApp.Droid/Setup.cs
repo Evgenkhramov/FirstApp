@@ -1,7 +1,7 @@
-﻿using MvvmCross.Droid.Support.V7.AppCompat;
-using MvvmCross.Platforms.Android.Presenters;
-using FirstApp.Core;
+﻿using FirstApp.Core;
+using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.IoC;
+using MvvmCross.Platforms.Android.Presenters;
 
 namespace FirstApp.Droid
 {
@@ -15,6 +15,7 @@ namespace FirstApp.Droid
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
         }
+
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
         {
             return new MvxAppCompatViewPresenter(AndroidViewAssemblies);

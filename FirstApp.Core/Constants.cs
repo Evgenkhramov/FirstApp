@@ -49,6 +49,8 @@
         public const string LogOut = "LogOut";
         public const string LogIn = "LogIn";
         public const string LogOutUser = "Log Out";
+        public const string SelectFile = "Select File";
+
         public const int MaxLength = 20;
     }
 }

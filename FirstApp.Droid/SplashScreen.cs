@@ -15,8 +15,7 @@ namespace StarWarsSample.Droid
         ScreenOrientation = ScreenOrientation.Portrait)]
     public class SplashScreen : MvxSplashScreenActivity
     {
-        public SplashScreen()
-            : base(Resource.Layout.SplashScreen)
+        public SplashScreen() : base(Resource.Layout.SplashScreen)
         {
         }
     }
