@@ -9,7 +9,13 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 {
     internal class FileTVS : MvxTableViewSource
     {
+        #region Variables
+
         private static NSString FileCellIdentifier;
+
+        #endregion Variables
+
+        #region Constructors
 
         public FileTVS(UITableView tableView) : base(tableView)
         {
@@ -17,31 +23,28 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             tableView.RegisterNibForCellReuse(UINib.FromName(Constants.FileItemCell, NSBundle.MainBundle), FileCellIdentifier);
         }
 
+        #endregion Constructors
+
+        #region Overrides
+
         protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
         {
             var cell = (FileItemCellViewController)tableView.DequeueReusableCell(Constants.FileItemCell, indexPath);
             cell.UpdateCell((FileListModel)item);
 
-            return (UITableViewCell)cell;
+            return cell;
         }
 
         public override void CommitEditingStyle(UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
         {
-            switch (editingStyle)
+            if (editingStyle == UITableViewCellEditingStyle.Delete
+                && ItemsSource is System.Collections.ObjectModel.ObservableCollection<FileListModel> sourceCollection)
             {
-                case UITableViewCellEditingStyle.Delete:
-
-                    if (ItemsSource is System.Collections.ObjectModel.ObservableCollection<FileListModel> sourceCollection)
-                    {
-                        var fileId = sourceCollection[indexPath.Row].Id;
-                        DeleteRowCommandiOS.Execute(fileId);
-                    }
-
-                    break;
-                case UITableViewCellEditingStyle.None:
-
-                    break;
+                var fileId = sourceCollection[indexPath.Row].Id;
+                DeleteRowCommandiOS.Execute(fileId);
+                return;
             }
+            return;
         }
 
         public override bool CanEditRow(UITableView tableView, NSIndexPath indexPath)
@@ -54,6 +57,12 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             return Constants.DeleteFile;
         }
 
+        #endregion Overrides
+
+        #region Commands  
+
         public ICommand DeleteRowCommandiOS { get; set; }
+
+        #endregion Commands
     }
 }

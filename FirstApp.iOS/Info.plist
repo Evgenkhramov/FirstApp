@@ -18,7 +18,7 @@
 		<integer>2</integer>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>ScreenController</string>
+	<string>ScreenViewController</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -36,10 +36,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>XSAppIconAssets</key>
-	<string>Assets.xcassets/AppIcons.appiconset</string>
-	<key>XSLaunchImageAssets</key>
-	<string>Assets.xcassets/LaunchImages.launchimage</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>FirstApp wants to access your Gallery</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
@@ -61,14 +57,16 @@
 			<string>Viewer</string>
 		</dict>
 	</array>
-  <key>LSApplicationQueriesSchemes</key>
-  <array>
-    <string>googlechromes</string>
-    <string>comgooglemaps</string>
-  </array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>googlechromes</string>
+		<string>comgooglemaps</string>
+	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.firstapp.xamarin</string>
-  <key>NSLocationWhenInUseUsageDescription</key>
-  <string>Trying to locate Xamarin HQ</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Trying to locate Xamarin HQ</string>
+	<key>XSLaunchImageAssets</key>
+	<string>Assets.xcassets/LaunchImages.launchimage</string>
 </dict>
 </plist>

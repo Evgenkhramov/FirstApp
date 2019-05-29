@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using Acr.UserDialogs;
+using Android.App;
 using Android.Content.PM;
 using Android.Support.V4.View;
 using Android.Support.V4.Widget;
@@ -63,6 +64,8 @@ namespace FirstApp.Droid.Views
             SetContentView(Resource.Layout.MainView);
 
             DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+
+            UserDialogs.Init(this);
 
             if (bundle == null)
             {

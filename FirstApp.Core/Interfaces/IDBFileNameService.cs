@@ -8,5 +8,6 @@ namespace FirstApp.Core.Interfaces
         void AddFileNameToTable(FileListModel fileName);
         List<FileListModel> GetFileNameListFromDB(int taskId);
         void DeleteFileName(int id);
+        void DeleteFiles(int taskId);
     }
 }

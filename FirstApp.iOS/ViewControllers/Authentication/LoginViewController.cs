@@ -13,48 +13,25 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 {
     public partial class LoginViewController : MvxViewController<LoginViewModel>, IGoogleAuthenticationDelegate
     {
+        #region Variables
+
         private GoogleModeliOS user = new GoogleModeliOS();
         public static GoogleAuthenticator _authGoogle;
-
         private FacebookAuthenticator _authFacebook;
         static int GET_ACCOUNTS;
+
+        #endregion Variables
+
+        #region Constructors
 
         public LoginViewController() : base()
         {
             GET_ACCOUNTS = 0;
         }
 
-        public override void DidReceiveMemoryWarning()
-        {
-            base.DidReceiveMemoryWarning();
-        }
+        #endregion Constructors
 
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            _authGoogle = new GoogleAuthenticator(Configuration.ClientIdGoogle, Configuration.GoogleScope, Configuration.iOSRedirectUrlGoogle, this);
-
-            FacebookButton.TouchUpInside += OnFacebookLoginButtonClicked;
-
-            GoogleButton.TouchUpInside += OnGoogleLoginButtonClicked;
-
-            EnterYourLogin.ShouldReturn = (textField) =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-
-            EnterYourPasswordForLogin.ShouldReturn = (textField) =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
-
-            NavigationController.NavigationBarHidden = true;
-
-            SetBind();
-        }
+        #region Methods
 
         private void OnGoogleLoginButtonClicked(object sender, EventArgs e)
         {
@@ -115,17 +92,10 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             PresentViewController(ui, true, null);
         }
 
-        public override void TouchesBegan(NSSet touches, UIEvent evt)
-        {
-            // hide the keyboard from all views
-            View.EndEditing(true);
-
-            base.TouchesBegan(touches, evt);
-        }
-
         private void SetBind()
         {
             var set = this.CreateBindingSet<LoginViewController, LoginViewModel>();
+
             set.Bind(EnterYourLogin).To(vm => vm.UserName);
             set.Bind(EnterYourPasswordForLogin).To(vm => vm.UserPassword);
             set.Bind(LoginButton).To(vm => vm.UserLogin);
@@ -134,14 +104,68 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             set.Apply();
         }
 
+        #endregion Methods
+
+        #region Overrides
+
+        public override void DidReceiveMemoryWarning()
+        {
+            base.DidReceiveMemoryWarning();
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+
+            _authGoogle = new GoogleAuthenticator(Configuration.ClientIdGoogle, Configuration.GoogleScope, Configuration.iOSRedirectUrlGoogle, this);
+
+            FacebookButton.TouchUpInside += OnFacebookLoginButtonClicked;
+
+            GoogleButton.TouchUpInside += OnGoogleLoginButtonClicked;
+
+            EnterYourLogin.ShouldReturn = (textField) =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
+
+            EnterYourPasswordForLogin.ShouldReturn = (textField) =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
+
+            NavigationController.NavigationBarHidden = true;
+
+            SetBind();
+        }
+
+        public override void TouchesBegan(NSSet touches, UIEvent evt)
+        {
+            View.EndEditing(true);
+
+            base.TouchesBegan(touches, evt);
+        }
+
+        public override void ViewDidUnload()
+        {
+            FacebookButton.TouchUpInside -= OnFacebookLoginButtonClicked;
+
+            GoogleButton.TouchUpInside -= OnGoogleLoginButtonClicked;
+
+            base.ViewDidUnload();
+        }
+
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
         }
+
         public override void ViewDidDisappear(bool animated)
         {
-           // _authGoogle.Dispose();
             base.ViewDidDisappear(animated);
         }
+
+        #endregion Overrides
     }
 }

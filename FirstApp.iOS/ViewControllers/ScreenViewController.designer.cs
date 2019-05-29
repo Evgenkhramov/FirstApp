@@ -8,9 +8,9 @@ using Foundation;
 using System;
 using System.CodeDom.Compiler;
 
-namespace FirstApp.iOS.ViewControllers
+namespace FirstApp.iOS
 {
-    [Register ("ScreenControl")]
+    [Register ("ScreenViewController")]
     partial class ScreenViewController
     {
         void ReleaseDesignerOutlets ()

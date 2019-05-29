@@ -9,8 +9,14 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 {
     public partial class FileItemCellViewController : UITableViewCell
     {
+        #region Variables
+
         public static readonly NSString Key = new NSString(Constants.FileItemCell);
         public static readonly UINib Nib;
+
+        #endregion Variables
+
+        #region Constructors
 
         static FileItemCellViewController()
         {
@@ -20,6 +26,10 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         public FileItemCellViewController(IntPtr handle) : base(handle)
         {
         }
+
+        #endregion Constructors
+
+        #region Methods
 
         internal void UpdateCell(FileListModel item)
         {
@@ -34,6 +44,12 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             }
         }
 
-            public ICommand DeleteRowCommandiOS { get; set; }
+        #endregion Methods
+
+        #region Commands 
+
+        public ICommand DeleteRowCommandiOS { get; set; }
+
+        #endregion Commands
     }
 }

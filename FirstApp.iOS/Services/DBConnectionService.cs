@@ -1,7 +1,7 @@
-﻿using System.IO;
-using FirstApp.Core;
+﻿using FirstApp.Core;
 using FirstApp.Core.Interfaces;
 using SQLite;
+using System.IO;
 
 namespace FirstApp.iOS.Services
 {

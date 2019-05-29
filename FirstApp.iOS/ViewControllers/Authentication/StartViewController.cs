@@ -5,10 +5,15 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 {
     public partial class StartViewController : MvxViewController<StartViewModel>
     {
+        #region Constructors
 
         public StartViewController() : base(nameof(StartViewController), null)
         {
         }
+
+        #endregion Constructors
+
+        #region Overrides
 
         public override void DidReceiveMemoryWarning()
         {
@@ -16,15 +21,17 @@ namespace FirstApp.iOS.ViewControllers.Authentication
         }
 
         public override void ViewDidLoad()
-        {         
+        {
             NavigationController.NavigationBarHidden = true;
             base.ViewDidLoad();
             ViewModel.ShowLoginFragmentCommand.Execute(null);
         }
 
         public override void ViewWillAppear(bool animated)
-         {
+        {
             base.ViewWillAppear(animated);
         }
+
+        #endregion Overrides
     }
 }

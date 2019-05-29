@@ -45,11 +45,14 @@
         public const string WantSaveTask = "Do you want to save task?";
         public const string SaveTask = "Save task?";
         public const string FileItemCell = "FileItemCellViewController";
-        public const string DeleteFile = "Delete File";                  
+        public const string DeleteFile = "Delete File";                                  
         public const string LogOut = "LogOut";
         public const string LogIn = "LogIn";
         public const string LogOutUser = "Log Out";
         public const string SelectFile = "Select File";
+        public const string TrashTask = "Trash Task";
+        public const string MapMarker = "Map Marker";
+        public const string ByteArrayToImg = "ByteArrayToImg";
 
         public const int MaxLength = 20;
     }

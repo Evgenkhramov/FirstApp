@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using Acr.UserDialogs;
+using Android.App;
 using Android.Content.PM;
 using Android.Widget;
 using FirstApp.Core.ViewModels;
@@ -25,6 +26,8 @@ namespace FirstApp.Droid.Views
             SetContentView(Resource.Layout.StartView);
 
             Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+
+            UserDialogs.Init(this);
 
             SetActionBar(toolbar);
 

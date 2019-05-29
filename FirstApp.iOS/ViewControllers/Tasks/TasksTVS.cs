@@ -9,7 +9,13 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 {
     internal class TasksTVS : MvxTableViewSource
     {
+        #region Variables
+
         private static NSString TaskCellIdentifier;
+
+        #endregion Variables
+
+        #region Constructors
 
         public TasksTVS(UITableView tableView) : base(tableView)
         {
@@ -17,26 +23,34 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             tableView.RegisterNibForCellReuse(UINib.FromName(Constants.TaskCell, NSBundle.MainBundle), TaskCellIdentifier);
         }
 
+        #endregion Constructors
+
+        #region Commands  
+
+        public ICommand DeleteRowCommandiOS { get; set; }
+
+        #endregion Commands
+
+        #region Overrides
+
         protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
         {
             var cell = (TaskCellViewController)tableView.DequeueReusableCell(Constants.TaskCell, indexPath);
             cell.UpdateCell((TaskModel)item);
 
-            return (UITableViewCell)cell;
+            return cell;
         }
 
         public override void CommitEditingStyle(UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
         {
-            switch (editingStyle)
+            if (editingStyle == UITableViewCellEditingStyle.Delete)
             {
-                case UITableViewCellEditingStyle.Delete:
-                    DeleteRowCommandiOS.Execute(indexPath.Row);
+                DeleteRowCommandiOS.Execute(indexPath.Row);
 
-                    break;
-                case UITableViewCellEditingStyle.None:
-
-                    break;
+                return;
             }
+
+            return;
         }
 
         public override bool CanEditRow(UITableView tableView, NSIndexPath indexPath)
@@ -45,10 +59,10 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         }
 
         public override string TitleForDeleteConfirmation(UITableView tableView, NSIndexPath indexPath)
-        {   
-            return "Trash Task";
+        {
+            return Constants.TrashTask;
         }
 
-        public ICommand DeleteRowCommandiOS { get; set; }
+        #endregion Overrides
     }
 }

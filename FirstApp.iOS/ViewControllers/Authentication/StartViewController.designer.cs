@@ -10,7 +10,7 @@ using System.CodeDom.Compiler;
 
 namespace FirstApp.iOS.ViewControllers.Authentication
 {
-    [Register ("StartController")]
+    [Register ("StartViewController")]
     partial class StartViewController
     {
         void ReleaseDesignerOutlets ()

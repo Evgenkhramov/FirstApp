@@ -17,7 +17,8 @@ namespace FirstApp.Core.ViewModels
 
         #region Constructors
 
-        public MainViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs, ICurrentPlatformService currentPlatformService) : base(navigationService, userDialogs)
+        public MainViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs, 
+            ICurrentPlatformService currentPlatformService) : base(navigationService, userDialogs)
         {
             _currentPlatformService = currentPlatformService;
             ShowMainFragmentCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<TaskListViewModel>());

@@ -7,14 +7,24 @@ namespace FirstApp.iOS.ViewControllers
     [MvxRootPresentation]
     public partial class MainViewController : MvxTabBarViewController<MainViewModel>
     {
+        #region Variables
+
         private bool _firstTimePresented = true;
+
+        #endregion Variables
+
+        #region Constructors
 
         public MainViewController()
         {
         }
 
+        #endregion Constructors
+
+        #region Overrides
+
         public override void DidReceiveMemoryWarning()
-        {   
+        {
             base.DidReceiveMemoryWarning();
         }
 
@@ -32,5 +42,7 @@ namespace FirstApp.iOS.ViewControllers
                 ViewModel.ShowUserProfileViewModelCommand.Execute(null);
             }
         }
+
+        #endregion Overrides
     }
 }

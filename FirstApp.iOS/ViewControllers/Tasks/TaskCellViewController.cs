@@ -1,15 +1,21 @@
+using FirstApp.Core;
 using FirstApp.Core.Models;
 using Foundation;
 using System;
 using UIKit;
-using FirstApp.Core;
 
 namespace FirstApp.iOS.ViewControllers.Tasks
 {
     public partial class TaskCellViewController : UITableViewCell
     {
+        #region Variables
+
         public static readonly NSString Key = new NSString(Constants.TaskCell);
         public static readonly UINib Nib;
+
+        #endregion Variables
+
+        #region Constructors
 
         static TaskCellViewController()
         {
@@ -20,24 +26,30 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         {
         }
 
+        #endregion Constructors
+
+        #region Methods
+
         internal void UpdateCell(TaskModel task)
         {
-            if (!String.IsNullOrEmpty(task.TaskName) && task.TaskName.Length > Constants.MaxLength)
+            if (!string.IsNullOrEmpty(task.TaskName) && task.TaskName.Length > Constants.MaxLength)
             {
                 TaskName.Text = task.TaskName.Substring(0, Constants.MaxLength);
             }
-            if (!String.IsNullOrEmpty(task.TaskName) && task.TaskName.Length <= Constants.MaxLength)
+            if (!string.IsNullOrEmpty(task.TaskName) && task.TaskName.Length <= Constants.MaxLength)
             {
                 TaskName.Text = task.TaskName;
             }
-            if (!String.IsNullOrEmpty(task.TaskDescription) && task.TaskDescription.Length > Constants.MaxLength)
+            if (!string.IsNullOrEmpty(task.TaskDescription) && task.TaskDescription.Length > Constants.MaxLength)
             {
                 TaskDescription.Text = task.TaskDescription.Substring(0, Constants.MaxLength);
             }
-            if (!String.IsNullOrEmpty(task.TaskDescription) && task.TaskName.Length <= Constants.MaxLength)
+            if (!string.IsNullOrEmpty(task.TaskDescription) && task.TaskName.Length <= Constants.MaxLength)
             {
                 TaskDescription.Text = task.TaskDescription;
             }
         }
+
+        #endregion Methods
     }
 }

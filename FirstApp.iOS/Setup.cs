@@ -19,14 +19,14 @@ namespace FirstApp.iOS
         {
             base.InitializeFirstChance();
 
-            Mvx.RegisterType<IMvxJsonConverter, MvxJsonConverter>();
+            Mvx.IoCProvider.RegisterType<IMvxJsonConverter, MvxJsonConverter>();
         }
 
         protected override void InitializeLastChance()
         {
             base.InitializeLastChance();
 
-            var registry = Mvx.Resolve<IMvxTargetBindingFactoryRegistry>();
+            var registry = Mvx.IoCProvider.Resolve<IMvxTargetBindingFactoryRegistry>();
         }
         protected override IMvxApplication CreateApp()
         {
@@ -34,16 +34,16 @@ namespace FirstApp.iOS
                       .EndingWith("Service")
                       .AsInterfaces()
                       .RegisterAsLazySingleton();
-            Mvx.RegisterType<IDBConnectionService, DBConnectionService>();
-            Mvx.RegisterType<ICurrentPlatformService, CurrentPlatformService>();
+            Mvx.IoCProvider.RegisterType<IDBConnectionService, DBConnectionService>();
+            Mvx.IoCProvider.RegisterType<ICurrentPlatformService, CurrentPlatformService>();
 
-            return new Core.App();
+            return new App();
         }
 
         protected override void FillValueConverters(IMvxValueConverterRegistry registry)
         {
             base.FillValueConverters(registry);
-            registry.AddOrOverwrite("ByteArrayToImg", new ByteArrayToImgValueConverter());
+            registry.AddOrOverwrite(Constants.ByteArrayToImg, new ByteArrayToImgValueConverter());
         }
     }
 }

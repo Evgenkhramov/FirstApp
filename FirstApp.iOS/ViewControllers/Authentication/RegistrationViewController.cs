@@ -1,26 +1,80 @@
+using CoreGraphics;
+using FirstApp.Core;
 using FirstApp.Core.ViewModels;
+using FirstApp.iOS.Helpers;
 using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Views;
 using System;
 using UIKit;
-using FirstApp.iOS.Helpers;
-using CoreGraphics;
-using FirstApp.Core;
 
 namespace FirstApp.iOS.ViewControllers.Authentication
 {
     public partial class RegistrationViewController : MvxViewController<RegistrationViewModel>
     {
-        public UIView activeview;             
-        public nfloat scrollAmount;   
+        #region Variables
+
+        private UIView _activeview;
+        private nfloat _scrollAmount;
         private bool _moveViewUp;
 
-        public RegistrationViewController() : base("RegistrationViewController", null)
+        #endregion Variables
+
+        #region Constructors
+
+        public RegistrationViewController() : base(nameof(RegistrationViewController), null)
         {
-            scrollAmount = 0.0f;
+            _scrollAmount = 0.0f;
             _moveViewUp = false;
         }
+
+        #endregion Constructors
+
+        #region Methods
+
+        private void SetBind()
+        {
+            var set = this.CreateBindingSet<RegistrationViewController, RegistrationViewModel>();
+
+            set.Bind(UserName).To(vm => vm.RegistrationUserName);
+            set.Bind(EnterUserPassword).To(vm => vm.RegistrationUserPassword);
+            set.Bind(EnterConfirm).To(vm => vm.RegistrationUserPasswordConfirm);
+            set.Bind(RegistrationButton).To(vm => vm.UserRegistrationCommand);
+            set.Bind(BackButton).To(vm => vm.BackViewCommand);
+
+            set.Apply();
+        }
+
+        private void KeyBoardUpNotification(NSNotification notification)
+        {
+            _activeview = ScrollViewTopHelper.GetActiveView(this.View);
+            CGRect keyBourdSize = UIKeyboard.BoundsFromNotification(notification);
+            _scrollAmount = ScrollViewTopHelper.GetScrollAmount(_activeview, keyBourdSize);
+
+            if (_scrollAmount <= 0)
+            {
+                _moveViewUp = false;
+                return;
+            }
+            _moveViewUp = true;
+            ScrollTheView(_moveViewUp);
+        }
+
+        private void KeyBoardDownNotification(NSNotification notification)
+        {
+            cnsTopConstrain.Constant = 0;
+            MainScrollView.UpdateConstraints();
+        }
+
+        private void ScrollTheView(bool move)
+        {
+            cnsTopConstrain.Constant = -_scrollAmount;
+            MainScrollView.UpdateConstraints();
+        }
+
+        #endregion Methods
+
+        #region Overrides
 
         public override void DidReceiveMemoryWarning()
         {
@@ -32,12 +86,13 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             base.ViewDidLoad();
 
             Title = Constants.UserRegistration;
+
             EdgesForExtendedLayout = UIRectEdge.None;
 
-            UIView view = this.View;
+            UIView view = View;
 
             NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.DidShowNotification, KeyBoardUpNotification);
-            // Keyboard Down
+
             NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, KeyBoardDownNotification);
 
             UserName.ShouldReturn = (textField) =>
@@ -62,36 +117,8 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             };
 
             NavigationController.NavigationBarHidden = true;
-            
+
             SetBind();
-        }
-
-        private void KeyBoardUpNotification(NSNotification notification)
-        {
-            activeview = ScrollViewTopHelper.GetActiveView(this.View);
-            CGRect keyBourdSize = UIKeyboard.BoundsFromNotification(notification);
-            scrollAmount = ScrollViewTopHelper.GetScrollAmount(activeview, keyBourdSize);
-            // Perform the scrolling
-            if (scrollAmount > 0)
-            {
-                _moveViewUp = true;
-                ScrollTheView(_moveViewUp);
-            }
-            else
-            {
-                _moveViewUp = false;
-            }
-        }
-        private void KeyBoardDownNotification(NSNotification notification)
-        {
-            cnsTopConstrain.Constant = 0;
-            MainScrollView.UpdateConstraints();
-        }
-
-        private void ScrollTheView(bool move)
-        {
-            cnsTopConstrain.Constant = -scrollAmount;
-            MainScrollView.UpdateConstraints();
         }
 
         public override void TouchesBegan(NSSet touches, UIEvent evt)
@@ -107,16 +134,11 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             base.ViewWillAppear(animated);
         }
 
-        private void SetBind()
+        public override void ViewDidUnload()
         {
-            var set = this.CreateBindingSet<RegistrationViewController, RegistrationViewModel>();
-            set.Bind(UserName).To(vm => vm.RegistrationUserName);
-            set.Bind(EnterUserPassword).To(vm => vm.RegistrationUserPassword);
-            set.Bind(EnterConfirm).To(vm => vm.RegistrationUserPasswordConfirm);
-            set.Bind(RegistrationButton).To(vm => vm.UserRegistrationCommand);
-            set.Bind(BackButton).To(vm => vm.BackViewCommand);
-
-            set.Apply();
+            base.ViewDidUnload();
         }
+
+        #endregion Overrides
     }
 }

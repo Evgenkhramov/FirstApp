@@ -11,45 +11,36 @@ namespace FirstApp.iOS.ViewControllers.Tasks
     [MvxTabPresentation(WrapInNavigationController = true, TabName = "Task List", TabIconName = "taskList")]
     public partial class TaskListViewController : MvxViewController<TaskListViewModel>
     {
+        #region Variables
+
         private MvxUIRefreshControl _refreshControl;
-        public TaskListViewController () : base (nameof(TaskListViewController), null)
+        private TasksTVS _source;
+
+        #endregion Variables
+
+        #region Constructors
+
+        public TaskListViewController() : base(nameof(TaskListViewController), null)
         {
+            _source = new TasksTVS(TasksTable);
         }
 
-        public override void DidReceiveMemoryWarning()
+        #endregion Constructors
+
+        #region Methods
+
+        private void SetBind()
         {
-            base.DidReceiveMemoryWarning();
-        }
-
-        public override void ViewDidLoad()
-        {
-            SetupNavigationBar();
-
-            base.ViewDidLoad();
-
-            Title = Constants.TaskList;
-
-            EdgesForExtendedLayout = UIRectEdge.None;
-
-            View.BackgroundColor = UIColor.Clear;
-
-            _refreshControl = new MvxUIRefreshControl();
-
-            TasksTable.RegisterNibForCellReuse(TaskCellViewController.Nib, TaskCellViewController.Key);
-            var source = new TasksTVS(TasksTable);
-            TasksTable.Source = source;
-            TasksTable.AddSubview(_refreshControl);
-
             var set = this.CreateBindingSet<TaskListViewController, TaskListViewModel>();
 
-            set.Bind(source).To(m => m.TaskCollection);
-            set.Bind(source).For(v => v.SelectionChangedCommand).To(vm => vm.ShowTaskChangedView);
-            set.Bind(source).For(s => s.DeleteRowCommandiOS).To(vm => vm.DeleteItemCommandiOS);
+            set.Bind(_source).To(m => m.TaskCollection);
+            set.Bind(_source).For(v => v.SelectionChangedCommand).To(vm => vm.ShowTaskChangedView);
+            set.Bind(_source).For(s => s.DeleteRowCommandiOS).To(vm => vm.DeleteItemCommandiOS);
 
             set.Bind(_refreshControl).For(r => r.IsRefreshing).To(vm => vm.IsRefreshTaskCollection);
             set.Bind(_refreshControl).For(r => r.RefreshCommand).To(vm => vm.RefreshTaskCommand);
 
-            set.Apply();           
+            set.Apply();
         }
 
         private void SetupNavigationBar()
@@ -65,10 +56,42 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             set.Apply();
         }
 
+        #endregion Methods
+
+        #region Overrides
+
+        public override void DidReceiveMemoryWarning()
+        {
+            base.DidReceiveMemoryWarning();
+        }
+
+        public override void ViewDidLoad()
+        {
+            SetupNavigationBar();
+
+            SetBind();
+
+            base.ViewDidLoad();
+
+            Title = Constants.TaskList;
+
+            EdgesForExtendedLayout = UIRectEdge.None;
+
+            View.BackgroundColor = UIColor.Clear;
+
+            _refreshControl = new MvxUIRefreshControl();
+
+            TasksTable.RegisterNibForCellReuse(TaskCellViewController.Nib, TaskCellViewController.Key);        
+            TasksTable.Source = _source;
+            TasksTable.AddSubview(_refreshControl);  
+        }
+
         public override void ViewWillAppear(bool animated)
         {
             TabBarController.TabBar.Hidden = false;
             base.ViewWillAppear(animated);
         }
+
+        #endregion Overrides
     }
 }

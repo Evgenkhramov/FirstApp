@@ -1,7 +1,7 @@
-﻿using System;
-using System.Globalization;
-using Foundation;
+﻿using Foundation;
 using MvvmCross.Converters;
+using System;
+using System.Globalization;
 using UIKit;
 
 namespace FirstApp.iOS.Converters

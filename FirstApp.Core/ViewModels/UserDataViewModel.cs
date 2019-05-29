@@ -13,9 +13,9 @@ namespace FirstApp.Core.ViewModels
     public class UserDataViewModel : BaseViewModel
     {
         #region Variables
-
+        public Action TempAction;
         private readonly IMvxPictureChooserTask _pictureChooserTask;
-        private readonly IDBUserService _sQLiteRepository;
+        private readonly IDBUserService _dBUserService;
         private UserDatabaseModel _userData;
         private int _userId;
         private readonly ICurrentPlatformService _getCurrentPlatform;
@@ -25,26 +25,19 @@ namespace FirstApp.Core.ViewModels
 
         #region Constructors
 
-        public UserDataViewModel(ICurrentPlatformService getCurrentPlatform, IDBUserService sQLiteRepository,
+        public UserDataViewModel(ICurrentPlatformService getCurrentPlatform, IDBUserService dBUserService,
               IMvxPictureChooserTask pictureChooserTask, IMvxNavigationService navigationService,
               IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
-            try
-            {
-                _getCurrentPlatform = getCurrentPlatform;
-                _pictureChooserTask = pictureChooserTask;
-                _sQLiteRepository = sQLiteRepository;
-                string id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
-                _userId = Int32.Parse(id);
-                _userData = sQLiteRepository.GetItem(_userId);
-                MyPhoto = _userData.Photo;
-                UserName = _userData.Name;
-                Surname = _userData.Surname;
-            }
-            catch (Exception ex)
-            {
-                ;
-            }
+            _getCurrentPlatform = getCurrentPlatform;
+            _pictureChooserTask = pictureChooserTask;
+            _dBUserService = dBUserService;
+            string id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
+            _userId = Int32.Parse(id);
+            _userData = dBUserService.GetItem(_userId);
+            MyPhoto = _userData.Photo;
+            UserName = _userData.Name;
+            Surname = _userData.Surname;
         }
 
         #endregion Constructors
@@ -108,7 +101,7 @@ namespace FirstApp.Core.ViewModels
                 {
                     _userData.Photo = MyPhoto;
                     _userData.Id = _userId;
-                    _sQLiteRepository.SaveItem(_userData);
+                    _dBUserService.SaveItem(_userData);
                     var platform = _getCurrentPlatform.GetCurrentPlatform();
                     if (platform == CurrentPlatformType.Android)
                     {
@@ -124,7 +117,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    _userData = _sQLiteRepository.GetItem(_userId);
+                    _userData = _dBUserService.GetItem(_userId);
 
                     MyPhoto = _userData.Photo;
                     Surname = _userData.Surname;
@@ -155,8 +148,6 @@ namespace FirstApp.Core.ViewModels
                     CrossSecureStorage.Current.DeleteKey(Constants.SequreKeyForUserName);
                     CrossSecureStorage.Current.DeleteKey(Constants.SequreKeyForUserPassword);
                     CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
-
-                    _sQLiteRepository.DeleteItem(_userId);
 
                     await _navigationService.Navigate<LoginViewModel>();
                 });
@@ -206,7 +197,7 @@ namespace FirstApp.Core.ViewModels
             _userData.Id = _userId;
             _userData.Photo = photo;
             MyPhoto = _userData.Photo;
-            _sQLiteRepository.SaveItem(_userData);
+            _dBUserService.SaveItem(_userData);
         }
 
         private void DoTakePicture()

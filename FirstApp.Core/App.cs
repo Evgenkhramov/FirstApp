@@ -1,4 +1,5 @@
-﻿using FirstApp.Core.Interfaces;
+﻿using Acr.UserDialogs;
+using FirstApp.Core.Interfaces;
 using MvvmCross;
 using MvvmCross.IoC;
 using MvvmCross.ViewModels;
@@ -15,6 +16,8 @@ namespace FirstApp.Core
                 .RegisterAsLazySingleton();
 
              Mvx.IoCProvider.Resolve<IDBConnectionService>();
+
+            Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
 
             RegisterCustomAppStart<AppStart>();                  
         }

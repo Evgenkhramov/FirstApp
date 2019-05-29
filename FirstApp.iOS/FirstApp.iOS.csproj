@@ -75,8 +75,15 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>FirstApp.iOS.Application</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Converters\ByteArrayToImg.cs" />
+    <Compile Include="ViewControllers\ScreenViewController.cs" />
+    <Compile Include="ViewControllers\ScreenViewController.designer.cs">
+      <DependentUpon>ScreenViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewControllers\Tasks\FileTVS.cs" />
     <Compile Include="ViewControllers\Tasks\FileItemCellViewController.cs" />
     <Compile Include="ViewControllers\Tasks\FileItemCellViewController.designer.cs">
@@ -92,10 +99,6 @@
     <Compile Include="ViewControllers\Authentication\StartViewController.cs" />
     <Compile Include="ViewControllers\Authentication\StartViewController.designer.cs">
       <DependentUpon>StartViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ViewControllers\ScreenViewController.cs" />
-    <Compile Include="ViewControllers\ScreenViewController.designer.cs">
-      <DependentUpon>ScreenViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewControllers\Tasks\MapViewController.cs" />
     <Compile Include="ViewControllers\Tasks\MapViewController.designer.cs">
@@ -136,7 +139,6 @@
     </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Entitlements.plist" />
-    <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <None Include="packages.config" />
     <InterfaceDefinition Include="ViewControllers\MainViewController.xib">
       <SubType>Designer</SubType>
@@ -159,7 +161,6 @@
     <InterfaceDefinition Include="ViewControllers\Authentication\RegistrationViewController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
-    <InterfaceDefinition Include="ViewControllers\ScreenViewController.xib" />
     <InterfaceDefinition Include="ViewControllers\Authentication\StartViewController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
@@ -169,6 +170,7 @@
     <InterfaceDefinition Include="ViewControllers\Tasks\FileItemCellViewController.xib">
       <SubType>Designer</SubType>
     </InterfaceDefinition>
+    <InterfaceDefinition Include="ViewControllers\ScreenViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Acr.UserDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
