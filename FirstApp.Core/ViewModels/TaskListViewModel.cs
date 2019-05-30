@@ -22,6 +22,7 @@ namespace FirstApp.Core.ViewModels
         {
 
             _dBTaskService = dBTaskService;
+
             DeleteItemCommand = new MvxCommand<int>(RemoveTaskCollectionItem);
             DeleteItemCommandiOS = new MvxCommand<int>(RemoveCollectionItemiOS);
             AddData();
@@ -61,6 +62,7 @@ namespace FirstApp.Core.ViewModels
         public IMvxCommand<TaskModel> ShowTaskChangedView { get; set; }
 
         private MvxCommand _refreshCommand;
+
         public MvxCommand RefreshTaskCommand => _refreshCommand = _refreshCommand ?? new MvxCommand(AddData);
 
         public MvxAsyncCommand CreateNewTask

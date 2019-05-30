@@ -6,7 +6,7 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TaskDetailsController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TaskDetailsViewController">
             <connections>
                 <outlet property="AddFileInTaskButton" destination="6198" id="name-outlet-6198"/>
                 <outlet property="AddMapMarkersButton" destination="8616" id="name-outlet-8616"/>
