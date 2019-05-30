@@ -3,18 +3,21 @@
     public class Constants
     {
         public const string NameDB = "AppUsersDB.db";
+
         public const string SequreKeyForUserIdInDB = "UserId";
-        public const string SequreKeyForUserName = "UserName";
-        public const string SequreKeyForUserPassword = "UserPassword";
         public const string SequreKeyForLoged = "Loged";
+
         public const string WantLogOut = "Are you sure want Log Out? All data will be lost!";
         public const string WLogOut = "Are you sure want Log Out?";
         public const string DidNotComplite = "You didn't completed the authentication process";
         public const string CencelAuth = "Authentication Canceled";
         public const string InvalidUserNameOrPassword = "Invalid username or password!";
-        public const string ThisNameIsUsed = "This name is already in the database, enter other name";
+        public const string ThisEmailIsUsed = "This Email is already in the database, enter other name or login.";
         public const string UseCorrectName = "Enter correct name";
         public const string EnterName = "Please, enter name";
+        public const string EnterCorrectEmail = "Please, enter correct email!";
+        public const string EnterEmail = "Please, enter email!";
+
         public const string CorrectPassword = "Password must have minimum eight characters, at least one letter and one numbe!";
         public const string EnterPassword = "Enter Password!";
         public const string PasswordConfirm = "Password and password confirm must be the same!";

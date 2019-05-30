@@ -13,6 +13,7 @@ namespace FirstApp.Core.ViewModels
     {
         #region Variables
 
+        private readonly IUserDialogs _userDialogs;
         private CurrentPlatformType _platform;
         private TaskModel _thisTaskModel;
         public static List<MapMarkerModel> MapMarkerList;
@@ -28,8 +29,9 @@ namespace FirstApp.Core.ViewModels
 
         public TaskDetailsViewModel(ICurrentPlatformService getCurrentPlatformService, IMvxNavigationService navigationService,
             IDBTaskService dBTaskService, IDBMapMarkerService dBMapMarkerService, IDBFileNameService dBFileNameService,
-            IUserDialogs userDialogs) : base(navigationService, userDialogs)
+            IUserDialogs userDialogs) : base(navigationService)
         {
+            _userDialogs = userDialogs;
             _getCurrentPlatformService = getCurrentPlatformService;
             _platform = _getCurrentPlatformService.GetCurrentPlatform();
             _dBMapMarkerService = dBMapMarkerService;
@@ -196,11 +198,15 @@ namespace FirstApp.Core.ViewModels
 
                     if (answ && _platform == CurrentPlatformType.iOS)
                     {
+                        _dBFileNameService.DeleteFiles(_taskId);
+                        _dBMapMarkerService.DeleteMarkers(_taskId);
                         _dBTaskService.DeleteTaskFromTable(_taskId);
                         await _navigationService.Close(this);
                     }
                     if (answ && _platform == CurrentPlatformType.Android)
                     {
+                        _dBFileNameService.DeleteFiles(_taskId);
+                        _dBMapMarkerService.DeleteMarkers(_taskId);
                         _dBTaskService.DeleteTaskFromTable(_taskId);
                         await _navigationService.Navigate<TaskListViewModel>();
                     }

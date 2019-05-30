@@ -80,6 +80,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Converters\ByteArrayToImg.cs" />
+    <Compile Include="Services\SHA256hashService.cs" />
     <Compile Include="ViewControllers\ScreenViewController.cs" />
     <Compile Include="ViewControllers\ScreenViewController.designer.cs">
       <DependentUpon>ScreenViewController.cs</DependentUpon>

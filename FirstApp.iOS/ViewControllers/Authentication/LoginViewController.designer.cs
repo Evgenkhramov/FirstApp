@@ -15,7 +15,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField EnterYourLogin { get; set; }
+        UIKit.UITextField EnterYourEmail { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -39,9 +39,9 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         void ReleaseDesignerOutlets ()
         {
-            if (EnterYourLogin != null) {
-                EnterYourLogin.Dispose ();
-                EnterYourLogin = null;
+            if (EnterYourEmail != null) {
+                EnterYourEmail.Dispose ();
+                EnterYourEmail = null;
             }
 
             if (EnterYourPasswordForLogin != null) {

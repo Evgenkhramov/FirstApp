@@ -37,6 +37,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             var set = this.CreateBindingSet<RegistrationViewController, RegistrationViewModel>();
 
             set.Bind(UserName).To(vm => vm.RegistrationUserName);
+            set.Bind(UserEmail).To(vm => vm.RegistrationEmail);
             set.Bind(EnterUserPassword).To(vm => vm.RegistrationUserPassword);
             set.Bind(EnterConfirm).To(vm => vm.RegistrationUserPasswordConfirm);
             set.Bind(RegistrationButton).To(vm => vm.UserRegistrationCommand);

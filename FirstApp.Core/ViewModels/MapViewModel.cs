@@ -18,7 +18,7 @@ namespace FirstApp.Core.ViewModels
 
         #region Constructors
 
-        public MapViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
+        public MapViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService)
         {
             _markerList = new List<MapMarkerModel>();
             SaveButton = false;

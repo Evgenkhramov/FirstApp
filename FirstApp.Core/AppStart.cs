@@ -19,11 +19,11 @@ namespace FirstApp.Core
         #region Constructors
 
         public AppStart(IMvxApplication app, IMvxNavigationService mvxNavigationService,
-                               IAuthorizationService loginService)
+                               IAuthorizationService authorizationService)
                    : base(app, mvxNavigationService)
         {
             _mvxNavigationService = mvxNavigationService;
-            _authorizationService = loginService;
+            _authorizationService = authorizationService;
         }
 
         #endregion Constructors

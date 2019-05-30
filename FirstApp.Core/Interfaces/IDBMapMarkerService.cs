@@ -7,6 +7,6 @@ namespace FirstApp.Core.Interfaces
     {
         void AddMarkerToTable(MapMarkerModel marker);
         List<MapMarkerModel> GetMapMarkerListFromDB(int taskId);
-        void DeleteMarker(int id);
+        void DeleteMarkers(int taskId);
     }
 }

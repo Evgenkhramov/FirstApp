@@ -29,7 +29,7 @@ namespace FirstApp.Core.Services
 
         public void DeleteFiles(int taskId)
         {
-            _connect.Query<FileListModel>($"DELETE * FROM FileName WHERE TaskId = {taskId}");           
+            _connect.Query<FileListModel>($"DELETE FROM FileName WHERE TaskId = {taskId}");           
         }
 
         public void DeleteFileName(int id)

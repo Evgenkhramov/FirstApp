@@ -12,14 +12,16 @@ namespace FirstApp.Core.ViewModels
         #region Variables
 
         private readonly ICurrentPlatformService _currentPlatformService;
+        private readonly IUserDialogs _userDialogs;
 
         #endregion Variables
 
         #region Constructors
 
         public MainViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs, 
-            ICurrentPlatformService currentPlatformService) : base(navigationService, userDialogs)
+            ICurrentPlatformService currentPlatformService) : base(navigationService)
         {
+            _userDialogs = userDialogs;
             _currentPlatformService = currentPlatformService;
             ShowMainFragmentCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<TaskListViewModel>());
             ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());

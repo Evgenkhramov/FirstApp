@@ -20,6 +20,7 @@ namespace FirstApp.Core.ViewModels
         private int _userId;
         private readonly ICurrentPlatformService _getCurrentPlatform;
         private byte[] _bytes;
+        private readonly IUserDialogs _userDialogs;
 
         #endregion Variables
 
@@ -27,20 +28,19 @@ namespace FirstApp.Core.ViewModels
 
         public UserDataViewModel(ICurrentPlatformService getCurrentPlatform, IDBUserService dBUserService,
               IMvxPictureChooserTask pictureChooserTask, IMvxNavigationService navigationService,
-              IUserDialogs userDialogs) : base(navigationService, userDialogs)
+              IUserDialogs userDialogs) : base(navigationService)
         {
+            _userDialogs = userDialogs;
             _getCurrentPlatform = getCurrentPlatform;
             _pictureChooserTask = pictureChooserTask;
             _dBUserService = dBUserService;
-            string id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
-            _userId = Int32.Parse(id);
+            _userId = int.Parse(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
             _userData = dBUserService.GetItem(_userId);
-            MyPhoto = _userData.Photo;
-            UserName = _userData.Name;
-            Surname = _userData.Surname;
+            GetUserData();
+            
         }
 
-        #endregion Constructors
+        #endregion ConstructorsE
 
         #region Properties
 
@@ -145,8 +145,7 @@ namespace FirstApp.Core.ViewModels
                     }
 
                     CrossSecureStorage.Current.DeleteKey(Constants.SequreKeyForUserIdInDB);
-                    CrossSecureStorage.Current.DeleteKey(Constants.SequreKeyForUserName);
-                    CrossSecureStorage.Current.DeleteKey(Constants.SequreKeyForUserPassword);
+
                     CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
 
                     await _navigationService.Navigate<LoginViewModel>();
@@ -191,6 +190,24 @@ namespace FirstApp.Core.ViewModels
         #endregion Commands
 
         #region Methods
+
+        public void GetUserData()
+        {
+            if (!string.IsNullOrEmpty(_userData.Photo))
+            {
+                MyPhoto = _userData.Photo;
+            }
+
+            if (!string.IsNullOrEmpty(_userData.Name))
+            {
+                UserName = _userData.Name;
+            }
+
+            if (!string.IsNullOrEmpty(_userData.Surname))
+            {
+                Surname = _userData.Surname;
+            }
+        }
 
         public void SavePhoto(string photo)
         {

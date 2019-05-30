@@ -24,7 +24,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         #region Constructors
 
-        public LoginViewController() : base()
+        public LoginViewController() : base(nameof(LoginViewController), null)
         {
             GET_ACCOUNTS = 0;
         }
@@ -96,7 +96,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
         {
             var set = this.CreateBindingSet<LoginViewController, LoginViewModel>();
 
-            set.Bind(EnterYourLogin).To(vm => vm.UserName);
+            set.Bind(EnterYourEmail).To(vm => vm.UserEmail);
             set.Bind(EnterYourPasswordForLogin).To(vm => vm.UserPassword);
             set.Bind(LoginButton).To(vm => vm.UserLogin);
             set.Bind(RegistrationButton).To(vm => vm.UserRegistration);
@@ -123,7 +123,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
             GoogleButton.TouchUpInside += OnGoogleLoginButtonClicked;
 
-            EnterYourLogin.ShouldReturn = (textField) =>
+            EnterYourEmail.ShouldReturn = (textField) =>
             {
                 textField.ResignFirstResponder();
                 return true;

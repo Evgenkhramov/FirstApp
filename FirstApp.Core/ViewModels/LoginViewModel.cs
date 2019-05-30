@@ -4,7 +4,6 @@ using FirstApp.Core.Models;
 using FirstApp.Core.Providers;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using Plugin.SecureStorage;
 using System.Threading.Tasks;
 
 namespace FirstApp.Core.ViewModels
@@ -12,20 +11,20 @@ namespace FirstApp.Core.ViewModels
     public class LoginViewModel : BaseViewModel, IFacebookAuthenticationDelegate
     {
         #region Variables
+        private readonly IUserDialogs _userDialogs;
         private readonly IAuthorizationService _authorizationService;
         private readonly IRegistrationService _registrationService;
-        private readonly IDBUserService _sqlLiteRepository;
         private readonly IFacebookService _facebookService;
         #endregion Variables
 
         #region Constructors
-        public LoginViewModel(IAuthorizationService authorizationService, IDBUserService sQLiteRepository, IRegistrationService registrationService, IFacebookService facebookService, IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
+        public LoginViewModel(IAuthorizationService authorizationService, IRegistrationService registrationService, IFacebookService facebookService, IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService)
         {
             ShowMainViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MainViewModel>());
             _authorizationService = authorizationService;
-            _sqlLiteRepository = sQLiteRepository;
             _registrationService = registrationService;
             _facebookService = facebookService;
+            _userDialogs = userDialogs;
             HaveGone = true;
             SaveButton = true;
         }
@@ -37,13 +36,13 @@ namespace FirstApp.Core.ViewModels
 
         public bool SaveButton { get; set; }
 
-        private string _userName;
-        public string UserName
+        private string _userEmail;
+        public string UserEmail
         {
-            get => _userName;
+            get => _userEmail;
             set
             {
-                _userName = value;
+                _userEmail = value;
             }
         }
 
@@ -67,12 +66,11 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    if (_authorizationService.IsLoggedIn(UserName, UserPassword))
+                    if (_authorizationService.IsLoggedIn(UserEmail, UserPassword))
                     {
-                        CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogIn);
                         await _navigationService.Navigate<MainViewModel>();
                     }
-                    if (!_authorizationService.IsLoggedIn(UserName, UserPassword))
+                    if (!_authorizationService.IsLoggedIn(UserEmail, UserPassword))
                     {
                         _userDialogs.Alert(Constants.InvalidUserNameOrPassword);
                     }
@@ -96,30 +94,18 @@ namespace FirstApp.Core.ViewModels
         public async Task OnAuthenticationCompleted(FacebookOAuthToken token)
         {
             FacebookModel user = await _facebookService.GetUserDataAsync(token.AccessToken);
+
             if (user == null)
             {
                 _userDialogs.Alert(Constants.DidNotComplite);
                 return;
             }
 
-            var userDatabaseModel = new UserDatabaseModel
-            {
-                Name = user.First_name,
-                Surname = user.Last_name,
-                Email = user.Email,
-                UserId = user.Id,
-                PhotoURL = user.UserPicture.PictureData.Url,
-                TypeUserLogin = LoginType.Facebook
-            };
+            string userPhoto = await _facebookService.GetImageFromUrlToBase64(user.UserPicture.PictureData.Url);
 
-            string userPhoto = await _facebookService.GetImageFromUrlToBase64(userDatabaseModel.PhotoURL);
-
-            userDatabaseModel.Photo = userPhoto;
-
-            int userIdInDB = _sqlLiteRepository.SaveItem(userDatabaseModel);
-            string idInDB = userIdInDB.ToString();
-
-            _registrationService.UserRegistration(user.First_name, user.Email, idInDB);
+            var userId = _registrationService.SaveUserInDbFromSocialNetworks(user.First_name, user.Email, user.Id, user.Last_name,
+                user.UserPicture.PictureData.Url, userPhoto, LoginType.Facebook);
+            _registrationService.UserRegistration(userId.ToString());
 
             await _navigationService.Navigate<MainViewModel>();
         }
@@ -132,23 +118,10 @@ namespace FirstApp.Core.ViewModels
                 return;
             }
 
-            var userDatabaseModel = new UserDatabaseModel
-            {
-                Name = user.First_name,
-                Surname = user.Last_name,
-                Email = user.Email,
-                UserId = user.Id,
-                PhotoURL = user.Picture,
-                TypeUserLogin = LoginType.Google
-            };
+            string userPhoto = await _facebookService.GetImageFromUrlToBase64(user.Picture);
 
-            string userPhoto = await _facebookService.GetImageFromUrlToBase64(userDatabaseModel.PhotoURL);
-            userDatabaseModel.Photo = userPhoto;
-
-            int userIdInDB = _sqlLiteRepository.SaveItem(userDatabaseModel);
-            string idInDB = userIdInDB.ToString();
-
-            _registrationService.UserRegistration(user.First_name, user.Email, idInDB);
+            int userId = _registrationService.SaveUserInDbFromSocialNetworks(user.First_name, user.Email, user.Id, user.Last_name, user.Picture, userPhoto, LoginType.Google);
+            _registrationService.UserRegistration(userId.ToString());
 
             await _navigationService.Navigate<MainViewModel>();
         }
@@ -171,20 +144,11 @@ namespace FirstApp.Core.ViewModels
                 return;
             }
 
-            var userDatabaseModel = new UserDatabaseModel
-            {
-                Name = user.UserName.GivenName,
-                Surname = user.UserName.FamilyName,
-                Email = user.Emails[0].Value,
-                PhotoURL = user.UserImage.Url,
-                TypeUserLogin = LoginType.Google
-            };
+            string userPhoto = await _facebookService.GetImageFromUrlToBase64(user.UserImage.Url);
 
-            string userPhoto = await _facebookService.GetImageFromUrlToBase64(userDatabaseModel.PhotoURL);
-            userDatabaseModel.Photo = userPhoto;
-            int userIdInDB = _sqlLiteRepository.SaveItem(userDatabaseModel);
-            string idInDB = userIdInDB.ToString();
-            _registrationService.UserRegistration(userDatabaseModel.Name, userDatabaseModel.Email, idInDB);
+            int userId = _registrationService.SaveUserInDbFromSocialNetworks(user.UserName.GivenName, user.Emails[0].Value, 0,
+                user.UserName.FamilyName, user.UserImage.Url, userPhoto, LoginType.Google);
+            _registrationService.UserRegistration(userId.ToString());
 
             await _navigationService.Navigate<MainViewModel>();
         }

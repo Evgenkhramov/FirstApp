@@ -1,19 +1,28 @@
 ﻿using Plugin.SecureStorage;
 using FirstApp.Core.Interfaces;
 
+
 namespace FirstApp.Core.Services
 {
     public class AuthorizationService : IAuthorizationService
     {
-        public bool IsLoggedIn(string userName, string userPassword)
+        private IDBUserService _dBUserService;
+        public AuthorizationService(IDBUserService dBUserService)
         {
-            if (!(CrossSecureStorage.Current.HasKey(Constants.SequreKeyForUserName) && CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserName) == userName
-                && CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserPassword) == userPassword))
+            _dBUserService = dBUserService;
+        }
+
+        public bool IsLoggedIn(string userEmail, string userPassword)
+        {
+            if (_dBUserService.IsUserRegistrated(userEmail, userPassword))
             {
-                return false;               
+               int userId = _dBUserService.GetUserId(userEmail);
+                string userIdString = userId.ToString();
+                CrossSecureStorage.Current.SetValue(Constants.SequreKeyForUserIdInDB, userIdString);
+                CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogIn);
+                return true;
             }
-            CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, "true");
-            return true;
+            return false;
         }
     }
 }

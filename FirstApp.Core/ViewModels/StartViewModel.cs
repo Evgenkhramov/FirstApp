@@ -1,5 +1,4 @@
-﻿using Acr.UserDialogs;
-using FirstApp.Core.Interfaces;
+﻿using FirstApp.Core.Interfaces;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 
@@ -7,17 +6,12 @@ namespace FirstApp.Core.ViewModels
 {
     public class StartViewModel : BaseViewModel
     {
-        #region Variables
-
-        private readonly IAuthorizationService _authorizationService;
-
-        #endregion Variables
 
         #region Constructors
 
-        public StartViewModel(IAuthorizationService authorizationService, IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
+        public StartViewModel(IAuthorizationService authorizationService, IMvxNavigationService navigationService) : base(navigationService)
         {
-            _authorizationService = authorizationService;
+
             ShowLoginFragmentCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<LoginViewModel>());
         }
 

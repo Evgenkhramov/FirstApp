@@ -13,16 +13,19 @@ namespace FirstApp.Core.ViewModels
 
         private readonly Regex _passwordRegExp = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private readonly Regex _nameRegExp = new Regex(@"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private readonly Regex _emailRegExp = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private readonly IRegistrationService _registrationService;
         private readonly IDBUserService _dBUserService;
+        private readonly IUserDialogs _userDialogs;
 
         #endregion Variables
 
         #region Constructors
 
         public RegistrationViewModel(IRegistrationService registrationService, IDBUserService dBUserService,
-            IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
+            IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService)
         {
+            _userDialogs = userDialogs;
             _registrationService = registrationService;
             _dBUserService = dBUserService;
             HaveGone = false;
@@ -44,6 +47,16 @@ namespace FirstApp.Core.ViewModels
             set
             {
                 _registrationUserName = value;
+            }
+        }
+
+        private string _registrationEmail;
+        public string RegistrationEmail
+        {
+            get => _registrationEmail;
+            set
+            {
+                _registrationEmail = value;
             }
         }
 
@@ -91,11 +104,13 @@ namespace FirstApp.Core.ViewModels
                 return new MvxAsyncCommand(async () =>
                 {
                     bool name = false;
+                    bool email = false;
                     bool password = false;
                     bool passwordConfirm = false;
+                    email = EmailValidator();
                     name = NameValidator();
 
-                    if (name)
+                    if (name && email)
                     {
                         password = PasswordValidator();
                     }
@@ -105,23 +120,16 @@ namespace FirstApp.Core.ViewModels
                         passwordConfirm = PasswordConfirmValidator();
                     }
 
-                    if (name && password && passwordConfirm && _dBUserService.IsLoginInDB(RegistrationUserName))
+                    if (name && email && password && passwordConfirm && _dBUserService.IsEmailInDB(RegistrationEmail))
                     {
-                        _userDialogs.Alert(Constants.ThisNameIsUsed);
+                        _userDialogs.Alert(Constants.ThisEmailIsUsed);
                     }
 
-                    if (name && password && passwordConfirm && !_dBUserService.IsLoginInDB(RegistrationUserName))
+                    if (name && email && password && passwordConfirm && !_dBUserService.IsEmailInDB(RegistrationEmail))
                     {
-                        var userDatabaseModel = new UserDatabaseModel
-                        {
-                            Name = RegistrationUserName,
-                            Password = RegistrationUserPassword,
-                            TypeUserLogin = LoginType.App
-                        };
+                        int userId = _registrationService.SaveUserInDbFromApp(RegistrationUserName, RegistrationUserPassword, RegistrationEmail, LoginType.App);
 
-                        _dBUserService.SaveItem(userDatabaseModel);
-                        string userId = userDatabaseModel.Id.ToString();
-                        _registrationService.UserRegistration(RegistrationUserName, RegistrationUserPassword, userId);
+                        _registrationService.UserRegistration(userId.ToString());
 
                         await _navigationService.Close(this);
                         await _navigationService.Navigate<MainViewModel>();
@@ -155,7 +163,7 @@ namespace FirstApp.Core.ViewModels
 
         private bool PasswordValidator()
         {
-            
+
             if (!string.IsNullOrEmpty(RegistrationUserPassword) && _passwordRegExp.IsMatch(RegistrationUserPassword))
             {
                 return true;
@@ -197,6 +205,25 @@ namespace FirstApp.Core.ViewModels
 
             return false;
 
+        }
+
+        private bool EmailValidator()
+        {
+            if (!string.IsNullOrEmpty(RegistrationEmail) && _emailRegExp.IsMatch(RegistrationEmail))
+            {
+                return true;
+            }
+
+            if (!string.IsNullOrEmpty(RegistrationEmail) && !_emailRegExp.IsMatch(RegistrationEmail))
+            {
+                _userDialogs.Alert(Constants.EnterCorrectEmail);
+
+                return false;
+            }
+
+            _userDialogs.Alert(Constants.EnterEmail);
+
+            return false;
         }
 
         #endregion Methods

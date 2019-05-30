@@ -39,6 +39,10 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITextField UserEmail { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField UserName { get; set; }
 
         void ReleaseDesignerOutlets ()
@@ -71,6 +75,11 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             if (RegistrationButton != null) {
                 RegistrationButton.Dispose ();
                 RegistrationButton = null;
+            }
+
+            if (UserEmail != null) {
+                UserEmail.Dispose ();
+                UserEmail = null;
             }
 
             if (UserName != null) {

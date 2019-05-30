@@ -40,9 +40,9 @@ namespace FirstApp.Core.Services
             return coord;
         }
 
-        public void DeleteMarker(int id)
+        public void DeleteMarkers(int taskId)
         {
-            _connect.Delete<MapMarkerModel>(id);
+            _connect.Query<FileListModel>($"DELETE FROM MapMarker WHERE TaskId = {taskId}");
         }
     }
 }

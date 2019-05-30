@@ -9,6 +9,8 @@ namespace FirstApp.Core.Interfaces
         UserDatabaseModel GetItem(int id);
         int DeleteItem(int id);
         int SaveItem(UserDatabaseModel item);
-        bool IsLoginInDB(string login);
+        bool IsEmailInDB(string login);
+        bool IsUserRegistrated(string email, string password);
+        int GetUserId(string email);
     }
 }

@@ -1,5 +1,4 @@
-﻿using Acr.UserDialogs;
-using FirstApp.Core.Interfaces;
+﻿using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -19,8 +18,9 @@ namespace FirstApp.Core.ViewModels
 
         #region Constructors
 
-        public TaskListViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
+        public TaskListViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService) : base(navigationService)
         {
+
             _dBTaskService = dBTaskService;
             DeleteItemCommand = new MvxCommand<int>(RemoveTaskCollectionItem);
             DeleteItemCommandiOS = new MvxCommand<int>(RemoveCollectionItemiOS);

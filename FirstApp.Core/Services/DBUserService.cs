@@ -21,9 +21,26 @@ namespace FirstApp.Core.Services
             return (from item in _connect.Table<UserDatabaseModel>() select item).ToList();
         }
 
-        public bool IsLoginInDB(string login)
+        public bool IsUserRegistrated(string email, string password)
         {
-            UserDatabaseModel findUser = _connect.Table<UserDatabaseModel>().FirstOrDefault(x => x.Name == login);
+            List<UserDatabaseModel> list = _connect.Query<UserDatabaseModel>($"SELECT * FROM Users WHERE Email = {email} AND Password = {password}");
+            if (list.Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public int GetUserId(string email)
+        {
+            List<UserDatabaseModel> list = _connect.Query<UserDatabaseModel>($"SELECT * FROM Users WHERE Email = {email}");
+            int userId = list[0].Id;
+            return userId;
+        }
+
+        public bool IsEmailInDB(string email)
+        {
+            UserDatabaseModel findUser = _connect.Table<UserDatabaseModel>().FirstOrDefault(x => x.Email == email);
 
             if (findUser != null)
             {
