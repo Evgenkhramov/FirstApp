@@ -29,7 +29,7 @@ namespace FirstApp.Core.ViewModels
             _registrationService = registrationService;
             _dBUserService = dBUserService;
             HaveGone = false;
-            SaveButton = false;
+            SaveButton = true;
         }
 
         #endregion Constructors

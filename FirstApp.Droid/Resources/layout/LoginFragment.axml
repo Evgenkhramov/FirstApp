@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:local="http://schemas.android.com/apk/res-auto"
-	android:background="@drawable/background"
+	android:background="#67E667"
 	android:layout_height="wrap_content" 
     android:layout_width="match_parent">
 	<include
@@ -14,17 +14,17 @@
 		android:layout_below="@id/toolbar"
 		android:layout_alignParentBottom="true">
 		<EditText
-			android:hint="@string/enterName"
+			android:hint="@string/EnterEmail"
 			android:textColorHint="@color/inputTextColor"
 			android:textColor="@color/inputTextColor"
 			android:maxLength="20"
 			android:maxLines="1"
-			android:inputType="textPersonName"
+			android:inputType="textEmailAddress"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="40dp"
 			android:layout_marginRight="40dp"
-			local:MvxBind="Text UserName"
+			local:MvxBind="Text UserEmail"
 			android:layout_marginTop = "10dp"/>
 		<EditText
 			android:hint="@string/enterPassword"

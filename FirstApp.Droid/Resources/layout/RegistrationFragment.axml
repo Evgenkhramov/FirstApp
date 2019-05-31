@@ -3,7 +3,7 @@
 	xmlns:local="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-	android:background="@drawable/background">
+	android:background="#67E667">
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
@@ -25,19 +25,19 @@
 		android:layout_marginRight="40dp"
 		local:MvxBind="Text RegistrationUserName"/>
 	<EditText
-		android:hint="@string/enterPassword"
+		android:hint="@string/EnterEmail"
 		android:textColor="@color/inputTextColor"
 		android:textColorHint="@color/inputTextColor"
 		android:maxLength="20"
 		android:maxLines="1"
-		android:inputType="textPassword"
+		android:inputType="textEmailAddress"
 		android:layout_width="match_parent"
 		android:layout_marginLeft="40dp"
 		android:layout_marginRight="40dp"
 		android:layout_height="wrap_content"
-		local:MvxBind="Text RegistrationUserPassword" />
+		local:MvxBind="Text RegistrationEmail" />
 	<EditText
-		android:hint="@string/enterPasswordAgain"
+		android:hint="@string/enterPassword"
 		android:textColor="@color/inputTextColor"
 		android:textColorHint="@color/inputTextColor"
 		android:maxLength="20"
@@ -47,7 +47,20 @@
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="40dp"
 		android:layout_marginRight="40dp"
-		local:MvxBind="Text RegistrationUserPasswordConfirm" />
+		local:MvxBind="Text RegistrationUserPassword" />
+	<EditText
+		android:hint="@string/enterPasswordAgain"
+		android:textColor="@color/inputTextColor"
+		android:textColorHint="@color/inputTextColor"
+		android:maxLength="20"
+		android:maxLines="1"
+		android:inputType="textPassword"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="40dp"
+		android:layout_marginRight="40dp"
+		local:MvxBind="Text RegistrationUserPasswordConfirm"
+		android:id="@+id/editText1" />
 	<Button
 		style="@style/OrangeButton"		
 		android:text="@string/registration"
@@ -55,9 +68,8 @@
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="40dp"
 		android:layout_marginRight="40dp"
-		local:MvxBind="Click UserRegistration"
+		local:MvxBind="Click UserRegistrationCommand"
 		android:id="@+id/registration" />
-	</LinearLayout>
-
-	
+		
+	</LinearLayout>	
 </RelativeLayout>

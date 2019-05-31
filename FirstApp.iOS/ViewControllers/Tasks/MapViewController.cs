@@ -55,7 +55,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             MvxFluentBindingDescriptionSet<MapViewController, MapViewModel> set = this.CreateBindingSet<MapViewController, MapViewModel>();
 
-            set.Bind(_backButton).To(vm => vm.BackCommand);
+            set.Bind(_backButton).To(vm => vm.BackViewCommand);
             set.Bind(_saveButton).To(vm => vm.SaveMapMarkerCommand);
 
             set.Apply();

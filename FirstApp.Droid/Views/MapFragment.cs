@@ -149,7 +149,7 @@ namespace FirstApp.Droid.Views
 
         public void OnBackPressed()
         {
-            ViewModel.BackCommand.Execute();
+            ViewModel.BackViewCommand.Execute();
         }
 
         public override void OnDestroy()

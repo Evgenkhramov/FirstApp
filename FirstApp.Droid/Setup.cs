@@ -1,6 +1,9 @@
-﻿using FirstApp.Core;
+﻿using Acr.UserDialogs;
+using FirstApp.Core;
+using MvvmCross;
 using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.IoC;
+using MvvmCross.Platforms.Android;
 using MvvmCross.Platforms.Android.Presenters;
 
 namespace FirstApp.Droid
@@ -14,6 +17,8 @@ namespace FirstApp.Droid
                 .EndingWith("Service")
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
+
+            UserDialogs.Init(() => Mvx.IoCProvider.Resolve<IMvxAndroidCurrentTopActivity>().Activity);
         }
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()

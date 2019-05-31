@@ -39,7 +39,7 @@ namespace FirstApp.Core.ViewModels
 
         #region Commands  
 
-        public MvxAsyncCommand BackCommand
+        public MvxAsyncCommand BackViewCommand
         {
             get
             {

@@ -103,6 +103,13 @@ namespace FirstApp.iOS.ViewControllers.Authentication
                 return true;
             };
 
+            UserEmail.ShouldReturn = (textField) =>
+            {
+                textField.ResignFirstResponder();
+
+                return true;
+            };
+
             EnterUserPassword.ShouldReturn = (textField) =>
             {
                 textField.ResignFirstResponder();

@@ -17,7 +17,7 @@
 			android:layout_width="55sp"
 			android:layout_height="wrap_content"
 			android:layout_alignParentLeft="true"
-			local:MvxBind="Hidden HaveGone; Click BackCommand"
+			local:MvxBind="Hidden HaveGone; Click BackViewCommand"
 			android:id="@+id/menu_icon"/>
 		<TextView
 			android:text="Application"
@@ -37,7 +37,7 @@
 			android:layout_height="wrap_content"
 			android:layout_alignParentRight="true"		
 			android:id="@+id/saveButton"
-			local:MvxBind="Hidden SaveButton; Click SaveMapMarker"
+			local:MvxBind="Hidden SaveButton; Click SaveMapMarkerCommand"
 			android:clickable="true"/>
 	</RelativeLayout>
 </Toolbar>

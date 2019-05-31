@@ -10,7 +10,7 @@
     <string name="logOut">Log out</string>
     <string name="Save">Save</string>
     <string name="YourAge">Your age</string>
-    <string name="EnterAge">Enter age</string>
+    <string name="EnterEmail">Enter email</string>
     <string name="Cancel">Cancel</string>
     <string name="registration">Registration</string>
     <string name="action_settings">Settings</string>
