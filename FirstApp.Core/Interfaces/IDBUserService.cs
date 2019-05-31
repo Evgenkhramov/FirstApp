@@ -12,5 +12,6 @@ namespace FirstApp.Core.Interfaces
         bool IsEmailInDB(string login);
         bool IsUserRegistrated(string email, string password);
         int GetUserId(string email);
+        bool ByteArrayCompare(byte[] a1, byte[] a2);
     }
 }

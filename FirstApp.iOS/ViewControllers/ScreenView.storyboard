@@ -2,6 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="505">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <scene sceneID="504">
@@ -16,13 +18,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" colorSpace="calibratedRGB" red="0.55294117647058827" green="1" blue="0.53333333333333333" alpha="1"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="509" translatesAutoresizingMaskIntoConstraints="NO" image="LaunchImages/screen.png">
-                                <rect key="frame" x="-393" y="31" width="1200" height="674"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="509" translatesAutoresizingMaskIntoConstraints="NO" image="ScreenImage" adjustsImageSizeForAccessibilityContentSizeCategory="YES">
+                                <rect key="frame" x="83" y="244" width="248" height="248"/>
+                                <constraints>
+                                    <constraint id="1524" firstAttribute="width" secondItem="509" secondAttribute="height"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <constraints>
                             <constraint id="510" firstItem="509" firstAttribute="centerX" secondItem="506" secondAttribute="centerX"/>
                             <constraint id="511" firstItem="509" firstAttribute="centerY" secondItem="506" secondAttribute="centerY"/>
+                            <constraint id="1015" firstItem="509" firstAttribute="width" secondItem="506" secondAttribute="width" multiplier="0.6"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -32,6 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchImages/screen.png" width="1200" height="674"/>
+        <image name="ScreenImage" width="152" height="152"/>
     </resources>
 </document>

@@ -1,6 +1,7 @@
 ﻿using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using SQLite;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,12 +28,19 @@ namespace FirstApp.Core.Services
         public bool IsUserRegistrated(string email, string password)
         {
             byte[] bytePassword = _sHA256HashService.GetSHAFromString(password);
-            List<UserDatabaseModel> list = _connecting.Query<UserDatabaseModel>($"SELECT * FROM Users WHERE Email = {email} AND Password = {bytePassword}");
-            if (list.Count > 0)
+            UserDatabaseModel findUser = _connecting.Table<UserDatabaseModel>().FirstOrDefault(x => x.Email == email);
+            
+            if (ByteArrayCompare(bytePassword, findUser.Password))
             {
                 return true;
             }
             return false;
+        }
+
+        public bool ByteArrayCompare(byte[] a1, byte[] a2)
+        {
+            IStructuralEquatable eqa1 = a1;
+            return eqa1.Equals(a2, StructuralComparisons.StructuralEqualityComparer);
         }
 
         public int GetUserId(string email)

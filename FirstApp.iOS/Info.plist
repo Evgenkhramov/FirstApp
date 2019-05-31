@@ -18,7 +18,7 @@
 		<integer>2</integer>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>ScreenViewController</string>
+	<string>ScreenView</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -66,8 +66,6 @@
 	<string>com.firstapp.xamarin</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Trying to locate Xamarin HQ</string>
-	<key>XSLaunchImageAssets</key>
-	<string>Assets.xcassets/LaunchImages.launchimage</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcons.appiconset</string>
 </dict>
