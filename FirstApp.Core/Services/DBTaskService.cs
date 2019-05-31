@@ -34,9 +34,16 @@ namespace FirstApp.Core.Services
             }
         }
 
-        public List<TaskModel> LoadListItemsTask()
+        public List<TaskModel> LoadListAllTasks()
         {
-            List<TaskModel> ListFromDatabase = (from i in _connect.Table<TaskModel>() select i).ToList();
+            List<TaskModel> ListFromDatabase = (from item in _connect.Table<TaskModel>() select item).ToList();
+
+            return ListFromDatabase;
+        }
+
+        public List<TaskModel> LoadListItemsTask(int userId)
+        {
+            List<TaskModel> ListFromDatabase = _connect.Query<TaskModel>($"SELECT * FROM Tasks WHERE UserId = {userId}");
 
             return ListFromDatabase;
         }

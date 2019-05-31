@@ -3,6 +3,7 @@ using FirstApp.Core.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using Plugin.SecureStorage;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace FirstApp.Core.ViewModels
     public class TaskListViewModel : BaseViewModel, IListHandler
     {
         #region Variables
-
+        int _userId;
         private readonly IDBTaskService _dBTaskService;
 
         #endregion Variables
@@ -20,6 +21,7 @@ namespace FirstApp.Core.ViewModels
 
         public TaskListViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService) : base(navigationService)
         {
+            _userId = int.Parse(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
 
             _dBTaskService = dBTaskService;
 
@@ -90,7 +92,7 @@ namespace FirstApp.Core.ViewModels
         {
             IsRefreshTaskCollection = true;
 
-            var list = _dBTaskService.LoadListItemsTask();
+            var list = _dBTaskService.LoadListItemsTask(_userId);
 
             foreach (var item in list)
             {

@@ -8,6 +8,7 @@ namespace FirstApp.Core.Models
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+        public int UserId { get; set; }
         public string TaskName { get; set; }
         public string TaskDescription { get; set; }
         public bool Status { get; set; }

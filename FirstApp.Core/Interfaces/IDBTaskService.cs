@@ -6,7 +6,8 @@ namespace FirstApp.Core.Interfaces
     public interface IDBTaskService
     {
         void AddTaskToTable(TaskModel tasks);
-        List<TaskModel> LoadListItemsTask();
+        List<TaskModel> LoadListAllTasks();
         void DeleteTaskFromTable(int taskId);
+        List<TaskModel> LoadListItemsTask(int userId);
     }
 }

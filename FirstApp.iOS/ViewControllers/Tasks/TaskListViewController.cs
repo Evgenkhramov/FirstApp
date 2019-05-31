@@ -22,7 +22,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public TaskListViewController() : base(nameof(TaskListViewController), null)
         {
-            _source = new TasksTVS(TasksTable);
+           
         }
 
         #endregion Constructors
@@ -68,6 +68,8 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         public override void ViewDidLoad()
         {
             SetupNavigationBar();
+
+            _source = new TasksTVS(TasksTable);
 
             SetBind();
 

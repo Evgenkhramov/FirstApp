@@ -4,6 +4,7 @@ using FirstApp.Core.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using Plugin.SecureStorage;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,6 +19,7 @@ namespace FirstApp.Core.ViewModels
         private TaskModel _thisTaskModel;
         public static List<MapMarkerModel> MapMarkerList;
         private int _taskId;
+        private int _userId;
         private readonly IDBFileNameService _dBFileNameService;
         private readonly IDBMapMarkerService _dBMapMarkerService;
         private readonly IDBTaskService _dBTaskService;
@@ -31,6 +33,7 @@ namespace FirstApp.Core.ViewModels
             IDBTaskService dBTaskService, IDBMapMarkerService dBMapMarkerService, IDBFileNameService dBFileNameService,
             IUserDialogs userDialogs) : base(navigationService)
         {
+            _userId = int.Parse(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
             _userDialogs = userDialogs;
             _getCurrentPlatformService = getCurrentPlatformService;
             _platform = _getCurrentPlatformService.GetCurrentPlatform();
@@ -39,6 +42,8 @@ namespace FirstApp.Core.ViewModels
             _dBFileNameService = dBFileNameService;
 
             _thisTaskModel = new TaskModel();
+
+            _thisTaskModel.UserId = _userId;
 
             MapMarkerList = new List<MapMarkerModel>();
 
@@ -236,9 +241,9 @@ namespace FirstApp.Core.ViewModels
 
         private void SaveDataToDB(TaskModel task, List<MapMarkerModel> mapMarkerList, MvxObservableCollection<FileListModel> fileNameList)
         {
-            _dBTaskService.AddTaskToTable(_thisTaskModel);
+            _dBTaskService.AddTaskToTable(task);
 
-            _taskId = _thisTaskModel.Id;
+            _taskId = task.Id;
 
             if (mapMarkerList.Count > 0)
             {
