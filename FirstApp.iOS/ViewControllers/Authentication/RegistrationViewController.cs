@@ -132,6 +132,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         public override void ViewWillAppear(bool animated)
         {
+
             base.ViewWillAppear(animated);
         }
 

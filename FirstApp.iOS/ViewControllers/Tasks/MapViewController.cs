@@ -91,7 +91,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             SetupNavigationBar();
 
-            EdgesForExtendedLayout = UIRectEdge.None;
+            //EdgesForExtendedLayout = UIRectEdge.None;
 
             Title = Constants.MapMarkers;
 

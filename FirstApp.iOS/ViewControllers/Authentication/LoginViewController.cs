@@ -123,6 +123,8 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
             GoogleButton.TouchUpInside += OnGoogleLoginButtonClicked;
 
+            
+
             EnterYourEmail.ShouldReturn = (textField) =>
             {
                 textField.ResignFirstResponder();

@@ -101,6 +101,8 @@ namespace FirstApp.Core.ViewModels
                 {
                     _userData.Photo = MyPhoto;
                     _userData.Id = _userId;
+                    _userData.Name = UserName;
+                    _userData.Surname = Surname;
                     _dBUserService.SaveItem(_userData);
                     var platform = _getCurrentPlatform.GetCurrentPlatform();
                     if (platform == CurrentPlatformType.Android)
@@ -148,6 +150,7 @@ namespace FirstApp.Core.ViewModels
 
                     CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
 
+                    await _navigationService.Close(this);
                     await _navigationService.Navigate<LoginViewModel>();
                 });
             }

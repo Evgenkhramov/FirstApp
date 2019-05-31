@@ -13,6 +13,7 @@ namespace FirstApp.Core.ViewModels
         List<MapMarkerModel> _markerList;
         private TaskModel _taskModel;
         public int _taskId;
+        private readonly IUserDialogs _userDialogs;
 
         #endregion Variables
 
@@ -20,6 +21,7 @@ namespace FirstApp.Core.ViewModels
 
         public MapViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService)
         {
+            _userDialogs = userDialogs;
             _markerList = new List<MapMarkerModel>();
             SaveButton = false;
             HaveGone = false;
@@ -43,7 +45,13 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    SaveMapMarkerCommand.Execute();
+                    bool answ = await _userDialogs.ConfirmAsync(Constants.WantSaveMarkers, Constants.SaveMarkers, Strings.Yes, Strings.No);
+                    if (answ)
+                    {
+                        SaveMapMarkerCommand.Execute();
+                        return;
+                    }
+                    await _navigationService.Close(this);
                 });
             }
         }

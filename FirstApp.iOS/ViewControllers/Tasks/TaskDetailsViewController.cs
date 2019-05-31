@@ -25,7 +25,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public TaskDetailsViewController() : base(nameof(TaskDetailsViewController), null)
         {
-            _source = new FileTVS(FileTabelView);
+           
         }
 
         #endregion Constructors
@@ -97,6 +97,8 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+
+            _source = new FileTVS(FileTabelView);
 
             FileTabelView.Source = _source;
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="505">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+    </dependencies>
+    <scenes>
+        <scene sceneID="504">
+            <objects>
+                <viewController id="505" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="502"/>
+                        <viewControllerLayoutGuide type="bottom" id="503"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="506">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" colorSpace="calibratedRGB" red="0.55294117647058827" green="1" blue="0.53333333333333333" alpha="1"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="509" translatesAutoresizingMaskIntoConstraints="NO" image="LaunchImages/screen.png">
+                                <rect key="frame" x="-393" y="31" width="1200" height="674"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint id="510" firstItem="509" firstAttribute="centerX" secondItem="506" secondAttribute="centerX"/>
+                            <constraint id="511" firstItem="509" firstAttribute="centerY" secondItem="506" secondAttribute="centerY"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="507" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-570" y="-375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="LaunchImages/screen.png" width="1200" height="674"/>
+    </resources>
+</document>
