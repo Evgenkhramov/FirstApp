@@ -81,7 +81,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[] { new UIBarButtonItem(_backButton) }, false);
 
             var set = this.CreateBindingSet<TaskDetailsViewController, TaskDetailsViewModel>();
-            set.Bind(_backButton).To(vm => vm.BackCommand);
+            set.Bind(_backButton).To(vm => vm.BackViewCommand);
             set.Apply();
         }
 

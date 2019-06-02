@@ -2,6 +2,7 @@
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using MvvmCross.Plugin.Messenger;
 using System.Collections.Generic;
 
 namespace FirstApp.Core.ViewModels
@@ -14,13 +15,15 @@ namespace FirstApp.Core.ViewModels
         private TaskModel _taskModel;
         public int _taskId;
         private readonly IUserDialogs _userDialogs;
+        private readonly IMvxMessenger _messenger;
 
         #endregion Variables
 
         #region Constructors
 
-        public MapViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService)
+        public MapViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs, IMvxMessenger messenger) : base(navigationService)
         {
+            _messenger = messenger;
             _userDialogs = userDialogs;
             _markerList = new List<MapMarkerModel>();
             SaveButton = false;
@@ -67,16 +70,26 @@ namespace FirstApp.Core.ViewModels
                         await _navigationService.Close(this);
                         return;
                     }
-                    foreach (MapMarkerModel item in _markerList)
-                    {
-                        TaskDetailsViewModel.MapMarkerList.Add(item);
-                    }
+
+                    SendMarkersMessege(_markerList);
+                    //foreach (MapMarkerModel item in _markerList)
+                    //{
+                    //    TaskDetailsViewModel.MapMarkerList.Add(item);
+                    //}
 
                     _markerList.Clear();
                     await _navigationService.Close(this);
                 });
             }
         }
+
+        private void SendMarkersMessege(List<MapMarkerModel> markerList)
+        {
+            var message = new MarkersMessage(this, markerList);
+
+            _messenger.Publish(message);
+        }
+
 
         #endregion Commands
 

@@ -206,7 +206,7 @@ namespace FirstApp.Droid.Views
         public override void OnActivityResult(int requestCode, int resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
-            //Log.Debug(TAG, $"onActivityResult:{requestCode}:{resultCode}:{ data}");
+           
             if (requestCode == 0)
             {
                 if (resultCode != (int)Result.Ok)

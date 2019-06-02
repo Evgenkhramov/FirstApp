@@ -30,7 +30,7 @@ namespace FirstApp.Core.Services
             byte[] bytePassword = _sHA256HashService.GetSHAFromString(password);
             UserDatabaseModel findUser = _connecting.Table<UserDatabaseModel>().FirstOrDefault(x => x.Email == email);
             
-            if (ByteArrayCompare(bytePassword, findUser.Password))
+            if (findUser != null && ByteArrayCompare(bytePassword, findUser.Password))
             {
                 return true;
             }
@@ -45,8 +45,8 @@ namespace FirstApp.Core.Services
 
         public int GetUserId(string email)
         {
-            List<UserDatabaseModel> list = _connecting.Query<UserDatabaseModel>($"SELECT * FROM Users WHERE Email = {email}");
-            int userId = list[0].Id;
+            UserDatabaseModel findUser = _connecting.Table<UserDatabaseModel>().FirstOrDefault(x => x.Email == email);
+            int userId = findUser.Id;
             return userId;
         }
 

@@ -3,6 +3,7 @@ using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using Plugin.SecureStorage;
 using System.Collections.Generic;
@@ -13,11 +14,11 @@ namespace FirstApp.Core.ViewModels
     public class TaskDetailsViewModel : BaseViewModel<TaskModel>, IFileListHandler
     {
         #region Variables
-
+        private readonly MvxSubscriptionToken _token;
         private readonly IUserDialogs _userDialogs;
         private CurrentPlatformType _platform;
         private TaskModel _thisTaskModel;
-        public static List<MapMarkerModel> MapMarkerList;
+        private List<MapMarkerModel> MapMarkerList;
         private int _taskId;
         private int _userId;
         private readonly IDBFileNameService _dBFileNameService;
@@ -31,7 +32,7 @@ namespace FirstApp.Core.ViewModels
 
         public TaskDetailsViewModel(ICurrentPlatformService getCurrentPlatformService, IMvxNavigationService navigationService,
             IDBTaskService dBTaskService, IDBMapMarkerService dBMapMarkerService, IDBFileNameService dBFileNameService,
-            IUserDialogs userDialogs) : base(navigationService)
+            IUserDialogs userDialogs, IMvxMessenger messenger) : base(navigationService)
         {
             _userId = int.Parse(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
             _userDialogs = userDialogs;
@@ -40,6 +41,8 @@ namespace FirstApp.Core.ViewModels
             _dBMapMarkerService = dBMapMarkerService;
             _dBTaskService = dBTaskService;
             _dBFileNameService = dBFileNameService;
+
+            _token = messenger.Subscribe<MarkersMessage>(GetMarkersFromMessage);
 
             _thisTaskModel = new TaskModel();
 
@@ -175,7 +178,7 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        public MvxAsyncCommand BackCommand
+        public MvxAsyncCommand BackViewCommand
         {
             get
             {
@@ -351,6 +354,11 @@ namespace FirstApp.Core.ViewModels
             TaskName = null;
             TaskDescription = null;
             MarkersCounter = null;
+        }
+
+       private void GetMarkersFromMessage(MarkersMessage markersList)
+        {
+            MapMarkerList.AddRange(markersList.MapMarkerList);
         }
 
         public override void ViewAppearing()

@@ -69,11 +69,9 @@ namespace FirstApp.Core.ViewModels
                     if (_authorizationService.IsLoggedIn(UserEmail, UserPassword))
                     {
                         await _navigationService.Navigate<MainViewModel>();
+                        return;
                     }
-                    if (!_authorizationService.IsLoggedIn(UserEmail, UserPassword))
-                    {
-                        _userDialogs.Alert(Constants.InvalidUserNameOrPassword);
-                    }
+                    _userDialogs.Alert(Constants.InvalidUserNameOrPassword);
                 });
             }
         }
