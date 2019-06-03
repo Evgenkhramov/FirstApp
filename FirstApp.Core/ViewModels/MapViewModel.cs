@@ -14,6 +14,7 @@ namespace FirstApp.Core.ViewModels
         List<MapMarkerModel> _markerList;
         private TaskModel _taskModel;
         public int _taskId;
+      
         private readonly IUserDialogs _userDialogs;
         private readonly IMvxMessenger _messenger;
 

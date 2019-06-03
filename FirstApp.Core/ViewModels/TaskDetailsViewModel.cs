@@ -18,7 +18,7 @@ namespace FirstApp.Core.ViewModels
         private readonly IUserDialogs _userDialogs;
         private CurrentPlatformType _platform;
         private TaskModel _thisTaskModel;
-        private List<MapMarkerModel> MapMarkerList;
+        public List<MapMarkerModel> MapMarkerList;
         private int _taskId;
         private int _userId;
         private readonly IDBFileNameService _dBFileNameService;
