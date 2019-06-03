@@ -7,11 +7,11 @@ using System.Collections.Generic;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class MapViewModel : BaseViewModel<TaskModel>
+    public class MapViewModel : BaseViewModel<MarkersData>
     {
         #region Variables
 
-        List<MapMarkerModel> _markerList;
+        public List<MapMarkerModel> _markerList;
         private TaskModel _taskModel;
         public int _taskId;
       
@@ -72,14 +72,12 @@ namespace FirstApp.Core.ViewModels
                         return;
                     }
 
-                    SendMarkersMessege(_markerList);
-                    //foreach (MapMarkerModel item in _markerList)
-                    //{
-                    //    TaskDetailsViewModel.MapMarkerList.Add(item);
-                    //}
+                    
 
-                    _markerList.Clear();
+                    
                     await _navigationService.Close(this);
+                    SendMarkersMessege(_markerList);
+                    _markerList.Clear();
                 });
             }
         }
@@ -102,20 +100,18 @@ namespace FirstApp.Core.ViewModels
             _markerList.Add(marker);
         }
 
-        public List<MapMarkerModel> GetMarkerList()
-        {
-            List<MapMarkerModel> markers = TaskDetailsViewModel.MapMarkerList;
-            return markers;
-        }
-
         #endregion Methods
 
         #region Overrides
 
-        public override void Prepare(TaskModel task)
+        public override void Prepare(MarkersData data)
         {
-            _taskModel = task;
-            _taskId = task.Id;
+            foreach (MapMarkerModel item in data.Markers)
+            {
+                _markerList.Add(item);
+            }
+
+            _taskId = data.TaskId;
         }
 
         #endregion Overrides

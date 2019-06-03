@@ -5,12 +5,12 @@ namespace FirstApp.Core.Models
 {
     public class MarkersMessage : MvxMessage
     {
-        public MarkersMessage(object sender, List<MapMarkerModel> mapMarkerList)
+        public MarkersMessage(object sender, List<MapMarkerModel> markerMessegeList)
            : base(sender)
         {
-            MapMarkerList = mapMarkerList;
+            MarkerMessegeList = markerMessegeList;
         }
-
-        public List<MapMarkerModel> MapMarkerList;
+        
+        public List<MapMarkerModel> MarkerMessegeList;
     }
 }

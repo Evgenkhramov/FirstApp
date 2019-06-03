@@ -100,7 +100,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             _map.ShowsUserLocation = true;
 
-            MarkerListFromDB = ViewModel.GetMarkerList();
+            MarkerListFromDB = ViewModel._markerList;
 
             if (MarkerListFromDB != null && MarkerListFromDB.Count > 0)
             {

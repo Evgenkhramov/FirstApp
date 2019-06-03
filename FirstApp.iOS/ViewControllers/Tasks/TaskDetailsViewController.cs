@@ -25,7 +25,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public TaskDetailsViewController() : base(nameof(TaskDetailsViewController), null)
         {
-           
+
         }
 
         #endregion Constructors
@@ -47,7 +47,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("Exception choosing file: " + ex.ToString());
+                Console.WriteLine("Exception choosing file: " + ex.ToString());
             }
 
             if (!string.IsNullOrEmpty(fileName))

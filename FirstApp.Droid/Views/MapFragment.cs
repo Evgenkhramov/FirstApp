@@ -21,7 +21,6 @@ namespace FirstApp.Droid.Views
     {
         #region Variables
 
-        private List<MapMarkerModel> _markerListFromDB;
         private MapMarkerModel _marcerRow;
         private MapView _mapView;
         private GoogleMap _map;
@@ -52,11 +51,9 @@ namespace FirstApp.Droid.Views
             _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(myLocation.Latitude, myLocation.Longitude)).SetTitle($"Marker Task {ViewModel._taskId}")
                 .SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueGreen)));
 
-            _markerListFromDB = ViewModel.GetMarkerList();
-
-            if (_markerListFromDB != null && _markerListFromDB.Count > 0)
+            if (ViewModel._markerList != null && ViewModel._markerList.Count > 0)
             {
-                foreach (MapMarkerModel coord in _markerListFromDB)
+                foreach (MapMarkerModel coord in ViewModel._markerList)
                 {
                     _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(coord.Latitude, coord.Longitude))
                         .SetTitle($"Marker Task {ViewModel._taskId}"));
@@ -115,8 +112,6 @@ namespace FirstApp.Droid.Views
                 return null;
             }
 
-            //var output = string.Format($"Time: {_position.Timestamp} \nLat: {_position.Latitude} \nLong: {_position.Longitude} \nAltitude: {_position.Altitude} \nAltitude Accuracy: {_position.AltitudeAccuracy} \nAccuracy: { _position.Accuracy} \nHeading: {_position.Heading} \nSpeed: {_position.Speed}");
-
             return _position;
         }
 
@@ -133,8 +128,6 @@ namespace FirstApp.Droid.Views
             _mapView.OnCreate(savedInstanceState);
 
             _mapView.GetMapAsync(this);
-
-            _markerListFromDB = new List<MapMarkerModel>();
 
             _marcerRow = new MapMarkerModel();
 
