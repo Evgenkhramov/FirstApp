@@ -186,14 +186,17 @@
     <Reference Include="Java.Interop">
       <HintPath>..\..\..\..\Desktop\Java.Interop\Java.Interop.dll</HintPath>
     </Reference>
-    <Reference Include="MvvmCross, Version=6.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmCross.6.2.3\lib\xamarinios10\MvvmCross.dll</HintPath>
+    <Reference Include="MvvmCross, Version=6.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.6.3.0\lib\xamarinios10\MvvmCross.dll</HintPath>
     </Reference>
     <Reference Include="MvvmCross.Plugin.Color, Version=6.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmCross.Plugin.Color.6.2.3\lib\xamarinios10\MvvmCross.Plugin.Color.dll</HintPath>
     </Reference>
     <Reference Include="MvvmCross.Plugin.Json, Version=6.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmCross.Plugin.Json.6.2.3\lib\netstandard2.0\MvvmCross.Plugin.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Plugin.Messenger, Version=6.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.Plugin.Messenger.6.3.0\lib\netstandard2.0\MvvmCross.Plugin.Messenger.dll</HintPath>
     </Reference>
     <Reference Include="MvvmCross.Plugin.PictureChooser, Version=6.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmCross.Plugin.PictureChooser.6.2.3\lib\xamarinios10\MvvmCross.Plugin.PictureChooser.dll</HintPath>
