@@ -4,6 +4,7 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using Plugin.SecureStorage;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
 
@@ -22,13 +23,12 @@ namespace FirstApp.Core.ViewModels
         public TaskListViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService) : base(navigationService)
         {
             _userId = int.Parse(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
-
             _dBTaskService = dBTaskService;
 
             DeleteItemCommand = new MvxCommand<int>(RemoveTaskCollectionItem);
             DeleteItemCommandiOS = new MvxCommand<int>(RemoveCollectionItemiOS);
             AddData();
-            ShowTaskChangedView = new MvxAsyncCommand<TaskModel>(CollectionItemClick);
+            ShowTaskChangedView = new MvxAsyncCommand<TaskRequestModel>(CollectionItemClick);
         }
 
         #endregion Constructors
@@ -46,8 +46,8 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        private MvxObservableCollection<TaskModel> _taskCollection;
-        public MvxObservableCollection<TaskModel> TaskCollection
+        private MvxObservableCollection<TaskRequestModel> _taskCollection;
+        public MvxObservableCollection<TaskRequestModel> TaskCollection
         {
             get => _taskCollection;
             set
@@ -61,7 +61,7 @@ namespace FirstApp.Core.ViewModels
 
         #region Commands  
 
-        public IMvxCommand<TaskModel> ShowTaskChangedView { get; set; }
+        public IMvxCommand<TaskRequestModel> ShowTaskChangedView { get; set; }
 
         private MvxCommand _refreshCommand;
 
@@ -92,36 +92,42 @@ namespace FirstApp.Core.ViewModels
         {
             IsRefreshTaskCollection = true;
 
-            var list = _dBTaskService.LoadListItemsTask(_userId);
+            List<TaskModel> list = _dBTaskService.LoadListItemsTask(_userId);
+
+            TaskCollection = new MvxObservableCollection<TaskRequestModel>();
 
             foreach (var item in list)
             {
-                item.VmHandler = this;
-            }
+                TaskRequestModel element = new TaskRequestModel();
 
-            TaskCollection = new MvxObservableCollection<TaskModel>();
-            TaskCollection.AddRange(list);
+                element.Id = item.Id;
+                element.UserId = item.UserId;
+                element.TaskName = item.TaskName;
+                element.TaskDescription = item.TaskDescription;
+                element.VmHandler = this;
+                TaskCollection.Add(element);
+            }
 
             IsRefreshTaskCollection = false;
         }
 
         void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
         {
-            MvxObservableCollection<TaskModel> obsSender = sender as MvxObservableCollection<TaskModel>;
+            MvxObservableCollection<TaskRequestModel> obsSender = sender as MvxObservableCollection<TaskRequestModel>;
 
             int element = eventArgs.OldItems.Count;
         }
 
-        public async Task CollectionItemClick(TaskModel model)
+        public async Task CollectionItemClick(TaskRequestModel model)
         {
-            await _navigationService.Navigate<TaskDetailsViewModel, TaskModel>(model);
+            await _navigationService.Navigate<TaskDetailsViewModel, TaskRequestModel>(model);
         }
 
         public void RemoveTaskCollectionItem(int itemId)
         {
-            TaskModel itemForDelete = null;
+            TaskRequestModel itemForDelete = null;
             _dBTaskService.DeleteTaskFromTable(itemId);
-            foreach (TaskModel item in TaskCollection)
+            foreach (TaskRequestModel item in TaskCollection)
             {
                 if (item.Id == itemId)
                 {

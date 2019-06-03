@@ -5,7 +5,7 @@ namespace FirstApp.Core.Interfaces
 {
     public interface IListHandler
     {
-        Task CollectionItemClick(TaskModel model);
+        Task CollectionItemClick(TaskRequestModel model);
         void RemoveTaskCollectionItem(int itemId);
     }
 }

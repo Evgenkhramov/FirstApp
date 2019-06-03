@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FirstApp.Core.ViewModels
 {
-    public class TaskDetailsViewModel : BaseViewModel<TaskModel>, IFileListHandler
+    public class TaskDetailsViewModel : BaseViewModel<TaskRequestModel>, IFileListHandler
     {
         #region Variables
         private MvxSubscriptionToken _mapToken;
@@ -342,7 +342,7 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        public override void Prepare(TaskModel parametr)
+        public override void Prepare(TaskRequestModel parametr)
         {
             if (parametr != null)
             {

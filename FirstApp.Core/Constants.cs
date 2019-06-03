@@ -58,5 +58,6 @@
         public const string ByteArrayToImg = "ByteArrayToImg";
 
         public const int MaxLength = 20;
+        public const int AndroidTaskItemSwipeWidth = 75;
     }
 }

@@ -30,7 +30,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         #region Methods
 
-        internal void UpdateCell(TaskModel task)
+        internal void UpdateCell(TaskRequestModel task)
         {
             if (!string.IsNullOrEmpty(task.TaskName) && task.TaskName.Length > Constants.MaxLength)
             {
