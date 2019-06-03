@@ -93,8 +93,8 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        public MvxObservableCollection<FileListModel> _fileNameList;
-        public MvxObservableCollection<FileListModel> FileNameList
+        public MvxObservableCollection<FileRequestModel> _fileNameList;
+        public MvxObservableCollection<FileRequestModel> FileNameList
         {
             get => _fileNameList;
             set
@@ -236,19 +236,24 @@ namespace FirstApp.Core.ViewModels
 
         public void AddFileName()
         {
-            FileNameList = new MvxObservableCollection<FileListModel>() { };
+            FileNameList = new MvxObservableCollection<FileRequestModel>() { };
 
             List<FileListModel> list = GetFileNameListFromDB(_taskId);
 
             foreach (var item in list)
             {
-                item.VmHandler = this;
-            }
+                FileRequestModel element = new FileRequestModel();
+                element.Id = item.Id;
+                element.TaskId = item.TaskId;
+                element.FileName = item.FileName;
 
-            FileNameList.AddRange(list);
+                element.VmHandler = this;
+
+                FileNameList.Add(element);
+            }
         }
 
-        private void SaveDataToDB(TaskModel task, List<MapMarkerModel> mapMarkerList, MvxObservableCollection<FileListModel> fileNameList)
+        private void SaveDataToDB(TaskModel task, List<MapMarkerModel> mapMarkerList, MvxObservableCollection<FileRequestModel> fileNameList)
         {
             _dBTaskService.AddTaskToTable(task);
 
@@ -268,9 +273,13 @@ namespace FirstApp.Core.ViewModels
                 mapMarkerList.Clear();
             }
 
-            if (fileNameList.Count > 0)
+            List<FileListModel> fileList = new List<FileListModel>();
+
+            fileList = GetFileListForDB(fileNameList);
+
+            if (fileList.Count > 0)
             {
-                foreach (FileListModel item in fileNameList)
+                foreach (FileListModel item in fileList)
                 {
                     item.TaskId = _taskId;
                     if (item.Id == 0)
@@ -292,7 +301,7 @@ namespace FirstApp.Core.ViewModels
 
         public void SaveFileName(string name)
         {
-            var item = new FileListModel
+            var item = new FileRequestModel
             {
                 TaskId = _taskId,
                 FileName = name,
@@ -306,9 +315,9 @@ namespace FirstApp.Core.ViewModels
         {
             _dBFileNameService.DeleteFileName(itemId);
 
-            FileListModel _itemForDelete = null;
+            FileRequestModel _itemForDelete = null;
 
-            foreach (FileListModel item in FileNameList)
+            foreach (FileRequestModel item in FileNameList)
             {
                 if (item.Id == itemId)
                 {
@@ -324,6 +333,21 @@ namespace FirstApp.Core.ViewModels
         public void UpdateMarkersCounter()
         {
             MarkersCounter = MapMarkerList.Count.ToString();
+        }
+
+        private List<FileListModel> GetFileListForDB(MvxObservableCollection<FileRequestModel> requestList)
+        {
+            List<FileListModel> list = new List<FileListModel>();
+
+            foreach (FileRequestModel item in requestList)
+            {
+                FileListModel element = new FileListModel();
+                element.Id = item.Id;
+                element.TaskId = item.TaskId;
+                element.FileName = item.FileName;
+                list.Add(element);
+            }
+            return list;
         }
 
         #endregion Methods

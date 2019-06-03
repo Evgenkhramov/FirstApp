@@ -30,7 +30,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
         {
             var cell = (FileItemCellViewController)tableView.DequeueReusableCell(Constants.FileItemCell, indexPath);
-            cell.UpdateCell((FileListModel)item);
+            cell.UpdateCell((FileRequestModel)item);
 
             return cell;
         }
@@ -38,7 +38,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         public override void CommitEditingStyle(UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
         {
             if (editingStyle == UITableViewCellEditingStyle.Delete
-                && ItemsSource is System.Collections.ObjectModel.ObservableCollection<FileListModel> sourceCollection)
+                && ItemsSource is System.Collections.ObjectModel.ObservableCollection<FileRequestModel> sourceCollection)
             {
                 var fileId = sourceCollection[indexPath.Row].Id;
                 DeleteRowCommandiOS.Execute(fileId);

@@ -31,7 +31,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         #region Methods
 
-        internal void UpdateCell(FileListModel item)
+        internal void UpdateCell(FileRequestModel item)
         {
             if (!String.IsNullOrEmpty(item.FileName) && item.FileName.Length > Constants.MaxLength)
             {
