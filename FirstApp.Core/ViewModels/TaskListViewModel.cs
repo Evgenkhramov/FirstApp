@@ -1,4 +1,5 @@
-﻿using FirstApp.Core.Interfaces;
+﻿using Acr.UserDialogs;
+using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -20,7 +21,7 @@ namespace FirstApp.Core.ViewModels
 
         #region Constructors
 
-        public TaskListViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService) : base(navigationService)
+        public TaskListViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
             _userId = int.Parse(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
             _dBTaskService = dBTaskService;

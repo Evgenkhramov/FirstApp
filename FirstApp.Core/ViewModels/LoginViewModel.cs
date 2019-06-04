@@ -11,20 +11,20 @@ namespace FirstApp.Core.ViewModels
     public class LoginViewModel : BaseViewModel, IFacebookAuthenticationDelegate
     {
         #region Variables
-        private readonly IUserDialogs _userDialogs;
+
         private readonly IAuthorizationService _authorizationService;
         private readonly IRegistrationService _registrationService;
         private readonly IFacebookService _facebookService;
         #endregion Variables
 
         #region Constructors
-        public LoginViewModel(IAuthorizationService authorizationService, IRegistrationService registrationService, IFacebookService facebookService, IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService)
+        public LoginViewModel(IAuthorizationService authorizationService, IRegistrationService registrationService, IFacebookService facebookService, 
+            IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
             ShowMainViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MainViewModel>());
             _authorizationService = authorizationService;
             _registrationService = registrationService;
             _facebookService = facebookService;
-            _userDialogs = userDialogs;
             HaveGone = true;
             SaveButton = true;
         }

@@ -16,16 +16,14 @@ namespace FirstApp.Core.ViewModels
         private readonly Regex _emailRegExp = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private readonly IRegistrationService _registrationService;
         private readonly IDBUserService _dBUserService;
-        private readonly IUserDialogs _userDialogs;
 
         #endregion Variables
 
         #region Constructors
 
         public RegistrationViewModel(IRegistrationService registrationService, IDBUserService dBUserService,
-            IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService)
+            IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
-            _userDialogs = userDialogs;
             _registrationService = registrationService;
             _dBUserService = dBUserService;
             HaveGone = false;

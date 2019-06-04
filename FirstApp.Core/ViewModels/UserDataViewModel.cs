@@ -20,7 +20,6 @@ namespace FirstApp.Core.ViewModels
         private int _userId;
         private readonly ICurrentPlatformService _getCurrentPlatform;
         private byte[] _bytes;
-        private readonly IUserDialogs _userDialogs;
 
         #endregion Variables
 
@@ -28,9 +27,8 @@ namespace FirstApp.Core.ViewModels
 
         public UserDataViewModel(ICurrentPlatformService getCurrentPlatform, IDBUserService dBUserService,
               IMvxPictureChooserTask pictureChooserTask, IMvxNavigationService navigationService,
-              IUserDialogs userDialogs) : base(navigationService)
+              IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
-            _userDialogs = userDialogs;
             _getCurrentPlatform = getCurrentPlatform;
             _pictureChooserTask = pictureChooserTask;
             _dBUserService = dBUserService;

@@ -15,7 +15,6 @@ namespace FirstApp.Core.ViewModels
     {
         #region Variables
         private MvxSubscriptionToken _mapToken;
-        private readonly IUserDialogs _userDialogs;
         private CurrentPlatformType _platform;
         private TaskModel _thisTaskModel;
         private List<MapMarkerModel> MapMarkerList;
@@ -34,11 +33,10 @@ namespace FirstApp.Core.ViewModels
 
         public TaskDetailsViewModel(ICurrentPlatformService getCurrentPlatformService, IMvxNavigationService navigationService,
             IDBTaskService dBTaskService, IDBMapMarkerService dBMapMarkerService, IDBFileNameService dBFileNameService,
-            IUserDialogs userDialogs, IMvxMessenger mvxMessenger) : base(navigationService)
+            IUserDialogs userDialogs, IMvxMessenger mvxMessenger) : base(navigationService, userDialogs)
         {
             _mvxMessenger = mvxMessenger;
             _userId = int.Parse(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
-            _userDialogs = userDialogs;
             _getCurrentPlatformService = getCurrentPlatformService;
             _platform = _getCurrentPlatformService.GetCurrentPlatform();
             _dBMapMarkerService = dBMapMarkerService;

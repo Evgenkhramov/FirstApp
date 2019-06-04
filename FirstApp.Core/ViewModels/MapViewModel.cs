@@ -15,17 +15,16 @@ namespace FirstApp.Core.ViewModels
         private TaskModel _taskModel;
         public int _taskId;
       
-        private readonly IUserDialogs _userDialogs;
         private readonly IMvxMessenger _messenger;
 
         #endregion Variables
 
         #region Constructors
 
-        public MapViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs, IMvxMessenger messenger) : base(navigationService)
+        public MapViewModel(IMvxNavigationService navigationService, IMvxMessenger messenger,
+            IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
             _messenger = messenger;
-            _userDialogs = userDialogs;
             _markerList = new List<MapMarkerModel>();
             SaveButton = false;
             HaveGone = false;

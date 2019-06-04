@@ -1,4 +1,5 @@
-﻿using MvvmCross.Navigation;
+﻿using Acr.UserDialogs;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 
 namespace FirstApp.Core.ViewModels
@@ -7,12 +8,14 @@ namespace FirstApp.Core.ViewModels
     {
         #region Variables
         protected readonly IMvxNavigationService _navigationService;
+        protected readonly IUserDialogs _userDialogs;
         #endregion Variables
 
         #region Constructors
 
-        protected BaseViewModel(IMvxNavigationService navigationService)
+        protected BaseViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs)
         {
+            _userDialogs = userDialogs;
             _navigationService = navigationService;
         }
 
@@ -25,12 +28,14 @@ namespace FirstApp.Core.ViewModels
     {
         #region Variables
         protected readonly IMvxNavigationService _navigationService;
+        protected readonly IUserDialogs _userDialogs;
         #endregion Variables
 
         #region Constructors
 
-        protected BaseViewModel(IMvxNavigationService navigationService)
+        protected BaseViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs)
         {
+            _userDialogs = userDialogs;
             _navigationService = navigationService;
         }
 
@@ -42,14 +47,16 @@ namespace FirstApp.Core.ViewModels
     {
         #region Variables
 
+        protected readonly IUserDialogs _userDialogs;
         protected readonly IMvxNavigationService _navigationService;
 
         #endregion Variables
 
         #region Constructors
 
-        protected BaseViewModel(IMvxNavigationService navigationService)
+        protected BaseViewModel(IMvxNavigationService navigationService, IUserDialogs userDialogs)
         {
+            _userDialogs = userDialogs;
             _navigationService = navigationService;
         }
 

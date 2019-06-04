@@ -23,7 +23,7 @@ namespace FirstApp.Core.ViewModels
 
         #region Constructors
 
-        public MenuViewModel(IDBUserService sQLiteRepository, IMvxNavigationService navigationService) : base(navigationService)
+        public MenuViewModel(IDBUserService sQLiteRepository, IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
             _dBUserService = sQLiteRepository;
 
