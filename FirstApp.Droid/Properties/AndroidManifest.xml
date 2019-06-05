@@ -15,7 +15,7 @@
 	<user-permission android:name="com.googlemap.googlemap.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
 	<uses-permission android:name="com.googlemap.googlemap.permission.MAPS_RECEIVE" />
 	<uses-permission android:name="com.google.android.providers.gsf.permisson.READ_GSERVICES" />
-	<application android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" android:supportsRtl="true" android:theme="@style/MyTheme" android:label="first_app">
+	<application android:allowBackup="true" android:icon="@drawable/AppIcon" android:supportsRtl="true" android:theme="@style/MyTheme" android:label="@string/app_name">
 		<uses-feature android:name="android.hardware.camera" />
 		<uses-feature android:name="android.hardware.camera" android:required="false" />
 		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyB46uCd4oWPj6i42H59FGE3fwCiuLpxHlM" />

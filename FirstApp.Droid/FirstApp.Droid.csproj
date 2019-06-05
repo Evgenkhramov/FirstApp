@@ -265,6 +265,10 @@
     <AndroidResource Include="Resources\drawable-xhdpi\AppIcon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\AppIcon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\AppIcon.png" />
+    <AndroidResource Include="Resources\drawable\AppIcon.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <Content Include="Resources\drawable\screen.png" />
     <AndroidResource Include="Resources\layout\SplashScreen.axml">
       <SubType>Designer</SubType>

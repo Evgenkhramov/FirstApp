@@ -9,7 +9,6 @@ namespace StarWarsSample.Droid
     [MvxActivityPresentation]
     [Activity(
         MainLauncher = true,
-        Icon = "@mipmap/ic_launcher",
         Theme = "@style/Theme.Splash",
         NoHistory = true,
         ScreenOrientation = ScreenOrientation.Portrait)]
