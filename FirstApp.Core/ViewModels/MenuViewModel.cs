@@ -23,15 +23,15 @@ namespace FirstApp.Core.ViewModels
 
         #region Constructors
 
-        public MenuViewModel(IDBUserService sQLiteRepository, IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
+        public MenuViewModel(IDBUserService dBUserService, IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
-            _dBUserService = sQLiteRepository;
+            _dBUserService = dBUserService;
 
             _id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
             if (!string.IsNullOrEmpty(_id))
             {
                 _userId = int.Parse(_id);
-                userData = sQLiteRepository.GetItem(_userId);
+                userData = _dBUserService.GetItem(_userId);
                 MyIcon = userData.Photo;
                 MyName = $"{userData.Name} {userData.Surname}";
             }
@@ -95,6 +95,7 @@ namespace FirstApp.Core.ViewModels
                     CrossSecureStorage.Current.DeleteKey(_id);
                     CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
                     _dBUserService.DeleteItem(_userId);
+                    await _navigationService.Close(this);
                     await _navigationService.Navigate(param.ShowCommand);
                 });
             }
