@@ -105,6 +105,7 @@ namespace FirstApp.Core.ViewModels
                     var platform = _getCurrentPlatform.GetCurrentPlatform();
                     if (platform == CurrentPlatformType.Android)
                     {
+                        await _navigationService.Close(this);
                         await _navigationService.Navigate<TaskListViewModel>();
                     }
                 });

@@ -114,6 +114,14 @@ namespace FirstApp.Core.ViewModels
 
         #endregion Commands
 
+        public void UpdateData()
+        {
+            _userId = int.Parse(_id);
+            userData = _dBUserService.GetItem(_userId);
+            MyIcon = userData.Photo;
+            MyName = $"{userData.Name} {userData.Surname}";
+        }
+
         public class MenuItem
         {
             public string Title { get; private set; }

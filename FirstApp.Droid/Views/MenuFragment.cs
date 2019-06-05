@@ -12,6 +12,13 @@ namespace FirstApp.Droid.Views
     [Register("firstApp.Droid.Views.MenuFragment")]
     public class MenuFragment : BaseFragment<MenuViewModel>
     {
+
+        #region Variables
+
+        private Android.Support.V4.Widget.DrawerLayout _menu;
+
+        #endregion Variables
+
         #region Overrides
 
         protected override int FragmentId => Resource.Layout.MenuFragment;
@@ -19,6 +26,12 @@ namespace FirstApp.Droid.Views
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = base.OnCreateView(inflater, container, savedInstanceState);
+
+            CloseMenu();
+
+            _menu = ((MainView)Activity).DrawerLayout;
+
+            _menu.DrawerOpened += MenuDrawerOpened;
 
             return view;
         }
@@ -32,6 +45,20 @@ namespace FirstApp.Droid.Views
             ((MainView)Activity).DrawerLayout.CloseDrawers();
 
             await Task.Delay(TimeSpan.FromMilliseconds(250));
+        }
+
+        private void MenuDrawerOpened(object sender, Android.Support.V4.Widget.DrawerLayout.DrawerOpenedEventArgs e)
+        {
+            ViewModel.UpdateData();
+        }
+
+        public override void OnPause()
+        {
+            base.OnPause();
+        }
+        public override void OnResume()
+        {
+            base.OnResume();
         }
 
         #endregion Methods
