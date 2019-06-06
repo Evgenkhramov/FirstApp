@@ -27,9 +27,9 @@ namespace Blank
         public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
         {
             // Convert iOS NSUrl to C#/netxf/BCL System.Uri - common API
-            var uri_netfx = new Uri(url.AbsoluteString);
+            var uriForResultView = new Uri(url.AbsoluteString);
 
-            LoginViewController._authGoogle?.OnPageLoading(uri_netfx);
+            LoginViewController._authGoogle?.OnPageLoading(uriForResultView);
 
             return true;
         }
