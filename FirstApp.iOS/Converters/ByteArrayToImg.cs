@@ -10,9 +10,9 @@ namespace FirstApp.iOS.Converters
     {
         protected override UIImage Convert(string value, Type targetType, object parameter, CultureInfo culture)
         {
-            var imageBytes = System.Convert.FromBase64String(value);
-            var imageData = NSData.FromArray(imageBytes);
-            var uiImage = UIImage.LoadFromData(imageData);
+            byte[] imageBytes = System.Convert.FromBase64String(value);
+            NSData imageData = NSData.FromArray(imageBytes);
+            UIImage uiImage = UIImage.LoadFromData(imageData);
 
             return uiImage;
         }

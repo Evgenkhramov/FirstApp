@@ -1,7 +1,7 @@
 using CoreGraphics;
 using CoreLocation;
 using FirstApp.Core;
-using FirstApp.Core.Models;
+using FirstApp.Core.Entities;
 using FirstApp.Core.ViewModels;
 using MapKit;
 using MvvmCross.Binding.BindingContext;
@@ -15,9 +15,10 @@ namespace FirstApp.iOS.ViewControllers.Tasks
     {
         #region Variables
 
+        public List<MapMarkerModel> MarkerListFromDB;
+
         private IUICoordinateSpace _coordinateSpace;
         private CLLocationManager _locationManager;
-        public List<MapMarkerModel> MarkerListFromDB;
         private MapMarkerModel _marcerRow;
         private MKMapView _map;
 
@@ -71,6 +72,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
                 _marcerRow = new MapMarkerModel();
                 _marcerRow.Latitude = coordinate.Latitude;
                 _marcerRow.Longitude = coordinate.Longitude;
+
                 ViewModel.SaveMarkerInList(_marcerRow);
 
                 _map.AddAnnotations(new MKPointAnnotation()
@@ -90,8 +92,6 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             base.ViewDidLoad();
 
             SetupNavigationBar();
-
-            //EdgesForExtendedLayout = UIRectEdge.None;
 
             Title = Constants.MapMarkers;
 
@@ -115,7 +115,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
                 }
             }
 
-            UILongPressGestureRecognizer longp = new UILongPressGestureRecognizer(LongPress);
+            var longp = new UILongPressGestureRecognizer(LongPress);
 
             _map.AddGestureRecognizer(longp);
 

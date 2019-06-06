@@ -24,7 +24,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
         private UIView _activeview;
         private nfloat _scrollAmount;
-        private bool _moveViewUp;
+        private bool _isViewMoveUp;
         private IUserDialogs _userDialogs;
 
         #endregion Variables
@@ -34,7 +34,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
         public UserProfileViewController()
         {
             _scrollAmount = default(nfloat);
-            _moveViewUp = false;
+            _isViewMoveUp = false;
             _userDialogs = Mvx.IoCProvider.Resolve<IUserDialogs>();
         }
 
@@ -64,17 +64,18 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
             if (_scrollAmount <= 0)
             {
-                _moveViewUp = false;
+                _isViewMoveUp = false;
                 return;
             }
 
-            _moveViewUp = true;
-            ScrollTheView(_moveViewUp);
+            _isViewMoveUp = true;
+            ScrollTheView(_isViewMoveUp);
         }
 
         private void KeyBoardDownNotification(NSNotification notification)
         {
             cnsButtomScroll.Constant = 0;
+
             MainScroll.UpdateConstraints();
         }
 
@@ -167,7 +168,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
             EdgesForExtendedLayout = UIRectEdge.None;
 
-            UIView view = this.View;
+            UIView view = View;
 
             NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.DidShowNotification, KeyBoardUpNotification);
 

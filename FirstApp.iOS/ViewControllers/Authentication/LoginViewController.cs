@@ -15,9 +15,11 @@ namespace FirstApp.iOS.ViewControllers.Authentication
     {
         #region Variables
 
-        private GoogleModeliOS user = new GoogleModeliOS();
         public static GoogleAuthenticator _authGoogle;
+
+        private GoogleModeliOS user = new GoogleModeliOS();
         private FacebookAuthenticator _authFacebook;
+
         static int GET_ACCOUNTS;
 
         #endregion Variables
@@ -35,8 +37,9 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         private void OnGoogleLoginButtonClicked(object sender, EventArgs e)
         {
-            var authentificator = _authGoogle.GetAuthenticator();
-            var viewController = authentificator.GetUI();
+            Xamarin.Auth.OAuth2Authenticator authentificator = _authGoogle.GetAuthenticator();
+            UIViewController viewController = authentificator.GetUI();
+
             PresentViewController(viewController, true, null);
         }
 
@@ -53,14 +56,17 @@ namespace FirstApp.iOS.ViewControllers.Authentication
         public void OnAuthenticationCanceled()
         {
             DismissViewController(true, null);
+
             var alertController = new UIAlertController
             {
-                Title = Constants.CencelAuth,
+                Title = Constants.CancelAuth,
                 Message = Constants.DidNotComplite
             };
-            alertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Default, (UIAlertAction obj) =>
+
+            alertController.AddAction(UIAlertAction.Create(Constants.CancelAuth, UIAlertActionStyle.Default, (UIAlertAction obj) =>
             {
             }));
+
             PresentViewController(alertController, true, null);
 
             DismissViewController(true, null);
@@ -75,9 +81,11 @@ namespace FirstApp.iOS.ViewControllers.Authentication
                 Title = message,
                 Message = exception?.ToString()
             };
-            alertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Default, (UIAlertAction obj) =>
+
+            alertController.AddAction(UIAlertAction.Create(Constants.CancelAuth, UIAlertActionStyle.Default, (UIAlertAction obj) =>
             {
             }));
+
             PresentViewController(alertController, true, null);
 
             DismissViewController(true, null);
@@ -86,10 +94,11 @@ namespace FirstApp.iOS.ViewControllers.Authentication
         private void OnFacebookLoginButtonClicked(object sender, EventArgs e)
         {
             _authFacebook = new FacebookAuthenticator(Configuration.ClientId, Configuration.Scope, ViewModel);
-            var authenticator = _authFacebook.GetAuthenticator();
-            var ui = authenticator.GetUI();
 
-            PresentViewController(ui, true, null);
+            Xamarin.Auth.OAuth2Authenticator authenticator = _authFacebook.GetAuthenticator();
+            UIViewController view = authenticator.GetUI();
+
+            PresentViewController(view, true, null);
         }
 
         private void SetBind()
@@ -121,9 +130,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
             FacebookButton.TouchUpInside += OnFacebookLoginButtonClicked;
 
-            GoogleButton.TouchUpInside += OnGoogleLoginButtonClicked;
-
-            
+            GoogleButton.TouchUpInside += OnGoogleLoginButtonClicked;        
 
             EnterYourEmail.ShouldReturn = (textField) =>
             {

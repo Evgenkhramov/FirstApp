@@ -9,7 +9,7 @@ namespace FirstApp.iOS.ViewControllers
     {
         #region Variables
 
-        private bool _firstTimePresented = true;
+        private bool _isFirstTimePresented = true;
 
         #endregion Variables
 
@@ -35,9 +35,10 @@ namespace FirstApp.iOS.ViewControllers
 
         public override void ViewWillAppear(bool animated)
         {
-            if (_firstTimePresented)
+            if (_isFirstTimePresented)
             {
-                _firstTimePresented = false;
+                _isFirstTimePresented = false;
+
                 ViewModel.ShowMainFragmentCommand.Execute(null);
                 ViewModel.ShowUserProfileViewModelCommand.Execute(null);
             }

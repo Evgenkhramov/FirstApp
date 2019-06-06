@@ -11,8 +11,8 @@ namespace FirstApp.iOS.ViewControllers.Tasks
     {
         #region Variables
 
-        public static readonly NSString Key = new NSString(Constants.FileItemCell);
-        public static readonly UINib Nib;
+        public static readonly NSString FileKey = new NSString(Constants.FileItemCell);
+        public static readonly UINib FileNib;
 
         #endregion Variables
 
@@ -20,7 +20,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         static FileItemCellViewController()
         {
-            Nib = UINib.FromName(Constants.FileItemCell, NSBundle.MainBundle);
+            FileNib = UINib.FromName(Constants.FileItemCell, NSBundle.MainBundle);
         }
 
         public FileItemCellViewController(IntPtr handle) : base(handle)
@@ -33,12 +33,12 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         internal void UpdateCell(FileRequestModel item)
         {
-            if (!String.IsNullOrEmpty(item.FileName) && item.FileName.Length > Constants.MaxLength)
+            if (!string.IsNullOrEmpty(item.FileName) && item.FileName.Length > Constants.MaxLength)
             {
                 FileLabel.Text = item.FileName.Substring(0, Constants.MaxLength);
             }
 
-            if (!String.IsNullOrEmpty(item.FileName) && item.FileName.Length <= Constants.MaxLength)
+            if (!string.IsNullOrEmpty(item.FileName) && item.FileName.Length <= Constants.MaxLength)
             {
                 FileLabel.Text = item.FileName;
             }

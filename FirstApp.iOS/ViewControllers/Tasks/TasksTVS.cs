@@ -35,7 +35,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
         {
-            var cell = (TaskCellViewController)tableView.DequeueReusableCell(Constants.TaskCell, indexPath);
+            TaskCellViewController cell = (TaskCellViewController)tableView.DequeueReusableCell(Constants.TaskCell, indexPath);
             cell.UpdateCell((TaskRequestModel)item);
 
             return cell;

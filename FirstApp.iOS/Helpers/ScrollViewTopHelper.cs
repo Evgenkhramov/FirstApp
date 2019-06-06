@@ -1,4 +1,5 @@
 ﻿using CoreGraphics;
+using FirstApp.Core;
 using System;
 using UIKit;
 
@@ -6,51 +7,50 @@ namespace FirstApp.iOS.Helpers
 {
     public class ScrollViewTopHelper
     {
+        private static UIView _activeview;
+
+        public ScrollViewTopHelper()
+        {
+            _activeview = null;
+        }
+
         public static UIView GetActiveView(UIView view)
         {
-            UIView activeview = null;
-            GetView(view);
-
-            void GetView(UIView viewItem)
+            foreach (UIView item in view.Subviews)
             {
-                foreach (UIView item in viewItem.Subviews)
+                if (item.IsFirstResponder)
                 {
-                    if (item.IsFirstResponder)
-                    {
-                        activeview = item;
-                        return;
-                    }
-                    else
-                    {
-                        GetView(item);
-                    }
+                    _activeview = item;
+
+                    break;
                 }
+                GetActiveView(item);
             }
 
-            return activeview;
+            return _activeview;
         }
 
         public static nfloat GetScrollAmount(UIView activeview, CGRect keyBourdSize)
         {
-            nfloat offset = 10.0f;
+            nfloat offset = Constants.Offset;
 
-            if (activeview != null)
+            if (activeview == null)
             {
-                nfloat activeViewHeight = activeview.Frame.Height;
-                UIView relativePositionView = UIApplication.SharedApplication.KeyWindow;
-                CGRect relativeFrame = activeview.Superview.ConvertRectToView(activeview.Frame, relativePositionView);
-                nfloat yPosition = relativeFrame.Y;
-
-                CGRect screenSize = UIScreen.MainScreen.Bounds;
-
-                nfloat viewYpositionScreenBottom = screenSize.Height - yPosition;
-
-                nfloat scrollAmount = (keyBourdSize.Height + offset + activeViewHeight - viewYpositionScreenBottom);
-
-                return scrollAmount;
+                return 0;
             }
 
-            return 0;
+            nfloat activeViewHeight = activeview.Frame.Height;
+            UIView relativePositionView = UIApplication.SharedApplication.KeyWindow;
+            CGRect relativeFrame = activeview.Superview.ConvertRectToView(activeview.Frame, relativePositionView);
+            nfloat yPosition = relativeFrame.Y;
+
+            CGRect screenSize = UIScreen.MainScreen.Bounds;
+
+            nfloat viewYpositionScreenBottom = screenSize.Height - yPosition;
+
+            nfloat scrollAmount = (keyBourdSize.Height + offset + activeViewHeight - viewYpositionScreenBottom);
+
+            return scrollAmount;
         }
     }
 }

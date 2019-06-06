@@ -48,7 +48,8 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         private void KeyBoardUpNotification(NSNotification notification)
         {
-            _activeview = ScrollViewTopHelper.GetActiveView(this.View);
+            _activeview = ScrollViewTopHelper.GetActiveView(View);
+
             CGRect keyBourdSize = UIKeyboard.BoundsFromNotification(notification);
             _scrollAmount = ScrollViewTopHelper.GetScrollAmount(_activeview, keyBourdSize);
 
@@ -57,7 +58,9 @@ namespace FirstApp.iOS.ViewControllers.Authentication
                 _moveViewUp = false;
                 return;
             }
+
             _moveViewUp = true;
+
             ScrollTheView(_moveViewUp);
         }
 
@@ -131,21 +134,9 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         public override void TouchesBegan(NSSet touches, UIEvent evt)
         {
-            // hide the keyboard from all views
             View.EndEditing(true);
 
             base.TouchesBegan(touches, evt);
-        }
-
-        public override void ViewWillAppear(bool animated)
-        {
-
-            base.ViewWillAppear(animated);
-        }
-
-        public override void ViewDidUnload()
-        {
-            base.ViewDidUnload();
         }
 
         #endregion Overrides

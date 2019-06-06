@@ -10,8 +10,8 @@ namespace FirstApp.iOS.ViewControllers.Tasks
     {
         #region Variables
 
-        public static readonly NSString Key = new NSString(Constants.TaskCell);
-        public static readonly UINib Nib;
+        public static readonly NSString TaskKey = new NSString(Constants.TaskCell);
+        public static readonly UINib TaskNib;
 
         #endregion Variables
 
@@ -19,7 +19,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         static TaskCellViewController()
         {
-            Nib = UINib.FromName(Constants.TaskCell, NSBundle.MainBundle);
+            TaskNib = UINib.FromName(Constants.TaskCell, NSBundle.MainBundle);
         }
 
         protected TaskCellViewController(IntPtr handle) : base(handle)
@@ -36,14 +36,17 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             {
                 TaskName.Text = task.TaskName.Substring(0, Constants.MaxLength);
             }
+
             if (!string.IsNullOrEmpty(task.TaskName) && task.TaskName.Length <= Constants.MaxLength)
             {
                 TaskName.Text = task.TaskName;
             }
+
             if (!string.IsNullOrEmpty(task.TaskDescription) && task.TaskDescription.Length > Constants.MaxLength)
             {
                 TaskDescription.Text = task.TaskDescription.Substring(0, Constants.MaxLength);
             }
+
             if (!string.IsNullOrEmpty(task.TaskDescription) && task.TaskName.Length <= Constants.MaxLength)
             {
                 TaskDescription.Text = task.TaskDescription;

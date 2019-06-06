@@ -25,7 +25,6 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public TaskDetailsViewController() : base(nameof(TaskDetailsViewController), null)
         {
-
         }
 
         #endregion Constructors
@@ -47,7 +46,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception choosing file: " + ex.ToString());
+                Console.WriteLine(Constants.ChoosingFileExeption + ex.ToString());
             }
 
             if (!string.IsNullOrEmpty(fileName))
@@ -122,7 +121,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             _refreshControl = new MvxUIRefreshControl();
 
-            FileTabelView.RegisterNibForCellReuse(FileItemCellViewController.Nib, FileItemCellViewController.Key);
+            FileTabelView.RegisterNibForCellReuse(FileItemCellViewController.FileNib, FileItemCellViewController.FileKey);
 
             AddFileInTaskButton.TouchUpInside += OpenFile;
         }
@@ -130,12 +129,12 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         public override void ViewDidUnload()
         {
             AddFileInTaskButton.TouchUpInside -= OpenFile;
+
             base.ViewDidUnload();
         }
 
         public override void TouchesBegan(NSSet touches, UIEvent evt)
         {
-            // hide the keyboard from all views
             View.EndEditing(true);
 
             base.TouchesBegan(touches, evt);
@@ -145,6 +144,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         {
             ViewModel.UpdateMarkersCounter();
             TabBarController.TabBar.Hidden = true;
+
             base.ViewWillAppear(animated);
         }
 

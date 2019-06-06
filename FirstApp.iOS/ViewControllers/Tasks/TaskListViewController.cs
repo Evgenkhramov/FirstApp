@@ -21,8 +21,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         #region Constructors
 
         public TaskListViewController() : base(nameof(TaskListViewController), null)
-        {
-           
+        {         
         }
 
         #endregion Constructors
@@ -83,14 +82,16 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             _refreshControl = new MvxUIRefreshControl();
 
-            TasksTable.RegisterNibForCellReuse(TaskCellViewController.Nib, TaskCellViewController.Key);        
+            TasksTable.RegisterNibForCellReuse(TaskCellViewController.TaskNib, TaskCellViewController.TaskKey);        
             TasksTable.Source = _source;
+
             TasksTable.AddSubview(_refreshControl);  
         }
 
         public override void ViewWillAppear(bool animated)
         {
             TabBarController.TabBar.Hidden = false;
+
             base.ViewWillAppear(animated);
         }
 

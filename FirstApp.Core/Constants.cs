@@ -10,7 +10,7 @@
         public const string WantLogOut = "Are you sure want Log Out? All data will be lost!";
         public const string WLogOut = "Are you sure want Log Out?";
         public const string DidNotComplite = "You didn't completed the authentication process";
-        public const string CencelAuth = "Authentication Canceled";
+        public const string CancelAuth = "Authentication Canceled";
         public const string InvalidUserNameOrPassword = "Invalid username or password!";
         public const string ThisEmailIsUsed = "This Email is already in the database, enter other name or login.";
         public const string UseCorrectName = "Enter correct name";
@@ -53,6 +53,7 @@
         public const string MapMarkers = "Map Marker";
         public const string WantSaveTask = "Do you want to save task?";
         public const string SaveTask = "Save task?";
+        public const string ChoosingFileExeption = "Choosing file exeption: ";
         public const string FileItemCell = "FileItemCellViewController";
         public const string DeleteFile = "Delete File";
         public const string LogOut = "LogOut";
@@ -74,6 +75,10 @@
         public const double MapDesiredAccuracy = 100;
         public const int TimeOutSmall = 20;
         public const int TimeOutLong = 250;
+
+        public const float Offset = 250;
+
+
 
     }
 }
