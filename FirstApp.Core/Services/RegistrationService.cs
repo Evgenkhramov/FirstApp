@@ -1,4 +1,5 @@
-﻿using FirstApp.Core.Interfaces;
+﻿using FirstApp.Core.Entities;
+using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using Plugin.SecureStorage;
 
@@ -33,6 +34,7 @@ namespace FirstApp.Core.Services
 
             _dBUserService.SaveItem(userDatabaseModel);
             int userId = userDatabaseModel.Id;
+
             return userId;
         }
 
@@ -52,6 +54,7 @@ namespace FirstApp.Core.Services
 
             _dBUserService.SaveItem(userDatabaseModel);
             int userId = userDatabaseModel.Id;
+
             return userId;
         }
     }

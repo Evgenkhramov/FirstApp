@@ -33,8 +33,14 @@
         public const string SaveMarkers = "Save Markers??";
         public const string WantDeleteTask = "Do you want to delete this task?";
         public const string DeleteTask = "Delete Task?";
+
+        public const string LocalStoragePermission = "Received response for Local Storage permission request.";
+        public const string LocalStoragePermissionNotGranted = "Local Storage permission was NOT granted.";
         public const string LocationPermission = "Received response for Location permission request.";
         public const string LocationPermissionNotGranted = "Location permission was NOT granted.";
+        public const string CoarsePermissionNotGranted = "Coarse location permission was NOT granted.";
+        public const string CoarsePermission = "Received response for Coarse location permission request.";
+
         public const string TaskDetails = "Task Details";
         public const string TaskList = "Task List";
         public const string TaskCell = "TaskCellViewController";
@@ -48,7 +54,7 @@
         public const string WantSaveTask = "Do you want to save task?";
         public const string SaveTask = "Save task?";
         public const string FileItemCell = "FileItemCellViewController";
-        public const string DeleteFile = "Delete File";                                  
+        public const string DeleteFile = "Delete File";
         public const string LogOut = "LogOut";
         public const string LogIn = "LogIn";
         public const string LogOutUser = "Log Out";
@@ -56,8 +62,18 @@
         public const string TrashTask = "Trash Task";
         public const string MapMarker = "Map Marker";
         public const string ByteArrayToImg = "ByteArrayToImg";
+        public const string IntentType = "*/*";
+
+
+        public const string AccessToken = "access_token";
+        public const string TokenType = "token_type";
 
         public const int MaxLength = 20;
         public const int AndroidTaskItemSwipeWidth = 75;
+        public const int MapPadding = 100;
+        public const double MapDesiredAccuracy = 100;
+        public const int TimeOutSmall = 20;
+        public const int TimeOutLong = 250;
+
     }
 }

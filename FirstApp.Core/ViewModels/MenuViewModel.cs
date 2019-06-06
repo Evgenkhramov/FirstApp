@@ -1,11 +1,11 @@
 ﻿using Acr.UserDialogs;
+using FirstApp.Core.Entities;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using Plugin.SecureStorage;
-using System;
 
 namespace FirstApp.Core.ViewModels
 {
@@ -17,7 +17,7 @@ namespace FirstApp.Core.ViewModels
         private readonly IDBUserService _dBUserService;
         private int _userId;
         private string _id;
-        private UserDatabaseModel userData;
+        private UserDatabaseModel _userData;
 
         #endregion Variables
 
@@ -28,18 +28,17 @@ namespace FirstApp.Core.ViewModels
             _dBUserService = dBUserService;
 
             _id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
-            if (!string.IsNullOrEmpty(_id))
-            {
-                _userId = int.Parse(_id);
-                userData = _dBUserService.GetItem(_userId);
-                MyIcon = userData.Photo;
-                MyName = $"{userData.Name} {userData.Surname}";
-            }
+
+            _userId = int.Parse(_id);
+            _userData = _dBUserService.GetItem(_userId);
+
+            MyIcon = _userData.Photo;
+            MyName = $"{_userData.Name} {_userData.Surname}";
 
             MenuItems = new MvxObservableCollection<MenuItem>
             {
-                new MenuItem("Task List", this, typeof(TaskListViewModel)),
-                new MenuItem("Log Out", this, typeof(LoginViewModel)),
+                new MenuItem(Constants.TaskList, typeof(TaskListViewModel)),
+                new MenuItem(Constants.LogOutUser, typeof(LoginViewModel)),
             };
         }
 
@@ -94,7 +93,9 @@ namespace FirstApp.Core.ViewModels
 
                     CrossSecureStorage.Current.DeleteKey(_id);
                     CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
+
                     _dBUserService.DeleteItem(_userId);
+
                     await _navigationService.Close(this);
                     await _navigationService.Navigate(param.ShowCommand);
                 });
@@ -117,21 +118,10 @@ namespace FirstApp.Core.ViewModels
         public void UpdateData()
         {
             _userId = int.Parse(_id);
-            userData = _dBUserService.GetItem(_userId);
-            MyIcon = userData.Photo;
-            MyName = $"{userData.Name} {userData.Surname}";
-        }
+            _userData = _dBUserService.GetItem(_userId);
 
-        public class MenuItem
-        {
-            public string Title { get; private set; }
-            public Type ShowCommand { get; private set; }
-
-            public MenuItem(string title, MenuViewModel parent, Type viewModelUrl)
-            {
-                Title = title;
-                ShowCommand = viewModelUrl;
-            }
+            MyIcon = _userData.Photo;
+            MyName = $"{_userData.Name} {_userData.Surname}";
         }
     }
 }

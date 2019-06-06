@@ -1,5 +1,5 @@
-﻿using FirstApp.Core.Interfaces;
-using FirstApp.Core.Models;
+﻿using FirstApp.Core.Entities;
+using FirstApp.Core.Interfaces;
 using SQLite;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,38 +28,36 @@ namespace FirstApp.Core.Services
         public bool IsUserRegistrated(string email, string password)
         {
             byte[] bytePassword = _sHA256HashService.GetSHAFromString(password);
+
             UserDatabaseModel findUser = _connecting.Table<UserDatabaseModel>().FirstOrDefault(x => x.Email == email);
-            
+
             if (findUser != null && ByteArrayCompare(bytePassword, findUser.Password))
             {
                 return true;
             }
+
             return false;
         }
 
-        public bool ByteArrayCompare(byte[] a1, byte[] a2)
+        public bool ByteArrayCompare(byte[] byteArrayOne, byte[] byteArrayTwo)
         {
-            IStructuralEquatable eqa1 = a1;
-            return eqa1.Equals(a2, StructuralComparisons.StructuralEqualityComparer);
+            IStructuralEquatable equalsArray = byteArrayOne;
+
+            return equalsArray.Equals(byteArrayTwo, StructuralComparisons.StructuralEqualityComparer);
         }
 
         public int GetUserId(string email)
         {
-            UserDatabaseModel findUser = _connecting.Table<UserDatabaseModel>().FirstOrDefault(x => x.Email == email);
-            int userId = findUser.Id;
-            return userId;
+            int findUserId = _connecting.Table<UserDatabaseModel>().FirstOrDefault(x => x.Email == email).Id;  
+ 
+            return findUserId;
         }
 
         public bool IsEmailInDB(string email)
         {
-            UserDatabaseModel findUser = _connecting.Table<UserDatabaseModel>().FirstOrDefault(x => x.Email == email);
+            bool isEmail = _connecting.Table<UserDatabaseModel>().Any(x => x.Email == email);
 
-            if (findUser != null)
-            {
-                return true;
-            }
-
-            return false;
+            return isEmail;
         }
 
         public UserDatabaseModel GetItem(int id)
@@ -79,8 +77,9 @@ namespace FirstApp.Core.Services
                 _connecting.Update(item);
                 return item.Id;
             }
+            _connecting.Insert(item);
 
-            return _connecting.Insert(item);
+            return item.Id;
         }
     }
 }

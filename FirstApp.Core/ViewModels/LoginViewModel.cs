@@ -15,6 +15,7 @@ namespace FirstApp.Core.ViewModels
         private readonly IAuthorizationService _authorizationService;
         private readonly IRegistrationService _registrationService;
         private readonly IFacebookService _facebookService;
+
         #endregion Variables
 
         #region Constructors
@@ -25,6 +26,7 @@ namespace FirstApp.Core.ViewModels
             _authorizationService = authorizationService;
             _registrationService = registrationService;
             _facebookService = facebookService;
+
             HaveGone = true;
             SaveButton = true;
         }
@@ -101,8 +103,9 @@ namespace FirstApp.Core.ViewModels
 
             string userPhoto = await _facebookService.GetImageFromUrlToBase64(user.UserPicture.PictureData.Url);
 
-            var userId = _registrationService.SaveUserInDbFromSocialNetworks(user.First_name, user.Email, user.Id, user.Last_name,
+            int userId = _registrationService.SaveUserInDbFromSocialNetworks(user.FirstName, user.Email, user.Id, user.LastName,
                 user.UserPicture.PictureData.Url, userPhoto, LoginType.Facebook);
+
             _registrationService.UserRegistration(userId.ToString());
 
             await _navigationService.Navigate<MainViewModel>();
@@ -119,6 +122,7 @@ namespace FirstApp.Core.ViewModels
             string userPhoto = await _facebookService.GetImageFromUrlToBase64(user.Picture);
 
             int userId = _registrationService.SaveUserInDbFromSocialNetworks(user.First_name, user.Email, user.Id, user.Last_name, user.Picture, userPhoto, LoginType.Google);
+
             _registrationService.UserRegistration(userId.ToString());
 
             await _navigationService.Navigate<MainViewModel>();
@@ -146,6 +150,7 @@ namespace FirstApp.Core.ViewModels
 
             int userId = _registrationService.SaveUserInDbFromSocialNetworks(user.UserName.GivenName, user.Emails[0].Value, 0,
                 user.UserName.FamilyName, user.UserImage.Url, userPhoto, LoginType.Google);
+
             _registrationService.UserRegistration(userId.ToString());
 
             await _navigationService.Navigate<MainViewModel>();

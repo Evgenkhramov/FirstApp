@@ -28,17 +28,18 @@ namespace FirstApp.Droid.Views
         GoogleApiClient.IOnConnectionFailedListener, ActivityCompat.IOnRequestPermissionsResultCallback
     {
         #region Variables
+        static readonly int GET_ACCOUNTS = 0;
 
         protected override int FragmentId => Resource.Layout.LoginFragment;
+
         private FacebookAuthenticator _authFacebook;
-        static readonly int GET_ACCOUNTS = 0;
         private GoogleModel _user;
         private GoogleApiClient _mGoogleApiClient;
         private ConnectionResult _mConnectionResult;
-        private Button _mGsignBtn;
-        private bool _mIntentInProgress;
-        private bool _mSignInClicked;
-        private bool _mInfoPopulated;
+        private Button _googleSignBtn;
+        private bool _isIntentInProgress;
+        private bool _isSignInClicked;
+        private bool _isInfoPopulated;
         private Button _facebookLoginButton;
 
         #endregion Variables
@@ -53,13 +54,14 @@ namespace FirstApp.Droid.Views
 
         public void GetPermissions(object sender, EventArgs e)
         {
-            if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.GetAccounts) != (int)Permission.Granted)
+            if (ContextCompat.CheckSelfPermission(Activity, Manifest.Permission.GetAccounts) != (int)Permission.Granted)
             {
                 RequestPermissions(new String[] { Manifest.Permission.GetAccounts }, GET_ACCOUNTS);
                 return;
             }
 
-            MGsignBtn_Click();
+            MGsignBtnClick();
+
             return;
         }
 
@@ -77,13 +79,12 @@ namespace FirstApp.Droid.Views
             ViewModel.OnGoogleAuthenticationCompleted(_user);
         }
 
-        private void MGsignBtn_Click()
+        private void MGsignBtnClick()
         {
             if (!_mGoogleApiClient.IsConnecting)
             {
-                _mSignInClicked = true;
+                _isSignInClicked = true;
                 ResolveSignIn();
-
             }
             if (_mGoogleApiClient.IsConnected)
             {
@@ -94,11 +95,11 @@ namespace FirstApp.Droid.Views
 
         public void OnConnectionFailed(ConnectionResult result)
         {
-            if (!_mIntentInProgress)
+            if (!_isIntentInProgress)
             {
                 _mConnectionResult = result;
 
-                if (_mSignInClicked)
+                if (_isSignInClicked)
                 {
                     ResolveSignIn();
                 }
@@ -112,8 +113,10 @@ namespace FirstApp.Droid.Views
         private void OnFacebookLoginButtonClicked(object sender, EventArgs e)
         {
             _authFacebook = new FacebookAuthenticator(Configuration.ClientId, Configuration.Scope, ViewModel);
+
             Xamarin.Auth.OAuth2Authenticator authenticator = _authFacebook.GetAuthenticator();
-            Intent intent = authenticator.GetUI(this.Activity);
+            Intent intent = authenticator.GetUI(Activity);
+
             StartActivity(intent);
         }
 
@@ -127,12 +130,12 @@ namespace FirstApp.Droid.Views
             {
                 try
                 {
-                    _mIntentInProgress = true;
+                    _isIntentInProgress = true;
                     StartIntentSenderForResult(_mConnectionResult.Resolution.IntentSender, 0, null, 0, 0, 0, null);
                 }
-                catch (IntentSender.SendIntentException io)
+                catch (IntentSender.SendIntentException exception)
                 {
-                    _mIntentInProgress = false;
+                    _isIntentInProgress = false;
                     _mGoogleApiClient.Connect();
                 }
             }
@@ -149,8 +152,8 @@ namespace FirstApp.Droid.Views
             _facebookLoginButton = view.FindViewById<Button>(Resource.Id.facebookLoginButton);
             _facebookLoginButton.Click += OnFacebookLoginButtonClicked;
 
-            _mGsignBtn = view.FindViewById<Button>(Resource.Id.sign_in_button);
-            _mGsignBtn.Click += GetPermissions;
+            _googleSignBtn = view.FindViewById<Button>(Resource.Id.sign_in_button);
+            _googleSignBtn.Click += GetPermissions;
 
             _user = new GoogleModel();
 
@@ -175,6 +178,7 @@ namespace FirstApp.Droid.Views
         public override void OnStop()
         {
             base.OnStop();
+
             if (_mGoogleApiClient.IsConnected)
             {
                 _mGoogleApiClient.Disconnect();
@@ -190,12 +194,11 @@ namespace FirstApp.Droid.Views
 
                 if ((grantResults.Length == 1) && (grantResults[0] == Permission.Granted))
                 {
-                    MGsignBtn_Click();
+                    MGsignBtnClick();
+                    return;
                 }
-                else
-                {
-                    Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.LocationPermissionNotGranted);
-                }
+
+                Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.LocationPermissionNotGranted);
             }
             else
             {
@@ -206,14 +209,16 @@ namespace FirstApp.Droid.Views
         public override void OnActivityResult(int requestCode, int resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
-           
+
             if (requestCode == 0)
             {
                 if (resultCode != (int)Result.Ok)
                 {
-                    _mSignInClicked = false;
+                    _isSignInClicked = false;
                 }
-                _mIntentInProgress = false;
+
+                _isIntentInProgress = false;
+
                 if (!_mGoogleApiClient.IsConnecting)
                 {
                     _mGoogleApiClient.Connect();
@@ -225,7 +230,7 @@ namespace FirstApp.Droid.Views
         {
             _facebookLoginButton.Click -= OnFacebookLoginButtonClicked;
 
-            _mGsignBtn.Click -= GetPermissions;
+            _googleSignBtn.Click -= GetPermissions;
 
             base.OnDestroyView();
         }

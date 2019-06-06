@@ -1,5 +1,5 @@
-﻿using FirstApp.Core.Interfaces;
-using FirstApp.Core.Models;
+﻿using FirstApp.Core.Entities;
+using FirstApp.Core.Interfaces;
 using SQLite;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +23,7 @@ namespace FirstApp.Core.Services
                 _connect.Insert(task);
                 return;
             }
+
             _connect.Update(task);
         }
 
@@ -34,7 +35,7 @@ namespace FirstApp.Core.Services
             }
         }
 
-        public List<TaskModel> LoadListAllTasks()
+        public List<TaskModel> GetListAllTasks()
         {
             List<TaskModel> ListFromDatabase = (from item in _connect.Table<TaskModel>() select item).ToList();
 
@@ -43,7 +44,7 @@ namespace FirstApp.Core.Services
 
         public List<TaskModel> LoadListItemsTask(int userId)
         {
-            List<TaskModel> ListFromDatabase = _connect.Query<TaskModel>($"SELECT * FROM Tasks WHERE UserId = {userId}");
+            List<TaskModel> ListFromDatabase = _connect.Table<TaskModel>().Where(x => x.UserId == userId).ToList();
 
             return ListFromDatabase;
         }

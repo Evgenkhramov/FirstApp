@@ -38,13 +38,5 @@ namespace FirstApp.Droid.Views
         }
 
         #endregion Overrides
-
-        #region Methods
-
-        private void Initialize()
-        {
-        }
-
-        #endregion Methods
     }
 }

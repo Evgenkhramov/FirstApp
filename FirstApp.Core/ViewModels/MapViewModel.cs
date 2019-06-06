@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using FirstApp.Core.Entities;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -12,9 +13,9 @@ namespace FirstApp.Core.ViewModels
         #region Variables
 
         public List<MapMarkerModel> _markerList;
-        private TaskModel _taskModel;
         public int _taskId;
-      
+
+        private TaskModel _taskModel; 
         private readonly IMvxMessenger _messenger;
 
         #endregion Variables
@@ -26,6 +27,7 @@ namespace FirstApp.Core.ViewModels
         {
             _messenger = messenger;
             _markerList = new List<MapMarkerModel>();
+
             SaveButton = false;
             HaveGone = false;
         }
@@ -48,8 +50,8 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    bool answ = await _userDialogs.ConfirmAsync(Constants.WantSaveMarkers, Constants.SaveMarkers, Strings.Yes, Strings.No);
-                    if (answ)
+                    bool userAnswer = await _userDialogs.ConfirmAsync(Constants.WantSaveMarkers, Constants.SaveMarkers, Strings.Yes, Strings.No);
+                    if (userAnswer)
                     {
                         SaveMapMarkerCommand.Execute();
                         return;
@@ -65,17 +67,16 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    if (_markerList.Count <= 0)
+                    if (_markerList.Count == 0)
                     {
                         await _navigationService.Close(this);
                         return;
                     }
-
-                    
-
                     
                     await _navigationService.Close(this);
+
                     SendMarkersMessege(_markerList);
+
                     _markerList.Clear();
                 });
             }
@@ -96,6 +97,7 @@ namespace FirstApp.Core.ViewModels
         public void SaveMarkerInList(MapMarkerModel marker)
         {
             marker.TaskId = _taskId;
+
             _markerList.Add(marker);
         }
 

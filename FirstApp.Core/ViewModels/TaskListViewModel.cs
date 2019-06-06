@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using FirstApp.Core.Entities;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
@@ -14,7 +15,7 @@ namespace FirstApp.Core.ViewModels
     public class TaskListViewModel : BaseViewModel, IListHandler
     {
         #region Variables
-        int _userId;
+        private readonly int  _userId;
         private readonly IDBTaskService _dBTaskService;
 
         #endregion Variables
@@ -28,8 +29,9 @@ namespace FirstApp.Core.ViewModels
 
             DeleteItemCommand = new MvxCommand<int>(RemoveTaskCollectionItem);
             DeleteItemCommandiOS = new MvxCommand<int>(RemoveCollectionItemiOS);
-            AddData();
             ShowTaskChangedView = new MvxAsyncCommand<TaskRequestModel>(CollectionItemClick);
+
+            AddData();
         }
 
         #endregion Constructors
@@ -106,6 +108,7 @@ namespace FirstApp.Core.ViewModels
                 element.TaskName = item.TaskName;
                 element.TaskDescription = item.TaskDescription;
                 element.VmHandler = this;
+
                 TaskCollection.Add(element);
             }
 
@@ -127,7 +130,9 @@ namespace FirstApp.Core.ViewModels
         public void RemoveTaskCollectionItem(int itemId)
         {
             TaskRequestModel itemForDelete = null;
+
             _dBTaskService.DeleteTaskFromTable(itemId);
+
             foreach (TaskRequestModel item in TaskCollection)
             {
                 if (item.Id == itemId)
@@ -142,7 +147,9 @@ namespace FirstApp.Core.ViewModels
         public void RemoveCollectionItemiOS(int itemId)
         {
             var idForDB = TaskCollection[itemId].Id;
+
             TaskCollection.RemoveAt(itemId);
+
             _dBTaskService.DeleteTaskFromTable(idForDB);
         }
 

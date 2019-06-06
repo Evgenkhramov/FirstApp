@@ -18,10 +18,11 @@ namespace FirstApp.Droid.Views
     {
         #region Variables
 
-        private Button _menuButton;
-        protected override int FragmentId => Resource.Layout.TaskListFragment;
         public MvxRecyclerView RecyclerView;
         public RecyclerView.LayoutManager LayoutManager;
+
+        private Button _menuButton;
+        protected override int FragmentId => Resource.Layout.TaskListFragment;
 
         #endregion Variables
 
@@ -32,6 +33,7 @@ namespace FirstApp.Droid.Views
             RecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.recycView);
             LayoutManager = new LinearLayoutManager(this.Context);
             RecyclerView.SetLayoutManager(LayoutManager);
+
             TaskListAdapter recyclerAdapter = new TaskListAdapter((IMvxAndroidBindingContext)BindingContext);
             RecyclerView.Adapter = recyclerAdapter;
         }
@@ -43,11 +45,13 @@ namespace FirstApp.Droid.Views
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = base.OnCreateView(inflater, container, savedInstanceState);
+
             SetupRecyclerView(view);
 
             RecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.recycView);
 
             _menuButton = view.FindViewById<Button>(Resource.Id.menu_icon);
+
             _menuButton.Click += (object sender, EventArgs e) =>
             {
                 OpenMenu();

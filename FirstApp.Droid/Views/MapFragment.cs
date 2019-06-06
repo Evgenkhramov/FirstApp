@@ -3,14 +3,14 @@ using Android.Gms.Maps.Model;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
-using FirstApp.Core.Models;
+using FirstApp.Core;
+using FirstApp.Core.Entities;
 using FirstApp.Core.ViewModels;
 using FirstApp.Droid.Interfaces;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FirstApp.Droid.Views
@@ -48,7 +48,7 @@ namespace FirstApp.Droid.Views
             myLocation.Longitude = getPosition.Longitude;
             builder.Include(new LatLng(myLocation.Latitude, myLocation.Longitude));
 
-            _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(myLocation.Latitude, myLocation.Longitude)).SetTitle($"Marker Task {ViewModel._taskId}")
+            _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(myLocation.Latitude, myLocation.Longitude)).SetTitle($"{ViewModel._taskId}")
                 .SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueGreen)));
 
             if (ViewModel._markerList != null && ViewModel._markerList.Count > 0)
@@ -56,7 +56,7 @@ namespace FirstApp.Droid.Views
                 foreach (MapMarkerModel coord in ViewModel._markerList)
                 {
                     _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(coord.Latitude, coord.Longitude))
-                        .SetTitle($"Marker Task {ViewModel._taskId}"));
+                        .SetTitle($"{ViewModel._taskId}"));
 
                     builder.Include(new LatLng(coord.Latitude, coord.Longitude));
                 }
@@ -64,10 +64,9 @@ namespace FirstApp.Droid.Views
 
             LatLngBounds bound = builder.Build();
 
-            _map.MoveCamera(CameraUpdateFactory.NewLatLngBounds(bound, 100));
+            _map.MoveCamera(CameraUpdateFactory.NewLatLngBounds(bound, Constants.MapPadding));
 
             _map.MapClick += ClickOnMap;
-
         }
 
         private void ClickOnMap(object sender, GoogleMap.MapClickEventArgs eventArgs)
@@ -79,7 +78,8 @@ namespace FirstApp.Droid.Views
                 _marcerRow.Latitude = markerOption.Position.Latitude;
                 _marcerRow.Longitude = markerOption.Position.Longitude;
                 ViewModel.SaveMarkerInList(_marcerRow);
-                var title = $"Marker Task {ViewModel._taskId}";
+                string title = $"{ViewModel._taskId}";
+
                 markerOption.SetTitle(title);
 
                 Marker marker = _map.AddMarker(markerOption);
@@ -91,7 +91,7 @@ namespace FirstApp.Droid.Views
             Position _position = null;
 
             IGeolocator locator = CrossGeolocator.Current;
-            locator.DesiredAccuracy = 100;
+            locator.DesiredAccuracy = Constants.MapDesiredAccuracy;
 
             _position = await locator.GetLastKnownLocationAsync();
 
@@ -105,7 +105,7 @@ namespace FirstApp.Droid.Views
                 return null;
             }
 
-            _position = await locator.GetPositionAsync(TimeSpan.FromSeconds(20), null, true);
+            _position = await locator.GetPositionAsync(TimeSpan.FromSeconds(Constants.TimeOutSmall), null, true);
 
             if (_position == null)
             {

@@ -6,8 +6,10 @@ namespace FirstApp.Core.Models
     {
         public string Email { get; set; }
         public double Id { get; set; }
-        public string First_name { get; set; } 
-        public string Last_name { get; set; }
+        [JsonProperty(PropertyName = "First_name")]
+        public string FirstName { get; set; }
+        [JsonProperty(PropertyName = "Last_name")]
+        public string LastName { get; set; }
         [JsonProperty(PropertyName = "picture")]
         public FacebookModelPicture UserPicture { get; set; }   
     }

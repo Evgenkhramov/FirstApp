@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using FirstApp.Core.Entities;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
@@ -15,12 +16,12 @@ namespace FirstApp.Core.ViewModels
     {
         #region Variables
         private MvxSubscriptionToken _mapToken;
-        private CurrentPlatformType _platform;
+        private readonly CurrentPlatformType _platform;
         private TaskModel _thisTaskModel;
         private List<MapMarkerModel> MapMarkerList;
         private MarkersData _dataForMap;
         private int _taskId;
-        private int _userId;
+        private readonly int _userId;
         private readonly IDBFileNameService _dBFileNameService;
         private readonly IDBMapMarkerService _dBMapMarkerService;
         private readonly IDBTaskService _dBTaskService;
@@ -158,6 +159,7 @@ namespace FirstApp.Core.ViewModels
                     if (string.IsNullOrEmpty(TaskName))
                     {
                         _userDialogs.Alert(Constants.EnterTaskName, Constants.EmptyTaskName, Strings.Ok);
+
                         return;
                     }
                     if (string.IsNullOrEmpty(TaskDescription))
@@ -171,12 +173,16 @@ namespace FirstApp.Core.ViewModels
                         SaveDataToDB(_thisTaskModel, MapMarkerList, FileNameList);
 
                         await _navigationService.Navigate<TaskListViewModel>();
+
+                        return;
                     }
                     if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName) && _platform == CurrentPlatformType.iOS)
                     {
                         SaveDataToDB(_thisTaskModel, MapMarkerList, FileNameList);
 
                         await _navigationService.Close(this);
+
+                        return;
                     }
                 });
             }
@@ -193,6 +199,7 @@ namespace FirstApp.Core.ViewModels
                     if (answ)
                     {
                         SaveTask.Execute();
+
                         return;
                     }
                     await _navigationService.Close(this);
@@ -206,20 +213,23 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    bool answ = await _userDialogs.ConfirmAsync(Constants.WantDeleteTask, Constants.DeleteTask, Strings.Yes, Strings.No);
+                    bool userAnswer = await _userDialogs.ConfirmAsync(Constants.WantDeleteTask, Constants.DeleteTask, Strings.Yes, Strings.No);
 
-                    if (answ && _platform == CurrentPlatformType.iOS)
+                    if (userAnswer && _platform == CurrentPlatformType.iOS)
                     {
                         _dBFileNameService.DeleteFiles(_taskId);
                         _dBMapMarkerService.DeleteMarkers(_taskId);
                         _dBTaskService.DeleteTaskFromTable(_taskId);
+
                         await _navigationService.Close(this);
                     }
-                    if (answ && _platform == CurrentPlatformType.Android)
+
+                    if (userAnswer && _platform == CurrentPlatformType.Android)
                     {
                         _dBFileNameService.DeleteFiles(_taskId);
                         _dBMapMarkerService.DeleteMarkers(_taskId);
                         _dBTaskService.DeleteTaskFromTable(_taskId);
+
                         await _navigationService.Navigate<TaskListViewModel>();
                     }
                 });
@@ -241,10 +251,10 @@ namespace FirstApp.Core.ViewModels
             foreach (var item in list)
             {
                 FileRequestModel element = new FileRequestModel();
+
                 element.Id = item.Id;
                 element.TaskId = item.TaskId;
                 element.FileName = item.FileName;
-
                 element.VmHandler = this;
 
                 FileNameList.Add(element);
@@ -262,12 +272,12 @@ namespace FirstApp.Core.ViewModels
                 foreach (MapMarkerModel item in mapMarkerList)
                 {
                     item.TaskId = _taskId;
+
                     if (item.Id == 0)
                     {
                         _dBMapMarkerService.AddMarkerToTable(item);
                     }
                 }
-
                 mapMarkerList.Clear();
             }
 

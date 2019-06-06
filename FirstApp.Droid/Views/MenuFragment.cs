@@ -1,6 +1,7 @@
 ﻿using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using FirstApp.Core;
 using FirstApp.Core.ViewModels;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using System;
@@ -44,7 +45,7 @@ namespace FirstApp.Droid.Views
         {
             ((MainView)Activity).DrawerLayout.CloseDrawers();
 
-            await Task.Delay(TimeSpan.FromMilliseconds(250));
+            await Task.Delay(TimeSpan.FromMilliseconds(Constants.TimeOutLong));
         }
 
         private void MenuDrawerOpened(object sender, Android.Support.V4.Widget.DrawerLayout.DrawerOpenedEventArgs e)
@@ -56,11 +57,17 @@ namespace FirstApp.Droid.Views
         {
             base.OnPause();
         }
+
         public override void OnResume()
         {
             base.OnResume();
         }
 
+        public override void OnDestroyView()
+        {
+            _menu.DrawerOpened -= MenuDrawerOpened;
+            base.OnDestroyView();
+        }
         #endregion Methods
     }
 }

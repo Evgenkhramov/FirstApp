@@ -10,7 +10,6 @@ namespace FirstApp.Droid.Services
         {
             using (SHA256 sha256Hash = SHA256.Create())
             {
-
                 byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(data));
 
                 return bytes;

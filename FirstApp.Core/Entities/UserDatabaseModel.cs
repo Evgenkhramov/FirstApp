@@ -1,6 +1,8 @@
-﻿using SQLite;
+﻿using System;
+using FirstApp.Core.Models;
+using SQLite;
 
-namespace FirstApp.Core.Models
+namespace FirstApp.Core.Entities
 {
     [Table("Users")]
     public class UserDatabaseModel
@@ -15,5 +17,10 @@ namespace FirstApp.Core.Models
         public string Photo { get; set; }
         public string PhotoURL { get; set; }
         public LoginType TypeUserLogin { get; set; }
+
+        internal object Any()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

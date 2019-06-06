@@ -15,11 +15,11 @@ namespace FirstApp.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-             Mvx.IoCProvider.Resolve<IDBConnectionService>();
+            Mvx.IoCProvider.Resolve<IDBConnectionService>();
 
             Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
 
-            RegisterCustomAppStart<AppStart>();                  
+            RegisterCustomAppStart<AppStart>();
         }
     }
 }

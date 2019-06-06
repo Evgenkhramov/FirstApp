@@ -24,6 +24,7 @@ namespace FirstApp.Droid.Views
         private Button _btnCamera;
         private ImageView _cameraPreview;
         private string _imagePath;
+
         protected override int FragmentId => Resource.Layout.UserDataFragment;
 
         #endregion Variables
@@ -33,14 +34,14 @@ namespace FirstApp.Droid.Views
         private async void GetPermissions(object sender, EventArgs e)
         {
 
-            if (await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Storage) != PermissionStatus.Granted ||
-                      await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Camera) != PermissionStatus.Granted)
+            if (await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage) != PermissionStatus.Granted ||
+                      await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera) != PermissionStatus.Granted)
             {
-                var results = await CrossPermissions.Current.RequestPermissionsAsync(Plugin.Permissions.Abstractions.Permission.Storage, Plugin.Permissions.Abstractions.Permission.Camera);
+                var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Storage, Permission.Camera);
             }
 
-            if (await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Storage) == PermissionStatus.Granted &&
-                     await CrossPermissions.Current.CheckPermissionStatusAsync(Plugin.Permissions.Abstractions.Permission.Camera) == PermissionStatus.Granted)
+            if (await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage) == PermissionStatus.Granted &&
+                     await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera) == PermissionStatus.Granted)
             {
                 ChoosePhoto();
             }
@@ -48,12 +49,14 @@ namespace FirstApp.Droid.Views
 
         public void SelectPhoto(string message, string title, string okbtnText, string escbtnText)
         {
-            var adb = new AlertDialog.Builder(Context);
-            adb.SetTitle(title);
-            adb.SetMessage(message);
-            adb.SetPositiveButton(okbtnText, (sender, EventArgs) => { ViewModel.ChoosePictureCommand.Execute(null); });
-            adb.SetNegativeButton(escbtnText, (sender, EventArgs) => { ViewModel.TakePictureCommand.Execute(null); });
-            adb.Create().Show();
+            var UserChoose = new AlertDialog.Builder(Context);
+
+            UserChoose.SetTitle(title);
+            UserChoose.SetMessage(message);
+            UserChoose.SetPositiveButton(okbtnText, (sender, EventArgs) => { ViewModel.ChoosePictureCommand.Execute(null); });
+            UserChoose.SetNegativeButton(escbtnText, (sender, EventArgs) => { ViewModel.TakePictureCommand.Execute(null); });
+
+            UserChoose.Create().Show();
         }
 
         public void OnBackPressed()
@@ -78,6 +81,7 @@ namespace FirstApp.Droid.Views
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = base.OnCreateView(inflater, container, savedInstanceState);
+
             _menuButton = view.FindViewById<Button>(Resource.Id.menu_icon);
             _btnCamera = view.FindViewById<Button>(Resource.Id.btnCamera);
             _cameraPreview = view.FindViewById<ImageView>(Resource.Id.camera_preview);

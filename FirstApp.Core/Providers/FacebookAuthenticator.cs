@@ -1,4 +1,5 @@
-﻿using FirstApp.Core.Models;
+﻿using FirstApp.Core.Interfaces;
+using FirstApp.Core.Models;
 using System;
 using Xamarin.Auth;
 
@@ -11,6 +12,7 @@ namespace FirstApp.Core.Providers
         private const bool IS_USING_NATIVE_UI = false;
 
         private OAuth2Authenticator _auth;
+
         private IFacebookAuthenticationDelegate _authenticationDelegate;
 
         public FacebookAuthenticator(string clientId, string scope, IFacebookAuthenticationDelegate authenticationDelegate)
@@ -23,6 +25,7 @@ namespace FirstApp.Core.Providers
                                             null, IS_USING_NATIVE_UI);
 
             _auth.Completed += OnAuthenticationCompleted;
+
             _auth.Error += OnAuthenticationFailed;
         }
 
@@ -42,8 +45,9 @@ namespace FirstApp.Core.Providers
             {
                 var token = new FacebookOAuthToken
                 {
-                    AccessToken = e.Account.Properties["access_token"]
+                    AccessToken = e.Account.Properties[Constants.AccessToken]
                 };
+
                 _authenticationDelegate.OnAuthenticationCompleted(token);
             }
 

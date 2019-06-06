@@ -24,15 +24,22 @@ namespace FirstApp.Droid.Views
 
         static readonly int READ_EXTERNAL_STORAGE = 0;
         static readonly int ACCESS_COARSE_LOCATION = 1;
-        private int _fileCode = 1000;
-        private int _mapCode = 1100;
+
+        private readonly int _fileCode = 1000;
+        private readonly int _mapCode = 1100;
         private Button _getFileButton;
         private Button _getMarkerButton;
         private Button _menuButton;
+
         protected override int FragmentId => Resource.Layout.TaskDetailsFragment;
-        public string TAG { get; private set; }
 
         #endregion Variables
+
+        #region Properties
+
+        public string TAG { get; private set; }
+
+        #endregion Properties
 
         #region Methods
 
@@ -51,12 +58,12 @@ namespace FirstApp.Droid.Views
 
         public void GetStoragePermissions(object sender, System.EventArgs e)
         {
-            if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.ReadExternalStorage) != (int)Permission.Granted)
+            if (ContextCompat.CheckSelfPermission(Activity, Manifest.Permission.ReadExternalStorage) != (int)Permission.Granted)
             {
                 RequestPermissions(new String[] { Manifest.Permission.ReadExternalStorage }, READ_EXTERNAL_STORAGE);
             }
 
-            if (ContextCompat.CheckSelfPermission(this.Context, Manifest.Permission.ReadExternalStorage) == (int)Permission.Granted)
+            if (ContextCompat.CheckSelfPermission(Context, Manifest.Permission.ReadExternalStorage) == (int)Permission.Granted)
             {
                 OpenFile();
             }
@@ -70,8 +77,10 @@ namespace FirstApp.Droid.Views
         public void OpenFile()
         {
             var intent = new Intent();
-            intent.SetType("*/*");
+
+            intent.SetType(Constants.IntentType);
             intent.SetAction(Intent.ActionGetContent);
+
             StartActivityForResult(Intent.CreateChooser(intent, Constants.SelectFile), _fileCode);
         }
 
@@ -89,7 +98,7 @@ namespace FirstApp.Droid.Views
             View view = base.OnCreateView(inflater, container, savedInstanceState);
 
             _getMarkerButton = view.FindViewById<Button>(Resource.Id.getMapMarker);
-            _getMarkerButton.Click += GetMapPositionPermissions; 
+            _getMarkerButton.Click += GetMapPositionPermissions;
 
             _getFileButton = view.FindViewById<Button>(Resource.Id.getFileButton);
             _getFileButton.Click += GetStoragePermissions;
@@ -101,34 +110,34 @@ namespace FirstApp.Droid.Views
         {
             if (requestCode == READ_EXTERNAL_STORAGE)
             {
-                Log.Info(TAG, "Received response for Location permission request.");
+                Log.Info(TAG, Constants.LocalStoragePermission);
 
                 if ((grantResults.Length == 1) && (grantResults[0] == Permission.Granted))
                 {
                     OpenFile();
+
+                    return;
                 }
-                else
-                {
-                    Log.Info(TAG, "Location permission was NOT granted.");
-                }
+                Log.Info(TAG, Constants.LocalStoragePermissionNotGranted);
+
+                return;
             }
+
             if (requestCode == ACCESS_COARSE_LOCATION)
             {
-                Log.Info(TAG, "Received response for Coarse location permission request.");
+                Log.Info(TAG, Constants.CoarsePermission);
 
                 if ((grantResults.Length == 1) && (grantResults[0] == Permission.Granted))
                 {
                     AddMarker();
+
+                    return;
                 }
-                else
-                {
-                    Log.Info(TAG, "Coarse location permission was NOT granted.");
-                }
+                Log.Info(TAG, Constants.CoarsePermissionNotGranted);
+
+                return;
             }
-            else
-            {
-                base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            }
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
         public override void OnActivityResult(int requestCode, int resultCode, Intent data)
@@ -157,6 +166,7 @@ namespace FirstApp.Droid.Views
         {
             _getMarkerButton.Click -= GetMapPositionPermissions;
             _getFileButton.Click -= GetStoragePermissions;
+
             base.OnDestroyView();
         }
 

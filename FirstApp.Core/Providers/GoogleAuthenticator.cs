@@ -1,4 +1,5 @@
-﻿using FirstApp.Core.Models;
+﻿using FirstApp.Core.Interfaces;
+using FirstApp.Core.Models;
 using System;
 using Xamarin.Auth;
 
@@ -43,9 +44,10 @@ namespace FirstApp.Core.Providers
             {
                 var token = new GoogleOAuthToken
                 {
-                    TokenType = eventArgs.Account.Properties["token_type"],
-                    AccessToken = eventArgs.Account.Properties["access_token"]
+                    TokenType = eventArgs.Account.Properties[Constants.TokenType],
+                    AccessToken = eventArgs.Account.Properties[Constants.AccessToken]
                 };
+
                 _authenticationDelegate.OnAuthenticationCompleted(token);
             }
 
@@ -53,7 +55,6 @@ namespace FirstApp.Core.Providers
             {
                 _authenticationDelegate.OnAuthenticationCanceled();
             }
-
         }
 
         private void OnAuthenticationFailed(object sender, AuthenticatorErrorEventArgs eventArgs)

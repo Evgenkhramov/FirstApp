@@ -1,4 +1,4 @@
-﻿using FirstApp.Core.Models;
+﻿using FirstApp.Core.Entities;
 using System.Collections.Generic;
 
 namespace FirstApp.Core.Interfaces

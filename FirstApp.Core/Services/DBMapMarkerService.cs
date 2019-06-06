@@ -1,5 +1,5 @@
-﻿using FirstApp.Core.Interfaces;
-using FirstApp.Core.Models;
+﻿using FirstApp.Core.Entities;
+using FirstApp.Core.Interfaces;
 using SQLite;
 using System.Collections.Generic;
 
@@ -21,23 +21,9 @@ namespace FirstApp.Core.Services
 
         public List<MapMarkerModel> GetMapMarkerListFromDB(int taskId)
         {
-            List<MapMarkerModel> coord;
-            coord = new List<MapMarkerModel>();
-            var list = _connect.Query<MapMarkerModel>($"SELECT ALL * FROM MapMarker WHERE TaskId = {taskId}");
-            if (list.Count > 0)
-            {
-                foreach (MapMarkerModel item in list)
-                {
-                    MapMarkerModel row = new MapMarkerModel();
-                    row.Id = item.Id;
-                    row.TaskId = item.TaskId;
-                    row.Latitude = item.Latitude;
-                    row.Longitude = item.Longitude;
-                    coord.Add(row);
-                }
-            }
+            List<MapMarkerModel> list = _connect.Table<MapMarkerModel>().Where(x => x.TaskId == taskId).ToList();
 
-            return coord;
+            return list;
         }
 
         public void DeleteMarkers(int taskId)

@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using FirstApp.Core.Entities;
 using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
@@ -17,7 +18,7 @@ namespace FirstApp.Core.ViewModels
         private readonly IMvxPictureChooserTask _pictureChooserTask;
         private readonly IDBUserService _dBUserService;
         private UserDatabaseModel _userData;
-        private int _userId;
+        private readonly int _userId;
         private readonly ICurrentPlatformService _getCurrentPlatform;
         private byte[] _bytes;
 
@@ -34,8 +35,8 @@ namespace FirstApp.Core.ViewModels
             _dBUserService = dBUserService;
             _userId = int.Parse(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
             _userData = dBUserService.GetItem(_userId);
-            GetUserData();
-            
+
+            GetUserData();         
         }
 
         #endregion ConstructorsE
@@ -102,7 +103,8 @@ namespace FirstApp.Core.ViewModels
                     _userData.Name = UserName;
                     _userData.Surname = Surname;
                     _dBUserService.SaveItem(_userData);
-                    var platform = _getCurrentPlatform.GetCurrentPlatform();
+
+                    CurrentPlatformType platform = _getCurrentPlatform.GetCurrentPlatform();
                     if (platform == CurrentPlatformType.Android)
                     {
                         await _navigationService.Close(this);
@@ -123,7 +125,8 @@ namespace FirstApp.Core.ViewModels
                     MyPhoto = _userData.Photo;
                     Surname = _userData.Surname;
                     UserName = _userData.Name;
-                    var platform = _getCurrentPlatform.GetCurrentPlatform();
+
+                    CurrentPlatformType platform = _getCurrentPlatform.GetCurrentPlatform();
 
                     if (platform == CurrentPlatformType.Android)
                     {
@@ -144,9 +147,7 @@ namespace FirstApp.Core.ViewModels
                     {
                         return;
                     }
-
                     CrossSecureStorage.Current.DeleteKey(Constants.SequreKeyForUserIdInDB);
-
                     CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
 
                     await _navigationService.Close(this);
@@ -216,6 +217,7 @@ namespace FirstApp.Core.ViewModels
             _userData.Id = _userId;
             _userData.Photo = photo;
             MyPhoto = _userData.Photo;
+
             _dBUserService.SaveItem(_userData);
         }
 

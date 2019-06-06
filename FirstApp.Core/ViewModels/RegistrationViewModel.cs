@@ -14,6 +14,7 @@ namespace FirstApp.Core.ViewModels
         private readonly Regex _passwordRegExp = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private readonly Regex _nameRegExp = new Regex(@"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private readonly Regex _emailRegExp = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
         private readonly IRegistrationService _registrationService;
         private readonly IDBUserService _dBUserService;
 
@@ -26,6 +27,7 @@ namespace FirstApp.Core.ViewModels
         {
             _registrationService = registrationService;
             _dBUserService = dBUserService;
+
             HaveGone = false;
             SaveButton = true;
         }
@@ -101,29 +103,31 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    bool name = false;
-                    bool email = false;
-                    bool password = false;
-                    bool passwordConfirm = false;
-                    email = EmailValidator();
-                    name = NameValidator();
+                    bool isNameValide = false;
+                    bool isEmailValid = false;
+                    bool isPasswordValid = false;
+                    bool isPasswordConfirmValid = false;
 
-                    if (name && email)
+                    isEmailValid = EmailValidator();
+
+                    isNameValide = NameValidator();
+
+                    if (isNameValide && isEmailValid)
                     {
-                        password = PasswordValidator();
+                        isPasswordValid = PasswordValidator();
                     }
 
-                    if (password)
+                    if (isPasswordValid)
                     {
-                        passwordConfirm = PasswordConfirmValidator();
+                        isPasswordConfirmValid = PasswordConfirmValidator();
                     }
 
-                    if (name && email && password && passwordConfirm && _dBUserService.IsEmailInDB(RegistrationEmail))
+                    if (isNameValide && isEmailValid && isPasswordValid && isPasswordConfirmValid && _dBUserService.IsEmailInDB(RegistrationEmail))
                     {
                         _userDialogs.Alert(Constants.ThisEmailIsUsed);
                     }
 
-                    if (name && email && password && passwordConfirm && !_dBUserService.IsEmailInDB(RegistrationEmail))
+                    if (isNameValide && isEmailValid && isPasswordValid && isPasswordConfirmValid && !_dBUserService.IsEmailInDB(RegistrationEmail))
                     {
                         int userId = _registrationService.SaveUserInDbFromApp(RegistrationUserName, RegistrationUserPassword, RegistrationEmail, LoginType.App);
 
@@ -202,7 +206,6 @@ namespace FirstApp.Core.ViewModels
             _userDialogs.Alert(Constants.EnterPasswordConfirm);
 
             return false;
-
         }
 
         private bool EmailValidator()

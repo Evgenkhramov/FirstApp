@@ -10,7 +10,7 @@ namespace FirstApp.Droid.Converters
     {
         protected override Bitmap Convert(string imageString, Type targetType, object parameter, CultureInfo culture)
         {
-            if (imageString.Length == 0)
+            if (imageString.Length == default(int))
             {
                 return null;
             }

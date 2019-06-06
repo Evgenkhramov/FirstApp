@@ -1,6 +1,6 @@
 ﻿using SQLite;
-namespace FirstApp.Core.Models
-{
+namespace FirstApp.Core.Entities
+{ 
     [Table("Tasks")]
     public class TaskModel
     {
@@ -9,6 +9,5 @@ namespace FirstApp.Core.Models
         public int UserId { get; set; }
         public string TaskName { get; set; }
         public string TaskDescription { get; set; }
-
     }
 }

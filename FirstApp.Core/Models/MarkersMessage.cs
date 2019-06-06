@@ -1,4 +1,5 @@
-﻿using MvvmCross.Plugin.Messenger;
+﻿using FirstApp.Core.Entities;
+using MvvmCross.Plugin.Messenger;
 using System.Collections.Generic;
 
 namespace FirstApp.Core.Models

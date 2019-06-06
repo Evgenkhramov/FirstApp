@@ -1,7 +1,7 @@
 ﻿using FirstApp.Core.Models;
 using System;
 
-namespace FirstApp.Core.Providers
+namespace FirstApp.Core.Interfaces
 {
     public interface IGoogleAuthenticationDelegate
     {

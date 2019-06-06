@@ -1,7 +1,7 @@
 ﻿using FirstApp.Core.Models;
 using System.Threading.Tasks;
 
-namespace FirstApp.Core.Providers
+namespace FirstApp.Core.Interfaces
 {
     public interface IFacebookAuthenticationDelegate
     {

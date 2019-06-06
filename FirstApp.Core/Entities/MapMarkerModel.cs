@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace FirstApp.Core.Models
+namespace FirstApp.Core.Entities
 {
     [Table("MapMarker")]
     public class MapMarkerModel
