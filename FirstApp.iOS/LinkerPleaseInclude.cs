@@ -15,11 +15,11 @@ namespace FirstApp.iOS
     [Foundation.Preserve(AllMembers = true)]
     public class LinkerPleaseInclude
     {
-        public void Include(MvxTaskBasedBindingContext c)
+        public void Include(MvxTaskBasedBindingContext context)
         {
-            c.Dispose();
-            var c2 = new MvxTaskBasedBindingContext();
-            c2.Dispose();
+            context.Dispose();
+            var otherContext = new MvxTaskBasedBindingContext();
+            otherContext.Dispose();
         }
 
         public void Include(UIButton uiButton)
