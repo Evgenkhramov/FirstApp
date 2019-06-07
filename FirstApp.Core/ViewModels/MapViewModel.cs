@@ -67,7 +67,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    if (_markerList.Any())
+                    if (!_markerList.Any())
                     {
                         await _navigationService.Close(this);
                         return;

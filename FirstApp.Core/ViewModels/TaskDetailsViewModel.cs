@@ -379,6 +379,9 @@ namespace FirstApp.Core.ViewModels
             TaskName = parametr.TaskName;
             TaskDescription = parametr.TaskDescription;
             MapMarkerList.AddRange(_dBMapMarkerService.GetMapMarkerListFromDB(_taskId));
+
+            UpdateMarkersCounter();
+
             AddFileName();
         }
 
@@ -390,11 +393,17 @@ namespace FirstApp.Core.ViewModels
             {
                 MapMarkerList.Add(item);
             }
+
             UpdateMarkersCounter();
 
             _mvxMessenger.Unsubscribe<MarkersMessage>(_mapToken);
         }
 
+        public override void ViewDisappeared()
+        {
+            MapMarkerList.Clear();
+            base.ViewDisappeared();
+        }
         public override void ViewAppeared()
         {
             base.ViewAppeared();
