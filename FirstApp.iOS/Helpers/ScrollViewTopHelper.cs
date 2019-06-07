@@ -7,12 +7,7 @@ namespace FirstApp.iOS.Helpers
 {
     public class ScrollViewTopHelper
     {
-        private static UIView _activeview;
-
-        public ScrollViewTopHelper()
-        {
-            _activeview = null;
-        }
+        private static UIView _activeView;
 
         public static UIView GetActiveView(UIView view)
         {
@@ -20,14 +15,14 @@ namespace FirstApp.iOS.Helpers
             {
                 if (item.IsFirstResponder)
                 {
-                    _activeview = item;
+                    _activeView = item;
 
                     break;
                 }
                 GetActiveView(item);
             }
 
-            return _activeview;
+            return _activeView;
         }
 
         public static nfloat GetScrollAmount(UIView activeview, CGRect keyBourdSize)
@@ -36,7 +31,7 @@ namespace FirstApp.iOS.Helpers
 
             if (activeview == null)
             {
-                return 0;
+                return default(int);
             }
 
             nfloat activeViewHeight = activeview.Frame.Height;

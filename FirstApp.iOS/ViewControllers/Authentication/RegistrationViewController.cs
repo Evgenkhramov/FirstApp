@@ -16,7 +16,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         private UIView _activeview;
         private nfloat _scrollAmount;
-        private bool _moveViewUp;
+        private bool _isMoveViewUp;
 
         #endregion Variables
 
@@ -24,8 +24,8 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         public RegistrationViewController() : base(nameof(RegistrationViewController), null)
         {
-            _scrollAmount = 0.0f;
-            _moveViewUp = false;
+            _scrollAmount = default(float);
+            _isMoveViewUp = false;
         }
 
         #endregion Constructors
@@ -53,20 +53,20 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             CGRect keyBourdSize = UIKeyboard.BoundsFromNotification(notification);
             _scrollAmount = ScrollViewTopHelper.GetScrollAmount(_activeview, keyBourdSize);
 
-            if (_scrollAmount <= 0)
+            if (_scrollAmount <= default(float))
             {
-                _moveViewUp = false;
+                _isMoveViewUp = false;
                 return;
             }
 
-            _moveViewUp = true;
+            _isMoveViewUp = true;
 
-            ScrollTheView(_moveViewUp);
+            ScrollTheView(_isMoveViewUp);
         }
 
         private void KeyBoardDownNotification(NSNotification notification)
         {
-            cnsTopConstrain.Constant = 0;
+            cnsTopConstrain.Constant = default(int);
             MainScrollView.UpdateConstraints();
         }
 

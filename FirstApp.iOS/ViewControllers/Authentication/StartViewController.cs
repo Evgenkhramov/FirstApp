@@ -23,7 +23,9 @@ namespace FirstApp.iOS.ViewControllers.Authentication
         public override void ViewDidLoad()
         {
             NavigationController.NavigationBarHidden = true;
+
             base.ViewDidLoad();
+
             ViewModel.ShowLoginFragmentCommand.Execute(null);
         }
 

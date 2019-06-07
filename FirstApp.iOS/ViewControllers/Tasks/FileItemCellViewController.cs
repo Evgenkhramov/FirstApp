@@ -11,7 +11,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
     {
         #region Variables
 
-        public static readonly NSString FileKey = new NSString(Constants.FileItemCell);
+        public static readonly NSString FileKey;
         public static readonly UINib FileNib;
 
         #endregion Variables
@@ -20,6 +20,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         static FileItemCellViewController()
         {
+            FileKey = new NSString(Constants.FileItemCell);
             FileNib = UINib.FromName(Constants.FileItemCell, NSBundle.MainBundle);
         }
 

@@ -11,7 +11,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
     {
         #region Variables
 
-        private static NSString FileCellIdentifier;
+        private static NSString _fileCellIdentifier;
 
         #endregion Variables
 
@@ -19,8 +19,8 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public FileTVS(UITableView tableView) : base(tableView)
         {
-            FileCellIdentifier = new NSString(Constants.FileItemCell);
-            tableView.RegisterNibForCellReuse(UINib.FromName(Constants.FileItemCell, NSBundle.MainBundle), FileCellIdentifier);
+            _fileCellIdentifier = new NSString(Constants.FileItemCell);
+            tableView.RegisterNibForCellReuse(UINib.FromName(Constants.FileItemCell, NSBundle.MainBundle), _fileCellIdentifier);
         }
 
         #endregion Constructors

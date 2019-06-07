@@ -1,4 +1,5 @@
 using FirstApp.Core;
+using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using FirstApp.Core.Providers;
 using FirstApp.Core.Services;
@@ -15,12 +16,12 @@ namespace FirstApp.iOS.ViewControllers.Authentication
     {
         #region Variables
 
-        public static GoogleAuthenticator _authGoogle;
+        public static GoogleAuthenticator GoogleAuthenticator;
 
-        private GoogleUserModeliOS user = new GoogleUserModeliOS();
-        private FacebookAuthenticator _authFacebook;
+        private GoogleUserModeliOS _googleUser = new GoogleUserModeliOS();
+        private FacebookAuthenticator _facebookAuthenticator;
 
-        static int GET_ACCOUNTS;
+        private static int GET_ACCOUNTS;
 
         #endregion Variables
 
@@ -37,7 +38,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         private void OnGoogleLoginButtonClicked(object sender, EventArgs e)
         {
-            Xamarin.Auth.OAuth2Authenticator authentificator = _authGoogle.GetAuthenticator();
+            Xamarin.Auth.OAuth2Authenticator authentificator = GoogleAuthenticator.GetAuthenticator();
             UIViewController viewController = authentificator.GetUI();
 
             PresentViewController(viewController, true, null);
@@ -48,9 +49,9 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             DismissViewController(true, null);
 
             var googleService = new GoogleService();
-            user = await googleService.GetUserProfileAsync(token.TokenType, token.AccessToken);
+            _googleUser = await googleService.GetUserProfileAsync(token.TokenType, token.AccessToken);
 
-            await ViewModel.SaveUserGoogleiOS(user);
+            await ViewModel.SaveUserGoogleiOS(_googleUser);
         }
 
         public void OnAuthenticationCanceled()
@@ -93,9 +94,9 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         private void OnFacebookLoginButtonClicked(object sender, EventArgs e)
         {
-            _authFacebook = new FacebookAuthenticator(Configuration.ClientId, Configuration.Scope, ViewModel);
+            _facebookAuthenticator = new FacebookAuthenticator(Configuration.ClientId, Configuration.Scope, ViewModel);
 
-            Xamarin.Auth.OAuth2Authenticator authenticator = _authFacebook.GetAuthenticator();
+            Xamarin.Auth.OAuth2Authenticator authenticator = _facebookAuthenticator.GetAuthenticator();
             UIViewController view = authenticator.GetUI();
 
             PresentViewController(view, true, null);
@@ -126,7 +127,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
         {
             base.ViewDidLoad();
 
-            _authGoogle = new GoogleAuthenticator(Configuration.ClientIdGoogle, Configuration.GoogleScope, Configuration.iOSRedirectUrlGoogle, this);
+            GoogleAuthenticator = new GoogleAuthenticator(Configuration.ClientIdGoogle, Configuration.GoogleScope, Configuration.iOSRedirectUrlGoogle, this);
 
             FacebookButton.TouchUpInside += OnFacebookLoginButtonClicked;
 
