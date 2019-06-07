@@ -1,17 +1,14 @@
 ﻿using Android.OS;
 using Android.Runtime;
 using Android.Views;
-using FirstApp.Core;
 using FirstApp.Core.ViewModels;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using System;
-using System.Threading.Tasks;
 
 namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.navigation_frame)]
     [Register("firstApp.Droid.Views.MenuFragment")]
-    public class MenuFragment : BaseFragment<MenuViewModel>
+    public class MenuFragment : BaseFragment<MainView,MenuViewModel>
     {
 
         #region Variables
@@ -41,14 +38,7 @@ namespace FirstApp.Droid.Views
 
         #region Methods
 
-        public async Task CloseMenu()
-        {
-            ((MainView)Activity).DrawerLayout.CloseDrawers();
-
-            await Task.Delay(TimeSpan.FromMilliseconds(Constants.TimeOutLong));
-        }
-
-        private void MenuDrawerOpened(object sender, Android.Support.V4.Widget.DrawerLayout.DrawerOpenedEventArgs e)
+        private void MenuDrawerOpened(object sender, Android.Support.V4.Widget.DrawerLayout.DrawerOpenedEventArgs menuEvent)
         {
             ViewModel.UpdateData();
         }
@@ -66,6 +56,7 @@ namespace FirstApp.Droid.Views
         public override void OnDestroyView()
         {
             _menu.DrawerOpened -= MenuDrawerOpened;
+
             base.OnDestroyView();
         }
         #endregion Methods

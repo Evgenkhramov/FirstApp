@@ -3,7 +3,7 @@
 namespace FirstApp.Core.Entities
 {
     [Table("MapMarker")]
-    public class MapMarkerModel
+    public class MapMarkerEntity
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

@@ -11,7 +11,7 @@ namespace FirstApp.Core.Providers
         private const string REDIRECT_URL = "https://www.facebook.com/connect/login_success.html";
         private const bool IS_USING_NATIVE_UI = false;
 
-        private OAuth2Authenticator _auth;
+        private readonly OAuth2Authenticator _authAuthentificator;
 
         private IFacebookAuthenticationDelegate _authenticationDelegate;
 
@@ -19,53 +19,51 @@ namespace FirstApp.Core.Providers
         {
             _authenticationDelegate = authenticationDelegate;
 
-            _auth = new OAuth2Authenticator(clientId, scope,
+            _authAuthentificator = new OAuth2Authenticator(clientId, scope,
                                             new Uri(AUTORIZE_URL),
                                             new Uri(REDIRECT_URL),
                                             null, IS_USING_NATIVE_UI);
 
-            _auth.Completed += OnAuthenticationCompleted;
+            _authAuthentificator.Completed += OnAuthenticationCompleted;
 
-            _auth.Error += OnAuthenticationFailed;
+            _authAuthentificator.Error += OnAuthenticationFailed;
         }
 
         public OAuth2Authenticator GetAuthenticator()
         {
-            return _auth;
+            return _authAuthentificator;
         }
 
         public void OnPageLoading(Uri uri)
         {
-            _auth.OnPageLoading(uri);
+            _authAuthentificator.OnPageLoading(uri);
         }
 
-        private void OnAuthenticationCompleted(object sender, AuthenticatorCompletedEventArgs e)
+        private void OnAuthenticationCompleted(object sender, AuthenticatorCompletedEventArgs eventArgument)
         {
-            if (e.IsAuthenticated)
-            {
-                var token = new FacebookOAuthToken
-                {
-                    AccessToken = e.Account.Properties[Constants.AccessToken]
-                };
-
-                _authenticationDelegate.OnAuthenticationCompleted(token);
-            }
-
-            if (!e.IsAuthenticated)
+            if (!eventArgument.IsAuthenticated)
             {
                 _authenticationDelegate.OnAuthenticationCanceled();
+                return;
             }
+
+            var token = new FacebookOAuthToken
+            {
+                AccessToken = eventArgument.Account.Properties[Constants.AccessToken]
+            };
+
+            _authenticationDelegate.OnAuthenticationCompleted(token);
         }
 
-        private void OnAuthenticationFailed(object sender, AuthenticatorErrorEventArgs e)
+        private void OnAuthenticationFailed(object sender, AuthenticatorErrorEventArgs errorEvent)
         {
             _authenticationDelegate.OnAuthenticationFailed();
         }
 
         public void Dispose()
         {
-            _auth.Error -= OnAuthenticationFailed;
-            _auth.Completed -= OnAuthenticationCompleted;
+            _authAuthentificator.Error -= OnAuthenticationFailed;
+            _authAuthentificator.Completed -= OnAuthenticationCompleted;
         }
     }
 }

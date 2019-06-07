@@ -16,13 +16,13 @@ namespace FirstApp.Core.ViewModels
         private readonly Regex _emailRegExp = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private readonly IRegistrationService _registrationService;
-        private readonly IDBUserService _dBUserService;
+        private readonly IUserService _dBUserService;
 
         #endregion Variables
 
         #region Constructors
 
-        public RegistrationViewModel(IRegistrationService registrationService, IDBUserService dBUserService,
+        public RegistrationViewModel(IRegistrationService registrationService, IUserService dBUserService,
             IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
             _registrationService = registrationService;
@@ -103,31 +103,31 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    bool isNameValide = false;
+                    bool isNameValid = false;
                     bool isEmailValid = false;
                     bool isPasswordValid = false;
                     bool isPasswordConfirmValid = false;
 
-                    isEmailValid = EmailValidator();
+                    isEmailValid = CheckEmailIsValid();
 
-                    isNameValide = NameValidator();
+                    isNameValid = CheckNameIsValid();
 
-                    if (isNameValide && isEmailValid)
+                    if (isNameValid && isEmailValid)
                     {
-                        isPasswordValid = PasswordValidator();
+                        isPasswordValid = CheckPasswordIsValid();
                     }
 
                     if (isPasswordValid)
                     {
-                        isPasswordConfirmValid = PasswordConfirmValidator();
+                        isPasswordConfirmValid = CheckPasswordConfirmIsValid();
                     }
 
-                    if (isNameValide && isEmailValid && isPasswordValid && isPasswordConfirmValid && _dBUserService.IsEmailInDB(RegistrationEmail))
+                    if (isNameValid && isEmailValid && isPasswordValid && isPasswordConfirmValid && _dBUserService.IsEmailInDB(RegistrationEmail))
                     {
                         _userDialogs.Alert(Constants.ThisEmailIsUsed);
                     }
 
-                    if (isNameValide && isEmailValid && isPasswordValid && isPasswordConfirmValid && !_dBUserService.IsEmailInDB(RegistrationEmail))
+                    if (isNameValid && isEmailValid && isPasswordValid && isPasswordConfirmValid && !_dBUserService.IsEmailInDB(RegistrationEmail))
                     {
                         int userId = _registrationService.SaveUserInDbFromApp(RegistrationUserName, RegistrationUserPassword, RegistrationEmail, LoginType.App);
 
@@ -144,7 +144,7 @@ namespace FirstApp.Core.ViewModels
 
         #region Methods
 
-        private bool NameValidator()
+        private bool CheckNameIsValid()
         {
             if (!string.IsNullOrEmpty(RegistrationUserName) && _nameRegExp.IsMatch(RegistrationUserName))
             {
@@ -163,7 +163,7 @@ namespace FirstApp.Core.ViewModels
             return false;
         }
 
-        private bool PasswordValidator()
+        private bool CheckPasswordIsValid()
         {
 
             if (!string.IsNullOrEmpty(RegistrationUserPassword) && _passwordRegExp.IsMatch(RegistrationUserPassword))
@@ -183,7 +183,7 @@ namespace FirstApp.Core.ViewModels
             return false;
         }
 
-        private bool PasswordConfirmValidator()
+        private bool CheckPasswordConfirmIsValid()
         {
             if (!string.IsNullOrEmpty(RegistrationUserPasswordConfirm) && _passwordRegExp.IsMatch(RegistrationUserPasswordConfirm) && (RegistrationUserPassword.Equals(RegistrationUserPasswordConfirm)))
             {
@@ -208,7 +208,7 @@ namespace FirstApp.Core.ViewModels
             return false;
         }
 
-        private bool EmailValidator()
+        private bool CheckEmailIsValid()
         {
             if (!string.IsNullOrEmpty(RegistrationEmail) && _emailRegExp.IsMatch(RegistrationEmail))
             {

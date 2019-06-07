@@ -8,15 +8,15 @@ namespace FirstApp.Core.Services
 {
     public class GoogleService
     {
-        public async Task<GoogleModeliOS> GetUserProfileAsync(string tokenType, string accessToken)
+        public async Task<GoogleUserModeliOS> GetUserProfileAsync(string tokenType, string accessToken)
         {
             var httpClient = new HttpClient();
 
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
 
-            string json = await httpClient.GetStringAsync("https://www.googleapis.com/plus/v1/people/me?alt=json&access_token=" + accessToken);
+            string json = await httpClient.GetStringAsync($"https://www.googleapis.com/plus/v1/people/me?alt=json&access_token={accessToken}");
 
-            GoogleModeliOS user =  JsonConvert.DeserializeObject<GoogleModeliOS>(json);
+            GoogleUserModeliOS user =  JsonConvert.DeserializeObject<GoogleUserModeliOS>(json);
 
             return user;
         }

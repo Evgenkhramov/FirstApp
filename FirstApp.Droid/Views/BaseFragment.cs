@@ -1,6 +1,7 @@
 ﻿using Android.OS;
-using Android.Support.V4.View;
 using Android.Views;
+using FirstApp.Core;
+using FirstApp.Droid.Interfaces;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.ViewModels;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FirstApp.Droid.Views
 {
-    public abstract class BaseFragment : MvxFragment
+    public abstract class BaseFragment<TMainView> : MvxFragment where TMainView : class, IMainView
     {
         #region Variables
 
@@ -21,16 +22,20 @@ namespace FirstApp.Droid.Views
 
         public async Task CloseMenu()
         {
-            ((MainView)Activity).DrawerLayout.CloseDrawers();
+            TMainView mainActivity = Activity as TMainView;
 
-            await Task.Delay(TimeSpan.FromMilliseconds(250));
+            mainActivity.CloseDrawer();
+
+            await Task.Delay(TimeSpan.FromMilliseconds(Constants.TimeOutLong));
         }
 
         public async Task OpenMenu()
         {
-            ((MainView)Activity).DrawerLayout.OpenDrawer(GravityCompat.Start);
+            TMainView mainActivity = Activity as TMainView;
 
-            await Task.Delay(TimeSpan.FromMilliseconds(250));
+            mainActivity.OpenDrawer();
+
+            await Task.Delay(TimeSpan.FromMilliseconds(Constants.TimeOutLong));
         }
 
         #endregion Methods
@@ -48,11 +53,10 @@ namespace FirstApp.Droid.Views
             return view;
         }
 
-
         #endregion Overrides
     }
 
-    public abstract class BaseFragment<TViewModel> : BaseFragment where TViewModel : class, IMvxViewModel
+    public abstract class BaseFragment<TMainView, TViewModel> : BaseFragment<TMainView> where TViewModel : class, IMvxViewModel where TMainView : class, IMainView
     {
         public new TViewModel ViewModel
         {

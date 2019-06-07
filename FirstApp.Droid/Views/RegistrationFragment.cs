@@ -8,7 +8,7 @@ namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(StartViewModel), Resource.Id.content_frame_new, true)]
     [Register("firstApp.Droid.Views.RegistrationFragment")]
-    public class RegistrationFragment : BaseFragment<RegistrationViewModel>
+    public class RegistrationFragment : BaseFragment<MainView, RegistrationViewModel>
     {
         #region Overrides
 

@@ -2,7 +2,7 @@
 namespace FirstApp.Core.Entities
 { 
     [Table("Tasks")]
-    public class TaskModel
+    public class TaskEntity
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

@@ -23,6 +23,7 @@ namespace FirstApp.Core.ViewModels
             IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
             ShowMainViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MainViewModel>());
+
             _authorizationService = authorizationService;
             _registrationService = registrationService;
             _facebookService = facebookService;
@@ -71,6 +72,7 @@ namespace FirstApp.Core.ViewModels
                     if (_authorizationService.IsLoggedIn(UserEmail, UserPassword))
                     {
                         await _navigationService.Navigate<MainViewModel>();
+
                         return;
                     }
                     _userDialogs.Alert(Constants.InvalidUserNameOrPassword);
@@ -93,7 +95,7 @@ namespace FirstApp.Core.ViewModels
         #region Methods
         public async Task OnAuthenticationCompleted(FacebookOAuthToken token)
         {
-            FacebookModel user = await _facebookService.GetUserDataAsync(token.AccessToken);
+            FacebookUserModel user = await _facebookService.GetUserDataAsync(token.AccessToken);
 
             if (user == null)
             {
@@ -111,7 +113,7 @@ namespace FirstApp.Core.ViewModels
             await _navigationService.Navigate<MainViewModel>();
         }
 
-        public async Task OnGoogleAuthenticationCompleted(GoogleModel user)
+        public async Task OnGoogleAuthenticationCompleted(GoogleUserModel user)
         {
             if (user == null)
             {
@@ -138,7 +140,7 @@ namespace FirstApp.Core.ViewModels
             await _userDialogs.AlertAsync(Constants.DidNotComplite);
         }
 
-        public async Task SaveUserGoogleiOS(GoogleModeliOS user)
+        public async Task SaveUserGoogleiOS(GoogleUserModeliOS user)
         {
             if (user == null)
             {

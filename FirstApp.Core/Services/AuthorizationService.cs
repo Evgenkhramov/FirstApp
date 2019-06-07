@@ -6,9 +6,9 @@ namespace FirstApp.Core.Services
 {
     public class AuthorizationService : IAuthorizationService
     {
-        private IDBUserService _dBUserService;
+        private readonly IUserService _dBUserService;
 
-        public AuthorizationService(IDBUserService dBUserService)
+        public AuthorizationService(IUserService dBUserService)
         {
             _dBUserService = dBUserService;
         }

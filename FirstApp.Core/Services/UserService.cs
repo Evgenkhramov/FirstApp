@@ -7,36 +7,32 @@ using System.Linq;
 
 namespace FirstApp.Core.Services
 {
-    public class DBUserService : IDBUserService
+    public class UserService : IUserService
     {
 
         private SQLiteConnection _connecting;
         private ISHA256hashService _sHA256HashService;
 
-        public DBUserService(IDBConnectionService connect, ISHA256hashService sHA256HashService)
+        public UserService(IConnectionService connect, ISHA256hashService sHA256HashService)
         {
             _sHA256HashService = sHA256HashService;
             _connecting = connect.GetDatebaseConnection();
-            _connecting.CreateTable<UserDatabaseModel>();
+
+            _connecting.CreateTable<UserDatabaseEntity>();
         }
 
-        public IEnumerable<UserDatabaseModel> GetItems()
+        public IEnumerable<UserDatabaseEntity> GetItems()
         {
-            return (from item in _connecting.Table<UserDatabaseModel>() select item).ToList();
+            return _connecting.Table<UserDatabaseEntity>().ToList(); 
         }
 
         public bool IsUserRegistrated(string email, string password)
         {
             byte[] bytePassword = _sHA256HashService.GetSHAFromString(password);
 
-            UserDatabaseModel findUser = _connecting.Table<UserDatabaseModel>().FirstOrDefault(x => x.Email == email);
+            UserDatabaseEntity findUser = _connecting.Table<UserDatabaseEntity>().FirstOrDefault(x => x.Email == email);
 
-            if (findUser != null && ByteArrayCompare(bytePassword, findUser.Password))
-            {
-                return true;
-            }
-
-            return false;
+            return findUser != null && ByteArrayCompare(bytePassword, findUser.Password);
         }
 
         public bool ByteArrayCompare(byte[] byteArrayOne, byte[] byteArrayTwo)
@@ -48,31 +44,31 @@ namespace FirstApp.Core.Services
 
         public int GetUserId(string email)
         {
-            int findUserId = _connecting.Table<UserDatabaseModel>().FirstOrDefault(x => x.Email == email).Id;  
+            int findUserId = _connecting.Table<UserDatabaseEntity>().FirstOrDefault(x => x.Email == email).Id;  
  
             return findUserId;
         }
 
         public bool IsEmailInDB(string email)
         {
-            bool isEmail = _connecting.Table<UserDatabaseModel>().Any(x => x.Email == email);
+            bool isEmail = _connecting.Table<UserDatabaseEntity>().Any(x => x.Email == email);
 
             return isEmail;
         }
 
-        public UserDatabaseModel GetItem(int id)
+        public UserDatabaseEntity GetItem(int id)
         {
-            return _connecting.Get<UserDatabaseModel>(id);
+            return _connecting.Get<UserDatabaseEntity>(id);
         }
 
         public int DeleteItem(int id)
         {
-            return _connecting.Delete<UserDatabaseModel>(id);
+            return _connecting.Delete<UserDatabaseEntity>(id);
         }
 
-        public int SaveItem(UserDatabaseModel item)
+        public int SaveItem(UserDatabaseEntity item)
         {
-            if (item.Id != 0)
+            if (item.Id != default(int))
             {
                 _connecting.Update(item);
                 return item.Id;

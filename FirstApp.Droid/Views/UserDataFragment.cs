@@ -15,7 +15,7 @@ namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame_new, false)]
     [Register("firstApp.Droid.Views.UserDataFragment")]
-    public class UserData : BaseFragment<UserDataViewModel>, IBackButtonListener
+    public class UserDataFragment : BaseFragment<MainView,UserDataViewModel>, IBackButtonListener
     {
         #region Variables
 
@@ -59,7 +59,7 @@ namespace FirstApp.Droid.Views
             UserChoose.Create().Show();
         }
 
-        public void OnBackPressed()
+        public void HandleBackPressed()
         {
             ViewModel.CloseFragment.Execute();
         }

@@ -15,7 +15,7 @@ namespace FirstApp.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            Mvx.IoCProvider.Resolve<IDBConnectionService>();
+            Mvx.IoCProvider.Resolve<IConnectionService>();
 
             Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
 

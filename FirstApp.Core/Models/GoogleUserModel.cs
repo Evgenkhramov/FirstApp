@@ -1,6 +1,6 @@
 ﻿namespace FirstApp.Core.Models
 {
-    public class GoogleModel
+    public class GoogleUserModel
     {
         public string Email { get; set; }
         public double Id { get; set; }

@@ -7,10 +7,10 @@ namespace FirstApp.Core.Services
 {
     class RegistrationService : IRegistrationService
     {
-        private IDBUserService _dBUserService;
-        private ISHA256hashService _sHA256Hash;
+        private readonly IUserService _dBUserService;
+        private readonly ISHA256hashService _sHA256Hash;
 
-        public RegistrationService(IDBUserService dBUserService, ISHA256hashService sHA256Hash)
+        public RegistrationService(IUserService dBUserService, ISHA256hashService sHA256Hash)
         {
             _sHA256Hash = sHA256Hash;
             _dBUserService = dBUserService;
@@ -24,7 +24,7 @@ namespace FirstApp.Core.Services
 
         public int SaveUserInDbFromApp(string registrationUserName, string registrationUserPassword, string userEmail, LoginType loginType)
         {
-            var userDatabaseModel = new UserDatabaseModel
+            var userDatabaseModel = new UserDatabaseEntity
             {
                 Name = registrationUserName,
                 Password = _sHA256Hash.GetSHAFromString(registrationUserPassword),
@@ -33,6 +33,7 @@ namespace FirstApp.Core.Services
             };
 
             _dBUserService.SaveItem(userDatabaseModel);
+
             int userId = userDatabaseModel.Id;
 
             return userId;
@@ -41,7 +42,7 @@ namespace FirstApp.Core.Services
         public int SaveUserInDbFromSocialNetworks(string registrationUserName, string userEmail, double userIdFromSocialNetworks,
             string surname, string photoUrl, string userPhoto, LoginType loginType)
         {
-            var userDatabaseModel = new UserDatabaseModel
+            var userDatabaseModel = new UserDatabaseEntity
             {
                 Name = registrationUserName,
                 Surname = surname,
@@ -53,6 +54,7 @@ namespace FirstApp.Core.Services
             };
 
             _dBUserService.SaveItem(userDatabaseModel);
+
             int userId = userDatabaseModel.Id;
 
             return userId;

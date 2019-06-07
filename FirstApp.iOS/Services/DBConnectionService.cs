@@ -5,15 +5,8 @@ using System.IO;
 
 namespace FirstApp.iOS.Services
 {
-    class DBConnectionService : IDBConnectionService
+    class DBConnectionService : IConnectionService
     {
-        public SQLiteConnection connection;
-
-        public DBConnectionService()
-        {
-            connection = GetDatebaseConnection();
-        }
-
         public SQLiteConnection GetDatebaseConnection()
         {
             string dbName = Constants.NameDB;

@@ -11,21 +11,17 @@ namespace FirstApp.Droid.Holders
 {
     public class TasksViewHolder : MvxRecyclerViewHolder
     {
-        #region Variables
-
-        private static int _screenWidth;
-
-        #endregion Variables
-
         #region Constructors
 
         public TasksViewHolder(View itemView, IMvxAndroidBindingContext context) : base(itemView, context)
         {
-            _screenWidth = Resources.System.DisplayMetrics.WidthPixels;
+            int screenWidth = Resources.System.DisplayMetrics.WidthPixels;
 
-            NameTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskName);
-            NameTaskHolder.LayoutParameters.Width = _screenWidth - Constants.AndroidTaskItemSwipeWidth;
-            DescriptionTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskShortDescription);
+            TextView NameTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskName);
+
+            NameTaskHolder.LayoutParameters.Width = screenWidth - Constants.AndroidTaskItemSwipeWidth;
+
+            TextView DescriptionTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskShortDescription);
 
             this.DelayBind(() =>
             {
@@ -39,12 +35,5 @@ namespace FirstApp.Droid.Holders
         }
 
         #endregion Constructors
-
-        #region Properties
-
-        public TextView NameTaskHolder { get; set; }
-        public TextView DescriptionTaskHolder { get; set; }
-
-        #endregion Properties
     }
 }

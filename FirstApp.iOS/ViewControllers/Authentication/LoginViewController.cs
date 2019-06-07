@@ -17,7 +17,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         public static GoogleAuthenticator _authGoogle;
 
-        private GoogleModeliOS user = new GoogleModeliOS();
+        private GoogleUserModeliOS user = new GoogleUserModeliOS();
         private FacebookAuthenticator _authFacebook;
 
         static int GET_ACCOUNTS;

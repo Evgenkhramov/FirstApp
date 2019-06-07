@@ -11,17 +11,18 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame_new, true)]
     [Register("firstApp.Droid.Views.MapFragment")]
-    public class MapFragment : BaseFragment<MapViewModel>, IOnMapReadyCallback, IBackButtonListener
+    public class MapFragment : BaseFragment<MainView,MapViewModel>, IOnMapReadyCallback, IBackButtonListener
     {
         #region Variables
 
-        private MapMarkerModel _marcerRow;
+        private MapMarkerEntity _marcerRow;
         private MapView _mapView;
         private GoogleMap _map;
         protected override int FragmentId => Resource.Layout.MapFragment;
@@ -38,7 +39,7 @@ namespace FirstApp.Droid.Views
             _map.UiSettings.MapToolbarEnabled = true;
             _map.MyLocationEnabled = true;
 
-            var myLocation = new MapMarkerModel();
+            var myLocation = new MapMarkerEntity();
 
             Position getPosition = GetCurrentPosition().Result;
 
@@ -51,9 +52,9 @@ namespace FirstApp.Droid.Views
             _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(myLocation.Latitude, myLocation.Longitude)).SetTitle($"{ViewModel._taskId}")
                 .SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueGreen)));
 
-            if (ViewModel._markerList != null && ViewModel._markerList.Count > 0)
+            if (ViewModel._markerList != null && ViewModel._markerList.Any())
             {
-                foreach (MapMarkerModel coord in ViewModel._markerList)
+                foreach (MapMarkerEntity coord in ViewModel._markerList)
                 {
                     _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(coord.Latitude, coord.Longitude))
                         .SetTitle($"{ViewModel._taskId}"));
@@ -74,9 +75,12 @@ namespace FirstApp.Droid.Views
             using (var markerOption = new MarkerOptions())
             {
                 markerOption.SetPosition(eventArgs.Point);
-                _marcerRow = new MapMarkerModel();
-                _marcerRow.Latitude = markerOption.Position.Latitude;
-                _marcerRow.Longitude = markerOption.Position.Longitude;
+                _marcerRow = new MapMarkerEntity
+                {
+                    Latitude = markerOption.Position.Latitude,
+                    Longitude = markerOption.Position.Longitude
+                };
+
                 ViewModel.SaveMarkerInList(_marcerRow);
                 string title = $"{ViewModel._taskId}";
 
@@ -129,7 +133,7 @@ namespace FirstApp.Droid.Views
 
             _mapView.GetMapAsync(this);
 
-            _marcerRow = new MapMarkerModel();
+            _marcerRow = new MapMarkerEntity();
 
             return view;
         }
@@ -140,7 +144,7 @@ namespace FirstApp.Droid.Views
             base.OnDestroyView();
         }
 
-        public void OnBackPressed()
+        public void HandleBackPressed()
         {
             ViewModel.BackViewCommand.Execute();
         }

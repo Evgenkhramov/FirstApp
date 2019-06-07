@@ -2,6 +2,6 @@
 {
     public interface IBackButtonListener
     {
-        void OnBackPressed();
+        void HandleBackPressed();
     }
 }

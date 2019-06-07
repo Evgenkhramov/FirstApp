@@ -21,6 +21,7 @@ namespace FirstApp.Core.ViewModels
             ICurrentPlatformService currentPlatformService) : base(navigationService, userDialogs)
         {
             _currentPlatformService = currentPlatformService;
+
             ShowMainFragmentCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<TaskListViewModel>());
             ShowMenuViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<MenuViewModel>());
             ShowUserProfileViewModelCommand = new MvxAsyncCommand(async () => await _navigationService.Navigate<UserDataViewModel>());

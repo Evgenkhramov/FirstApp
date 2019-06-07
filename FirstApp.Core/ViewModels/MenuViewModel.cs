@@ -6,6 +6,7 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using Plugin.SecureStorage;
+using System;
 
 namespace FirstApp.Core.ViewModels
 {
@@ -14,25 +15,24 @@ namespace FirstApp.Core.ViewModels
 
         #region Variables
 
-        private readonly IDBUserService _dBUserService;
-        private int _userId;
-        private string _id;
-        private UserDatabaseModel _userData;
+        private readonly IUserService _dBUserService;
+        private readonly int _userId;
+        private UserDatabaseEntity _userData;
 
         #endregion Variables
 
         #region Constructors
 
-        public MenuViewModel(IDBUserService dBUserService, IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
+        public MenuViewModel(IUserService dBUserService, IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
             _dBUserService = dBUserService;
 
-            _id = (CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
+            _userId = Convert.ToInt32(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
 
-            _userId = int.Parse(_id);
             _userData = _dBUserService.GetItem(_userId);
 
             MyIcon = _userData.Photo;
+
             MyName = $"{_userData.Name} {_userData.Surname}";
 
             MenuItems = new MvxObservableCollection<MenuItem>
@@ -91,7 +91,7 @@ namespace FirstApp.Core.ViewModels
                         return;
                     }
 
-                    CrossSecureStorage.Current.DeleteKey(_id);
+                    CrossSecureStorage.Current.DeleteKey(_userId.ToString());
                     CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
 
                     _dBUserService.DeleteItem(_userId);
@@ -117,7 +117,6 @@ namespace FirstApp.Core.ViewModels
 
         public void UpdateData()
         {
-            _userId = int.Parse(_id);
             _userData = _dBUserService.GetItem(_userId);
 
             MyIcon = _userData.Photo;

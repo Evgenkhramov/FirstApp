@@ -5,9 +5,9 @@ using SQLite;
 namespace FirstApp.Core.Entities
 {
     [Table("Users")]
-    public class UserDatabaseModel
+    public class UserDatabaseEntity
     {
-        [PrimaryKey, AutoIncrement, Column("_id")]
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public double UserId { get; set; }
         public string Name { get; set; }
@@ -17,10 +17,5 @@ namespace FirstApp.Core.Entities
         public string Photo { get; set; }
         public string PhotoURL { get; set; }
         public LoginType TypeUserLogin { get; set; }
-
-        internal object Any()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

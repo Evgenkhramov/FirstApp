@@ -2,7 +2,7 @@
 
 namespace FirstApp.Core.Models
 {
-    public class FacebookModel
+    public class FacebookUserModel
     {
         public string Email { get; set; }
         public double Id { get; set; }

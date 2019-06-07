@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace FirstApp.Core.Interfaces
 {
-    public interface IDBUserService
+    public interface IUserService
     {
-        IEnumerable<UserDatabaseModel> GetItems();
-        UserDatabaseModel GetItem(int id);
+        IEnumerable<UserDatabaseEntity> GetItems();
+        UserDatabaseEntity GetItem(int id);
         int DeleteItem(int id);
-        int SaveItem(UserDatabaseModel item);
+        int SaveItem(UserDatabaseEntity item);
         bool IsEmailInDB(string login);
         bool IsUserRegistrated(string email, string password);
         int GetUserId(string email);

@@ -5,7 +5,7 @@ namespace FirstApp.Core.Interfaces
 {
     public interface IFacebookService
     {
-        Task<FacebookModel> GetUserDataAsync(string accessToken);
+        Task<FacebookUserModel> GetUserDataAsync(string accessToken);
         Task<string> GetImageFromUrlToBase64(string url);
     }
 }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace FirstApp.Core.Interfaces
 {
-    public interface IDBFileNameService
+    public interface IFileNameService
     {
-        void AddFileNameToTable(FileListModel fileName);
-        List<FileListModel> GetFileNameListFromDB(int taskId);
+        void AddFileNameToTable(FileListEntity fileName);
+        List<FileListEntity> GetFileNameListFromDB(int taskId);
         void DeleteFileName(int id);
         void DeleteFiles(int taskId);
     }

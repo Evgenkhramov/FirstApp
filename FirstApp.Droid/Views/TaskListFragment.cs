@@ -14,7 +14,7 @@ namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame_new, true)]
     [Register("firstApp.Droid.Views.TaskListFragment")]
-    public class TaskListFragment : BaseFragment<TaskListViewModel>
+    public class TaskListFragment : BaseFragment<MainView,TaskListViewModel>
     {
         #region Variables
 
@@ -31,7 +31,7 @@ namespace FirstApp.Droid.Views
         public void SetupRecyclerView(View view)
         {
             RecyclerView = view.FindViewById<MvxRecyclerView>(Resource.Id.recycView);
-            LayoutManager = new LinearLayoutManager(this.Context);
+            LayoutManager = new LinearLayoutManager(Context);
             RecyclerView.SetLayoutManager(LayoutManager);
 
             TaskListAdapter recyclerAdapter = new TaskListAdapter((IMvxAndroidBindingContext)BindingContext);

@@ -37,6 +37,7 @@ namespace FirstApp.Core
             {
                 return _mvxNavigationService.Navigate<MainViewModel>();
             }
+
             return _mvxNavigationService.Navigate<StartViewModel>();
         }
         #endregion Overrides

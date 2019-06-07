@@ -18,7 +18,7 @@ namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame_new, true)]
     [Register("firstApp.Droid.Views.TaskDetailsFragment")]
-    public class TaskDetailsFragment : BaseFragment<TaskDetailsViewModel>, IBackButtonListener
+    public class TaskDetailsFragment : BaseFragment<MainView, TaskDetailsViewModel>, IBackButtonListener
     {
         #region Variables
 
@@ -45,12 +45,12 @@ namespace FirstApp.Droid.Views
 
         public void GetMapPositionPermissions(object sender, EventArgs e)
         {
-            if (ContextCompat.CheckSelfPermission(this.Activity, Manifest.Permission.AccessCoarseLocation) != (int)Permission.Granted)
+            if (ContextCompat.CheckSelfPermission(Activity, Manifest.Permission.AccessCoarseLocation) != (int)Permission.Granted)
             {
-                RequestPermissions(new String[] { Manifest.Permission.AccessCoarseLocation }, ACCESS_COARSE_LOCATION);
+                RequestPermissions(new string[] { Manifest.Permission.AccessCoarseLocation }, ACCESS_COARSE_LOCATION);
             }
 
-            if (ContextCompat.CheckSelfPermission(this.Context, Manifest.Permission.AccessCoarseLocation) == (int)Permission.Granted)
+            if (ContextCompat.CheckSelfPermission(Context, Manifest.Permission.AccessCoarseLocation) == (int)Permission.Granted)
             {
                 AddMarker();
             }
@@ -60,7 +60,7 @@ namespace FirstApp.Droid.Views
         {
             if (ContextCompat.CheckSelfPermission(Activity, Manifest.Permission.ReadExternalStorage) != (int)Permission.Granted)
             {
-                RequestPermissions(new String[] { Manifest.Permission.ReadExternalStorage }, READ_EXTERNAL_STORAGE);
+                RequestPermissions(new string[] { Manifest.Permission.ReadExternalStorage }, READ_EXTERNAL_STORAGE);
             }
 
             if (ContextCompat.CheckSelfPermission(Context, Manifest.Permission.ReadExternalStorage) == (int)Permission.Granted)
@@ -84,7 +84,7 @@ namespace FirstApp.Droid.Views
             StartActivityForResult(Intent.CreateChooser(intent, Constants.SelectFile), _fileCode);
         }
 
-        public void OnBackPressed()
+        public void HandleBackPressed()
         {
             ViewModel.BackViewCommand.Execute();
         }
@@ -108,52 +108,47 @@ namespace FirstApp.Droid.Views
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
-            if (requestCode == READ_EXTERNAL_STORAGE)
+            if (requestCode == READ_EXTERNAL_STORAGE && grantResults[default(int)] == Permission.Granted)
             {
-                Log.Info(TAG, Constants.LocalStoragePermission);
+                OpenFile();
 
-                if ((grantResults.Length == 1) && (grantResults[0] == Permission.Granted))
-                {
-                    OpenFile();
+                return;
+            }
 
-                    return;
-                }
+            if (requestCode == READ_EXTERNAL_STORAGE && grantResults[default(int)] != Permission.Granted)
+            {
                 Log.Info(TAG, Constants.LocalStoragePermissionNotGranted);
 
                 return;
             }
 
-            if (requestCode == ACCESS_COARSE_LOCATION)
+            if (requestCode == ACCESS_COARSE_LOCATION && grantResults[default(int)] == Permission.Granted)
             {
-                Log.Info(TAG, Constants.CoarsePermission);
+                AddMarker();
 
-                if ((grantResults.Length == 1) && (grantResults[0] == Permission.Granted))
-                {
-                    AddMarker();
-
-                    return;
-                }
+                return;
+            }
+            if (requestCode == ACCESS_COARSE_LOCATION && grantResults[default(int)] != Permission.Granted)
+            {
                 Log.Info(TAG, Constants.CoarsePermissionNotGranted);
 
                 return;
             }
+
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
         public override void OnActivityResult(int requestCode, int resultCode, Intent data)
         {
-            if (requestCode == _fileCode)
+            string fileName = null;
+
+            if (requestCode == _fileCode && resultCode == (int)Result.Ok)
             {
-                string fileName = null;
+                Uri uri = new Uri(data.DataString);
 
-                if (resultCode == (int)Result.Ok)
-                {
-                    Uri uri = new Uri(data.DataString);
+                fileName = System.IO.Path.GetFileNameWithoutExtension(uri.LocalPath);
 
-                    fileName = System.IO.Path.GetFileNameWithoutExtension(uri.LocalPath);
-
-                    ViewModel.SaveFileName(fileName);
-                }
+                ViewModel.SaveFileName(fileName);
             }
         }
 

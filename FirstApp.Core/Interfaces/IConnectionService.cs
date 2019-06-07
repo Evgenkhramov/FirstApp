@@ -2,7 +2,7 @@
 
 namespace FirstApp.Core.Interfaces
 {
-    public interface  IDBConnectionService
+    public interface  IConnectionService
     {       
         SQLiteConnection GetDatebaseConnection();
     }

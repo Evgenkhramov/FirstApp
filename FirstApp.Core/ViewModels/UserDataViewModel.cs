@@ -14,25 +14,25 @@ namespace FirstApp.Core.ViewModels
     public class UserDataViewModel : BaseViewModel
     {
         #region Variables
-        public Action TempAction;
+
         private readonly IMvxPictureChooserTask _pictureChooserTask;
-        private readonly IDBUserService _dBUserService;
-        private UserDatabaseModel _userData;
+        private readonly IUserService _dBUserService;
+        private UserDatabaseEntity _userData;
         private readonly int _userId;
         private readonly ICurrentPlatformService _getCurrentPlatform;
-        private byte[] _bytes;
 
         #endregion Variables
 
         #region Constructors
 
-        public UserDataViewModel(ICurrentPlatformService getCurrentPlatform, IDBUserService dBUserService,
+        public UserDataViewModel(ICurrentPlatformService getCurrentPlatform, IUserService dBUserService,
               IMvxPictureChooserTask pictureChooserTask, IMvxNavigationService navigationService,
               IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
             _getCurrentPlatform = getCurrentPlatform;
             _pictureChooserTask = pictureChooserTask;
             _dBUserService = dBUserService;
+
             _userId = int.Parse(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
             _userData = dBUserService.GetItem(_userId);
 
@@ -105,6 +105,7 @@ namespace FirstApp.Core.ViewModels
                     _dBUserService.SaveItem(_userData);
 
                     CurrentPlatformType platform = _getCurrentPlatform.GetCurrentPlatform();
+
                     if (platform == CurrentPlatformType.Android)
                     {
                         await _navigationService.Close(this);
@@ -142,11 +143,12 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    bool answ = await _userDialogs.ConfirmAsync(Constants.WantLogOut, Constants.WLogOut, Constants.Yes, Constants.No);
-                    if (!answ)
+                    bool IsUserAccept = await _userDialogs.ConfirmAsync(Constants.WantLogOut, Constants.WLogOut, Constants.Yes, Constants.No);
+                    if (!IsUserAccept)
                     {
                         return;
                     }
+
                     CrossSecureStorage.Current.DeleteKey(Constants.SequreKeyForUserIdInDB);
                     CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
 
@@ -231,18 +233,13 @@ namespace FirstApp.Core.ViewModels
             _pictureChooserTask.ChoosePictureFromLibrary(400, 95, OnPicture, () => { });
         }
 
-        public byte[] Bytes
-        {
-            get { return _bytes; }
-            set { _bytes = value; RaisePropertyChanged(() => Bytes); }
-        }
-
         private void OnPicture(Stream pictureStream)
         {
-            var memoryStream = new MemoryStream();
-            pictureStream.CopyTo(memoryStream);
-            Bytes = memoryStream.ToArray();
-            MyPhoto = Convert.ToBase64String(Bytes);
+            var bytes = new byte[default(int)];
+
+            pictureStream.Write(bytes, 0, (int)pictureStream.Length);
+
+            MyPhoto = Convert.ToBase64String(bytes);
         }
 
         #endregion Methods

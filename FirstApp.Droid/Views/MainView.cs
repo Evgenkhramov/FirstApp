@@ -1,9 +1,12 @@
-﻿using Acr.UserDialogs;
+﻿using System;
+using System.Threading.Tasks;
+using Acr.UserDialogs;
 using Android.App;
 using Android.Content.PM;
 using Android.Support.V4.View;
 using Android.Support.V4.Widget;
 using Android.Views.InputMethods;
+using FirstApp.Core;
 using FirstApp.Core.ViewModels;
 using FirstApp.Droid.Interfaces;
 using MvvmCross.Droid.Support.V7.AppCompat;
@@ -18,7 +21,7 @@ namespace FirstApp.Droid.Views
         LaunchMode = LaunchMode.SingleTask,
         Name = "FirstApp.Droid.Views.MainView"
         )]
-    public class MainView : MvxAppCompatActivity<MainViewModel>
+    public class MainView : MvxAppCompatActivity<MainViewModel>, IMainView
     {
         #region Properties
 
@@ -27,11 +30,6 @@ namespace FirstApp.Droid.Views
         #endregion Properties
 
         #region Methods
-
-        public void OpenDraweble()
-        {
-            DrawerLayout.OpenDrawer(GravityCompat.Start);
-        }
 
         public void HideSoftKeyboard()
         {
@@ -47,8 +45,21 @@ namespace FirstApp.Droid.Views
 
         public void CloseApplication()
         {
-            Activity activity = (Activity)this;
-            activity.FinishAffinity();
+            FinishAffinity();
+        }
+
+        public async Task CloseDrawer()
+        {
+            DrawerLayout.CloseDrawers();
+
+            await Task.Delay(TimeSpan.FromMilliseconds(Constants.TimeOutLong));
+        }
+
+        public async Task OpenDrawer()
+        {
+            DrawerLayout.OpenDrawer(GravityCompat.Start);
+
+            await Task.Delay(TimeSpan.FromMilliseconds(Constants.TimeOutLong));
         }
 
         #endregion Methods
@@ -83,11 +94,13 @@ namespace FirstApp.Droid.Views
             {
                 Android.Support.V4.App.Fragment currentFragment = SupportFragmentManager.FindFragmentById(Resource.Id.content_frame_new);
                 IBackButtonListener listener = currentFragment as IBackButtonListener;
+
                 if (listener != null)
                 {
-                    listener.OnBackPressed();
+                    listener.HandleBackPressed();
                     return;
                 }
+
                 CloseApplication();
             }
         }

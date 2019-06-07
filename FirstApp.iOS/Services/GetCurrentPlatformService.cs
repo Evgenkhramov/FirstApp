@@ -7,9 +7,7 @@ namespace FirstApp.iOS.Services
     {
         public CurrentPlatformType GetCurrentPlatform()
         {
-            CurrentPlatformType answ = CurrentPlatformType.iOS;
-
-            return answ;
+            return CurrentPlatformType.iOS;
         }
     }
 }

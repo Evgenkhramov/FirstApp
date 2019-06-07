@@ -8,6 +8,7 @@ using MvvmCross.ViewModels;
 using Plugin.SecureStorage;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FirstApp.Core.ViewModels
@@ -15,17 +16,17 @@ namespace FirstApp.Core.ViewModels
     public class TaskListViewModel : BaseViewModel, IListHandler
     {
         #region Variables
-        private readonly int  _userId;
-        private readonly IDBTaskService _dBTaskService;
+        private readonly int _userId;
+        private readonly ITaskService _taskService;
 
         #endregion Variables
 
         #region Constructors
 
-        public TaskListViewModel(IMvxNavigationService navigationService, IDBTaskService dBTaskService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
+        public TaskListViewModel(IMvxNavigationService navigationService, ITaskService taskService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
             _userId = int.Parse(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
-            _dBTaskService = dBTaskService;
+            _taskService = taskService;
 
             DeleteItemCommand = new MvxCommand<int>(RemoveTaskCollectionItem);
             DeleteItemCommandiOS = new MvxCommand<int>(RemoveCollectionItemiOS);
@@ -95,19 +96,20 @@ namespace FirstApp.Core.ViewModels
         {
             IsRefreshTaskCollection = true;
 
-            List<TaskModel> list = _dBTaskService.LoadListItemsTask(_userId);
+            List<TaskEntity> list = _taskService.LoadListItemsTask(_userId);
 
             TaskCollection = new MvxObservableCollection<TaskRequestModel>();
 
             foreach (var item in list)
             {
-                TaskRequestModel element = new TaskRequestModel();
-
-                element.Id = item.Id;
-                element.UserId = item.UserId;
-                element.TaskName = item.TaskName;
-                element.TaskDescription = item.TaskDescription;
-                element.VmHandler = this;
+                TaskRequestModel element = new TaskRequestModel
+                {
+                    Id = item.Id,
+                    UserId = item.UserId,
+                    TaskName = item.TaskName,
+                    TaskDescription = item.TaskDescription,
+                    VmHandler = this
+                };
 
                 TaskCollection.Add(element);
             }
@@ -129,28 +131,20 @@ namespace FirstApp.Core.ViewModels
 
         public void RemoveTaskCollectionItem(int itemId)
         {
-            TaskRequestModel itemForDelete = null;
+            TaskRequestModel itemForDelete = TaskCollection.FirstOrDefault(x => x.Id == itemId);
 
-            _dBTaskService.DeleteTaskFromTable(itemId);
-
-            foreach (TaskRequestModel item in TaskCollection)
-            {
-                if (item.Id == itemId)
-                {
-                    itemForDelete = item;
-                }
-            }
+            _taskService.DeleteTaskFromDB(itemId);
 
             TaskCollection.Remove(item: itemForDelete);
         }
 
         public void RemoveCollectionItemiOS(int itemId)
         {
-            var idForDB = TaskCollection[itemId].Id;
+            int idForDB = TaskCollection[itemId].Id;
 
             TaskCollection.RemoveAt(itemId);
 
-            _dBTaskService.DeleteTaskFromTable(idForDB);
+            _taskService.DeleteTaskFromDB(idForDB);
         }
 
         #endregion Methods

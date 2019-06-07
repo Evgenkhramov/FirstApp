@@ -5,23 +5,8 @@ using System.IO;
 
 namespace FirstApp.Droid.Services
 {
-    public class DBConnectionService : IDBConnectionService
+    public class ConnectionService : IConnectionService
     {
-        #region Variables
-
-        public SQLiteConnection connection;
-
-        #endregion Variables
-
-        #region Constructors
-
-        public DBConnectionService()
-        {
-            connection = GetDatebaseConnection();
-        }
-
-        #endregion Constructors
-
         #region Methods
 
         public SQLiteConnection GetDatebaseConnection()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FirstApp.Core.Models
 {
-    public class GoogleModeliOS
+    public class GoogleUserModeliOS
     {
         public string Kind { get; set; }
         public string Etag { get; set; }

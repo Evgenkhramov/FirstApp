@@ -3,7 +3,7 @@
 namespace FirstApp.Core.Entities
 {
     [Table("FileName")]
-    public class FileListModel
+    public class FileListEntity
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

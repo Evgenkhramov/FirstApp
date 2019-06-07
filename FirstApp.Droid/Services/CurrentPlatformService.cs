@@ -7,9 +7,7 @@ namespace FirstApp.Droid.Services
     {
         public CurrentPlatformType GetCurrentPlatform()
         {
-            CurrentPlatformType answ = CurrentPlatformType.Android;
-
-            return answ;
+            return CurrentPlatformType.Android;
         }
     }
 }

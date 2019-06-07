@@ -24,7 +24,7 @@ namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(StartViewModel), Resource.Id.content_frame_new, false)]
     [Register("firstApp.Droid.Views.LoginFragment")]
-    public class LoginFragment : BaseFragment<LoginViewModel>, GoogleApiClient.IConnectionCallbacks,
+    public class LoginFragment : BaseFragment<MainView, LoginViewModel>, GoogleApiClient.IConnectionCallbacks,
         GoogleApiClient.IOnConnectionFailedListener, ActivityCompat.IOnRequestPermissionsResultCallback
     {
         #region Variables
@@ -33,7 +33,7 @@ namespace FirstApp.Droid.Views
         protected override int FragmentId => Resource.Layout.LoginFragment;
 
         private FacebookAuthenticator _authFacebook;
-        private GoogleModel _user;
+        private GoogleUserModel _user;
         private GoogleApiClient _mGoogleApiClient;
         private ConnectionResult _mConnectionResult;
         private Button _googleSignBtn;
@@ -56,10 +56,10 @@ namespace FirstApp.Droid.Views
         {
             if (ContextCompat.CheckSelfPermission(Activity, Manifest.Permission.GetAccounts) != (int)Permission.Granted)
             {
-                RequestPermissions(new String[] { Manifest.Permission.GetAccounts }, GET_ACCOUNTS);
+                RequestPermissions(new string[] { Manifest.Permission.GetAccounts }, GET_ACCOUNTS);
+
                 return;
             }
-
             MGsignBtnClick();
 
             return;
@@ -76,6 +76,7 @@ namespace FirstApp.Droid.Views
                 _user.Email = email;
                 _user.Picture = person.Image.Url;
             }
+
             ViewModel.OnGoogleAuthenticationCompleted(_user);
         }
 
@@ -86,6 +87,7 @@ namespace FirstApp.Droid.Views
                 _isSignInClicked = true;
                 ResolveSignIn();
             }
+
             if (_mGoogleApiClient.IsConnected)
             {
                 PlusClass.AccountApi.ClearDefaultAccount(_mGoogleApiClient);
@@ -133,7 +135,7 @@ namespace FirstApp.Droid.Views
                     _isIntentInProgress = true;
                     StartIntentSenderForResult(_mConnectionResult.Resolution.IntentSender, 0, null, 0, 0, 0, null);
                 }
-                catch (IntentSender.SendIntentException exception)
+                catch (IntentSender.SendIntentException)
                 {
                     _isIntentInProgress = false;
                     _mGoogleApiClient.Connect();
@@ -155,7 +157,7 @@ namespace FirstApp.Droid.Views
             _googleSignBtn = view.FindViewById<Button>(Resource.Id.sign_in_button);
             _googleSignBtn.Click += GetPermissions;
 
-            _user = new GoogleModel();
+            _user = new GoogleUserModel();
 
             GoogleApiClient.Builder builder = new GoogleApiClient.Builder(Context);
             builder.AddConnectionCallbacks(this);
@@ -188,19 +190,19 @@ namespace FirstApp.Droid.Views
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
-            if (requestCode == GET_ACCOUNTS)
+            if (requestCode == GET_ACCOUNTS && grantResults[default(int)] == Permission.Granted)
             {
-                Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.LocationPermission);
+                MGsignBtnClick();
 
-                if ((grantResults.Length == 1) && (grantResults[0] == Permission.Granted))
-                {
-                    MGsignBtnClick();
-                    return;
-                }
+                return;
+            }
 
+            if (requestCode == GET_ACCOUNTS && grantResults[default(int)] != Permission.Granted)
+            {
                 Mvx.IoCProvider.Resolve<IUserDialogs>().Alert(Constants.LocationPermissionNotGranted);
             }
-            else
+
+            if (requestCode != GET_ACCOUNTS)
             {
                 base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             }
@@ -210,19 +212,21 @@ namespace FirstApp.Droid.Views
         {
             base.OnActivityResult(requestCode, resultCode, data);
 
-            if (requestCode == 0)
+            if (requestCode != default(int))
             {
-                if (resultCode != (int)Result.Ok)
-                {
-                    _isSignInClicked = false;
-                }
+                return;
+            }
 
-                _isIntentInProgress = false;
+            if (resultCode != (int)Result.Ok)
+            {
+                _isSignInClicked = false;
+            }
 
-                if (!_mGoogleApiClient.IsConnecting)
-                {
-                    _mGoogleApiClient.Connect();
-                }
+            _isIntentInProgress = false;
+
+            if (!_mGoogleApiClient.IsConnecting)
+            {
+                _mGoogleApiClient.Connect();
             }
         }
 

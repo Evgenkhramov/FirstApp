@@ -5,6 +5,7 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.Plugin.Messenger;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FirstApp.Core.ViewModels
 {
@@ -12,11 +13,9 @@ namespace FirstApp.Core.ViewModels
     {
         #region Variables
 
-        public List<MapMarkerModel> _markerList;
         public int _taskId;
-
-        private TaskModel _taskModel; 
         private readonly IMvxMessenger _messenger;
+        public List<MapMarkerEntity> _markerList;
 
         #endregion Variables
 
@@ -26,7 +25,8 @@ namespace FirstApp.Core.ViewModels
             IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
             _messenger = messenger;
-            _markerList = new List<MapMarkerModel>();
+
+            _markerList = new List<MapMarkerEntity>();
 
             SaveButton = false;
             HaveGone = false;
@@ -67,7 +67,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    if (_markerList.Count == 0)
+                    if (_markerList.Any())
                     {
                         await _navigationService.Close(this);
                         return;
@@ -82,7 +82,7 @@ namespace FirstApp.Core.ViewModels
             }
         }
 
-        private void SendMarkersMessege(List<MapMarkerModel> markerList)
+        private void SendMarkersMessege(List<MapMarkerEntity> markerList)
         {
             var message = new MarkersMessage(this, markerList);
 
@@ -94,7 +94,7 @@ namespace FirstApp.Core.ViewModels
 
         #region Methods
 
-        public void SaveMarkerInList(MapMarkerModel marker)
+        public void SaveMarkerInList(MapMarkerEntity marker)
         {
             marker.TaskId = _taskId;
 
@@ -107,7 +107,7 @@ namespace FirstApp.Core.ViewModels
 
         public override void Prepare(MarkersData data)
         {
-            foreach (MapMarkerModel item in data.Markers)
+            foreach (MapMarkerEntity item in data.Markers)
             {
                 _markerList.Add(item);
             }

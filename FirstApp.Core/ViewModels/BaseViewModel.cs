@@ -27,8 +27,10 @@ namespace FirstApp.Core.ViewModels
         where TResult : class
     {
         #region Variables
+
         protected readonly IMvxNavigationService _navigationService;
         protected readonly IUserDialogs _userDialogs;
+
         #endregion Variables
 
         #region Constructors

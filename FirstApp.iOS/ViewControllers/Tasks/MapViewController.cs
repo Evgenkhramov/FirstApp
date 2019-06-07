@@ -15,11 +15,11 @@ namespace FirstApp.iOS.ViewControllers.Tasks
     {
         #region Variables
 
-        public List<MapMarkerModel> MarkerListFromDB;
+        public List<MapMarkerEntity> MarkerListFromDB;
 
         private IUICoordinateSpace _coordinateSpace;
         private CLLocationManager _locationManager;
-        private MapMarkerModel _marcerRow;
+        private MapMarkerEntity _marcerRow;
         private MKMapView _map;
 
         #endregion Variables
@@ -32,8 +32,8 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             _coordinateSpace = _map.CoordinateSpace;
             _map.ZoomEnabled = true;
             _map.ScrollEnabled = true;
-            MarkerListFromDB = new List<MapMarkerModel>();
-            _marcerRow = new MapMarkerModel();
+            MarkerListFromDB = new List<MapMarkerEntity>();
+            _marcerRow = new MapMarkerEntity();
         }
 
         #endregion Constructors
@@ -69,7 +69,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
                 CGPoint location = touches.LocationInView(_map);
                 CLLocationCoordinate2D coordinate = _map.ConvertPoint(location, _map);
 
-                _marcerRow = new MapMarkerModel();
+                _marcerRow = new MapMarkerEntity();
                 _marcerRow.Latitude = coordinate.Latitude;
                 _marcerRow.Longitude = coordinate.Longitude;
 
@@ -104,7 +104,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             if (MarkerListFromDB != null && MarkerListFromDB.Count > 0)
             {
-                foreach (MapMarkerModel coord in MarkerListFromDB)
+                foreach (MapMarkerEntity coord in MarkerListFromDB)
                 {
                     _map.AddAnnotations(new MKPointAnnotation()
                     {
