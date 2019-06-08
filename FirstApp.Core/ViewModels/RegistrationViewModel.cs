@@ -122,12 +122,12 @@ namespace FirstApp.Core.ViewModels
                         isPasswordConfirmValid = CheckPasswordConfirmIsValid();
                     }
 
-                    if (isNameValid && isEmailValid && isPasswordValid && isPasswordConfirmValid && _dBUserService.IsEmailInDB(RegistrationEmail))
+                    if (isNameValid && isEmailValid && isPasswordValid && isPasswordConfirmValid && _dBUserService.CheckEmailInDB(RegistrationEmail))
                     {
                         _userDialogs.Alert(Constants.ThisEmailIsUsed);
                     }
 
-                    if (isNameValid && isEmailValid && isPasswordValid && isPasswordConfirmValid && !_dBUserService.IsEmailInDB(RegistrationEmail))
+                    if (isNameValid && isEmailValid && isPasswordValid && isPasswordConfirmValid && !_dBUserService.CheckEmailInDB(RegistrationEmail))
                     {
                         int userId = _registrationService.SaveUserInDbFromApp(RegistrationUserName, RegistrationUserPassword, RegistrationEmail, LoginType.App);
 

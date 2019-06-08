@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 namespace FirstApp.Core.Interfaces
 {
-    public interface IMapMarkerService
+    public interface IMarkersRepositoryService
     {
+        void InsertMarkers(List<MapMarkerEntity> list);
         void InsertMarker(MapMarkerEntity marker);
-        List<MapMarkerEntity> GetMarkerList(int taskId);
+        List<MapMarkerEntity> GetMarkersList(int taskId);
         void DeleteMarkers(int taskId);
     }
 }

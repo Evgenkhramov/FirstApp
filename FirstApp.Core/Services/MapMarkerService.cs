@@ -1,35 +1,39 @@
 ﻿using FirstApp.Core.Entities;
 using FirstApp.Core.Interfaces;
-using SQLite;
 using System.Collections.Generic;
 
 namespace FirstApp.Core.Services
 {
     class MapMarkerService : IMapMarkerService
     {
-        private readonly SQLiteConnection _connect;
+        private readonly IMarkersRepositoryService _markersRepositoryService;
 
-        public MapMarkerService(IConnectionService connecting)
+        public MapMarkerService(IMarkersRepositoryService markersRepositoryService)
         {
-            _connect = connecting.GetDatebaseConnection();
-            _connect.CreateTable<MapMarkerEntity>();
+            _markersRepositoryService = markersRepositoryService;
         }
 
-        public void AddMarkerToTable(MapMarkerEntity marker)
+        public void InsertMarker(MapMarkerEntity marker)
         {
-            _connect.Insert(marker);
+            _markersRepositoryService.InsertMarker(marker);
         }
 
-        public List<MapMarkerEntity> GetMapMarkerListFromDB(int taskId)
+        public void UpdateMarkers(List<MapMarkerEntity> list)
         {
-            List<MapMarkerEntity> list = _connect.Table<MapMarkerEntity>().Where(x => x.TaskId == taskId).ToList();
+            int taskId = list[0].TaskId;
+            _markersRepositoryService.DeleteMarkers(taskId);
 
-            return list;
+            _markersRepositoryService.InsertMarkers(list);
+        }
+
+        public List<MapMarkerEntity> GetMarkerList(int taskId)
+        {
+            return _markersRepositoryService.GetMarkersList(taskId);
         }
 
         public void DeleteMarkers(int taskId)
         {
-            _connect.Query<FileListEntity>($"DELETE FROM MapMarker WHERE TaskId = {taskId}");
+            _markersRepositoryService.DeleteMarkers(taskId);
         }
     }
 }

@@ -1,52 +1,45 @@
 ﻿using FirstApp.Core.Entities;
 using FirstApp.Core.Interfaces;
-using SQLite;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FirstApp.Core.Services
 {
     public class TaskService : ITaskService
     {
-        private readonly SQLiteConnection _connect;
+        private readonly ITaskRepositoryService _taskRepository;
 
-        public TaskService(IConnectionService connecting)
+        public TaskService(ITaskRepositoryService taskRepository)
         {
-            _connect = connecting.GetDatebaseConnection();
-            _connect.CreateTable<TaskEntity>();
+            _taskRepository = taskRepository;
         }
 
         public void AddTaskToTable(TaskEntity task)
         {
             if (task.Id == default(int))
             {
-                _connect.Insert(task);
+                _taskRepository.InsertTask(task);
 
                 return;
             }
-            _connect.Update(task);
+            _taskRepository.UpdateTask(task);
         }
 
         public void DeleteTaskFromDB(int taskId)
         {
             if (taskId >= default(int))
             {
-                _connect.Delete<TaskEntity>(taskId);
+                _taskRepository.DeleteTask(taskId);
             }
         }
 
         public List<TaskEntity> GetListAllTasks()
         {
-            List<TaskEntity> listFromDatabase = _connect.Table<TaskEntity>().ToList(); 
-
-            return listFromDatabase;
+            return _taskRepository.GetAllTasks();
         }
 
         public List<TaskEntity> LoadListItemsTask(int userId)
         {
-            List<TaskEntity> listFromDatabase = _connect.Table<TaskEntity>().Where(x => x.UserId == userId).ToList();
-
-            return listFromDatabase;
+            return _taskRepository.GetUserTasks(userId);
         }
     }
 }

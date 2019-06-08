@@ -1,41 +1,38 @@
 ﻿using FirstApp.Core.Entities;
 using FirstApp.Core.Interfaces;
-using SQLite;
 using System.Collections.Generic;
 
 namespace FirstApp.Core.Services
 {
     public class FileNameService : IFileNameService
     {
-        private readonly SQLiteConnection _connect;
+        private readonly IFileNameRepositoryService _fileNameRepositoryService;
 
-        public FileNameService(IConnectionService connecting)
+        public FileNameService(IFileNameRepositoryService fileNameRepositoryService)
         {
-            _connect = connecting.GetDatebaseConnection();
-
-            _connect.CreateTable<FileListEntity>();
+            _fileNameRepositoryService = fileNameRepositoryService;
         }
 
         public void AddFileNameToTable(FileListEntity fileName)
         {
-            _connect.Insert(fileName);
+            _fileNameRepositoryService.InsertFileName(fileName);
         }
 
-        public List<FileListEntity> GetFileNameListFromDB(int taskId)
+        public List<FileListEntity> GetFileNameList(int taskId)
         {
-            List<FileListEntity> list = _connect.Table<FileListEntity>().Where(x => x.TaskId == taskId).ToList();
+            List<FileListEntity> list = _fileNameRepositoryService.GetFileNameList(taskId);
 
             return list;
         }
 
         public void DeleteFiles(int taskId)
         {
-            _connect.Query<FileListEntity>($"DELETE FROM FileName WHERE TaskId = {taskId}");
+            _fileNameRepositoryService.DeleteFileNameList(taskId);
         }
 
         public void DeleteFileName(int fileId)
         {
-            _connect.Delete<FileListEntity>(fileId);
+            _fileNameRepositoryService.DeleteFileName(fileId);
         }
     }
 }

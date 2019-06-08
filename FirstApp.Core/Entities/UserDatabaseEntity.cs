@@ -5,10 +5,8 @@ using SQLite;
 namespace FirstApp.Core.Entities
 {
     [Table("Users")]
-    public class UserDatabaseEntity
+    public class UserDatabaseEntity : BaseEntity
     {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
         public double UserId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }

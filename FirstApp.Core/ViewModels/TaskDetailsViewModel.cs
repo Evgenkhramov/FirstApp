@@ -275,7 +275,7 @@ namespace FirstApp.Core.ViewModels
                 {
                     item.TaskId = _taskId;
 
-                    _dBMapMarkerService.AddMarkerToTable(item);
+                    _dBMapMarkerService.InsertMarker(item);
                 }
                 mapMarkerList.Clear();
             }
@@ -299,7 +299,7 @@ namespace FirstApp.Core.ViewModels
 
         public List<FileListEntity> GetFileNameListFromDB(int taskId)
         {
-            List<FileListEntity> list = _dBFileNameService.GetFileNameListFromDB(taskId);
+            List<FileListEntity> list = _dBFileNameService.GetFileNameList(taskId);
 
             return list;
         }
@@ -378,7 +378,7 @@ namespace FirstApp.Core.ViewModels
             _taskId = parametr.Id;
             TaskName = parametr.TaskName;
             TaskDescription = parametr.TaskDescription;
-            MapMarkerList.AddRange(_dBMapMarkerService.GetMapMarkerListFromDB(_taskId));
+            MapMarkerList.AddRange(_dBMapMarkerService.GetMarkerList(_taskId));
 
             UpdateMarkersCounter();
 

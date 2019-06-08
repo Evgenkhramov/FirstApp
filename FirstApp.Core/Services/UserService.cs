@@ -1,36 +1,26 @@
 ﻿using FirstApp.Core.Entities;
 using FirstApp.Core.Interfaces;
-using SQLite;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace FirstApp.Core.Services
 {
     public class UserService : IUserService
     {
-
-        private SQLiteConnection _connecting;
+        private readonly IUserRepositoryService _userRepositoryService;
         private ISHA256hashService _sHA256HashService;
 
-        public UserService(IConnectionService connect, ISHA256hashService sHA256HashService)
+        public UserService(ISHA256hashService sHA256HashService,
+            IUserRepositoryService userRepositoryService)
         {
+            _userRepositoryService = userRepositoryService;
             _sHA256HashService = sHA256HashService;
-            _connecting = connect.GetDatebaseConnection();
-
-            _connecting.CreateTable<UserDatabaseEntity>();
-        }
-
-        public IEnumerable<UserDatabaseEntity> GetItems()
-        {
-            return _connecting.Table<UserDatabaseEntity>().ToList(); 
         }
 
         public bool IsUserRegistrated(string email, string password)
         {
             byte[] bytePassword = _sHA256HashService.GetSHAFromString(password);
 
-            UserDatabaseEntity findUser = _connecting.Table<UserDatabaseEntity>().FirstOrDefault(x => x.Email == email);
+            UserDatabaseEntity findUser = _userRepositoryService.GetUserByEmail(password);
 
             return findUser != null && ByteArrayCompare(bytePassword, findUser.Password);
         }
@@ -44,36 +34,35 @@ namespace FirstApp.Core.Services
 
         public int GetUserId(string email)
         {
-            int findUserId = _connecting.Table<UserDatabaseEntity>().FirstOrDefault(x => x.Email == email).Id;  
- 
+            int findUserId = _userRepositoryService.GetUserIdByEmail(email);
+
             return findUserId;
         }
 
-        public bool IsEmailInDB(string email)
+        public bool CheckEmailInDB(string email)
         {
-            bool isEmail = _connecting.Table<UserDatabaseEntity>().Any(x => x.Email == email);
+            return _userRepositoryService.CheckEmailInDB(email);
 
-            return isEmail;
         }
 
         public UserDatabaseEntity GetItem(int id)
         {
-            return _connecting.Get<UserDatabaseEntity>(id);
+            return _userRepositoryService.GetItem(id);
         }
 
         public int DeleteItem(int id)
         {
-            return _connecting.Delete<UserDatabaseEntity>(id);
+            return _userRepositoryService.DeleteItem(id);
         }
 
         public int SaveItem(UserDatabaseEntity item)
         {
             if (item.Id != default(int))
             {
-                _connecting.Update(item);
+                _userRepositoryService.UpdateItem(item);
                 return item.Id;
             }
-            _connecting.Insert(item);
+            _userRepositoryService.InsertItem(item);
 
             return item.Id;
         }
