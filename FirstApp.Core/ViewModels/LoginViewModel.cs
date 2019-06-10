@@ -105,7 +105,7 @@ namespace FirstApp.Core.ViewModels
 
             string userPhoto = await _facebookService.GetImageFromUrlToBase64(user.UserPicture.PictureData.Url);
 
-            int userId = _registrationService.SaveUserInDbFromSocialNetworks(user.FirstName, user.Email, user.Id, user.LastName,
+            int userId = _registrationService.SaveUserSocialNetworks(user.FirstName, user.Email, user.Id, user.LastName,
                 user.UserPicture.PictureData.Url, userPhoto, LoginType.Facebook);
 
             _registrationService.UserRegistration(userId.ToString());
@@ -123,7 +123,7 @@ namespace FirstApp.Core.ViewModels
 
             string userPhoto = await _facebookService.GetImageFromUrlToBase64(user.Picture);
 
-            int userId = _registrationService.SaveUserInDbFromSocialNetworks(user.First_name, user.Email, user.Id, user.Last_name, user.Picture, userPhoto, LoginType.Google);
+            int userId = _registrationService.SaveUserSocialNetworks(user.First_name, user.Email, user.Id, user.Last_name, user.Picture, userPhoto, LoginType.Google);
 
             _registrationService.UserRegistration(userId.ToString());
 
@@ -150,7 +150,7 @@ namespace FirstApp.Core.ViewModels
 
             string userPhoto = await _facebookService.GetImageFromUrlToBase64(user.UserImage.Url);
 
-            int userId = _registrationService.SaveUserInDbFromSocialNetworks(user.UserName.GivenName, user.Emails[0].Value, 0,
+            int userId = _registrationService.SaveUserSocialNetworks(user.UserName.GivenName, user.Emails[0].Value, 0,
                 user.UserName.FamilyName, user.UserImage.Url, userPhoto, LoginType.Google);
 
             _registrationService.UserRegistration(userId.ToString());

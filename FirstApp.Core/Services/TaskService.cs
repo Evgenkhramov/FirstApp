@@ -6,9 +6,9 @@ namespace FirstApp.Core.Services
 {
     public class TaskService : ITaskService
     {
-        private readonly ITaskRepositoryService _taskRepository;
+        private readonly ITaskRepository _taskRepository;
 
-        public TaskService(ITaskRepositoryService taskRepository)
+        public TaskService(ITaskRepository taskRepository)
         {
             _taskRepository = taskRepository;
         }

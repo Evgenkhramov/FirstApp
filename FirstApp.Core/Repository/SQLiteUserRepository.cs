@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace FirstApp.Core.Repository
 {
-    public class SQLiteUserRepositoryService : IUserRepositoryService
+    public class SQLiteUserRepository : IUserRepository
     {
         private SQLiteConnection _connecting;
 
-        public SQLiteUserRepositoryService(IConnectionService connect)
+        public SQLiteUserRepository(IConnectionService connect)
         {
             _connecting = connect.GetDatebaseConnection();
 

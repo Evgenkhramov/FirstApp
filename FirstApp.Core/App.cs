@@ -15,6 +15,11 @@ namespace FirstApp.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
+            CreatableTypes()
+                .EndingWith("Repository")
+                .AsInterfaces()
+                .RegisterAsLazySingleton();
+
             Mvx.IoCProvider.Resolve<IConnectionService>();
 
             Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FirstApp.Core.Interfaces
 {
-    public interface IMarkersRepositoryService
+    public interface IMarkersRepository
     {
         void InsertMarkers(List<MapMarkerEntity> list);
         void InsertMarker(MapMarkerEntity marker);

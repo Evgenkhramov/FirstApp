@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FirstApp.Core.Interfaces
 {
-    public interface IFileNameRepositoryService
+    public interface IFileNameRepository
     {
         void InsertFileName(FileListEntity fileName);
         List<FileListEntity> GetFileNameList(int taskId);

@@ -6,7 +6,7 @@ namespace FirstApp.Core.Interfaces
     {
         void UserRegistration(string id);
         int SaveUserInDbFromApp(string registrationUserName, string registrationUserPassword, string userEmail, LoginType loginType);
-        int SaveUserInDbFromSocialNetworks(string registrationUserName, string userEmail, double userIdFromSocialNetworks,
+        int SaveUserSocialNetworks(string registrationUserName, string userEmail, double userIdFromSocialNetworks,
             string surname, string photoUrl, string userPhoto, LoginType loginType);
     }
 }

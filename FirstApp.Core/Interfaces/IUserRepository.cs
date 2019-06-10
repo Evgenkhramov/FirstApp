@@ -2,7 +2,7 @@
 
 namespace FirstApp.Core.Interfaces
 {
-    public interface IUserRepositoryService
+    public interface IUserRepository
     {
         UserDatabaseEntity GetUserByEmail(string email);
         int GetUserIdByEmail(string email);

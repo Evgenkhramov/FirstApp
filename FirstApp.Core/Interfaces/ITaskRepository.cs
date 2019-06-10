@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FirstApp.Core.Interfaces
 {
-    public interface ITaskRepositoryService
+    public interface ITaskRepository
     {
         void InsertTask(TaskEntity task);
         void UpdateTask(TaskEntity task);

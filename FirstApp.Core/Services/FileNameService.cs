@@ -6,9 +6,9 @@ namespace FirstApp.Core.Services
 {
     public class FileNameService : IFileNameService
     {
-        private readonly IFileNameRepositoryService _fileNameRepositoryService;
+        private readonly IFileNameRepository _fileNameRepositoryService;
 
-        public FileNameService(IFileNameRepositoryService fileNameRepositoryService)
+        public FileNameService(IFileNameRepository fileNameRepositoryService)
         {
             _fileNameRepositoryService = fileNameRepositoryService;
         }

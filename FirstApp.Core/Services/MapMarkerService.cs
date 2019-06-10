@@ -6,34 +6,34 @@ namespace FirstApp.Core.Services
 {
     class MapMarkerService : IMapMarkerService
     {
-        private readonly IMarkersRepositoryService _markersRepositoryService;
+        private readonly IMarkersRepository _markersRepository;
 
-        public MapMarkerService(IMarkersRepositoryService markersRepositoryService)
+        public MapMarkerService(IMarkersRepository markersRepository)
         {
-            _markersRepositoryService = markersRepositoryService;
+            _markersRepository = markersRepository;
         }
 
         public void InsertMarker(MapMarkerEntity marker)
         {
-            _markersRepositoryService.InsertMarker(marker);
+            _markersRepository.InsertMarker(marker);
         }
 
         public void UpdateMarkers(List<MapMarkerEntity> list)
         {
             int taskId = list[0].TaskId;
-            _markersRepositoryService.DeleteMarkers(taskId);
+            _markersRepository.DeleteMarkers(taskId);
 
-            _markersRepositoryService.InsertMarkers(list);
+            _markersRepository.InsertMarkers(list);
         }
 
         public List<MapMarkerEntity> GetMarkerList(int taskId)
         {
-            return _markersRepositoryService.GetMarkersList(taskId);
+            return _markersRepository.GetMarkersList(taskId);
         }
 
         public void DeleteMarkers(int taskId)
         {
-            _markersRepositoryService.DeleteMarkers(taskId);
+            _markersRepository.DeleteMarkers(taskId);
         }
     }
 }

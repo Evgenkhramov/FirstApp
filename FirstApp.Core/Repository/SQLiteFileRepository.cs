@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace FirstApp.Core.Repository
 {
-    public class SQLiteFileRepositoryService : IFileNameRepositoryService
+    public class SQLiteFileRepository : IFileNameRepository
     {
         private readonly SQLiteConnection _connect;
 
-        public SQLiteFileRepositoryService(IConnectionService connecting)
+        public SQLiteFileRepository(IConnectionService connecting)
         {
             _connect = connecting.GetDatebaseConnection();
 

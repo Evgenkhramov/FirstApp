@@ -6,13 +6,13 @@ namespace FirstApp.Core.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepositoryService _userRepositoryService;
+        private readonly IUserRepository _userRepository;
         private ISHA256hashService _sHA256HashService;
 
         public UserService(ISHA256hashService sHA256HashService,
-            IUserRepositoryService userRepositoryService)
+            IUserRepository userRepository)
         {
-            _userRepositoryService = userRepositoryService;
+            _userRepository = userRepository;
             _sHA256HashService = sHA256HashService;
         }
 
@@ -20,7 +20,7 @@ namespace FirstApp.Core.Services
         {
             byte[] bytePassword = _sHA256HashService.GetSHAFromString(password);
 
-            UserDatabaseEntity findUser = _userRepositoryService.GetUserByEmail(password);
+            UserDatabaseEntity findUser = _userRepository.GetUserByEmail(password);
 
             return findUser != null && ByteArrayCompare(bytePassword, findUser.Password);
         }
@@ -34,35 +34,35 @@ namespace FirstApp.Core.Services
 
         public int GetUserId(string email)
         {
-            int findUserId = _userRepositoryService.GetUserIdByEmail(email);
+            int findUserId = _userRepository.GetUserIdByEmail(email);
 
             return findUserId;
         }
 
         public bool CheckEmailInDB(string email)
         {
-            return _userRepositoryService.CheckEmailInDB(email);
+            return _userRepository.CheckEmailInDB(email);
 
         }
 
         public UserDatabaseEntity GetItem(int id)
         {
-            return _userRepositoryService.GetItem(id);
+            return _userRepository.GetItem(id);
         }
 
         public int DeleteItem(int id)
         {
-            return _userRepositoryService.DeleteItem(id);
+            return _userRepository.DeleteItem(id);
         }
 
         public int SaveItem(UserDatabaseEntity item)
         {
             if (item.Id != default(int))
             {
-                _userRepositoryService.UpdateItem(item);
+                _userRepository.UpdateItem(item);
                 return item.Id;
             }
-            _userRepositoryService.InsertItem(item);
+            _userRepository.InsertItem(item);
 
             return item.Id;
         }

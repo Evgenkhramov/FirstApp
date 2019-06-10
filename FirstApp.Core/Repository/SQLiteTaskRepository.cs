@@ -2,15 +2,14 @@
 using FirstApp.Core.Interfaces;
 using SQLite;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace FirstApp.Core.Repository
 {
-    class SQLiteTaskRepositoryService : ITaskRepositoryService
+    class SQLiteTaskRepository : ITaskRepository
     {
         private readonly SQLiteConnection _connect;
 
-        public SQLiteTaskRepositoryService(IConnectionService connecting)
+        public SQLiteTaskRepository(IConnectionService connecting)
         {
             _connect = connecting.GetDatebaseConnection();
             _connect.CreateTable<TaskEntity>();

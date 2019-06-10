@@ -7,13 +7,13 @@ namespace FirstApp.Core.Services
 {
     class RegistrationService : IRegistrationService
     {
-        private readonly IUserService _dBUserService;
+        private readonly IUserRepository _userRepository;
         private readonly ISHA256hashService _sHA256Hash;
 
-        public RegistrationService(IUserService dBUserService, ISHA256hashService sHA256Hash)
+        public RegistrationService(IUserRepository userRepository, ISHA256hashService sHA256Hash)
         {
             _sHA256Hash = sHA256Hash;
-            _dBUserService = dBUserService;
+            _userRepository = userRepository;
         }
 
         public void UserRegistration(string id)
@@ -24,7 +24,7 @@ namespace FirstApp.Core.Services
 
         public int SaveUserInDbFromApp(string registrationUserName, string registrationUserPassword, string userEmail, LoginType loginType)
         {
-            var userDatabaseModel = new UserDatabaseEntity
+            var user = new UserDatabaseEntity
             {
                 Name = registrationUserName,
                 Password = _sHA256Hash.GetSHAFromString(registrationUserPassword),
@@ -32,14 +32,14 @@ namespace FirstApp.Core.Services
                 TypeUserLogin = LoginType.App
             };
 
-            _dBUserService.SaveItem(userDatabaseModel);
+            _userRepository.InsertItem(user);
 
-            int userId = userDatabaseModel.Id;
+            int userId = user.Id;
 
             return userId;
         }
 
-        public int SaveUserInDbFromSocialNetworks(string registrationUserName, string userEmail, double userIdFromSocialNetworks,
+        public int SaveUserSocialNetworks(string registrationUserName, string userEmail, double userIdFromSocialNetworks,
             string surname, string photoUrl, string userPhoto, LoginType loginType)
         {
             var userDatabaseModel = new UserDatabaseEntity
@@ -53,7 +53,7 @@ namespace FirstApp.Core.Services
                 TypeUserLogin = LoginType.App
             };
 
-            _dBUserService.SaveItem(userDatabaseModel);
+            _userRepository.InsertItem(userDatabaseModel);
 
             int userId = userDatabaseModel.Id;
 

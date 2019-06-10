@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace FirstApp.Core.Repository
 {
-    public class SQLiteMapMarkersRepositoryService : IMarkersRepositoryService
+    public class SQLiteMapMarkersRepository : IMarkersRepository
     {
         private readonly SQLiteConnection _connect;
 
-        public SQLiteMapMarkersRepositoryService(IConnectionService connecting)
+        public SQLiteMapMarkersRepository(IConnectionService connecting)
         {
             _connect = connecting.GetDatebaseConnection();
             _connect.CreateTable<MapMarkerEntity>();
