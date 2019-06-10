@@ -64,6 +64,7 @@
         public const string MapMarker = "Map Marker";
         public const string ByteArrayToImg = "ByteArrayToImg";
         public const string IntentType = "*/*";
+        public const string ItemNotFound = "Element not found, try again.";
 
 
         public const string AccessToken = "access_token";

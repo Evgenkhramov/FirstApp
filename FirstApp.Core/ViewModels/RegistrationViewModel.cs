@@ -16,17 +16,17 @@ namespace FirstApp.Core.ViewModels
         private readonly Regex _emailRegExp = new Regex(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private readonly IRegistrationService _registrationService;
-        private readonly IUserService _dBUserService;
+        private readonly IUserService _userService;
 
         #endregion Variables
 
         #region Constructors
 
-        public RegistrationViewModel(IRegistrationService registrationService, IUserService dBUserService,
+        public RegistrationViewModel(IRegistrationService registrationService, IUserService userService,
             IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
             _registrationService = registrationService;
-            _dBUserService = dBUserService;
+            _userService = userService;
 
             HaveGone = false;
             SaveButton = true;
@@ -122,14 +122,14 @@ namespace FirstApp.Core.ViewModels
                         isPasswordConfirmValid = CheckPasswordConfirmIsValid();
                     }
 
-                    if (isNameValid && isEmailValid && isPasswordValid && isPasswordConfirmValid && _dBUserService.CheckEmailInDB(RegistrationEmail))
+                    if (isNameValid && isEmailValid && isPasswordValid && isPasswordConfirmValid && _userService.CheckEmailInDB(RegistrationEmail))
                     {
                         _userDialogs.Alert(Constants.ThisEmailIsUsed);
                     }
 
-                    if (isNameValid && isEmailValid && isPasswordValid && isPasswordConfirmValid && !_dBUserService.CheckEmailInDB(RegistrationEmail))
+                    if (isNameValid && isEmailValid && isPasswordValid && isPasswordConfirmValid && !_userService.CheckEmailInDB(RegistrationEmail))
                     {
-                        int userId = _registrationService.SaveUserInDbFromApp(RegistrationUserName, RegistrationUserPassword, RegistrationEmail, LoginType.App);
+                        int userId = _registrationService.SaveUserFromApp(RegistrationUserName, RegistrationUserPassword, RegistrationEmail, LoginType.App);
 
                         _registrationService.UserRegistration(userId.ToString());
 
@@ -193,6 +193,7 @@ namespace FirstApp.Core.ViewModels
             if (!string.IsNullOrEmpty(RegistrationUserPasswordConfirm) && _passwordRegExp.IsMatch(RegistrationUserPasswordConfirm) && !(RegistrationUserPassword.Equals(RegistrationUserPasswordConfirm)))
             {
                 _userDialogs.Alert(Constants.PasswordConfirm);
+
                 return false;
             }
 

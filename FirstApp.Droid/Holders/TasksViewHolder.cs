@@ -17,18 +17,18 @@ namespace FirstApp.Droid.Holders
         {
             int screenWidth = Resources.System.DisplayMetrics.WidthPixels;
 
-            TextView NameTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskName);
+            TextView nameTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskName);
 
-            NameTaskHolder.LayoutParameters.Width = screenWidth - Constants.AndroidTaskItemSwipeWidth;
+            nameTaskHolder.LayoutParameters.Width = screenWidth - Constants.AndroidTaskItemSwipeWidth;
 
-            TextView DescriptionTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskShortDescription);
+            TextView descriptionTaskHolder = itemView.FindViewById<TextView>(Resource.Id.TaskShortDescription);
 
             this.DelayBind(() =>
             {
                 MvxFluentBindingDescriptionSet<TasksViewHolder, TaskRequestModel> set = this.CreateBindingSet<TasksViewHolder, TaskRequestModel>();
 
-                set.Bind(NameTaskHolder).To(x => x.TaskName);
-                set.Bind(DescriptionTaskHolder).To(y => y.TaskDescription);
+                set.Bind(nameTaskHolder).To(x => x.TaskName);
+                set.Bind(descriptionTaskHolder).To(y => y.TaskDescription);
 
                 set.Apply();
             });

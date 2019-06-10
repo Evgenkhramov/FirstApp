@@ -34,20 +34,15 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         public async void OpenFile(object sender, EventArgs e)
         {
             string fileName = null;
-            try
-            {
-                FileData fileData = await CrossFilePicker.Current.PickFile();
-                if (fileData == null)
-                {
-                    return;
-                }
 
-                fileName = fileData.FileName;
-            }
-            catch (Exception ex)
+            FileData fileData = await CrossFilePicker.Current.PickFile();
+
+            if (fileData == null)
             {
-                Console.WriteLine(Constants.ChoosingFileExeption + ex.ToString());
+                return;
             }
+
+            fileName = fileData.FileName;
 
             if (!string.IsNullOrEmpty(fileName))
             {
@@ -57,7 +52,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         private void SetBind()
         {
-            var set = this.CreateBindingSet<TaskDetailsViewController, TaskDetailsViewModel>();
+            MvxFluentBindingDescriptionSet<TaskDetailsViewController, TaskDetailsViewModel> set = this.CreateBindingSet<TaskDetailsViewController, TaskDetailsViewModel>();
 
             set.Bind(TaskName).To(vm => vm.TaskName);
             set.Bind(_source).To(vm => vm.FileNameList);
@@ -143,6 +138,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         public override void ViewWillAppear(bool animated)
         {
             ViewModel.UpdateMarkersCounter();
+
             TabBarController.TabBar.Hidden = true;
 
             base.ViewWillAppear(animated);

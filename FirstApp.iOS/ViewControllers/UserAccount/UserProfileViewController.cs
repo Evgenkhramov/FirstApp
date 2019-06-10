@@ -58,17 +58,20 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
         private void KeyBoardUpNotification(NSNotification notification)
         {
-            _activeview = ScrollViewTopHelper.GetActiveView(this.View);
+            _activeview = ScrollViewTopHelper.GetActiveView(View);
+
             CGRect keyBourdSize = UIKeyboard.BoundsFromNotification(notification);
+
             _scrollAmount = ScrollViewTopHelper.GetScrollAmount(_activeview, keyBourdSize);
 
-            if (_scrollAmount <= 0)
+            if (_scrollAmount <= default(int))
             {
                 _isViewMoveUp = false;
                 return;
             }
 
             _isViewMoveUp = true;
+
             ScrollTheView(_isViewMoveUp);
         }
 
@@ -82,18 +85,20 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
         private void ScrollTheView(bool move)
         {
             cnsButtomScroll.Constant = -_scrollAmount;
+
             MainScroll.UpdateConstraints();
         }
 
         public async Task SelectPhoto()
         {
-            bool answ = await _userDialogs.ConfirmAsync(Constants.PleaseSelectPhoto, Constants.SelectPhoto, Constants.FromMemory, Constants.FromCamera);
+            bool isUserAccept = await _userDialogs.ConfirmAsync(Constants.PleaseSelectPhoto, Constants.SelectPhoto, Constants.FromMemory, Constants.FromCamera);
 
-            if (answ)
+            if (isUserAccept)
             {
                 GetFromMemory();
                 return;
             }
+
             GetFromCamera();
         }
 
@@ -120,6 +125,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
         private void GetFromCamera()
         {
             AVAuthorizationStatus authStatus = AVCaptureDevice.GetAuthorizationStatus(AVMediaType.Video);
+
             if (authStatus == AVAuthorizationStatus.Authorized)
             {
                 DoPhoto();

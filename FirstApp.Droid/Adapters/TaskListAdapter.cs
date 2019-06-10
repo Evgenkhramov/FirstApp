@@ -16,6 +16,7 @@ namespace FirstApp.Droid.Adaptere
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             var itemBindingContext = new MvxAndroidBindingContext(parent.Context, BindingContext.LayoutInflaterHolder);
+
             View view = InflateViewForHolder(parent, viewType, itemBindingContext);
 
             return new TasksViewHolder(view, itemBindingContext)

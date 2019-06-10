@@ -45,6 +45,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
                 return;
             }
+
             return;
         }
 

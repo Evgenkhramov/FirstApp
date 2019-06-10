@@ -34,12 +34,11 @@ namespace FirstApp.Droid.Views
 
         private FacebookAuthenticator _authFacebook;
         private GoogleUserModel _user;
-        private GoogleApiClient _mGoogleApiClient;
-        private ConnectionResult _mConnectionResult;
+        private GoogleApiClient _googleApiClient;
+        private ConnectionResult _connectionResult;
         private Button _googleSignBtn;
         private bool _isIntentInProgress;
         private bool _isSignInClicked;
-        private bool _isInfoPopulated;
         private Button _facebookLoginButton;
 
         #endregion Variables
@@ -60,16 +59,18 @@ namespace FirstApp.Droid.Views
 
                 return;
             }
-            MGsignBtnClick();
+
+            GoogleSignBtnClick();
 
             return;
         }
 
         public void OnConnected(Bundle connectionHint)
         {
-            Android.Gms.Plus.Model.People.IPerson person = PlusClass.PeopleApi.GetCurrentPerson(_mGoogleApiClient);
-            string email = PlusClass.AccountApi.GetAccountName(_mGoogleApiClient);
+            Android.Gms.Plus.Model.People.IPerson person = PlusClass.PeopleApi.GetCurrentPerson(_googleApiClient);
+            string email = PlusClass.AccountApi.GetAccountName(_googleApiClient);
             string name = string.Empty;
+
             if (person != null)
             {
                 _user.First_name = person.DisplayName;
@@ -80,31 +81,33 @@ namespace FirstApp.Droid.Views
             ViewModel.OnGoogleAuthenticationCompleted(_user);
         }
 
-        private void MGsignBtnClick()
+        private void GoogleSignBtnClick()
         {
-            if (!_mGoogleApiClient.IsConnecting)
+            if (!_googleApiClient.IsConnecting)
             {
                 _isSignInClicked = true;
                 ResolveSignIn();
             }
 
-            if (_mGoogleApiClient.IsConnected)
+            if (_googleApiClient.IsConnected)
             {
-                PlusClass.AccountApi.ClearDefaultAccount(_mGoogleApiClient);
-                _mGoogleApiClient.Disconnect();
+                PlusClass.AccountApi.ClearDefaultAccount(_googleApiClient);
+                _googleApiClient.Disconnect();
             }
         }
 
         public void OnConnectionFailed(ConnectionResult result)
         {
-            if (!_isIntentInProgress)
+            if (_isIntentInProgress)
             {
-                _mConnectionResult = result;
+                return;
+            }
 
-                if (_isSignInClicked)
-                {
-                    ResolveSignIn();
-                }
+            _connectionResult = result;
+
+            if (_isSignInClicked)
+            {
+                ResolveSignIn();
             }
         }
 
@@ -124,22 +127,25 @@ namespace FirstApp.Droid.Views
 
         private void ResolveSignIn()
         {
-            if (_mGoogleApiClient.IsConnecting)
+            if (_googleApiClient.IsConnecting)
             {
                 return;
             }
-            if (_mConnectionResult.HasResolution)
+
+            if (!_connectionResult.HasResolution)
             {
-                try
-                {
-                    _isIntentInProgress = true;
-                    StartIntentSenderForResult(_mConnectionResult.Resolution.IntentSender, 0, null, 0, 0, 0, null);
-                }
-                catch (IntentSender.SendIntentException)
-                {
-                    _isIntentInProgress = false;
-                    _mGoogleApiClient.Connect();
-                }
+                return;
+            }
+
+            try
+            {
+                _isIntentInProgress = true;
+                StartIntentSenderForResult(_connectionResult.Resolution.IntentSender, 0, null, 0, 0, 0, null);
+            }
+            catch (IntentSender.SendIntentException)
+            {
+                _isIntentInProgress = false;
+                _googleApiClient.Connect();
             }
         }
 
@@ -166,7 +172,7 @@ namespace FirstApp.Droid.Views
             builder.AddScope(PlusClass.ScopePlusProfile);
             builder.AddScope(PlusClass.ScopePlusLogin);
 
-            _mGoogleApiClient = builder.Build();
+            _googleApiClient = builder.Build();
 
             return view;
         }
@@ -174,16 +180,17 @@ namespace FirstApp.Droid.Views
         public override void OnStart()
         {
             base.OnStart();
-            _mGoogleApiClient.Connect();
+
+            _googleApiClient.Connect();
         }
 
         public override void OnStop()
         {
             base.OnStop();
 
-            if (_mGoogleApiClient.IsConnected)
+            if (_googleApiClient.IsConnected)
             {
-                _mGoogleApiClient.Disconnect();
+                _googleApiClient.Disconnect();
             }
         }
 
@@ -192,7 +199,7 @@ namespace FirstApp.Droid.Views
         {
             if (requestCode == GET_ACCOUNTS && grantResults[default(int)] == Permission.Granted)
             {
-                MGsignBtnClick();
+                GoogleSignBtnClick();
 
                 return;
             }
@@ -224,9 +231,9 @@ namespace FirstApp.Droid.Views
 
             _isIntentInProgress = false;
 
-            if (!_mGoogleApiClient.IsConnecting)
+            if (!_googleApiClient.IsConnecting)
             {
-                _mGoogleApiClient.Connect();
+                _googleApiClient.Connect();
             }
         }
 

@@ -14,6 +14,7 @@ namespace FirstApp.Droid.Converters
             {
                 return null;
             }
+
             byte[] imageAsBytes = Base64.Decode(imageString, Base64Flags.Default);
 
             return BitmapFactory.DecodeByteArray(imageAsBytes, 0, imageAsBytes.Length);

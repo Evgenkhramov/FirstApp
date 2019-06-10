@@ -37,6 +37,7 @@ namespace FirstApp.Droid.Views
             {
                 return;
             }
+
             InputMethodManager inputMethodManager = (InputMethodManager)GetSystemService(InputMethodService);
             inputMethodManager.HideSoftInputFromWindow(CurrentFocus.WindowToken, 0);
 
@@ -93,6 +94,7 @@ namespace FirstApp.Droid.Views
             if (!(DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.Start)))
             {
                 Android.Support.V4.App.Fragment currentFragment = SupportFragmentManager.FindFragmentById(Resource.Id.content_frame_new);
+
                 IBackButtonListener listener = currentFragment as IBackButtonListener;
 
                 if (listener != null)

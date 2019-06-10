@@ -45,6 +45,7 @@ namespace FirstApp.Core.ViewModels
             {
                 await _navigationService.Navigate<MenuViewModel>();
             }
+
             await _navigationService.Navigate<TaskListViewModel>();
         }
 

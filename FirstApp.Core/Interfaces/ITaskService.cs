@@ -7,7 +7,7 @@ namespace FirstApp.Core.Interfaces
     {
         void AddTaskToTable(TaskEntity tasks);
         List<TaskEntity> GetListAllTasks();
-        void DeleteTaskFromDB(int taskId);
+        void DeleteTask(int taskId);
         List<TaskEntity> LoadListItemsTask(int userId);
     }
 }

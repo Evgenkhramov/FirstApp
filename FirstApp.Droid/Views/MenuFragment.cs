@@ -10,7 +10,6 @@ namespace FirstApp.Droid.Views
     [Register("firstApp.Droid.Views.MenuFragment")]
     public class MenuFragment : BaseFragment<MainView,MenuViewModel>
     {
-
         #region Variables
 
         private Android.Support.V4.Widget.DrawerLayout _menu;

@@ -29,7 +29,7 @@ namespace FirstApp.Droid.Views
         private readonly int _mapCode = 1100;
         private Button _getFileButton;
         private Button _getMarkerButton;
-        private Button _menuButton;
+        private readonly Button _menuButton;
 
         protected override int FragmentId => Resource.Layout.TaskDetailsFragment;
 

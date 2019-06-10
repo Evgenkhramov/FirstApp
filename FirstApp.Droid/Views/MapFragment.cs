@@ -49,15 +49,15 @@ namespace FirstApp.Droid.Views
             myLocation.Longitude = getPosition.Longitude;
             builder.Include(new LatLng(myLocation.Latitude, myLocation.Longitude));
 
-            _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(myLocation.Latitude, myLocation.Longitude)).SetTitle($"{ViewModel._taskId}")
+            _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(myLocation.Latitude, myLocation.Longitude)).SetTitle($"{ViewModel.TaskId}")
                 .SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueGreen)));
 
-            if (ViewModel._markerList != null && ViewModel._markerList.Any())
+            if (ViewModel.MarkerList != null && ViewModel.MarkerList.Any())
             {
-                foreach (MapMarkerEntity coord in ViewModel._markerList)
+                foreach (MapMarkerEntity coord in ViewModel.MarkerList)
                 {
                     _map.AddMarker(new MarkerOptions().SetPosition(new LatLng(coord.Latitude, coord.Longitude))
-                        .SetTitle($"{ViewModel._taskId}"));
+                        .SetTitle($"{ViewModel.TaskId}"));
 
                     builder.Include(new LatLng(coord.Latitude, coord.Longitude));
                 }
@@ -82,7 +82,7 @@ namespace FirstApp.Droid.Views
                 };
 
                 ViewModel.SaveMarkerInList(_marcerRow);
-                string title = $"{ViewModel._taskId}";
+                string title = $"{ViewModel.TaskId}";
 
                 markerOption.SetTitle(title);
 
@@ -92,16 +92,16 @@ namespace FirstApp.Droid.Views
 
         public static async Task<Position> GetCurrentPosition()
         {
-            Position _position = null;
+            Position position = null;
 
             IGeolocator locator = CrossGeolocator.Current;
             locator.DesiredAccuracy = Constants.MapDesiredAccuracy;
 
-            _position = await locator.GetLastKnownLocationAsync();
+            position = await locator.GetLastKnownLocationAsync();
 
-            if (_position != null)
+            if (position != null)
             {
-                return _position;
+                return position;
             }
 
             if (!locator.IsGeolocationAvailable || !locator.IsGeolocationEnabled)
@@ -109,14 +109,14 @@ namespace FirstApp.Droid.Views
                 return null;
             }
 
-            _position = await locator.GetPositionAsync(TimeSpan.FromSeconds(Constants.TimeOutSmall), null, true);
+            position = await locator.GetPositionAsync(TimeSpan.FromSeconds(Constants.TimeOutSmall), null, true);
 
-            if (_position == null)
+            if (position == null)
             {
                 return null;
             }
 
-            return _position;
+            return position;
         }
 
         #endregion Methods
@@ -125,7 +125,7 @@ namespace FirstApp.Droid.Views
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            var view = base.OnCreateView(inflater, container, savedInstanceState);
+            View view = base.OnCreateView(inflater, container, savedInstanceState);
 
             _mapView = (MapView)view.FindViewById(Resource.Id.mapView);
 

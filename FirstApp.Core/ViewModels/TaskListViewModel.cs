@@ -133,7 +133,7 @@ namespace FirstApp.Core.ViewModels
         {
             TaskRequestModel itemForDelete = TaskCollection.FirstOrDefault(x => x.Id == itemId);
 
-            _taskService.DeleteTaskFromDB(itemId);
+            _taskService.DeleteTask(itemId);
 
             TaskCollection.Remove(item: itemForDelete);
         }
@@ -144,7 +144,7 @@ namespace FirstApp.Core.ViewModels
 
             TaskCollection.RemoveAt(itemId);
 
-            _taskService.DeleteTaskFromDB(idForDB);
+            _taskService.DeleteTask(idForDB);
         }
 
         #endregion Methods

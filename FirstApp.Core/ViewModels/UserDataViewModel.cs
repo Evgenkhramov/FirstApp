@@ -16,22 +16,22 @@ namespace FirstApp.Core.ViewModels
         #region Variables
 
         private readonly IMvxPictureChooserTask _pictureChooserTask;
-        private readonly IUserService _dBUserService;
+        private readonly IUserService _userService;
         private UserDatabaseEntity _userData;
         private readonly int _userId;
-        private readonly ICurrentPlatformService _getCurrentPlatform;
+        private readonly ICurrentPlatformService _currentPlatformService;
 
         #endregion Variables
 
         #region Constructors
 
-        public UserDataViewModel(ICurrentPlatformService getCurrentPlatform, IUserService dBUserService,
+        public UserDataViewModel(ICurrentPlatformService currentPlatformService, IUserService dBUserService,
               IMvxPictureChooserTask pictureChooserTask, IMvxNavigationService navigationService,
               IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
-            _getCurrentPlatform = getCurrentPlatform;
+            _currentPlatformService = currentPlatformService;
             _pictureChooserTask = pictureChooserTask;
-            _dBUserService = dBUserService;
+            _userService = dBUserService;
 
             _userId = int.Parse(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
             _userData = dBUserService.GetItem(_userId);
@@ -102,15 +102,16 @@ namespace FirstApp.Core.ViewModels
                     _userData.Id = _userId;
                     _userData.Name = UserName;
                     _userData.Surname = Surname;
-                    _dBUserService.SaveItem(_userData);
 
-                    CurrentPlatformType platform = _getCurrentPlatform.GetCurrentPlatform();
+                    _userService.SaveItem(_userData);
 
-                    if (platform == CurrentPlatformType.Android)
+                    if (_currentPlatformService.GetCurrentPlatform() != CurrentPlatformType.Android)
                     {
-                        await _navigationService.Close(this);
-                        await _navigationService.Navigate<TaskListViewModel>();
+                        return;
                     }
+
+                    await _navigationService.Close(this);
+                    await _navigationService.Navigate<TaskListViewModel>();
                 });
             }
         }
@@ -121,15 +122,13 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    _userData = _dBUserService.GetItem(_userId);
+                    _userData = _userService.GetItem(_userId);
 
                     MyPhoto = _userData.Photo;
                     Surname = _userData.Surname;
                     UserName = _userData.Name;
 
-                    CurrentPlatformType platform = _getCurrentPlatform.GetCurrentPlatform();
-
-                    if (platform == CurrentPlatformType.Android)
+                    if (_currentPlatformService.GetCurrentPlatform() == CurrentPlatformType.Android)
                     {
                         await _navigationService.Navigate<TaskListViewModel>();
                     }
@@ -144,6 +143,7 @@ namespace FirstApp.Core.ViewModels
                 return new MvxAsyncCommand(async () =>
                 {
                     bool IsUserAccept = await _userDialogs.ConfirmAsync(Constants.WantLogOut, Constants.WLogOut, Constants.Yes, Constants.No);
+
                     if (!IsUserAccept)
                     {
                         return;
@@ -220,7 +220,7 @@ namespace FirstApp.Core.ViewModels
             _userData.Photo = photo;
             MyPhoto = _userData.Photo;
 
-            _dBUserService.SaveItem(_userData);
+            _userService.SaveItem(_userData);
         }
 
         private void DoTakePicture()

@@ -20,7 +20,7 @@ namespace FirstApp.Core.Services
 
         public void UpdateMarkers(List<MapMarkerEntity> list)
         {
-            int taskId = list[0].TaskId;
+            int taskId = list[default(int)].TaskId;
             _markersRepository.DeleteMarkers(taskId);
 
             _markersRepository.InsertMarkers(list);

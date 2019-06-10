@@ -104,7 +104,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         private void SetBind()
         {
-            var set = this.CreateBindingSet<LoginViewController, LoginViewModel>();
+            MvxFluentBindingDescriptionSet<LoginViewController, LoginViewModel> set = this.CreateBindingSet<LoginViewController, LoginViewModel>();
 
             set.Bind(EnterYourEmail).To(vm => vm.UserEmail);
             set.Bind(EnterYourPasswordForLogin).To(vm => vm.UserPassword);

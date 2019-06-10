@@ -13,9 +13,10 @@ namespace FirstApp.Core.ViewModels
     {
         #region Variables
 
-        public int _taskId;
+        public int TaskId;
+        public List<MapMarkerEntity> MarkerList;
+
         private readonly IMvxMessenger _messenger;
-        public List<MapMarkerEntity> _markerList;
 
         #endregion Variables
 
@@ -26,7 +27,7 @@ namespace FirstApp.Core.ViewModels
         {
             _messenger = messenger;
 
-            _markerList = new List<MapMarkerEntity>();
+            MarkerList = new List<MapMarkerEntity>();
 
             SaveButton = false;
             HaveGone = false;
@@ -54,8 +55,10 @@ namespace FirstApp.Core.ViewModels
                     if (userAnswer)
                     {
                         SaveMapMarkerCommand.Execute();
+
                         return;
                     }
+
                     await _navigationService.Close(this);
                 });
             }
@@ -67,17 +70,18 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    if (!_markerList.Any())
+                    if (!MarkerList.Any())
                     {
                         await _navigationService.Close(this);
+
                         return;
                     }
                     
                     await _navigationService.Close(this);
 
-                    SendMarkersMessege(_markerList);
+                    SendMarkersMessege(MarkerList);
 
-                    _markerList.Clear();
+                    MarkerList.Clear();
                 });
             }
         }
@@ -96,9 +100,9 @@ namespace FirstApp.Core.ViewModels
 
         public void SaveMarkerInList(MapMarkerEntity marker)
         {
-            marker.TaskId = _taskId;
+            marker.TaskId = TaskId;
 
-            _markerList.Add(marker);
+            MarkerList.Add(marker);
         }
 
         #endregion Methods
@@ -109,10 +113,10 @@ namespace FirstApp.Core.ViewModels
         {
             foreach (MapMarkerEntity item in data.Markers)
             {
-                _markerList.Add(item);
+                MarkerList.Add(item);
             }
 
-            _taskId = data.TaskId;
+            TaskId = data.TaskId;
         }
 
         #endregion Overrides

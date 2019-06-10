@@ -35,6 +35,7 @@ namespace FirstApp.Core.ViewModels
         #endregion Constructors
 
         #region Properties
+
         public bool HaveGone { get; set; }
 
         public bool SaveButton { get; set; }
@@ -58,9 +59,11 @@ namespace FirstApp.Core.ViewModels
                 _userPassword = value;
             }
         }
+
         #endregion Properties
 
         #region Commands  
+
         public IMvxAsyncCommand ShowMainViewModelCommand { get; private set; }
 
         public MvxAsyncCommand UserLogin
@@ -75,6 +78,7 @@ namespace FirstApp.Core.ViewModels
 
                         return;
                     }
+
                     _userDialogs.Alert(Constants.InvalidUserNameOrPassword);
                 });
             }
@@ -90,9 +94,11 @@ namespace FirstApp.Core.ViewModels
                 });
             }
         }
+
         #endregion Commands
 
         #region Methods
+
         public async Task OnAuthenticationCompleted(FacebookOAuthToken token)
         {
             FacebookUserModel user = await _facebookService.GetUserDataAsync(token.AccessToken);
@@ -105,7 +111,7 @@ namespace FirstApp.Core.ViewModels
 
             string userPhoto = await _facebookService.GetImageFromUrlToBase64(user.UserPicture.PictureData.Url);
 
-            int userId = _registrationService.SaveUserSocialNetworks(user.FirstName, user.Email, user.Id, user.LastName,
+            int userId = _registrationService.SaveUserFromSocialNetworks(user.FirstName, user.Email, user.Id, user.LastName,
                 user.UserPicture.PictureData.Url, userPhoto, LoginType.Facebook);
 
             _registrationService.UserRegistration(userId.ToString());
@@ -123,7 +129,7 @@ namespace FirstApp.Core.ViewModels
 
             string userPhoto = await _facebookService.GetImageFromUrlToBase64(user.Picture);
 
-            int userId = _registrationService.SaveUserSocialNetworks(user.First_name, user.Email, user.Id, user.Last_name, user.Picture, userPhoto, LoginType.Google);
+            int userId = _registrationService.SaveUserFromSocialNetworks(user.First_name, user.Email, user.Id, user.Last_name, user.Picture, userPhoto, LoginType.Google);
 
             _registrationService.UserRegistration(userId.ToString());
 
@@ -150,13 +156,14 @@ namespace FirstApp.Core.ViewModels
 
             string userPhoto = await _facebookService.GetImageFromUrlToBase64(user.UserImage.Url);
 
-            int userId = _registrationService.SaveUserSocialNetworks(user.UserName.GivenName, user.Emails[0].Value, 0,
+            int userId = _registrationService.SaveUserFromSocialNetworks(user.UserName.GivenName, user.Emails[0].Value, 0,
                 user.UserName.FamilyName, user.UserImage.Url, userPhoto, LoginType.Google);
 
             _registrationService.UserRegistration(userId.ToString());
 
             await _navigationService.Navigate<MainViewModel>();
         }
+
         #endregion Methods      
     }
 }

@@ -22,7 +22,7 @@ namespace FirstApp.Core.Services
             CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogIn);
         }
 
-        public int SaveUserInDbFromApp(string registrationUserName, string registrationUserPassword, string userEmail, LoginType loginType)
+        public int SaveUserFromApp(string registrationUserName, string registrationUserPassword, string userEmail, LoginType loginType)
         {
             var user = new UserDatabaseEntity
             {
@@ -39,7 +39,7 @@ namespace FirstApp.Core.Services
             return userId;
         }
 
-        public int SaveUserSocialNetworks(string registrationUserName, string userEmail, double userIdFromSocialNetworks,
+        public int SaveUserFromSocialNetworks(string registrationUserName, string userEmail, double userIdFromSocialNetworks,
             string surname, string photoUrl, string userPhoto, LoginType loginType)
         {
             var userDatabaseModel = new UserDatabaseEntity

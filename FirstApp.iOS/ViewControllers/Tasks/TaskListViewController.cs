@@ -30,7 +30,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         private void SetBind()
         {
-            var set = this.CreateBindingSet<TaskListViewController, TaskListViewModel>();
+            MvxFluentBindingDescriptionSet<TaskListViewController, TaskListViewModel> set = this.CreateBindingSet<TaskListViewController, TaskListViewModel>();
 
             set.Bind(_source).To(m => m.TaskCollection);
             set.Bind(_source).For(v => v.SelectionChangedCommand).To(vm => vm.ShowTaskChangedView);
@@ -82,7 +82,8 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             _refreshControl = new MvxUIRefreshControl();
 
-            TasksTable.RegisterNibForCellReuse(TaskCellViewController.TaskNib, TaskCellViewController.TaskKey);        
+            TasksTable.RegisterNibForCellReuse(TaskCellViewController.TaskNib, TaskCellViewController.TaskKey);     
+            
             TasksTable.Source = _source;
 
             TasksTable.AddSubview(_refreshControl);  

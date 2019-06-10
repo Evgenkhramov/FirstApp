@@ -17,15 +17,14 @@ namespace FirstApp.Core.ViewModels
     {
         #region Variables
         private MvxSubscriptionToken _mapToken;
-        private readonly CurrentPlatformType _platform;
         private TaskEntity _thisTaskEntity;
-        private MvxObservableCollection<MapMarkerEntity> MapMarkerList;
+        private MvxObservableCollection<MapMarkerEntity> _mapMarkerList;
         private MarkersData _dataForMap;
         private int _taskId;
         private readonly int _userId;
-        private readonly IFileNameService _dBFileNameService;
-        private readonly IMapMarkerService _dBMapMarkerService;
-        private readonly ITaskService _dBTaskService;
+        private readonly IFileNameService _fileNameService;
+        private readonly IMapMarkerService _mapMarkerService;
+        private readonly ITaskService _taskService;
         private readonly ICurrentPlatformService _getCurrentPlatformService;
         private readonly IMvxMessenger _mvxMessenger;
 
@@ -34,18 +33,16 @@ namespace FirstApp.Core.ViewModels
         #region Constructors
 
         public TaskDetailsViewModel(ICurrentPlatformService getCurrentPlatformService, IMvxNavigationService navigationService,
-            ITaskService dBTaskService, IMapMarkerService dBMapMarkerService, IFileNameService dBFileNameService,
+            ITaskService taskService, IMapMarkerService mapMarkerService, IFileNameService fileNameService,
             IUserDialogs userDialogs, IMvxMessenger mvxMessenger) : base(navigationService, userDialogs)
         {
             _mvxMessenger = mvxMessenger;
-            _dBMapMarkerService = dBMapMarkerService;
-            _dBTaskService = dBTaskService;
-            _dBFileNameService = dBFileNameService;
+            _mapMarkerService = mapMarkerService;
+            _taskService = taskService;
+            _fileNameService = fileNameService;
             _getCurrentPlatformService = getCurrentPlatformService;
 
             _userId = int.Parse(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
-
-            _platform = _getCurrentPlatformService.GetCurrentPlatform();
 
             _dataForMap = new MarkersData();
 
@@ -53,7 +50,7 @@ namespace FirstApp.Core.ViewModels
 
             _thisTaskEntity.UserId = _userId;
 
-            MapMarkerList = new MvxObservableCollection<MapMarkerEntity>();
+            _mapMarkerList = new MvxObservableCollection<MapMarkerEntity>();
 
             DeleteFileItemCommand = new MvxCommand<int>(RemoveFileCollectionItem);
 
@@ -172,17 +169,17 @@ namespace FirstApp.Core.ViewModels
 
                         return;
                     }
-                    if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName) && _platform == CurrentPlatformType.Android)
+                    if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName) && _getCurrentPlatformService.GetCurrentPlatform() == CurrentPlatformType.Android)
                     {
-                        SaveDataToDB(_thisTaskEntity, MapMarkerList, FileNameList);
+                        SaveData(_thisTaskEntity, _mapMarkerList, FileNameList);
 
                         await _navigationService.Navigate<TaskListViewModel>();
 
                         return;
                     }
-                    if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName) && _platform == CurrentPlatformType.iOS)
+                    if (!string.IsNullOrEmpty(TaskDescription) && !string.IsNullOrEmpty(TaskName) && _getCurrentPlatformService.GetCurrentPlatform() == CurrentPlatformType.iOS)
                     {
-                        SaveDataToDB(_thisTaskEntity, MapMarkerList, FileNameList);
+                        SaveData(_thisTaskEntity, _mapMarkerList, FileNameList);
 
                         await _navigationService.Close(this);
 
@@ -224,13 +221,13 @@ namespace FirstApp.Core.ViewModels
                         return;
                     }
 
-                    _dBFileNameService.DeleteFiles(_taskId);
-                    _dBMapMarkerService.DeleteMarkers(_taskId);
-                    _dBTaskService.DeleteTaskFromDB(_taskId);
+                    _fileNameService.DeleteFiles(_taskId);
+                    _mapMarkerService.DeleteMarkers(_taskId);
+                    _taskService.DeleteTask(_taskId);
 
                     await _navigationService.Close(this);
 
-                    if (_platform == CurrentPlatformType.Android)
+                    if (_getCurrentPlatformService.GetCurrentPlatform() == CurrentPlatformType.Android)
                     {
                         await _navigationService.Navigate<TaskListViewModel>();
                     }
@@ -248,41 +245,45 @@ namespace FirstApp.Core.ViewModels
         {
             FileNameList = new MvxObservableCollection<FileRequestModel>() { };
 
-            List<FileListEntity> list = GetFileNameListFromDB(_taskId);
+            List<FileListEntity> list = GetFileNameList(_taskId);
 
             foreach (var item in list)
             {
-                FileRequestModel element = new FileRequestModel();
-
-                element.Id = item.Id;
-                element.TaskId = item.TaskId;
-                element.FileName = item.FileName;
-                element.VmHandler = this;
+                FileRequestModel element = new FileRequestModel
+                {
+                    Id = item.Id,
+                    TaskId = item.TaskId,
+                    FileName = item.FileName,
+                    VmHandler = this
+                };
 
                 FileNameList.Add(element);
             }
         }
 
-        private void SaveDataToDB(TaskEntity task, MvxObservableCollection<MapMarkerEntity> mapMarkerList, MvxObservableCollection<FileRequestModel> fileNameList)
+        private void SaveData(TaskEntity task, MvxObservableCollection<MapMarkerEntity> mapMarkerList, MvxObservableCollection<FileRequestModel> fileNameList)
         {
-            _dBTaskService.AddTaskToTable(task);
+            _taskService.AddTaskToTable(task);
 
             _taskId = task.Id;
 
             if (mapMarkerList.Any())
             {
+                _mapMarkerService.DeleteMarkers(_taskId);
+
                 foreach (MapMarkerEntity item in mapMarkerList)
                 {
                     item.TaskId = _taskId;
 
-                    _dBMapMarkerService.InsertMarker(item);
+                    _mapMarkerService.InsertMarker(item);
                 }
+
                 mapMarkerList.Clear();
             }
 
             List<FileListEntity> fileList = new List<FileListEntity>();
 
-            fileList = PrepareFileListForDB(fileNameList);
+            fileList = PrepareFileListToSave(fileNameList);
 
             if (fileList.Any())
             {
@@ -290,16 +291,17 @@ namespace FirstApp.Core.ViewModels
                 {
                     item.TaskId = _taskId;
 
-                    _dBFileNameService.AddFileNameToTable(item);
+                    _fileNameService.AddFileNameToTable(item);
                 }
+
                 fileList.Clear();
                 fileNameList.Clear();
             }
         }
 
-        public List<FileListEntity> GetFileNameListFromDB(int taskId)
+        public List<FileListEntity> GetFileNameList(int taskId)
         {
-            List<FileListEntity> list = _dBFileNameService.GetFileNameList(taskId);
+            List<FileListEntity> list = _fileNameService.GetFileNameList(taskId);
 
             return list;
         }
@@ -318,19 +320,26 @@ namespace FirstApp.Core.ViewModels
 
         public void RemoveFileCollectionItem(int itemId)
         {
-            _dBFileNameService.DeleteFileName(itemId);
+            _fileNameService.DeleteFileName(itemId);
 
-            FileRequestModel _itemForDelete = FileNameList.FirstOrDefault(x=>x.Id == itemId);
+            FileRequestModel itemForDelete = FileNameList.FirstOrDefault(x => x.Id == itemId);
 
-            FileNameList.Remove(item: _itemForDelete);
+            if (itemForDelete == null)
+            {
+                _userDialogs.Alert(Constants.ItemNotFound);
+
+                return;
+            }
+
+            FileNameList.Remove(item: itemForDelete);
         }
 
         public void UpdateMarkersCounter()
         {
-            MarkersCounter = MapMarkerList.Count.ToString();
+            MarkersCounter = _mapMarkerList.Count.ToString();
         }
 
-        private List<FileListEntity> PrepareFileListForDB(MvxObservableCollection<FileRequestModel> requestList)
+        private List<FileListEntity> PrepareFileListToSave(MvxObservableCollection<FileRequestModel> requestList)
         {
             List<FileListEntity> list = new List<FileListEntity>();
 
@@ -378,7 +387,8 @@ namespace FirstApp.Core.ViewModels
             _taskId = parametr.Id;
             TaskName = parametr.TaskName;
             TaskDescription = parametr.TaskDescription;
-            MapMarkerList.AddRange(_dBMapMarkerService.GetMarkerList(_taskId));
+
+            _mapMarkerList.AddRange(_mapMarkerService.GetMarkerList(_taskId));
 
             UpdateMarkersCounter();
 
@@ -387,11 +397,11 @@ namespace FirstApp.Core.ViewModels
 
         private void GetMarkersFromMessage(MarkersMessage markersList)
         {
-            MapMarkerList.Clear();
+            _mapMarkerList.Clear();
 
             foreach (MapMarkerEntity item in markersList.MarkerMessegeList)
             {
-                MapMarkerList.Add(item);
+                _mapMarkerList.Add(item);
             }
 
             UpdateMarkersCounter();
@@ -401,14 +411,14 @@ namespace FirstApp.Core.ViewModels
 
         public override void ViewDisappeared()
         {
-            MapMarkerList.Clear();
+            _mapMarkerList.Clear();
             base.ViewDisappeared();
         }
         public override void ViewAppeared()
         {
             base.ViewAppeared();
 
-            _dataForMap.Markers.AddRange(MapMarkerList);
+            _dataForMap.Markers.AddRange(_mapMarkerList);
         }
 
         #endregion Overrides

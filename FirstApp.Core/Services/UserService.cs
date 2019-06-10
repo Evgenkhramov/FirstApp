@@ -62,6 +62,7 @@ namespace FirstApp.Core.Services
                 _userRepository.UpdateItem(item);
                 return item.Id;
             }
+
             _userRepository.InsertItem(item);
 
             return item.Id;

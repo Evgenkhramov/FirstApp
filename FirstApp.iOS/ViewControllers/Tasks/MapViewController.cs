@@ -7,6 +7,7 @@ using MapKit;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Views;
 using System.Collections.Generic;
+using System.Linq;
 using UIKit;
 
 namespace FirstApp.iOS.ViewControllers.Tasks
@@ -15,12 +16,12 @@ namespace FirstApp.iOS.ViewControllers.Tasks
     {
         #region Variables
 
-        public List<MapMarkerEntity> MarkerListFromDB;
+        public List<MapMarkerEntity> MarkerListFromRepository;
 
         private IUICoordinateSpace _coordinateSpace;
         private CLLocationManager _locationManager;
         private MapMarkerEntity _marcerRow;
-        private MKMapView _map;
+        private readonly MKMapView _map;
 
         #endregion Variables
 
@@ -32,7 +33,9 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             _coordinateSpace = _map.CoordinateSpace;
             _map.ZoomEnabled = true;
             _map.ScrollEnabled = true;
-            MarkerListFromDB = new List<MapMarkerEntity>();
+
+            MarkerListFromRepository = new List<MapMarkerEntity>();
+
             _marcerRow = new MapMarkerEntity();
         }
 
@@ -100,11 +103,11 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             _map.ShowsUserLocation = true;
 
-            MarkerListFromDB = ViewModel._markerList;
+            MarkerListFromRepository = ViewModel.MarkerList;
 
-            if (MarkerListFromDB != null && MarkerListFromDB.Count > 0)
+            if (MarkerListFromRepository.Any())
             {
-                foreach (MapMarkerEntity coord in MarkerListFromDB)
+                foreach (MapMarkerEntity coord in MarkerListFromRepository)
                 {
                     _map.AddAnnotations(new MKPointAnnotation()
                     {

@@ -34,7 +34,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         private void SetBind()
         {
-            var set = this.CreateBindingSet<RegistrationViewController, RegistrationViewModel>();
+            MvxFluentBindingDescriptionSet<RegistrationViewController, RegistrationViewModel> set = this.CreateBindingSet<RegistrationViewController, RegistrationViewModel>();
 
             set.Bind(UserName).To(vm => vm.RegistrationUserName);
             set.Bind(UserEmail).To(vm => vm.RegistrationEmail);
@@ -51,6 +51,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             _activeview = ScrollViewTopHelper.GetActiveView(View);
 
             CGRect keyBourdSize = UIKeyboard.BoundsFromNotification(notification);
+
             _scrollAmount = ScrollViewTopHelper.GetScrollAmount(_activeview, keyBourdSize);
 
             if (_scrollAmount <= default(float))

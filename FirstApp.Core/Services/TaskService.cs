@@ -21,10 +21,11 @@ namespace FirstApp.Core.Services
 
                 return;
             }
+
             _taskRepository.UpdateTask(task);
         }
 
-        public void DeleteTaskFromDB(int taskId)
+        public void DeleteTask(int taskId)
         {
             if (taskId >= default(int))
             {

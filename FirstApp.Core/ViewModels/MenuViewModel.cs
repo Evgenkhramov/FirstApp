@@ -15,7 +15,7 @@ namespace FirstApp.Core.ViewModels
 
         #region Variables
 
-        private readonly IUserService _dBUserService;
+        private readonly IUserService _userService;
         private readonly int _userId;
         private UserDatabaseEntity _userData;
 
@@ -23,13 +23,13 @@ namespace FirstApp.Core.ViewModels
 
         #region Constructors
 
-        public MenuViewModel(IUserService dBUserService, IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
+        public MenuViewModel(IUserService userService, IMvxNavigationService navigationService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
-            _dBUserService = dBUserService;
+            _userService = userService;
 
             _userId = Convert.ToInt32(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
 
-            _userData = _dBUserService.GetItem(_userId);
+            _userData = _userService.GetItem(_userId);
 
             MyIcon = _userData.Photo;
 
@@ -94,7 +94,7 @@ namespace FirstApp.Core.ViewModels
                     CrossSecureStorage.Current.DeleteKey(_userId.ToString());
                     CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogOut);
 
-                    _dBUserService.DeleteItem(_userId);
+                    _userService.DeleteItem(_userId);
 
                     await _navigationService.Close(this);
                     await _navigationService.Navigate(param.ShowCommand);
@@ -117,7 +117,7 @@ namespace FirstApp.Core.ViewModels
 
         public void UpdateData()
         {
-            _userData = _dBUserService.GetItem(_userId);
+            _userData = _userService.GetItem(_userId);
 
             MyIcon = _userData.Photo;
             MyName = $"{_userData.Name} {_userData.Surname}";
