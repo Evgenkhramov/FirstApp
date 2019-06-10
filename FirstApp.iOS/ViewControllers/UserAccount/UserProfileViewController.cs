@@ -44,7 +44,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
         private void SetBind()
         {
-            var set = this.CreateBindingSet<UserProfileViewController, UserDataViewModel>();
+            MvxFluentBindingDescriptionSet<UserProfileViewController, UserDataViewModel> set = this.CreateBindingSet<UserProfileViewController, UserDataViewModel>();
 
             set.Bind(UserName).To(vm => vm.UserName);
             set.Bind(UserSurname).To(vm => vm.Surname);

@@ -20,6 +20,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         public FileTVS(UITableView tableView) : base(tableView)
         {
             _fileCellIdentifier = new NSString(Constants.FileItemCell);
+
             tableView.RegisterNibForCellReuse(UINib.FromName(Constants.FileItemCell, NSBundle.MainBundle), _fileCellIdentifier);
         }
 

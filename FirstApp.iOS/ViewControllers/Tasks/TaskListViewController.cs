@@ -50,7 +50,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             NavigationItem.SetRightBarButtonItems(new UIBarButtonItem[] { new UIBarButtonItem(_addTask) }, false);
 
-            var set = this.CreateBindingSet<TaskListViewController, TaskListViewModel>();
+            MvxFluentBindingDescriptionSet<TaskListViewController, TaskListViewModel> set = this.CreateBindingSet<TaskListViewController, TaskListViewModel>();
             set.Bind(_addTask).To(vm => vm.CreateNewTask);
             set.Apply();
         }
