@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace FirstApp.Core.Interfaces
 {
-    public interface IFileNameRepository
+    public interface IFileNameRepository : IBaseRepository<FileListEntity>
     {
-        void Insert(FileListEntity fileName);
         List<FileListEntity> Get(int taskId);
         void DeleteFiles(int taskId);
         void Delete(int fileId);

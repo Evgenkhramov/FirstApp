@@ -3,10 +3,9 @@ using System.Collections.Generic;
 
 namespace FirstApp.Core.Interfaces
 {
-    public interface IMarkersRepository
+    public interface IMarkersRepository : IBaseRepository<MapMarkerEntity>
     {
         void InsertMarkers(List<MapMarkerEntity> list);
-        void Insert(MapMarkerEntity marker);
         List<MapMarkerEntity> GetMarkersList(int taskId);
         void DeleteMarkers(int taskId);
     }

@@ -5,20 +5,15 @@ using System.Collections.Generic;
 
 namespace FirstApp.Core.Repository
 {
-    public class SQLiteFileRepository : IFileNameRepository, IBaseRepository<FileListEntity>
+    public class SQLiteFileRepository : BaseRepository<FileListEntity>, IFileNameRepository
     {
         private readonly SQLiteConnection _connect;
 
-        public SQLiteFileRepository(IConnectionService connecting)
+        public SQLiteFileRepository(IConnectionService connecting):base(connecting)
         {
             _connect = connecting.GetDatebaseConnection();
 
             _connect.CreateTable<FileListEntity>();
-        }
-
-        public void Insert(FileListEntity fileName)
-        {
-            _connect.Insert(fileName);
         }
 
         public List<FileListEntity> Get(int taskId)
@@ -38,24 +33,9 @@ namespace FirstApp.Core.Repository
             _connect.Delete<FileListEntity>(fileId);
         }
 
-        public void Update(FileListEntity entity)
-        {
-            _connect.Update(entity);
-        }
-
-        public void Delete(FileListEntity entity)
-        {
-            _connect.Delete(entity);
-        }
-
         FileListEntity IBaseRepository<FileListEntity>.GetById(int id)
         {
             return _connect.Table<FileListEntity>().Where(i => i.Id == id).FirstOrDefault();
-        }
-
-        public void Dispose()
-        {
-
         }
     }
 }

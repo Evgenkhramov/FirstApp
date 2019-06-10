@@ -5,19 +5,14 @@ using System.Collections.Generic;
 
 namespace FirstApp.Core.Repository
 {
-    public class SQLiteMapMarkersRepository : IMarkersRepository, IBaseRepository<MapMarkerEntity>
+    public class SQLiteMapMarkersRepository : BaseRepository<MapMarkerEntity>, IMarkersRepository
     {
         private readonly SQLiteConnection _connect;
 
-        public SQLiteMapMarkersRepository(IConnectionService connecting)
+        public SQLiteMapMarkersRepository(IConnectionService connecting) : base(connecting)
         {
             _connect = connecting.GetDatebaseConnection();
             _connect.CreateTable<MapMarkerEntity>();
-        }
-
-        public void Insert(MapMarkerEntity marker)
-        {
-            _connect.Insert(marker);
         }
 
         public void InsertMarkers(List<MapMarkerEntity> list)
@@ -35,26 +30,6 @@ namespace FirstApp.Core.Repository
         public void DeleteMarkers(int taskId)
         {
             _connect.Table<MapMarkerEntity>().Where(x => x.TaskId == taskId);
-        }
-
-        public MapMarkerEntity GetById(int id)
-        {
-            return _connect.Get<MapMarkerEntity>(id);
-        }
-
-        public void Update(MapMarkerEntity entity)
-        {
-            _connect.Update(entity);
-        }
-
-        public void Delete(MapMarkerEntity entity)
-        {
-            _connect.Delete(entity);
-        }
-
-        public void Dispose()
-        {
-            
         }
     }
 }

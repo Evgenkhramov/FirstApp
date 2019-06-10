@@ -47,23 +47,23 @@ namespace FirstApp.Core.Services
 
         public UserDatabaseEntity GetItem(int id)
         {
-            return _userRepository.GetItem(id);
+            return _userRepository.GetById(id);
         }
 
         public int DeleteItem(int id)
         {
-            return _userRepository.DeleteItem(id);
+            return _userRepository.Delete(id);
         }
 
         public int SaveItem(UserDatabaseEntity item)
         {
             if (item.Id != default(int))
             {
-                _userRepository.UpdateItem(item);
+                _userRepository.Update(item);
                 return item.Id;
             }
 
-            _userRepository.InsertItem(item);
+            _userRepository.Insert(item);
 
             return item.Id;
         }

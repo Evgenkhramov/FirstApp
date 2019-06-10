@@ -32,7 +32,7 @@ namespace FirstApp.Core.Services
                 TypeUserLogin = LoginType.App
             };
 
-            _userRepository.InsertItem(user);
+            _userRepository.Insert(user);
 
             int userId = user.Id;
 
@@ -53,7 +53,7 @@ namespace FirstApp.Core.Services
                 TypeUserLogin = LoginType.App
             };
 
-            _userRepository.InsertItem(userDatabaseModel);
+            _userRepository.Insert(userDatabaseModel);
 
             int userId = userDatabaseModel.Id;
 

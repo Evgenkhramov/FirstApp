@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace FirstApp.Core.Repository
 {
-    public class SQLiteUserRepository : BaseRepository<UserDatabaseEntity>, IUserRepository, IBaseRepository<UserDatabaseEntity>
+    public class SQLiteUserRepository : BaseRepository<UserDatabaseEntity>, IUserRepository
     {
         private SQLiteConnection _connecting;
 
@@ -36,27 +36,10 @@ namespace FirstApp.Core.Repository
             return isEmail;
         }
 
-        public UserDatabaseEntity GetItem(int id)
+        public void Delete(int id)
         {
-            UserDatabaseEntity user = new UserDatabaseEntity();
-            return user = _connecting.Get<UserDatabaseEntity>(id);
+           _connecting.Delete<UserDatabaseEntity>(id);
         }
-
-        public int DeleteItem(int id)
-        {
-            return _connecting.Delete<UserDatabaseEntity>(id);
-        }
-
-        public void UpdateItem(UserDatabaseEntity item)
-        {
-            _connecting.Update(item);
-        }
-
-        public void InsertItem(UserDatabaseEntity item)
-        {
-            _connecting.Insert(item);
-        }
-
     }
 }
 

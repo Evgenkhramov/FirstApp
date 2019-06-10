@@ -15,16 +15,6 @@ namespace FirstApp.Core.Repository
             _connect.CreateTable<TaskEntity>();
         }
 
-        public void Insert(TaskEntity task)
-        {
-            _connect.Insert(task);
-        }
-
-        public void Update(TaskEntity task)
-        {
-            _connect.Update(task);
-        }
-
         public void DeleteTask(int taskId)
         {
             _connect.Delete<TaskEntity>(taskId);
@@ -42,21 +32,6 @@ namespace FirstApp.Core.Repository
             List<TaskEntity> taskList = _connect.Table<TaskEntity>().Where(x => x.UserId == userId).ToList();
 
             return taskList;
-        }
-
-        public TaskEntity GetById(int id)
-        {
-            return _connect.Get<TaskEntity>(id);
-        }
-
-        public void Delete(TaskEntity entity)
-        {
-            _connect.Delete(entity);
-        }
-
-        public void Dispose()
-        {
-
         }
     }
 }
