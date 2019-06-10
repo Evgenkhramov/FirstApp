@@ -5,22 +5,22 @@ using System.Collections.Generic;
 
 namespace FirstApp.Core.Repository
 {
-    class SQLiteTaskRepository : ITaskRepository
+    class SQLiteTaskRepository : BaseRepository<TaskEntity>, ITaskRepository
     {
         private readonly SQLiteConnection _connect;
 
-        public SQLiteTaskRepository(IConnectionService connecting)
+        public SQLiteTaskRepository(IConnectionService connecting) : base(connecting)
         {
             _connect = connecting.GetDatebaseConnection();
             _connect.CreateTable<TaskEntity>();
         }
 
-        public void InsertTask(TaskEntity task)
+        public void Insert(TaskEntity task)
         {
             _connect.Insert(task);
         }
 
-        public void UpdateTask(TaskEntity task)
+        public void Update(TaskEntity task)
         {
             _connect.Update(task);
         }
@@ -42,6 +42,21 @@ namespace FirstApp.Core.Repository
             List<TaskEntity> taskList = _connect.Table<TaskEntity>().Where(x => x.UserId == userId).ToList();
 
             return taskList;
+        }
+
+        public TaskEntity GetById(int id)
+        {
+            return _connect.Get<TaskEntity>(id);
+        }
+
+        public void Delete(TaskEntity entity)
+        {
+            _connect.Delete(entity);
+        }
+
+        public void Dispose()
+        {
+
         }
     }
 }

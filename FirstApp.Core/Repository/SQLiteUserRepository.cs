@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace FirstApp.Core.Repository
 {
-    public class SQLiteUserRepository : IUserRepository
+    public class SQLiteUserRepository : BaseRepository<UserDatabaseEntity>, IUserRepository, IBaseRepository<UserDatabaseEntity>
     {
         private SQLiteConnection _connecting;
 
-        public SQLiteUserRepository(IConnectionService connect)
+        public SQLiteUserRepository(IConnectionService connect) : base(connect)
         {
             _connecting = connect.GetDatebaseConnection();
 
@@ -38,7 +38,7 @@ namespace FirstApp.Core.Repository
 
         public UserDatabaseEntity GetItem(int id)
         {
-            UserDatabaseEntity user = new UserDatabaseEntity(); 
+            UserDatabaseEntity user = new UserDatabaseEntity();
             return user = _connecting.Get<UserDatabaseEntity>(id);
         }
 
@@ -56,6 +56,7 @@ namespace FirstApp.Core.Repository
         {
             _connecting.Insert(item);
         }
+
     }
 }
 

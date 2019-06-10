@@ -17,12 +17,12 @@ namespace FirstApp.Core.Services
         {
             if (task.Id == default(int))
             {
-                _taskRepository.InsertTask(task);
+                _taskRepository.Insert(task);
 
                 return;
             }
 
-            _taskRepository.UpdateTask(task);
+            _taskRepository.Update(task);
         }
 
         public void DeleteTask(int taskId)

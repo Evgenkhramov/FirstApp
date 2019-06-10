@@ -15,7 +15,7 @@ namespace FirstApp.Core.Services
 
         public void InsertMarker(MapMarkerEntity marker)
         {
-            _markersRepository.InsertMarker(marker);
+            _markersRepository.Insert(marker);
         }
 
         public void UpdateMarkers(List<MapMarkerEntity> list)

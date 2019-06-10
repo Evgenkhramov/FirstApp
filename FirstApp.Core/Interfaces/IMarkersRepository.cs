@@ -6,7 +6,7 @@ namespace FirstApp.Core.Interfaces
     public interface IMarkersRepository
     {
         void InsertMarkers(List<MapMarkerEntity> list);
-        void InsertMarker(MapMarkerEntity marker);
+        void Insert(MapMarkerEntity marker);
         List<MapMarkerEntity> GetMarkersList(int taskId);
         void DeleteMarkers(int taskId);
     }

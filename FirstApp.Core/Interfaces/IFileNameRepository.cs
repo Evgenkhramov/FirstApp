@@ -5,9 +5,9 @@ namespace FirstApp.Core.Interfaces
 {
     public interface IFileNameRepository
     {
-        void InsertFileName(FileListEntity fileName);
-        List<FileListEntity> GetFileNameList(int taskId);
-        void DeleteFileNameList(int taskId);
-        void DeleteFileName(int fileId);
+        void Insert(FileListEntity fileName);
+        List<FileListEntity> Get(int taskId);
+        void DeleteFiles(int taskId);
+        void Delete(int fileId);
     }
 }

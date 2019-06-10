@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FirstApp.Core.Repository
 {
-    public class SQLiteFileRepository : IFileNameRepository
+    public class SQLiteFileRepository : IFileNameRepository, IBaseRepository<FileListEntity>
     {
         private readonly SQLiteConnection _connect;
 
@@ -16,26 +16,46 @@ namespace FirstApp.Core.Repository
             _connect.CreateTable<FileListEntity>();
         }
 
-        public void InsertFileName(FileListEntity fileName)
+        public void Insert(FileListEntity fileName)
         {
             _connect.Insert(fileName);
         }
 
-        public List<FileListEntity> GetFileNameList(int taskId)
+        public List<FileListEntity> Get(int taskId)
         {
             List<FileListEntity> list = _connect.Table<FileListEntity>().Where(x => x.TaskId == taskId).ToList();
 
             return list;
         }
 
-        public void DeleteFileNameList(int taskId)
+        public void DeleteFiles(int taskId)
         {
-            _connect.Query<FileListEntity>($"DELETE FROM FileName WHERE TaskId = {taskId}");
+            _connect.Table<FileListEntity>().Where(x => x.TaskId == taskId).Delete();
         }
 
-        public void DeleteFileName(int fileId)
+        public void Delete(int fileId)
         {
             _connect.Delete<FileListEntity>(fileId);
+        }
+
+        public void Update(FileListEntity entity)
+        {
+            _connect.Update(entity);
+        }
+
+        public void Delete(FileListEntity entity)
+        {
+            _connect.Delete(entity);
+        }
+
+        FileListEntity IBaseRepository<FileListEntity>.GetById(int id)
+        {
+            return _connect.Table<FileListEntity>().Where(i => i.Id == id).FirstOrDefault();
+        }
+
+        public void Dispose()
+        {
+
         }
     }
 }

@@ -15,24 +15,24 @@ namespace FirstApp.Core.Services
 
         public void AddFileNameToTable(FileListEntity fileName)
         {
-            _fileNameRepositoryService.InsertFileName(fileName);
+            _fileNameRepositoryService.Insert(fileName);
         }
 
         public List<FileListEntity> GetFileNameList(int taskId)
         {
-            List<FileListEntity> list = _fileNameRepositoryService.GetFileNameList(taskId);
+            List<FileListEntity> list = _fileNameRepositoryService.Get(taskId);
 
             return list;
         }
 
         public void DeleteFiles(int taskId)
         {
-            _fileNameRepositoryService.DeleteFileNameList(taskId);
+            _fileNameRepositoryService.DeleteFiles(taskId);
         }
 
         public void DeleteFileName(int fileId)
         {
-            _fileNameRepositoryService.DeleteFileName(fileId);
+            _fileNameRepositoryService.Delete(fileId);
         }
     }
 }
