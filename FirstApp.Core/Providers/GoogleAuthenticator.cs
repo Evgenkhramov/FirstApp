@@ -24,9 +24,9 @@ namespace FirstApp.Core.Providers
                                             new Uri(ACCESS_TOKEN_URL),
                                             null, IS_USING_NATIVE_UI);
 
-            _authAuthenticator.Completed += OnAuthenticationCompleted;
+            _authAuthenticator.Completed += ProcessAuthenticationCompleted;
 
-            _authAuthenticator.Error += OnAuthenticationFailed;
+            _authAuthenticator.Error += ProcessAuthenticationFailed;
         }
 
         public OAuth2Authenticator GetAuthenticator()
@@ -34,16 +34,16 @@ namespace FirstApp.Core.Providers
             return _authAuthenticator;
         }
 
-        public void OnPageLoading(Uri uri)
+        public void ProcessPageLoading(Uri uri)
         {
             _authAuthenticator.OnPageLoading(uri);
         }
 
-        private void OnAuthenticationCompleted(object sender, AuthenticatorCompletedEventArgs eventArgs)
+        private void ProcessAuthenticationCompleted(object sender, AuthenticatorCompletedEventArgs eventArgs)
         {
             if (!eventArgs.IsAuthenticated)
             {
-                _authenticationDelegate.OnAuthenticationCanceled();
+                _authenticationDelegate.ProcessAuthenticationCanceled();
                 return;
             }
 
@@ -53,18 +53,18 @@ namespace FirstApp.Core.Providers
                 AccessToken = eventArgs.Account.Properties[Constants.AccessToken]
             };
 
-            _authenticationDelegate.OnAuthenticationCompleted(token);
+            _authenticationDelegate.ProcessAuthenticationCompleted(token);
         }
 
-        private void OnAuthenticationFailed(object sender, AuthenticatorErrorEventArgs eventArgs)
+        private void ProcessAuthenticationFailed(object sender, AuthenticatorErrorEventArgs eventArgs)
         {
-            _authenticationDelegate.OnAuthenticationFailed(eventArgs.Message, eventArgs.Exception);      
+            _authenticationDelegate.ProcessAuthenticationFailed(eventArgs.Message, eventArgs.Exception);      
         }
 
         public void Dispose()
         {
-            _authAuthenticator.Completed -= OnAuthenticationCompleted;
-            _authAuthenticator.Error -= OnAuthenticationFailed;
+            _authAuthenticator.Completed -= ProcessAuthenticationCompleted;
+            _authAuthenticator.Error -= ProcessAuthenticationFailed;
         }
     }
 }

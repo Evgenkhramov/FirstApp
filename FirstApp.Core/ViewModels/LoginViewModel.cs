@@ -72,7 +72,7 @@ namespace FirstApp.Core.ViewModels
             {
                 return new MvxAsyncCommand(async () =>
                 {
-                    if (_authorizationService.IsLoggedIn(UserEmail, UserPassword))
+                    if (_authorizationService.CheckLoggedIn(UserEmail, UserPassword))
                     {
                         await _navigationService.Navigate<MainViewModel>();
 
@@ -99,7 +99,7 @@ namespace FirstApp.Core.ViewModels
 
         #region Methods
 
-        public async Task OnAuthenticationCompleted(FacebookOAuthToken token)
+        public async Task ProcessAuthenticationCompleted(FacebookOAuthToken token)
         {
             FacebookUserModel user = await _facebookService.GetUserDataAsync(token.AccessToken);
 
@@ -114,7 +114,7 @@ namespace FirstApp.Core.ViewModels
             int userId = _registrationService.SaveUserFromSocialNetworks(user.FirstName, user.Email, user.Id, user.LastName,
                 user.UserPicture.PictureData.Url, userPhoto, LoginType.Facebook);
 
-            _registrationService.UserRegistration(userId.ToString());
+            _registrationService.SaveDataInSequreStorage(userId.ToString());
 
             await _navigationService.Navigate<MainViewModel>();
         }
@@ -131,17 +131,17 @@ namespace FirstApp.Core.ViewModels
 
             int userId = _registrationService.SaveUserFromSocialNetworks(user.First_name, user.Email, user.Id, user.Last_name, user.Picture, userPhoto, LoginType.Google);
 
-            _registrationService.UserRegistration(userId.ToString());
+            _registrationService.SaveDataInSequreStorage(userId.ToString());
 
             await _navigationService.Navigate<MainViewModel>();
         }
 
-        public async Task OnAuthenticationCanceled()
+        public async Task ProcessAuthenticationCanceled()
         {
             await _userDialogs.AlertAsync(Constants.DidNotComplite);
         }
 
-        public async Task OnAuthenticationFailed()
+        public async Task ProcessAuthenticationFailed()
         {
             await _userDialogs.AlertAsync(Constants.DidNotComplite);
         }
@@ -159,7 +159,7 @@ namespace FirstApp.Core.ViewModels
             int userId = _registrationService.SaveUserFromSocialNetworks(user.UserName.GivenName, user.Emails[0].Value, 0,
                 user.UserName.FamilyName, user.UserImage.Url, userPhoto, LoginType.Google);
 
-            _registrationService.UserRegistration(userId.ToString());
+            _registrationService.SaveDataInSequreStorage(userId.ToString());
 
             await _navigationService.Navigate<MainViewModel>();
         }

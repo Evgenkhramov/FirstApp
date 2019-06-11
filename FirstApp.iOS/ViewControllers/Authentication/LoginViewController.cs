@@ -18,10 +18,8 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         public static GoogleAuthenticator GoogleAuthenticator;
 
-        private GoogleUserModeliOS _googleUser = new GoogleUserModeliOS();
+        private GoogleUserModeliOS _googleUser;
         private FacebookAuthenticator _facebookAuthenticator;
-
-        private static int GET_ACCOUNTS;
 
         #endregion Variables
 
@@ -29,14 +27,14 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         public LoginViewController() : base(nameof(LoginViewController), null)
         {
-            GET_ACCOUNTS = 0;
+            _googleUser = new GoogleUserModeliOS();
         }
 
         #endregion Constructors
 
         #region Methods
 
-        private void OnGoogleLoginButtonClicked(object sender, EventArgs e)
+        private void StartGoogleAuth(object sender, EventArgs e)
         {
             Xamarin.Auth.OAuth2Authenticator authentificator = GoogleAuthenticator.GetAuthenticator();
             UIViewController viewController = authentificator.GetUI();
@@ -44,7 +42,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             PresentViewController(viewController, true, null);
         }
 
-        public async void OnAuthenticationCompleted(GoogleOAuthToken token)
+        public async void ProcessAuthenticationCompleted(GoogleOAuthToken token)
         {
             DismissViewController(true, null);
 
@@ -54,7 +52,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             await ViewModel.SaveUserGoogleiOS(_googleUser);
         }
 
-        public void OnAuthenticationCanceled()
+        public void ProcessAuthenticationCanceled()
         {
             DismissViewController(true, null);
 
@@ -73,7 +71,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             DismissViewController(true, null);
         }
 
-        public void OnAuthenticationFailed(string message, Exception exception)
+        public void ProcessAuthenticationFailed(string message, Exception exception)
         {
             DismissViewController(true, null);
 
@@ -92,7 +90,7 @@ namespace FirstApp.iOS.ViewControllers.Authentication
             DismissViewController(true, null);
         }
 
-        private void OnFacebookLoginButtonClicked(object sender, EventArgs e)
+        private void StartFacebookAuth(object sender, EventArgs e)
         {
             _facebookAuthenticator = new FacebookAuthenticator(Configuration.ClientId, Configuration.Scope, ViewModel);
 
@@ -129,9 +127,9 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
             GoogleAuthenticator = new GoogleAuthenticator(Configuration.ClientIdGoogle, Configuration.GoogleScope, Configuration.iOSRedirectUrlGoogle, this);
 
-            FacebookButton.TouchUpInside += OnFacebookLoginButtonClicked;
+            FacebookButton.TouchUpInside += StartFacebookAuth;
 
-            GoogleButton.TouchUpInside += OnGoogleLoginButtonClicked;        
+            GoogleButton.TouchUpInside += StartGoogleAuth;        
 
             EnterYourEmail.ShouldReturn = (textField) =>
             {
@@ -159,9 +157,9 @@ namespace FirstApp.iOS.ViewControllers.Authentication
 
         public override void ViewDidUnload()
         {
-            FacebookButton.TouchUpInside -= OnFacebookLoginButtonClicked;
+            FacebookButton.TouchUpInside -= StartFacebookAuth;
 
-            GoogleButton.TouchUpInside -= OnGoogleLoginButtonClicked;
+            GoogleButton.TouchUpInside -= StartGoogleAuth;
 
             base.ViewDidUnload();
         }

@@ -16,7 +16,7 @@ namespace FirstApp.Core.Services
             _userRepository = userRepository;
         }
 
-        public void UserRegistration(string id)
+        public void SaveDataInSequreStorage(string id)
         {
             CrossSecureStorage.Current.SetValue(Constants.SequreKeyForUserIdInDB, id);
             CrossSecureStorage.Current.SetValue(Constants.SequreKeyForLoged, Constants.LogIn);

@@ -27,10 +27,12 @@ namespace FirstApp.Core.Services
 
         public void DeleteTask(int taskId)
         {
-            if (taskId >= default(int))
+            if (taskId < default(int))
             {
-                _taskRepository.DeleteTask(taskId);
+                return;
             }
+
+            _taskRepository.DeleteTask(taskId);
         }
 
         public List<TaskEntity> GetListAllTasks()

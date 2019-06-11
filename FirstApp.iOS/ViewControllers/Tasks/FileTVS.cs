@@ -26,6 +26,12 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         #endregion Constructors
 
+        #region Commands  
+
+        public ICommand DeleteRowCommandiOS { get; set; }
+
+        #endregion Commands
+
         #region Overrides
 
         protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
@@ -61,11 +67,5 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         }
 
         #endregion Overrides
-
-        #region Commands  
-
-        public ICommand DeleteRowCommandiOS { get; set; }
-
-        #endregion Commands
     }
 }

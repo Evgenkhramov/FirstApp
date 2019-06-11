@@ -17,7 +17,6 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         private UIButton _backButton;
         private FileTVS _source;
-        private MvxUIRefreshControl _refreshControl;
 
         #endregion Variables
 
@@ -25,6 +24,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         public TaskDetailsViewController() : base(nameof(TaskDetailsViewController), null)
         {
+            Title = Constants.TaskDetails;
         }
 
         #endregion Constructors
@@ -100,8 +100,6 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
             SetupNavigationBar();
 
-            Title = Constants.TaskDetails;
-
             TaskName.ShouldReturn = (textField) =>
             {
                 textField.ResignFirstResponder();
@@ -113,8 +111,6 @@ namespace FirstApp.iOS.ViewControllers.Tasks
                 textField.ResignFirstResponder();
                 return true;
             };
-
-            _refreshControl = new MvxUIRefreshControl();
 
             FileTabelView.RegisterNibForCellReuse(FileItemCellViewController.FileNib, FileItemCellViewController.FileKey);
 

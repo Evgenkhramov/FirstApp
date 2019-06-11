@@ -364,6 +364,7 @@ namespace FirstApp.Core.ViewModels
         public override async Task Initialize()
         {
             await base.Initialize();
+
             if (_taskId == 0)
             {
                 TaskName = null;
@@ -412,6 +413,7 @@ namespace FirstApp.Core.ViewModels
         public override void ViewDisappeared()
         {
             _mapMarkerList.Clear();
+
             base.ViewDisappeared();
         }
         public override void ViewAppeared()

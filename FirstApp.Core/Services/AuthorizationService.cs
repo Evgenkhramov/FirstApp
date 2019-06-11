@@ -6,21 +6,21 @@ namespace FirstApp.Core.Services
 {
     public class AuthorizationService : IAuthorizationService
     {
-        private readonly IUserService _dBUserService;
+        private readonly IUserService _userService;
 
-        public AuthorizationService(IUserService dBUserService)
+        public AuthorizationService(IUserService userService)
         {
-            _dBUserService = dBUserService;
+            _userService = userService;
         }
 
-        public bool IsLoggedIn(string userEmail, string userPassword)
+        public bool CheckLoggedIn(string userEmail, string userPassword)
         {
-            if (!_dBUserService.IsUserRegistrated(userEmail, userPassword))
+            if (!_userService.IsUserRegistrated(userEmail, userPassword))
             {
                 return false;
             }
 
-            int userId = _dBUserService.GetUserId(userEmail);
+            int userId = _userService.GetUserId(userEmail);
             string userIdString = userId.ToString();
 
             CrossSecureStorage.Current.SetValue(Constants.SequreKeyForUserIdInDB, userIdString);

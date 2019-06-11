@@ -4,20 +4,24 @@ using SQLite;
 
 namespace FirstApp.Core.Repository
 {
-    public class BaseRepository<T>: IBaseRepository<T> where T : BaseEntity, new()
+    public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity, new()
     {
-        private readonly SQLiteConnection _connect;
+        protected readonly SQLiteConnection _connect;
+        protected readonly TableQuery<T> _table;
 
         public BaseRepository(IConnectionService connecting)
         {
             _connect = connecting.GetDatebaseConnection();
 
             _connect.CreateTable<T>();
+
+            _table = _connect.Table<T>();
         }
 
         public T GetById(int id)
         {
-            T item = _connect.Table<T>().Where(i => i.Id == id).FirstOrDefault();
+            T item = _table.Where(i => i.Id == id).FirstOrDefault();
+
             return item;
         }
         public void Insert(T entity)
@@ -37,7 +41,7 @@ namespace FirstApp.Core.Repository
 
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+
         }
     }
 }

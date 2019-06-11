@@ -15,13 +15,6 @@ namespace FirstApp.iOS
 {
     public class Setup : MvxIosSetup<App>
     {
-        protected override void InitializeFirstChance()
-        {
-            base.InitializeFirstChance();
-
-            Mvx.IoCProvider.RegisterType<IMvxJsonConverter, MvxJsonConverter>();
-        }
-
         protected override void InitializeLastChance()
         {
             base.InitializeLastChance();
@@ -37,6 +30,7 @@ namespace FirstApp.iOS
 
             Mvx.IoCProvider.RegisterType<IConnectionService, DBConnectionService>();
             Mvx.IoCProvider.RegisterType<ICurrentPlatformService, CurrentPlatformService>();
+            Mvx.IoCProvider.RegisterType<IMvxJsonConverter, MvxJsonConverter>();
 
             return new App();
         }

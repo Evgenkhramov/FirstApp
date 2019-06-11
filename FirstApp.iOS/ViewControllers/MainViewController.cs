@@ -9,7 +9,7 @@ namespace FirstApp.iOS.ViewControllers
     {
         #region Variables
 
-        private bool _isFirstTimePresented = true;
+        private bool _isFirstTimePresented;
 
         #endregion Variables
 
@@ -17,6 +17,7 @@ namespace FirstApp.iOS.ViewControllers
 
         public MainViewController()
         {
+            _isFirstTimePresented = true;
         }
 
         #endregion Constructors

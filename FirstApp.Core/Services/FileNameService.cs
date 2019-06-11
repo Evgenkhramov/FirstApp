@@ -6,33 +6,33 @@ namespace FirstApp.Core.Services
 {
     public class FileNameService : IFileNameService
     {
-        private readonly IFileNameRepository _fileNameRepositoryService;
+        private readonly IFileNameRepository _fileNameRepository;
 
-        public FileNameService(IFileNameRepository fileNameRepositoryService)
+        public FileNameService(IFileNameRepository fileNameRepository)
         {
-            _fileNameRepositoryService = fileNameRepositoryService;
+            _fileNameRepository = fileNameRepository;
         }
 
         public void AddFileNameToTable(FileListEntity fileName)
         {
-            _fileNameRepositoryService.Insert(fileName);
+            _fileNameRepository.Insert(fileName);
         }
 
         public List<FileListEntity> GetFileNameList(int taskId)
         {
-            List<FileListEntity> list = _fileNameRepositoryService.Get(taskId);
+            List<FileListEntity> list = _fileNameRepository.Get(taskId);
 
             return list;
         }
 
         public void DeleteFiles(int taskId)
         {
-            _fileNameRepositoryService.DeleteFiles(taskId);
+            _fileNameRepository.DeleteFiles(taskId);
         }
 
         public void DeleteFileName(int fileId)
         {
-            _fileNameRepositoryService.Delete(fileId);
+            _fileNameRepository.Delete(fileId);
         }
     }
 }

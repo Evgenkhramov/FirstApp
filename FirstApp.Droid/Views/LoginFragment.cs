@@ -68,6 +68,7 @@ namespace FirstApp.Droid.Views
         public void OnConnected(Bundle connectionHint)
         {
             Android.Gms.Plus.Model.People.IPerson person = PlusClass.PeopleApi.GetCurrentPerson(_googleApiClient);
+
             string email = PlusClass.AccountApi.GetAccountName(_googleApiClient);
             string name = string.Empty;
 

@@ -34,15 +34,17 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         internal void UpdateCell(FileRequestModel item)
         {
-            if (!string.IsNullOrEmpty(item.FileName) && item.FileName.Length > Constants.MaxLength)
+            if (!string.IsNullOrEmpty(item.FileName))
             {
-                FileLabel.Text = item.FileName.Substring(0, Constants.MaxLength);
+                return;
             }
 
-            if (!string.IsNullOrEmpty(item.FileName) && item.FileName.Length <= Constants.MaxLength)
+            if (item.FileName.Length > Constants.MaxLength)
             {
-                FileLabel.Text = item.FileName;
+                FileLabel.Text = item.FileName.Substring(default(int), Constants.MaxLength);
             }
+
+            FileLabel.Text = item.FileName;
         }
 
         #endregion Methods

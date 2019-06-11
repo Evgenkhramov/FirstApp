@@ -1,18 +1,14 @@
 ﻿using FirstApp.Core.Entities;
 using FirstApp.Core.Interfaces;
-using SQLite;
 using System.Collections.Generic;
 
 namespace FirstApp.Core.Repository
 {
     class SQLiteTaskRepository : BaseRepository<TaskEntity>, ITaskRepository
     {
-        private readonly SQLiteConnection _connect;
-
         public SQLiteTaskRepository(IConnectionService connecting) : base(connecting)
         {
-            _connect = connecting.GetDatebaseConnection();
-            _connect.CreateTable<TaskEntity>();
+
         }
 
         public void DeleteTask(int taskId)
@@ -22,14 +18,14 @@ namespace FirstApp.Core.Repository
 
         public List<TaskEntity> GetAllTasks()
         {
-            List<TaskEntity> taskList = _connect.Table<TaskEntity>().ToList();
+            List<TaskEntity> taskList = _table.ToList();
 
             return taskList;
         }
 
         public List<TaskEntity> GetUserTasks(int userId)
         {
-            List<TaskEntity> taskList = _connect.Table<TaskEntity>().Where(x => x.UserId == userId).ToList();
+            List<TaskEntity> taskList = _table.Where(x => x.UserId == userId).ToList();
 
             return taskList;
         }

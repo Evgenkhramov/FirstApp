@@ -9,8 +9,7 @@ namespace FirstApp.Core.Services
         private readonly IUserRepository _userRepository;
         private ISHA256hashService _sHA256HashService;
 
-        public UserService(ISHA256hashService sHA256HashService,
-            IUserRepository userRepository)
+        public UserService(ISHA256hashService sHA256HashService, IUserRepository userRepository)
         {
             _userRepository = userRepository;
             _sHA256HashService = sHA256HashService;
@@ -22,10 +21,10 @@ namespace FirstApp.Core.Services
 
             UserDatabaseEntity findUser = _userRepository.GetUserByEmail(password);
 
-            return findUser != null && ByteArrayCompare(bytePassword, findUser.Password);
+            return findUser != null && CompareByteArrays(bytePassword, findUser.Password);
         }
 
-        public bool ByteArrayCompare(byte[] byteArrayOne, byte[] byteArrayTwo)
+        public bool CompareByteArrays(byte[] byteArrayOne, byte[] byteArrayTwo)
         {
             IStructuralEquatable equalsArray = byteArrayOne;
 
@@ -50,9 +49,9 @@ namespace FirstApp.Core.Services
             return _userRepository.GetById(id);
         }
 
-        public int DeleteItem(int id)
+        public void DeleteItem(int id)
         {
-            return _userRepository.Delete(id);
+            _userRepository.Delete(id);
         }
 
         public int SaveItem(UserDatabaseEntity item)

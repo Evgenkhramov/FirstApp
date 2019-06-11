@@ -29,6 +29,7 @@ namespace FirstApp.Core
         #endregion Constructors
 
         #region Overrides
+
         protected override Task NavigateToFirstViewModel(object hint = null)
         {
             string sequreKeyForLoged = CrossSecureStorage.Current.GetValue(Constants.SequreKeyForLoged);

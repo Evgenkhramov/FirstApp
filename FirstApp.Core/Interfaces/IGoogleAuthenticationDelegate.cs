@@ -5,8 +5,8 @@ namespace FirstApp.Core.Interfaces
 {
     public interface IGoogleAuthenticationDelegate
     {
-        void OnAuthenticationCompleted(GoogleOAuthToken token);
-        void OnAuthenticationFailed(string message, Exception exception);
-        void OnAuthenticationCanceled();
+        void ProcessAuthenticationCompleted(GoogleOAuthToken token);
+        void ProcessAuthenticationFailed(string message, Exception exception);
+        void ProcessAuthenticationCanceled();
     }
 }

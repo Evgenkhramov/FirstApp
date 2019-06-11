@@ -29,7 +29,7 @@ namespace FirstApp.Core.Models
             {
                 return new MvxCommand<TaskRequestModel>((param) =>
                 {
-                    VmHandler.CollectionItemClick(this);
+                    VmHandler.ClickOnCollectionItem(this);
                 });
             }
         }

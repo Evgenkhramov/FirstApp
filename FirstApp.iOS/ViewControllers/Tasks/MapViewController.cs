@@ -118,9 +118,9 @@ namespace FirstApp.iOS.ViewControllers.Tasks
                 }
             }
 
-            var longp = new UILongPressGestureRecognizer(LongPress);
+            var longPress = new UILongPressGestureRecognizer(LongPress);
 
-            _map.AddGestureRecognizer(longp);
+            _map.AddGestureRecognizer(longPress);
 
             _map.ShowAnnotations(_map.Annotations, false);
 

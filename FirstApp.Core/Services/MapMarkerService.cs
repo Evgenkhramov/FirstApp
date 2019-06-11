@@ -1,6 +1,7 @@
 ﻿using FirstApp.Core.Entities;
 using FirstApp.Core.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FirstApp.Core.Services
 {
@@ -20,7 +21,13 @@ namespace FirstApp.Core.Services
 
         public void UpdateMarkers(List<MapMarkerEntity> list)
         {
+            if (list == null || !list.Any())
+            {
+                return;
+            }
+
             int taskId = list[default(int)].TaskId;
+
             _markersRepository.DeleteMarkers(taskId);
 
             _markersRepository.InsertMarkers(list);

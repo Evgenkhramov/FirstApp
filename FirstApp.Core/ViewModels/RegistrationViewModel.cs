@@ -131,7 +131,7 @@ namespace FirstApp.Core.ViewModels
                     {
                         int userId = _registrationService.SaveUserFromApp(RegistrationUserName, RegistrationUserPassword, RegistrationEmail, LoginType.App);
 
-                        _registrationService.UserRegistration(userId.ToString());
+                        _registrationService.SaveDataInSequreStorage(userId.ToString());
 
                         await _navigationService.Close(this);
                         await _navigationService.Navigate<MainViewModel>();

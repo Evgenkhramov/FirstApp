@@ -15,7 +15,7 @@ namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame_new, false)]
     [Register("firstApp.Droid.Views.UserDataFragment")]
-    public class UserDataFragment : BaseFragment<MainView,UserDataViewModel>, IBackButtonListener
+    public class UserDataFragment : BaseFragment<MainView, UserDataViewModel>, IBackButtonListener
     {
         #region Variables
 
@@ -23,7 +23,6 @@ namespace FirstApp.Droid.Views
         private Button _menuButton;
         private Button _btnCamera;
         private ImageView _cameraPreview;
-        private string _imagePath;
 
         protected override int FragmentId => Resource.Layout.UserDataFragment;
 
@@ -38,13 +37,11 @@ namespace FirstApp.Droid.Views
                       await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera) != PermissionStatus.Granted)
             {
                 var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Storage, Permission.Camera);
+
+                return;
             }
 
-            if (await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage) == PermissionStatus.Granted &&
-                     await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera) == PermissionStatus.Granted)
-            {
-                ChoosePhoto();
-            }
+            ChoosePhoto();
         }
 
         public void SelectPhoto(string message, string title, string okbtnText, string escbtnText)

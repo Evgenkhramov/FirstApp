@@ -90,21 +90,21 @@ namespace FirstApp.Droid.Views
             if (DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.Start))
             {
                 DrawerLayout.CloseDrawers();
+
+                return;
             }
-            if (!(DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.Start)))
+
+            Android.Support.V4.App.Fragment currentFragment = SupportFragmentManager.FindFragmentById(Resource.Id.content_frame_new);
+
+            IBackButtonListener listener = currentFragment as IBackButtonListener;
+
+            if (listener != null)
             {
-                Android.Support.V4.App.Fragment currentFragment = SupportFragmentManager.FindFragmentById(Resource.Id.content_frame_new);
-
-                IBackButtonListener listener = currentFragment as IBackButtonListener;
-
-                if (listener != null)
-                {
-                    listener.HandleBackPressed();
-                    return;
-                }
-
-                CloseApplication();
+                listener.HandleBackPressed();
+                return;
             }
+
+            CloseApplication();
         }
 
         #endregion Overrides

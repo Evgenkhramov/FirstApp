@@ -2,6 +2,6 @@
 {
     public interface IAuthorizationService
     {
-        bool IsLoggedIn(string userName, string userPassword);
+        bool CheckLoggedIn(string userName, string userPassword);
     }
 }

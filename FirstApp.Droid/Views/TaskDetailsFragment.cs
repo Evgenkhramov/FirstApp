@@ -48,12 +48,11 @@ namespace FirstApp.Droid.Views
             if (ContextCompat.CheckSelfPermission(Activity, Manifest.Permission.AccessCoarseLocation) != (int)Permission.Granted)
             {
                 RequestPermissions(new string[] { Manifest.Permission.AccessCoarseLocation }, ACCESS_COARSE_LOCATION);
+
+                return;
             }
 
-            if (ContextCompat.CheckSelfPermission(Context, Manifest.Permission.AccessCoarseLocation) == (int)Permission.Granted)
-            {
-                AddMarker();
-            }
+            AddMarker();
         }
 
         public void GetStoragePermissions(object sender, System.EventArgs e)
@@ -61,12 +60,11 @@ namespace FirstApp.Droid.Views
             if (ContextCompat.CheckSelfPermission(Activity, Manifest.Permission.ReadExternalStorage) != (int)Permission.Granted)
             {
                 RequestPermissions(new string[] { Manifest.Permission.ReadExternalStorage }, READ_EXTERNAL_STORAGE);
+
+                return;
             }
 
-            if (ContextCompat.CheckSelfPermission(Context, Manifest.Permission.ReadExternalStorage) == (int)Permission.Granted)
-            {
-                OpenFile();
-            }
+            OpenFile();
         }
 
         public void AddMarker()

@@ -7,7 +7,6 @@ using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using Plugin.SecureStorage;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,12 +24,13 @@ namespace FirstApp.Core.ViewModels
 
         public TaskListViewModel(IMvxNavigationService navigationService, ITaskService taskService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
         {
-            _userId = int.Parse(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
             _taskService = taskService;
+
+            _userId = int.Parse(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
 
             DeleteItemCommand = new MvxCommand<int>(RemoveTaskCollectionItem);
             DeleteItemCommandiOS = new MvxCommand<int>(RemoveCollectionItemiOS);
-            ShowTaskChangedView = new MvxAsyncCommand<TaskRequestModel>(CollectionItemClick);
+            ShowTaskChangedView = new MvxAsyncCommand<TaskRequestModel>(ClickOnCollectionItem);
 
             AddData();
         }
@@ -117,14 +117,7 @@ namespace FirstApp.Core.ViewModels
             IsRefreshTaskCollection = false;
         }
 
-        void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
-        {
-            MvxObservableCollection<TaskRequestModel> obsSender = sender as MvxObservableCollection<TaskRequestModel>;
-
-            int element = eventArgs.OldItems.Count;
-        }
-
-        public async Task CollectionItemClick(TaskRequestModel model)
+        public async Task ClickOnCollectionItem(TaskRequestModel model)
         {
             await _navigationService.Navigate<TaskDetailsViewModel, TaskRequestModel>(model);
         }

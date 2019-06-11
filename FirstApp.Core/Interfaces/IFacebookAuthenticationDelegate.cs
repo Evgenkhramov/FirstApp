@@ -5,8 +5,8 @@ namespace FirstApp.Core.Interfaces
 {
     public interface IFacebookAuthenticationDelegate
     {
-        Task OnAuthenticationCompleted(FacebookOAuthToken token);
-        Task OnAuthenticationFailed();
-        Task OnAuthenticationCanceled();
+        Task ProcessAuthenticationCompleted(FacebookOAuthToken token);
+        Task ProcessAuthenticationFailed();
+        Task ProcessAuthenticationCanceled();
     }
 }

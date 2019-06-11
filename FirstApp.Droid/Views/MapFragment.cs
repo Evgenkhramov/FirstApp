@@ -18,13 +18,14 @@ namespace FirstApp.Droid.Views
 {
     [MvxFragmentPresentation(typeof(MainViewModel), Resource.Id.content_frame_new, true)]
     [Register("firstApp.Droid.Views.MapFragment")]
-    public class MapFragment : BaseFragment<MainView,MapViewModel>, IOnMapReadyCallback, IBackButtonListener
+    public class MapFragment : BaseFragment<MainView, MapViewModel>, IOnMapReadyCallback, IBackButtonListener
     {
         #region Variables
 
         private MapMarkerEntity _marcerRow;
         private MapView _mapView;
         private GoogleMap _map;
+
         protected override int FragmentId => Resource.Layout.MapFragment;
 
         #endregion Variables
@@ -92,12 +93,10 @@ namespace FirstApp.Droid.Views
 
         public static async Task<Position> GetCurrentPosition()
         {
-            Position position = null;
-
             IGeolocator locator = CrossGeolocator.Current;
             locator.DesiredAccuracy = Constants.MapDesiredAccuracy;
 
-            position = await locator.GetLastKnownLocationAsync();
+            Position position = await locator.GetLastKnownLocationAsync();
 
             if (position != null)
             {

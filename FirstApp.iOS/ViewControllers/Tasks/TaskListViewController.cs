@@ -21,7 +21,12 @@ namespace FirstApp.iOS.ViewControllers.Tasks
         #region Constructors
 
         public TaskListViewController() : base(nameof(TaskListViewController), null)
-        {         
+        {
+            Title = Constants.TaskList;
+
+            EdgesForExtendedLayout = UIRectEdge.None;
+
+            View.BackgroundColor = UIColor.Clear;
         }
 
         #endregion Constructors
@@ -73,12 +78,6 @@ namespace FirstApp.iOS.ViewControllers.Tasks
             SetBind();
 
             base.ViewDidLoad();
-
-            Title = Constants.TaskList;
-
-            EdgesForExtendedLayout = UIRectEdge.None;
-
-            View.BackgroundColor = UIColor.Clear;
 
             _refreshControl = new MvxUIRefreshControl();
 

@@ -10,7 +10,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
     {
         #region Variables
 
-        public static readonly NSString TaskKey = new NSString(Constants.TaskCell);
+        public static readonly NSString TaskKey;
         public static readonly UINib TaskNib;
 
         #endregion Variables
@@ -19,6 +19,7 @@ namespace FirstApp.iOS.ViewControllers.Tasks
 
         static TaskCellViewController()
         {
+            TaskKey = new NSString(Constants.TaskCell);
             TaskNib = UINib.FromName(Constants.TaskCell, NSBundle.MainBundle);
         }
 

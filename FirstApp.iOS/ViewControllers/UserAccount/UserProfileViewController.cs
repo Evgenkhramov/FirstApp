@@ -33,6 +33,11 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
         public UserProfileViewController()
         {
+
+            Title = Constants.UserProfile;
+
+            EdgesForExtendedLayout = UIRectEdge.None;
+
             _scrollAmount = default(nfloat);
             _isViewMoveUp = false;
             _userDialogs = Mvx.IoCProvider.Resolve<IUserDialogs>();
@@ -105,21 +110,21 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
         private void GetFromMemory()
         {
             PHAuthorizationStatus photos = PHPhotoLibrary.AuthorizationStatus;
+
             if (photos == PHAuthorizationStatus.Authorized)
             {
                 GetPhoto();
-            }
-            if (photos != PHAuthorizationStatus.Authorized)
-            {
-                PHPhotoLibrary.RequestAuthorization(status =>
-                {
-                    if (status == PHAuthorizationStatus.Authorized)
-                    {
-                        return;
-                    }
 
-                });
+                return;
             }
+
+            PHPhotoLibrary.RequestAuthorization(status =>
+            {
+                if (status == PHAuthorizationStatus.Authorized)
+                {
+                    GetPhoto();
+                }
+            });
         }
 
         private void GetFromCamera()
@@ -132,17 +137,13 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
                 return;
             }
 
-            if (authStatus != AVAuthorizationStatus.Authorized)
+            AVCaptureDevice.RequestAccessForMediaType(AVAuthorizationMediaType.Video, (bool access) =>
             {
-                AVCaptureDevice.RequestAccessForMediaType(AVAuthorizationMediaType.Video, (bool access) =>
+                if (access == true)
                 {
-                    if (access == true)
-                    {
-                        DoPhoto();
-                    };
-                });
-                return;
-            }
+                    DoPhoto();
+                };
+            });
         }
 
         public void GetPhoto()
@@ -170,10 +171,6 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
 
             SetBind();
 
-            Title = Constants.UserProfile;
-
-            EdgesForExtendedLayout = UIRectEdge.None;
-
             UIView view = View;
 
             NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.DidShowNotification, KeyBoardUpNotification);
@@ -195,7 +192,7 @@ namespace FirstApp.iOS.ViewControllers.UserAccount
             CameraButton.TouchUpInside += (sender, e) =>
             {
                 SelectPhoto();
-            };       
+            };
         }
 
         public override void TouchesBegan(NSSet touches, UIEvent evt)
