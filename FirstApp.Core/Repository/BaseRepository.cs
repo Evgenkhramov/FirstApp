@@ -41,7 +41,7 @@ namespace FirstApp.Core.Repository
 
         public void Dispose()
         {
-
+            _connect.Dispose();
         }
     }
 }
