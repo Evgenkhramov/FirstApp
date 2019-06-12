@@ -52,14 +52,14 @@
     </CodesignEntitlements>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignProvision>
-    </CodesignProvision>
+    <CodesignProvision>Anuitex Uniq Development Provision</CodesignProvision>
     <MtouchExtraArgs>-v -v -v -v</MtouchExtraArgs>
     <MtouchSdkVersion>
     </MtouchSdkVersion>
     <MtouchLink>SdkOnly</MtouchLink>
     <CodesignExtraArgs />
-    <CodesignResourceRules />
+    <CodesignResourceRules>
+    </CodesignResourceRules>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
