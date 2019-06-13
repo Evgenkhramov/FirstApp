@@ -40,7 +40,7 @@ namespace FirstApp.iOS.ViewControllers
             {
                 _isFirstTimePresented = false;
 
-                ViewModel.ShowMainFragmentCommand.Execute(null);
+                ViewModel.ShowMainViewCommand.Execute(null);
                 ViewModel.ShowUserProfileViewModelCommand.Execute(null);
             }
         }

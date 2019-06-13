@@ -4,8 +4,10 @@ using FirstApp.Core.Interfaces;
 using FirstApp.Core.Models;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 using Plugin.SecureStorage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,22 +17,28 @@ namespace FirstApp.Core.ViewModels
     public class TaskListViewModel : BaseViewModel, IListHandler
     {
         #region Variables
+
+        private MvxSubscriptionToken _pushToken;
         private readonly int _userId;
         private readonly ITaskService _taskService;
+        private readonly IMvxMessenger _mvxMessenger;
 
         #endregion Variables
 
         #region Constructors
 
-        public TaskListViewModel(IMvxNavigationService navigationService, ITaskService taskService, IUserDialogs userDialogs) : base(navigationService, userDialogs)
+        public TaskListViewModel(IMvxNavigationService navigationService, ITaskService taskService, IUserDialogs userDialogs, IMvxMessenger mvxMessenger) : base(navigationService, userDialogs)
         {
+            _mvxMessenger = mvxMessenger;
             _taskService = taskService;
+
+            _pushToken = _mvxMessenger.Subscribe<TaskPushMessage>(OpenTaskFromPush);
 
             _userId = int.Parse(CrossSecureStorage.Current.GetValue(Constants.SequreKeyForUserIdInDB));
 
             DeleteItemCommand = new MvxCommand<int>(RemoveTaskCollectionItem);
             DeleteItemCommandiOS = new MvxCommand<int>(RemoveCollectionItemiOS);
-            ShowTaskChangedView = new MvxAsyncCommand<TaskRequestModel>(ClickOnCollectionItem);
+            ShowTaskChangedView = new MvxCommand<TaskRequestModel>(ClickOnCollectionItem);
 
             AddData();
         }
@@ -117,9 +125,30 @@ namespace FirstApp.Core.ViewModels
             IsRefreshTaskCollection = false;
         }
 
-        public async Task ClickOnCollectionItem(TaskRequestModel model)
+        public void OpenTaskFromPush(TaskPushMessage messege)
         {
-            await _navigationService.Navigate<TaskDetailsViewModel, TaskRequestModel>(model);
+            if (messege == null)
+            {
+                return;
+            }
+
+            int taskId = Convert.ToInt32(messege.PushMessage);
+
+            TaskRequestModel task = TaskCollection[taskId];//FirstOrDefault<TaskRequestModel>(x => x.Id == taskId);
+
+            if (task == null)
+            {
+                return;
+            }
+
+            ClickOnCollectionItem(task);
+
+            _mvxMessenger.Unsubscribe<TaskPushMessage>(_pushToken);
+        }
+
+        public void ClickOnCollectionItem(TaskRequestModel model)
+        {
+            _navigationService.Navigate<TaskDetailsViewModel, TaskRequestModel>(model);
         }
 
         public void RemoveTaskCollectionItem(int itemId)

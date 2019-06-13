@@ -91,6 +91,7 @@
     <Compile Include="Views\UserDataFragment.cs" />
   </ItemGroup>
   <ItemGroup>
+    <GoogleServicesJson Include="google-services.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml">
       <SubType>Designer</SubType>
@@ -106,6 +107,9 @@
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs">
       <Version>7.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Com.OneSignal">
+      <Version>3.3.0</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross">
       <Version>6.2.3</Version>
@@ -214,6 +218,9 @@
       <Version>60.1142.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.GooglePlayServices.Basement">
+      <Version>60.1142.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.GooglePlayServices.Gcm">
       <Version>60.1142.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.GooglePlayServices.Maps">

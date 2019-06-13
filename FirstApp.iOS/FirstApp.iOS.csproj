@@ -180,6 +180,12 @@
     <Reference Include="BTProgressHUD, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\BTProgressHUD.1.2.0.6\lib\Xamarin.iOS10\BTProgressHUD.dll</HintPath>
     </Reference>
+    <Reference Include="Com.OneSignal, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Com.OneSignal.3.3.0\lib\Xamarin.iOS10\Com.OneSignal.dll</HintPath>
+    </Reference>
+    <Reference Include="Com.OneSignal.Abstractions, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Com.OneSignal.3.3.0\lib\Xamarin.iOS10\Com.OneSignal.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Maps, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Google.iOS.Maps.3.0.3\lib\Xamarin.iOS10\Google.Maps.dll</HintPath>
     </Reference>
@@ -206,6 +212,9 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OneSignal.iOS.Binding, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Com.OneSignal.3.3.0\lib\Xamarin.iOS10\OneSignal.iOS.Binding.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK-1.0" />
     <Reference Include="Plugin.FilePicker, Version=2.0.135.0, Culture=neutral, processorArchitecture=MSIL">

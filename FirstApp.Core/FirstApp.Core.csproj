@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.0.3" />
+    <PackageReference Include="Com.OneSignal" Version="3.3.0" />
     <PackageReference Include="Microsoft.Bcl.Build" Version="1.0.21" />
     <PackageReference Include="MvvmCross" Version="6.2.3" />
     <PackageReference Include="MvvmCross.Plugin.Messenger" Version="6.2.3" />
