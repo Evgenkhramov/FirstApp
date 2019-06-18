@@ -4,16 +4,16 @@ using System.Linq;
 
 namespace FirstApp.Core.Repository
 {
-    public class SQLiteUserRepository : BaseRepository<UserDatabaseEntity>, IUserRepository
+    public class SQLiteUserRepository : BaseRepository<UserEntity>, IUserRepository
     {
         public SQLiteUserRepository(IConnectionService connect) : base(connect)
         {
       
         }
 
-        public UserDatabaseEntity GetUserByEmail(string email)
+        public UserEntity GetUserByEmail(string email)
         {
-            UserDatabaseEntity findUser = _table.FirstOrDefault(x => x.Email == email);
+            UserEntity findUser = _table.FirstOrDefault(x => x.Email == email);
             return findUser;
         }
 
@@ -33,7 +33,7 @@ namespace FirstApp.Core.Repository
 
         public void Delete(int id)
         {
-           _connect.Delete<UserDatabaseEntity>(id);
+           _connect.Delete<UserEntity>(id);
         }
     }
 }

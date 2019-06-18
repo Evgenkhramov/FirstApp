@@ -24,7 +24,7 @@ namespace FirstApp.Core.Services
 
         public int SaveUserFromApp(string registrationUserName, string registrationUserPassword, string userEmail, LoginType loginType)
         {
-            var user = new UserDatabaseEntity
+            var user = new UserEntity
             {
                 Name = registrationUserName,
                 Password = _sHA256Hash.GetSHAFromString(registrationUserPassword),
@@ -42,7 +42,7 @@ namespace FirstApp.Core.Services
         public int SaveUserFromSocialNetworks(string registrationUserName, string userEmail, double userIdFromSocialNetworks,
             string surname, string photoUrl, string userPhoto, LoginType loginType)
         {
-            var userDatabaseModel = new UserDatabaseEntity
+            var userDatabaseModel = new UserEntity
             {
                 Name = registrationUserName,
                 Surname = surname,

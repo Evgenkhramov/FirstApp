@@ -17,7 +17,7 @@ namespace FirstApp.Core.ViewModels
 
         private readonly IMvxPictureChooserTask _pictureChooserTask;
         private readonly IUserService _userService;
-        private UserDatabaseEntity _userData;
+        private UserEntity _userData;
         private readonly int _userId;
         private readonly ICurrentPlatformService _currentPlatformService;
 

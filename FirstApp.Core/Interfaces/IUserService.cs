@@ -4,9 +4,9 @@ namespace FirstApp.Core.Interfaces
 {
     public interface IUserService
     {
-        UserDatabaseEntity GetItem(int id);
+        UserEntity GetItem(int id);
         void DeleteItem(int id);
-        int SaveItem(UserDatabaseEntity item);
+        int SaveItem(UserEntity item);
         bool CheckEmailInDB(string login);
         bool IsUserRegistrated(string email, string password);
         int GetUserId(string email);

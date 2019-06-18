@@ -2,9 +2,9 @@
 
 namespace FirstApp.Core.Interfaces
 {
-    public interface IUserRepository : IBaseRepository<UserDatabaseEntity>
+    public interface IUserRepository : IBaseRepository<UserEntity>
     {
-        UserDatabaseEntity GetUserByEmail(string email);
+        UserEntity GetUserByEmail(string email);
         int GetUserIdByEmail(string email);
         bool CheckEmailInDB(string email);
         void Delete(int id);

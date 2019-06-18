@@ -5,7 +5,7 @@ using SQLite;
 namespace FirstApp.Core.Entities
 {
     [Table("Users")]
-    public class UserDatabaseEntity : BaseEntity
+    public class UserEntity : BaseEntity
     {
         public double UserId { get; set; }
         public string Name { get; set; }

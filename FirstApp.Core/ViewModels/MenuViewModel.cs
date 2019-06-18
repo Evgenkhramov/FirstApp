@@ -17,7 +17,7 @@ namespace FirstApp.Core.ViewModels
 
         private readonly IUserService _userService;
         private readonly int _userId;
-        private UserDatabaseEntity _userData;
+        private UserEntity _userData;
 
         #endregion Variables
 

@@ -19,7 +19,7 @@ namespace FirstApp.Core.Services
         {
             byte[] bytePassword = _sHA256HashService.GetSHAFromString(password);
 
-            UserDatabaseEntity findUser = _userRepository.GetUserByEmail(password);
+            UserEntity findUser = _userRepository.GetUserByEmail(password);
 
             return findUser != null && CompareByteArrays(bytePassword, findUser.Password);
         }
@@ -44,7 +44,7 @@ namespace FirstApp.Core.Services
 
         }
 
-        public UserDatabaseEntity GetItem(int id)
+        public UserEntity GetItem(int id)
         {
             return _userRepository.GetById(id);
         }
@@ -54,7 +54,7 @@ namespace FirstApp.Core.Services
             _userRepository.Delete(id);
         }
 
-        public int SaveItem(UserDatabaseEntity item)
+        public int SaveItem(UserEntity item)
         {
             if (item.Id != default(int))
             {
